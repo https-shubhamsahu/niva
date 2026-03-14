@@ -1,143 +1,200 @@
-# React + TypeScript + Vite
+# GaitGuard Nexus (NIVA)
 
-## ESP32 Live Telemetry (Web Serial)
+<p align="center">
+  <img src="public/niva_logo.jpeg" alt="NIVA Logo" width="220" />
+</p>
 
-The dashboard now supports direct USB streaming from ESP32 on the main page.
+<p align="center">
+  <img src="https://img.shields.io/badge/build-tsc%20%2B%20vite-0ea5e9?style=for-the-badge" alt="Build badge" />
+  <img src="https://img.shields.io/badge/lint-eslint-22c55e?style=for-the-badge" alt="Lint badge" />
+  <img src="https://img.shields.io/badge/license-not%20specified-94a3b8?style=for-the-badge" alt="License badge" />
+  <img src="https://img.shields.io/badge/version-0.0.0-f59e0b?style=for-the-badge" alt="Version badge" />
+</p>
 
-### Quick Start
+Deterministic, explainable gait analytics platform for ESP32 smart insole telemetry.
 
-1. Flash firmware that outputs CSV lines in this format:
-  `H,I,O,T,Piezo,Pitch,Roll,AccZ`
-2. Connect ESP32 over USB.
-3. Run the app locally:
-  `npm install`
-  `npm run dev`
-4. Open the app in Microsoft Edge or Google Chrome on localhost.
-5. Go to `/main` and click the USB icon in the header.
-6. Select the ESP32 COM port when prompted.
+This project focuses on transparent biomechanics logic rather than black-box prediction. Every score and alert can be traced to explicit sensor rules.
 
-### Notes
+## What This Project Does
 
-- Expected baud rate is `115200`.
-- Header/system lines such as `CALIBRATING...`, `SYSTEM_READY`, and CSV header rows are ignored automatically.
-- If Web Serial is unavailable, the dashboard shows a warning banner.
-- Simulation mode remains available and does not require hardware.
+- Streams plantar + IMU telemetry from ESP32 over USB Serial and WiFi WebSocket.
+- Runs a real-time biomechanics engine for gait phase, cadence, COP, stability, and anomaly detection.
+- Stores samples locally in IndexedDB with disease/session/trial metadata.
+- Exports datasets as CSV and supports one-click backend upload for research pipelines.
+- Supports disease-mode simulation for demos and algorithm walkthroughs.
 
-## ESP32 Live Telemetry (WiFi WebSocket)
+## Explainability First
 
-The dashboard also supports direct ESP32 WebSocket JSON streaming.
+This is an explainable rule-based system. Core decisions are derived from explicit thresholds and state transitions:
 
-### Default Endpoint
+- Contact detection from total normalized plantar pressure.
+- Heel-strike events from impact + heel-rise transition constraints.
+- Gait phase classification using interpretable phase rules.
+- Cadence from heel-strike intervals.
+- Stability from pitch/roll sway and impact penalties.
+- Risk flags from sustained pressure and kinematic instability conditions.
 
-- The hook at [src/hooks/useSensorData.ts](src/hooks/useSensorData.ts) defaults to:
-  `ws://10.249.106.94:81`
+Primary implementation file:
 
-### Optional Override
+- src/utils/biomechanicsEngine.ts
 
-- Create `.env.local` in project root and set:
-  `VITE_ESP32_WS_URL=ws://<your-esp32-ip>:81`
+## Data Pipeline
 
-### Expected JSON Payload Example
+End-to-end flow:
 
-`{"heel":42,"inner":68,"outer":31,"toe":27,"pitch":-2.4,"roll":1.3,"piezo":176,"accZ":9.72}`
+ESP32 packet -> transport parsing -> biomechanics engine -> dashboard state -> dataset store -> CSV/export/upload
 
-Mapped fields:
+Coordinator file:
 
-- `heel`, `inner`, `outer`, `toe` -> pressure widgets/heatmap
-- `pitch`, `roll` -> kinematic charts
-- `piezo` (or `impact`) -> impact sharpness chart
+- src/pages/MainDashboard.tsx
 
-## Dataset Storage (ESP32 Stream)
+## Architecture Diagram
 
-- Incoming ESP32 packets from USB and WiFi are automatically persisted in browser IndexedDB.
-- Store name: `gaitguard-nexus-datasets` / `esp32_samples`.
-- Data fields stored per sample:
-  `timestampMs, source, heel, inner, outer, toe, impact, pitch, roll, accZ`.
-- In `/main`, use the `ESP32 Dataset Store` card to:
-  - export all samples as CSV
-  - upload CSV to backend/research storage (one-click)
-  - clear stored dataset
+<p align="center">
+  <img src="public/architecture-diagram.svg" alt="GaitGuard Nexus Architecture Diagram" width="960" />
+</p>
 
-### Backend Upload Configuration
+## Supported Input Formats
 
-- Add to `.env.local`:
-  - `VITE_DATASET_UPLOAD_URL=https://your-api.example.com/upload`
-  - `VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token`
-- Upload request format:
-  - HTTP `POST` multipart form-data
-  - `file` (CSV file)
-  - `sampleCount`
-  - `generatedAt`
-  - `datasetType=esp32-biomechanics`
+### USB Serial (CSV)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Expected line format:
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+H,I,O,T,Piezo,Pitch,Roll,AccZ
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Example:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+45,70,25,20,160,-2.1,1.4,9.78
 ```
+
+### WiFi WebSocket (JSON)
+
+Example payload:
+
+```json
+{"heel":42,"inner":68,"outer":31,"toe":27,"pitch":-2.4,"roll":1.3,"piezo":176,"accZ":9.72}
+```
+
+## Dataset Schema
+
+Samples are persisted in browser IndexedDB.
+
+- Database: gaitguard-nexus-datasets
+- Store: esp32_samples
+
+Per sample fields:
+
+- timestampMs
+- source (usb | ws | sim)
+- sessionId
+- trialId
+- diseaseLabel (Unknown | Normal | Parkinson | Stroke | Neuropathy | Foot Drop | Ataxia)
+- mode (live | simulation)
+- heel
+- inner
+- outer
+- toe
+- impact
+- pitch
+- roll
+- accZ
+
+Disease labeling behavior:
+
+- Live USB/WiFi packets use operator-selected disease label.
+- Simulation packets auto-tag from active simulation mode.
+
+## Backend Upload Contract
+
+One-click upload sends multipart form-data with:
+
+- file (CSV)
+- sampleCount
+- generatedAt
+- datasetType (esp32-biomechanics)
+- sessionId
+- trialId
+- diseaseLabel
+
+Upload helper:
+
+- src/utils/researchUpload.ts
+
+## Quick Start
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. If peer dependency conflicts appear, use:
+
+```bash
+npm install --legacy-peer-deps
+```
+
+3. Start development server:
+
+```bash
+npm run dev
+```
+
+4. Open the app URL shown by Vite.
+
+## Environment Variables
+
+Create .env.local in project root if needed:
+
+```bash
+VITE_ESP32_WS_URL=ws://<esp32-ip>:81
+VITE_DATASET_UPLOAD_URL=https://your-api.example.com/upload
+VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token
+```
+
+## Main Routes
+
+- /main: live telemetry dashboard + simulation + dataset controls
+- /settings: Nexus console, hardware matrix, raw WebSocket monitor
+- /insights: clinical insights views
+- /trends: trend analytics
+
+Router definition:
+
+- src/App.tsx
+
+## Key Files
+
+- src/pages/MainDashboard.tsx: transport integration, engine binding, dataset actions
+- src/utils/biomechanicsEngine.ts: explainable gait algorithms
+- src/utils/esp32Telemetry.ts: USB CSV parser
+- src/hooks/useSensorData.ts: WebSocket hook with reconnect
+- src/utils/telemetryDatasetStore.ts: IndexedDB and CSV export
+- src/utils/researchUpload.ts: backend upload utility
+- src/utils/simulationEngine.ts: synthetic disease-mode frame generator
+- JUDGES_WALKTHROUGH.md: algorithm and data presentation script
+
+## Scripts
+
+- npm run dev: start local dev server
+- npm run build: type-check and production build
+- npm run preview: preview production build
+- npm run lint: run ESLint
+
+## Troubleshooting
+
+- Web Serial requires Chromium-based browser and localhost/https context.
+- Ensure ESP32 serial baud rate is 115200.
+- If no live data appears, check cable quality and COM port permissions.
+- If WiFi stream fails, verify VITE_ESP32_WS_URL and ESP32 WebSocket server port.
+
+## Research and Clinical Notes
+
+This repository currently provides an engineering prototype for explainable screening support and data collection. It is not a medical diagnosis device.
+
+For judging and deep algorithm mapping, see:
+
+- JUDGES_WALKTHROUGH.md
