@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #415AEE;
+  --color-primary-light: #E8EBFD;
+  --color-background-light: #F2F4F7;
+  --color-background-dark: #1A1D24;
+  --color-apple-gray: #F2F2F7;
+  --color-apple-red: #FF4D4D;
+  --color-apple-red-soft: #FF4D4D15;
+  --color-system-blue: #415AEE;
+  --color-system-green: #34C759;
+  --color-system-orange: #FF9500;
+  --color-system-red: #FF4D4D;
+  --color-surface-gray: #F5F7FA;
+  --color-surface-white: #FFFFFF;
+  --font-display: "Outfit", "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--color-surface-gray);
+  color: #1A1D24;
+  font-family: var(--font-display);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .rounded-hero {
+    border-radius: 32px;
+  }
+  .rounded-card {
+    border-radius: 24px;
+  }
+  .shadow-soft {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+  }
+}
+
+@keyframes pulse-critical {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.animate-pulse-critical {
+  animation: pulse-critical 2s infinite ease-in-out;
+}
