@@ -9,6 +9,7 @@ interface FootHeatmapProps {
 
 export default function FootHeatmap({ sensors, isConnected }: FootHeatmapProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const feetImageSrc = `${import.meta.env.BASE_URL}feet.png`;
   
   // We match the canvas dimensions to a standard square aspect ratio 
   // since the uploaded feet image is a square showing both feet.
@@ -107,7 +108,7 @@ export default function FootHeatmap({ sensors, isConnected }: FootHeatmapProps) 
     <div className="relative w-full aspect-square flex items-center justify-center p-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/60 overflow-hidden shadow-inner">
       {/* Background Feet Image User Uploaded */}
       <img 
-        src="/feet.png" 
+        src={feetImageSrc}
         alt="Bilateral Foot Topography" 
         className="absolute inset-0 w-full h-full object-contain p-4 opacity-90 transition-opacity duration-300 pointer-events-none"
         style={{ filter: isConnected ? 'brightness(1)' : 'grayscale(1) brightness(0.6)' }}

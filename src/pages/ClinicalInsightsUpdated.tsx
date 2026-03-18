@@ -4,6 +4,7 @@ import FootHeatmap from '../components/FootHeatmap';
 import ThemeSwitch from '../components/ThemeSwitch';
 
 export default function ClinicalInsightsUpdated() {
+  const feetImageSrc = `${import.meta.env.BASE_URL}feet.png`;
   const [viewMode, setViewMode] = useState<'3d' | 'anatomy' | 'heatmap'>('3d');
   const [showCritical, setShowCritical] = useState(true);
   const [showWarning, setShowWarning] = useState(true);
@@ -104,7 +105,7 @@ export default function ClinicalInsightsUpdated() {
                 <iframe allow="autoplay; fullscreen; vr" allowFullScreen className="w-full h-full border-0" src="https://sketchfab.com/models/c3c0acb84bb2432381e739bfaee843c3/embed?autostart=1&amp;camera=0&amp;preload=1&amp;transparent=1" title="3D Foot Model"></iframe>
               )}
               {viewMode === 'anatomy' && (
-                <img src="/feet.png" alt="Anatomy" className="w-full h-full object-contain p-4 opacity-40 transition-opacity duration-300 pointer-events-none" style={{ filter: 'grayscale(0.8)' }} />
+                <img src={feetImageSrc} alt="Anatomy" className="w-full h-full object-contain p-4 opacity-40 transition-opacity duration-300 pointer-events-none" style={{ filter: 'grayscale(0.8)' }} />
               )}
               {viewMode === 'heatmap' && (
                 <div className="w-full h-full p-4 flex items-center justify-center overflow-hidden">
