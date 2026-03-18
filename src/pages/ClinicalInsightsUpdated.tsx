@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FootHeatmap from '../components/FootHeatmap';
 import ThemeSwitch from '../components/ThemeSwitch';
@@ -101,7 +101,7 @@ export default function ClinicalInsightsUpdated() {
             {/* Embed Container */}
             <div className="aspect-[4/5] w-full bg-[#FAFBFF] dark:bg-[#15181E] relative overflow-hidden flex items-center justify-center border-t border-[#F5F7FA] dark:border-white/5">
               {viewMode === '3d' && (
-                <iframe allow="autoplay; fullscreen; vr" className="w-full h-full border-0" mozallowfullscreen="true" src="https://sketchfab.com/models/c3c0acb84bb2432381e739bfaee843c3/embed?autostart=1&amp;camera=0&amp;preload=1&amp;transparent=1" title="3D Foot Model" webkitallowfullscreen="true"></iframe>
+                <iframe allow="autoplay; fullscreen; vr" allowFullScreen className="w-full h-full border-0" src="https://sketchfab.com/models/c3c0acb84bb2432381e739bfaee843c3/embed?autostart=1&amp;camera=0&amp;preload=1&amp;transparent=1" title="3D Foot Model"></iframe>
               )}
               {viewMode === 'anatomy' && (
                 <img src="/feet.png" alt="Anatomy" className="w-full h-full object-contain p-4 opacity-40 transition-opacity duration-300 pointer-events-none" style={{ filter: 'grayscale(0.8)' }} />

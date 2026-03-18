@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function ClinicalInsights() {
   return (
     <div className="w-full relative mx-auto bg-white dark:bg-slate-900 overflow-x-hidden min-h-screen">

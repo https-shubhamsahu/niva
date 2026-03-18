@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function ClinicianPDFDark() {
@@ -223,19 +222,19 @@ export default function ClinicianPDFDark() {
 </main>
 {/* Bottom Navigation Bar (App Experience) */}
 <div className="fixed bottom-0 left-0 right-0 bg-obsidian/95 backdrop-blur-xl border-t border-white/10 px-6 py-3 flex justify-between items-center z-40 no-print">
-<Link to="#" className="flex flex-col items-center gap-1 text-primary" to="#">
+<Link to="#" className="flex flex-col items-center gap-1 text-primary">
 <span className="material-symbols-outlined">assignment</span>
 <span className="text-[10px] font-bold">Reports</span>
 </Link>
-<Link to="#" className="flex flex-col items-center gap-1 text-slate-400" to="#">
+<Link to="#" className="flex flex-col items-center gap-1 text-slate-400">
 <span className="material-symbols-outlined">group</span>
 <span className="text-[10px] font-bold">Patients</span>
 </Link>
-<Link to="#" className="flex flex-col items-center gap-1 text-slate-400" to="#">
+<Link to="#" className="flex flex-col items-center gap-1 text-slate-400">
 <span className="material-symbols-outlined">monitoring</span>
 <span className="text-[10px] font-bold">Analysis</span>
 </Link>
-<Link to="#" className="flex flex-col items-center gap-1 text-slate-400" to="#">
+<Link to="#" className="flex flex-col items-center gap-1 text-slate-400">
 <span className="material-symbols-outlined">settings</span>
 <span className="text-[10px] font-bold">Settings</span>
 </Link>

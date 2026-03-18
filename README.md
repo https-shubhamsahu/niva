@@ -184,6 +184,32 @@ Router definition:
 - npm run preview: preview production build
 - npm run lint: run ESLint
 
+## Deploy to GitHub Pages
+
+This repo is configured for Pages deployment through GitHub Actions.
+
+Workflow file:
+
+- .github/workflows/deploy-pages.yml
+
+How it works:
+
+1. On push to main (or manual run), GitHub Actions installs dependencies and builds the Vite app.
+2. Build base path is set automatically to /<repo>/ in CI using GITHUB_REPOSITORY.
+3. The workflow copies dist/index.html to dist/404.html for SPA route fallback.
+4. The generated dist artifact is deployed to GitHub Pages.
+
+One-time GitHub setup:
+
+1. Open repository Settings -> Pages.
+2. Under Build and deployment, set Source to GitHub Actions.
+3. Push your latest code to main.
+4. Wait for Deploy to GitHub Pages workflow to complete.
+
+Expected URL format:
+
+- https://<your-username>.github.io/<your-repo>/
+
 ## Troubleshooting
 
 - Web Serial requires Chromium-based browser and localhost/https context.

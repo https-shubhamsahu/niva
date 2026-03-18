@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import ClinicalInsightsUpdated from './pages/ClinicalInsightsUpdated';
@@ -41,8 +41,10 @@ function CenteredApp() {
 }
 
 function App() {
+  const routerBase = import.meta.env.BASE_URL.replace(/\/$/, '') || '/';
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBase}>
       <Routes>
         {/* Route element centers the 'mobile app' aspect ratio horizontally on larger screens */}
         <Route element={<CenteredApp />}>

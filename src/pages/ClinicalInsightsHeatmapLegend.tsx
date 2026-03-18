@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function ClinicalInsightsHeatmapLegend() {
   return (
     <div className="w-full relative mx-auto bg-white dark:bg-slate-900 overflow-x-hidden min-h-screen">
@@ -66,7 +64,7 @@ export default function ClinicalInsightsHeatmapLegend() {
 </div>
 {/* 3D Model Embed Container */}
 <div className="aspect-[4/5] w-full bg-slate-50 dark:bg-slate-950 relative">
-<iframe allow="autoplay; fullscreen; vr" className="w-full h-full border-0" mozallowfullscreen="true" src="https://sketchfab.com/models/c3c0acb84bb2432381e739bfaee843c3/embed?autostart=1&amp;camera=0&amp;preload=1" title="3D Foot Model" webkitallowfullscreen="true">
+<iframe allow="autoplay; fullscreen; vr" allowFullScreen className="w-full h-full border-0" src="https://sketchfab.com/models/c3c0acb84bb2432381e739bfaee843c3/embed?autostart=1&amp;camera=0&amp;preload=1" title="3D Foot Model">
 </iframe>
 {/* Floating Insight Annotations */}
 <div className="absolute top-8 right-4 max-w-[140px] p-3 bg-white/90 dark:bg-slate-800/90 backdrop-blur border-l-4 border-system-red rounded-r-lg shadow-lg">
