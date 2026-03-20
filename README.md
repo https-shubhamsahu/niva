@@ -185,6 +185,173 @@ Sharing endpoint to another device:
 - Use `Copy Share Link` in Settings.
 - The generated URL includes `?esp32ws=<endpoint>` and auto-applies endpoint on open.
 
+## Beginner WiFi Setup for ESP32
+
+This section is for first-time users with no networking background.
+
+Ready-to-flash firmware in this repo:
+
+- firmware/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino
+
+Required Arduino libraries:
+
+- WiFiManager (by tzapu)
+- WebSockets (by Markus Sattler)
+
+### What you are configuring
+
+Your ESP32 needs to do two things:
+
+1. Join a WiFi network (home WiFi or phone hotspot).
+2. Expose a WebSocket stream so the dashboard can read live packets.
+
+### Method 1: Hardcode hotspot or WiFi in firmware (easiest)
+
+Use this when starting out.
+
+```cpp
+#include <WiFi.h>
+#include <WebSocketsServer.h>
+
+const char* ssid = "ShubhamHotspot";
+const char* password = "12345678";
+
+WebSocketsServer wsServer(81);
+
+void setup() {
+  Serial.begin(115200);
+
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting to WiFi");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print('.');
+  }
+
+  Serial.println("\nWiFi Connected");
+  Serial.print("ESP32 IP: ");
+  Serial.println(WiFi.localIP());
+
+  wsServer.begin();
+}
+
+void loop() {
+  wsServer.loop();
+
+  const String packet =
+    "{\"heel\":0,\"inner\":0,\"outer\":0,\"toe\":0,\"pitch\":0,\"roll\":0,\"piezo\":0,\"accZ\":0}";
+
+  wsServer.broadcastTXT(packet);
+  delay(100);
+}
+```
+
+After upload, open Serial Monitor. You should see:
+
+- `WiFi Connected`
+- `ESP32 IP: 10.x.x.x` or `192.168.x.x`
+
+Then in app Settings:
+
+- Connection Endpoint: `ws://<ESP32_IP>:81/`
+
+If using deployed HTTPS app, also set Relay Endpoint.
+
+### Method 2: WiFiManager (pro move)
+
+If you do not want to hardcode WiFi every time:
+
+- ESP32 creates its own setup WiFi.
+- You connect once, enter credentials, and ESP32 saves them.
+
+```cpp
+#include <WiFi.h>
+#include <WiFiManager.h>
+
+WiFiManager wm;
+
+void setup() {
+  Serial.begin(115200);
+
+  bool connected = wm.autoConnect("ESP32_Setup");
+  if (!connected) {
+    Serial.println("Failed to connect");
+    return;
+  }
+
+  Serial.println("WiFi Connected");
+  Serial.print("ESP32 IP: ");
+  Serial.println(WiFi.localIP());
+}
+
+void loop() {}
+```
+
+How it works:
+
+1. ESP32 starts temporary AP: `ESP32_Setup`.
+2. Connect your phone to it.
+3. Open `192.168.4.1` in browser.
+4. Enter hotspot SSID/password.
+5. ESP32 saves and reconnects automatically next boot.
+
+### Common mistakes (do not ignore)
+
+- Wrong hotspot name/password.
+- WiFi names are case-sensitive (`ShubhamHotspot` is not `shubhamhotspot`).
+- Weak hotspot signal (keep phone close to ESP32).
+- 5 GHz hotspot only (ESP32 needs 2.4 GHz).
+- Forgot to reboot ESP32 after changing WiFi.
+
+### Pro tips
+
+- Always print IP after connect:
+
+```cpp
+Serial.println(WiFi.localIP());
+```
+
+- Add LED indicator for connected/disconnected state.
+- Use WiFiManager for real deployments with changing hotspots.
+- Add auto-reconnect logic in `loop()`.
+
+### Reality check
+
+ESP32 does not behave like a phone that auto-discovers everything.
+
+You must provide:
+
+- WiFi network name
+- WiFi password
+
+Or implement logic (WiFiManager/fallback) that collects and stores this for you.
+
+### Switching to another phone hotspot
+
+When you change hotspot, ESP32 usually gets a new IP.
+
+Do this every time:
+
+1. Connect ESP32 and your relay laptop to the new hotspot.
+2. Reboot ESP32.
+3. Read new IP from Serial Monitor.
+4. Update app Connection Endpoint to `ws://<new_ip>:81/`.
+5. Keep same relay URL if still active, otherwise generate a new tunnel URL.
+
+### Connection pitfalls in this project
+
+- Relay URL expired (quick tunnel links are temporary).
+- ESP32 got a new hotspot IP and app still points to old IP.
+
+### Make it less fragile (recommended)
+
+For better real-world behavior, implement:
+
+- Auto reconnect when `WiFi.status() != WL_CONNECTED`.
+- Fallback list of known SSIDs.
+- Periodic `Serial.println(WiFi.localIP())` after reconnect.
+- Status LED for connected/disconnected state.
+
 ## Main Routes
 
 - /main: live telemetry dashboard + simulation + dataset controls
