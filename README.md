@@ -151,6 +151,8 @@ Create .env.local in project root if needed:
 
 ```bash
 VITE_ESP32_WS_URL=ws://<esp32-ip>:81
+VITE_ESP32_WS_RELAY_URL=wss://<your-relay-domain>/ws
+VITE_ESP32_WS_RELAY_TARGET_KEY=target
 VITE_DATASET_UPLOAD_URL=https://your-api.example.com/upload
 VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token
 ```
@@ -169,7 +171,14 @@ Important browser rule:
 
 - GitHub Pages runs on HTTPS.
 - Browsers block `ws://` from HTTPS pages (mixed-content restriction).
-- For deployed usage on any device, use `wss://` via a secure relay or open the app locally over HTTP for direct `ws://` testing.
+- For deployed usage on any device, configure `VITE_ESP32_WS_RELAY_URL` (wss) so the app automatically switches to relay mode.
+- If relay is not configured, open the app locally over HTTP for direct `ws://` testing.
+
+Automatic seamless fallback:
+
+- App attempts direct mode when allowed.
+- On HTTPS + `ws://` endpoint, app auto-routes through relay when `VITE_ESP32_WS_RELAY_URL` is set.
+- Relay query parameter name defaults to `target`, configurable via `VITE_ESP32_WS_RELAY_TARGET_KEY`.
 
 Sharing endpoint to another device:
 
@@ -230,6 +239,20 @@ One-time GitHub setup:
 Expected URL format:
 
 - https://<your-username>.github.io/<your-repo>/
+
+### Configure Relay Variables for Pages Build
+
+For seamless ESP32 connectivity on deployed HTTPS pages, set repository variables:
+
+1. Open GitHub repository Settings -> Secrets and variables -> Actions -> Variables.
+2. Add variable VITE_ESP32_WS_RELAY_URL with your secure relay endpoint (example: wss://relay.yourdomain.com/ws).
+3. Optional: add variable VITE_ESP32_WS_RELAY_TARGET_KEY if your relay expects a key other than target.
+4. Optional: add variable VITE_ESP32_WS_URL for your default direct endpoint.
+5. Push a new commit to main (or re-run the deploy workflow) so Vite rebuilds with updated variables.
+
+This workflow reads these variables in:
+
+- .github/workflows/deploy-pages.yml
 
 ## Troubleshooting
 

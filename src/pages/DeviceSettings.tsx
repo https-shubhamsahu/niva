@@ -140,6 +140,8 @@ export default function DeviceSettings() {
     error: wsError,
     lastMessageAt: wsLastMessageAt,
     url: wsUrl,
+    activeUrl,
+    connectionMode,
     setUrl: setWsUrl,
     resetUrl: resetWsUrl,
     canAttemptInBrowser,
@@ -332,6 +334,9 @@ export default function DeviceSettings() {
           <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900">
             <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Endpoint</p>
             <p className="mt-1 break-all font-mono text-[12px] text-slate-700 dark:text-slate-200">{wsUrl}</p>
+            <p className="mt-2 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Active Route</p>
+            <p className="mt-1 break-all font-mono text-[12px] text-slate-700 dark:text-slate-200">{activeUrl}</p>
+            <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">Mode: <span className="font-semibold uppercase">{connectionMode}</span></p>
             <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
               Last packet: {wsLastMessageAt ? new Date(wsLastMessageAt).toLocaleTimeString() : 'No packet yet'}
             </p>

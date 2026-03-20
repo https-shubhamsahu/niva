@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 export type WsSensorData = {
   heel?: number;
@@ -19,6 +19,8 @@ type UseSensorDataResult = {
   error: string | null;
   lastMessageAt: number | null;
   url: string;
+  activeUrl: string;
+  connectionMode: 'direct' | 'relay' | 'blocked';
   setUrl: (nextUrl: string) => void;
   resetUrl: () => void;
   canAttemptInBrowser: boolean;
@@ -28,8 +30,18 @@ type UseSensorDataResult = {
 const DEFAULT_WS_URL = 'ws://10.249.106.94:81';
 const WS_ENDPOINT_STORAGE_KEY = 'gaitguard:nexus:ws-endpoint';
 const WS_ENDPOINT_QUERY_KEY = 'esp32ws';
+const DEFAULT_RELAY_QUERY_KEY = 'target';
 
 const hasWindow = () => typeof window !== 'undefined';
+
+const isLikelyLocalHost = (hostname: string): boolean => {
+  const lower = hostname.toLowerCase();
+  if (lower === 'localhost' || lower === '127.0.0.1') return true;
+
+  // RFC1918 private networks commonly used by ESP32 AP/hotspot setups.
+  const privateIpv4 = /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/;
+  return privateIpv4.test(lower);
+};
 
 const toWsUrl = (rawUrl: string): string => {
   const trimmed = rawUrl.trim();
@@ -49,13 +61,45 @@ const toWsUrl = (rawUrl: string): string => {
     if (parsed.protocol !== 'ws:' && parsed.protocol !== 'wss:') {
       return '';
     }
-    if (!parsed.port) {
+
+    // For local ESP32 endpoints only, default to port 81 when omitted.
+    if (parsed.protocol === 'ws:' && !parsed.port && isLikelyLocalHost(parsed.hostname)) {
       parsed.port = '81';
     }
+
     return parsed.toString();
   } catch {
     return '';
   }
+};
+
+const toRelayUrl = (rawUrl: string): string => {
+  const trimmed = rawUrl.trim();
+  if (!trimmed) return '';
+
+  let candidate = trimmed;
+  if (candidate.startsWith('http://')) {
+    candidate = `ws://${candidate.slice('http://'.length)}`;
+  } else if (candidate.startsWith('https://')) {
+    candidate = `wss://${candidate.slice('https://'.length)}`;
+  }
+
+  try {
+    const parsed = new URL(candidate);
+    if (parsed.protocol !== 'ws:' && parsed.protocol !== 'wss:') {
+      return '';
+    }
+
+    return parsed.toString();
+  } catch {
+    return '';
+  }
+};
+
+const toRelayQueryKey = (rawKey: string): string => {
+  const trimmed = rawKey.trim();
+  if (!trimmed) return DEFAULT_RELAY_QUERY_KEY;
+  return /^[a-zA-Z0-9_-]+$/.test(trimmed) ? trimmed : DEFAULT_RELAY_QUERY_KEY;
 };
 
 const isBlockedByMixedContent = (wsUrl: string): boolean => {
@@ -94,10 +138,43 @@ export default function useSensorData(): UseSensorDataResult {
   const [wsUrl, setWsUrl] = useState(resolveInitialWsUrl);
 
   const reconnectTimerRef = useRef<number | null>(null);
+  const relayBaseUrl = toRelayUrl(
+    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_URL || '').trim()
+  );
+  const relayTargetQueryKey = toRelayQueryKey(
+    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_TARGET_KEY || '').trim()
+  );
 
-  const connectionHint = isBlockedByMixedContent(wsUrl)
-    ? 'This site is running on HTTPS. Browsers block ws:// endpoints here. Use a wss:// relay endpoint or open the app locally over http:// for direct ESP32 ws:// links.'
-    : null;
+  const resolvedConnection = useMemo(() => {
+    const blockedByMixedContent = isBlockedByMixedContent(wsUrl);
+
+    if (!blockedByMixedContent) {
+      return {
+        activeUrl: wsUrl,
+        mode: 'direct' as const,
+        hint: null,
+      };
+    }
+
+    if (relayBaseUrl) {
+      const relay = new URL(relayBaseUrl);
+      relay.searchParams.set(relayTargetQueryKey, wsUrl);
+
+      return {
+        activeUrl: relay.toString(),
+        mode: 'relay' as const,
+        hint: `Using secure relay for HTTPS deployment: ${relay.host}`,
+      };
+    }
+
+    return {
+      activeUrl: wsUrl,
+      mode: 'blocked' as const,
+      hint: 'This site is running on HTTPS. Browsers block ws:// endpoints here. Add VITE_ESP32_WS_RELAY_URL (wss://...) for seamless deployed connection, or open the app locally over http:// for direct ws:// links.',
+    };
+  }, [relayBaseUrl, relayTargetQueryKey, wsUrl]);
+
+  const connectionHint = resolvedConnection.hint;
 
   const setUrl = useCallback((nextUrl: string) => {
     const normalized = toWsUrl(nextUrl);
@@ -142,9 +219,9 @@ export default function useSensorData(): UseSensorDataResult {
       if (isUnmounted) return;
 
       try {
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(resolvedConnection.activeUrl);
       } catch {
-        setError(`Invalid WebSocket URL: ${wsUrl}`);
+        setError(`Invalid WebSocket URL: ${resolvedConnection.activeUrl}`);
         return;
       }
 
@@ -168,6 +245,12 @@ export default function useSensorData(): UseSensorDataResult {
 
       socket.onerror = () => {
         if (isUnmounted) return;
+
+        if (resolvedConnection.mode === 'relay') {
+          setError('Relay connection error. Check VITE_ESP32_WS_RELAY_URL and verify relay can reach your ESP32 target endpoint.');
+          return;
+        }
+
         setError('WebSocket connection error. Check ESP32 IP, port, and network.');
       };
 
@@ -198,7 +281,7 @@ export default function useSensorData(): UseSensorDataResult {
         socket.close();
       }
     };
-  }, [connectionHint, wsUrl]);
+  }, [connectionHint, resolvedConnection]);
 
   return {
     data,
@@ -206,6 +289,8 @@ export default function useSensorData(): UseSensorDataResult {
     error,
     lastMessageAt,
     url: wsUrl,
+    activeUrl: resolvedConnection.activeUrl,
+    connectionMode: resolvedConnection.mode,
     setUrl,
     resetUrl,
     canAttemptInBrowser: connectionHint === null,
