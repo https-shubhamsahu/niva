@@ -155,6 +155,27 @@ VITE_DATASET_UPLOAD_URL=https://your-api.example.com/upload
 VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token
 ```
 
+## ESP32 on Any Device (WiFi and Hotspot)
+
+Use Settings -> ESP32 WebSocket Raw Stream to set endpoint at runtime.
+
+Examples:
+
+- `ws://192.168.4.1:81` (ESP32 AP mode)
+- `ws://<hotspot-assigned-esp32-ip>:81`
+- `wss://<your-secure-relay-domain>/ws` (recommended for deployed HTTPS pages)
+
+Important browser rule:
+
+- GitHub Pages runs on HTTPS.
+- Browsers block `ws://` from HTTPS pages (mixed-content restriction).
+- For deployed usage on any device, use `wss://` via a secure relay or open the app locally over HTTP for direct `ws://` testing.
+
+Sharing endpoint to another device:
+
+- Use `Copy Share Link` in Settings.
+- The generated URL includes `?esp32ws=<endpoint>` and auto-applies endpoint on open.
+
 ## Main Routes
 
 - /main: live telemetry dashboard + simulation + dataset controls

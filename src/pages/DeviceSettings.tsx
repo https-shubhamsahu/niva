@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ThemeSwitch from '../components/ThemeSwitch';
 import useSensorData from '../hooks/useSensorData';
@@ -140,7 +140,17 @@ export default function DeviceSettings() {
     error: wsError,
     lastMessageAt: wsLastMessageAt,
     url: wsUrl,
+    setUrl: setWsUrl,
+    resetUrl: resetWsUrl,
+    canAttemptInBrowser,
+    connectionHint,
   } = useSensorData();
+  const [wsDraftUrl, setWsDraftUrl] = useState(wsUrl);
+  const [copyStatus, setCopyStatus] = useState('');
+
+  useEffect(() => {
+    setWsDraftUrl(wsUrl);
+  }, [wsUrl]);
 
   const swingTarget = 100 - stanceTarget;
 
@@ -172,6 +182,30 @@ export default function DeviceSettings() {
       piezo: toNumber(wsData?.piezo ?? wsData?.impact),
     };
   }, [wsData]);
+
+  const handleApplyEndpoint = () => {
+    setWsUrl(wsDraftUrl);
+  };
+
+  const handleResetEndpoint = () => {
+    resetWsUrl();
+  };
+
+  const handleCopyShareLink = async () => {
+    if (typeof window === 'undefined') return;
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('esp32ws', wsUrl);
+
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      setCopyStatus('Share link copied');
+      window.setTimeout(() => setCopyStatus(''), 2000);
+    } catch {
+      setCopyStatus('Copy failed');
+      window.setTimeout(() => setCopyStatus(''), 2000);
+    }
+  };
 
   return (
     <div className="w-full min-h-screen bg-[#EDEFF5] dark:bg-[#12151D] text-slate-900 dark:text-slate-100 pb-28">
@@ -242,6 +276,57 @@ export default function DeviceSettings() {
             <span className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] ${isWsConnected ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
               {isWsConnected ? 'Connected' : 'Disconnected'}
             </span>
+          </div>
+
+          <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900">
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Connection Endpoint</p>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <input
+                value={wsDraftUrl}
+                onChange={(event) => setWsDraftUrl(event.target.value)}
+                placeholder="ws://192.168.4.1:81 or wss://relay.example/ws"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 font-mono text-[12px] text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+              />
+              <button
+                onClick={handleApplyEndpoint}
+                className="rounded-xl bg-[#415AEE] px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-white"
+              >
+                Apply
+              </button>
+              <button
+                onClick={handleResetEndpoint}
+                className="rounded-xl bg-slate-200 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div className="mt-2 flex flex-wrap gap-2">
+              <button
+                onClick={() => setWsDraftUrl('ws://192.168.4.1:81')}
+                className="rounded-full border border-slate-300 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-600 dark:border-slate-600 dark:text-slate-300"
+              >
+                ESP32 AP Preset
+              </button>
+              <button
+                onClick={handleCopyShareLink}
+                className="rounded-full border border-[#415AEE]/40 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-[#415AEE]"
+              >
+                Copy Share Link
+              </button>
+              {copyStatus && (
+                <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-emerald-600 dark:text-emerald-400">
+                  {copyStatus}
+                </span>
+              )}
+            </div>
+
+            <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+              Hotspot mode: connect phone/laptop and ESP32 to the same hotspot, set the ESP32 IP endpoint, and press Apply.
+            </p>
+            {!canAttemptInBrowser && connectionHint && (
+              <p className="mt-2 text-[11px] font-semibold text-amber-600 dark:text-amber-400">{connectionHint}</p>
+            )}
           </div>
 
           <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900">
