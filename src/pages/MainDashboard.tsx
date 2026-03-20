@@ -43,6 +43,7 @@ export default function MainDashboard() {
   const [stepCount, setStepCount] = useState(0);
   const [stabilityBand, setStabilityBand] = useState<StabilityBand>('stable');
   const [impactLevel, setImpactLevel] = useState(0);
+  const [isEngineCalibrated, setIsEngineCalibrated] = useState(false);
   const [copPoint, setCopPoint] = useState<CopPoint>({ x: 0.5, y: 0 });
   const [copTrail, setCopTrail] = useState<CopPoint[]>([{ x: 0.5, y: 0 }]);
   const [anomalyFlags, setAnomalyFlags] = useState<string[]>([]);
@@ -265,6 +266,7 @@ export default function MainDashboard() {
     setStepCount(metrics.stepCount);
     setStabilityBand(metrics.stabilityBand);
     setImpactLevel(metrics.impactLevel);
+    setIsEngineCalibrated(metrics.isCalibrated);
     setCopPoint(metrics.cop);
     setCopTrail((prev) => [...prev.slice(-24), metrics.cop]);
     setAnomalyFlags(metrics.anomalyFlags);
@@ -621,6 +623,13 @@ export default function MainDashboard() {
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-950/20 dark:text-emerald-300">
             <p className="text-xs font-bold uppercase tracking-wider">Live Telemetry Active</p>
             <p className="mt-1 text-xs leading-relaxed">Last packet: {new Date(lastPacketAt).toLocaleTimeString()}</p>
+          </div>
+        )}
+
+        {liveConnected && !isSimulating && !isEngineCalibrated && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300">
+            <p className="text-xs font-bold uppercase tracking-wider">Zero-Load Calibration</p>
+            <p className="mt-1 text-xs leading-relaxed">Keep foot unloaded for a few seconds. Baseline offsets are being learned to suppress idle drift.</p>
           </div>
         )}
 

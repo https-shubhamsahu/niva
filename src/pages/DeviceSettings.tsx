@@ -125,15 +125,26 @@ const architectureCards = [
   },
 ];
 
+const DEFAULT_HEURISTICS = {
+  emaAlpha: 0.15,
+  smaWindow: 10,
+  stanceTarget: 60,
+  baselineSteps: 20,
+  ischemiaThreshold: 50,
+  ischemiaMinutes: 15,
+  i2cProfile: '40kHz' as const,
+  staticModeRequired: true,
+};
+
 export default function DeviceSettings() {
-  const [emaAlpha, setEmaAlpha] = useState(0.15);
-  const [smaWindow, setSmaWindow] = useState(10);
-  const [stanceTarget, setStanceTarget] = useState(60);
-  const [baselineSteps, setBaselineSteps] = useState(20);
-  const [ischemiaThreshold, setIschemiaThreshold] = useState(50);
-  const [ischemiaMinutes, setIschemiaMinutes] = useState(15);
-  const [i2cProfile, setI2cProfile] = useState<'40kHz' | '100kHz'>('40kHz');
-  const [staticModeRequired, setStaticModeRequired] = useState(true);
+  const [emaAlpha, setEmaAlpha] = useState(DEFAULT_HEURISTICS.emaAlpha);
+  const [smaWindow, setSmaWindow] = useState(DEFAULT_HEURISTICS.smaWindow);
+  const [stanceTarget, setStanceTarget] = useState(DEFAULT_HEURISTICS.stanceTarget);
+  const [baselineSteps, setBaselineSteps] = useState(DEFAULT_HEURISTICS.baselineSteps);
+  const [ischemiaThreshold, setIschemiaThreshold] = useState(DEFAULT_HEURISTICS.ischemiaThreshold);
+  const [ischemiaMinutes, setIschemiaMinutes] = useState(DEFAULT_HEURISTICS.ischemiaMinutes);
+  const [i2cProfile, setI2cProfile] = useState<'40kHz' | '100kHz'>(DEFAULT_HEURISTICS.i2cProfile);
+  const [staticModeRequired, setStaticModeRequired] = useState(DEFAULT_HEURISTICS.staticModeRequired);
   const {
     data: wsData,
     isConnected: isWsConnected,
@@ -228,6 +239,17 @@ export default function DeviceSettings() {
       setCopyStatus('Copy failed');
       window.setTimeout(() => setCopyStatus(''), 2000);
     }
+  };
+
+  const handleRestoreDefaults = () => {
+    setEmaAlpha(DEFAULT_HEURISTICS.emaAlpha);
+    setSmaWindow(DEFAULT_HEURISTICS.smaWindow);
+    setStanceTarget(DEFAULT_HEURISTICS.stanceTarget);
+    setBaselineSteps(DEFAULT_HEURISTICS.baselineSteps);
+    setIschemiaThreshold(DEFAULT_HEURISTICS.ischemiaThreshold);
+    setIschemiaMinutes(DEFAULT_HEURISTICS.ischemiaMinutes);
+    setI2cProfile(DEFAULT_HEURISTICS.i2cProfile);
+    setStaticModeRequired(DEFAULT_HEURISTICS.staticModeRequired);
   };
 
   return (
@@ -449,9 +471,12 @@ export default function DeviceSettings() {
         <section className="rounded-[30px] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-[#1A1F2B]">
           <div className="flex items-center justify-between">
             <h3 className="text-[13px] font-extrabold uppercase tracking-[0.14em] text-slate-800 dark:text-slate-100">Heuristic Controls</h3>
-            <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-emerald-600 dark:text-emerald-400">
-              Deterministic
-            </span>
+            <button
+              onClick={handleRestoreDefaults}
+              className="rounded-full bg-[#415AEE] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white"
+            >
+              Default Settings
+            </button>
           </div>
 
           <div className="mt-4 space-y-4">

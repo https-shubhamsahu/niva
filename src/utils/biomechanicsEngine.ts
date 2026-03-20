@@ -21,6 +21,7 @@ export interface CopPoint {
 
 export interface ProcessedBiomechanicsMetrics {
   timestampMs: number;
+  isCalibrated: boolean;
   filteredPressure: {
     heel: number;
     inner: number;
@@ -60,6 +61,14 @@ interface BiomechanicsEngineOptions {
   maxImpact: number;
   bufferSize: number;
   staticSwayThreshold: number;
+  pressureDeadband: number;
+  angleDeadband: number;
+  calibrationSamples: number;
+  calibrationMaxSamples: number;
+  calibrationRange: number;
+  calibrationTotalCeiling: number;
+  calibrationMotionCeiling: number;
+  calibrationImpactCeiling: number;
 }
 
 const SENSOR_COORDS = {
@@ -84,9 +93,22 @@ const ema = (current: number, previous: number, alpha: number) => {
   return alpha * current + (1 - alpha) * previous;
 };
 
+const deadband = (value: number, threshold: number) => {
+  return Math.abs(value) < threshold ? 0 : value;
+};
+
 export class BiomechanicsEngine {
   private options: BiomechanicsEngineOptions;
   private filtered = { heel: 0, inner: 0, outer: 0, toe: 0 };
+  private baselinePressure = { heel: 0, inner: 0, outer: 0, toe: 0 };
+  private baselinePitch = 0;
+  private baselineRoll = 0;
+  private isCalibrated = false;
+  private calibrationCount = 0;
+  private calibrationAccum = { heel: 0, inner: 0, outer: 0, toe: 0, total: 0, impact: 0, pitch: 0, roll: 0 };
+  private calibrationTotalMin = Number.POSITIVE_INFINITY;
+  private calibrationTotalMax = 0;
+  private calibrationMotionMax = 0;
   private lastContact = false;
   private lastHeel = 0;
   private lastHeelStrikeAt: number | null = null;
@@ -102,19 +124,36 @@ export class BiomechanicsEngine {
 
   constructor(overrides?: Partial<BiomechanicsEngineOptions>) {
     this.options = {
-      alpha: 0.15,
-      contactThreshold: 40,
+      alpha: 0.1,
+      contactThreshold: 45,
       impactThreshold: 200,
       heelThreshold: 80,
       maxImpact: 800,
       bufferSize: 50,
       staticSwayThreshold: 6,
+      pressureDeadband: 2.5,
+      angleDeadband: 0.8,
+      calibrationSamples: 30,
+      calibrationMaxSamples: 60,
+      calibrationRange: 8,
+      calibrationTotalCeiling: 55,
+      calibrationMotionCeiling: 7,
+      calibrationImpactCeiling: 60,
       ...overrides,
     };
   }
 
   reset() {
     this.filtered = { heel: 0, inner: 0, outer: 0, toe: 0 };
+    this.baselinePressure = { heel: 0, inner: 0, outer: 0, toe: 0 };
+    this.baselinePitch = 0;
+    this.baselineRoll = 0;
+    this.isCalibrated = false;
+    this.calibrationCount = 0;
+    this.calibrationAccum = { heel: 0, inner: 0, outer: 0, toe: 0, total: 0, impact: 0, pitch: 0, roll: 0 };
+    this.calibrationTotalMin = Number.POSITIVE_INFINITY;
+    this.calibrationTotalMax = 0;
+    this.calibrationMotionMax = 0;
     this.lastContact = false;
     this.lastHeel = 0;
     this.lastHeelStrikeAt = null;
@@ -161,12 +200,74 @@ export class BiomechanicsEngine {
   }
 
   process(packet: RawSensorPacket): ProcessedBiomechanicsMetrics {
-    const input = {
+    const rawInput = {
       heel: normalizeRawPressureInput(packet.heel),
       inner: normalizeRawPressureInput(packet.inner),
       outer: normalizeRawPressureInput(packet.outer),
       toe: normalizeRawPressureInput(packet.toe),
     };
+
+    if (!this.isCalibrated) {
+      const rawTotal = rawInput.heel + rawInput.inner + rawInput.outer + rawInput.toe;
+      const rawMotion = Math.sqrt(packet.pitch * packet.pitch + packet.roll * packet.roll);
+
+      this.calibrationCount += 1;
+      this.calibrationAccum.heel += rawInput.heel;
+      this.calibrationAccum.inner += rawInput.inner;
+      this.calibrationAccum.outer += rawInput.outer;
+      this.calibrationAccum.toe += rawInput.toe;
+      this.calibrationAccum.total += rawTotal;
+      this.calibrationAccum.impact += packet.impact;
+      this.calibrationAccum.pitch += packet.pitch;
+      this.calibrationAccum.roll += packet.roll;
+      this.calibrationTotalMin = Math.min(this.calibrationTotalMin, rawTotal);
+      this.calibrationTotalMax = Math.max(this.calibrationTotalMax, rawTotal);
+      this.calibrationMotionMax = Math.max(this.calibrationMotionMax, rawMotion);
+
+      if (this.calibrationCount >= this.options.calibrationSamples) {
+        const meanTotal = this.calibrationAccum.total / this.calibrationCount;
+        const meanImpact = this.calibrationAccum.impact / this.calibrationCount;
+        const stableRange = this.calibrationTotalMax - this.calibrationTotalMin;
+
+        const noLoadStable =
+          stableRange <= this.options.calibrationRange &&
+          meanTotal <= this.options.calibrationTotalCeiling &&
+          this.calibrationMotionMax <= this.options.calibrationMotionCeiling &&
+          meanImpact <= this.options.calibrationImpactCeiling;
+
+        if (noLoadStable) {
+          this.baselinePressure = {
+            heel: this.calibrationAccum.heel / this.calibrationCount,
+            inner: this.calibrationAccum.inner / this.calibrationCount,
+            outer: this.calibrationAccum.outer / this.calibrationCount,
+            toe: this.calibrationAccum.toe / this.calibrationCount,
+          };
+          this.baselinePitch = this.calibrationAccum.pitch / this.calibrationCount;
+          this.baselineRoll = this.calibrationAccum.roll / this.calibrationCount;
+          this.isCalibrated = true;
+        } else if (this.calibrationCount >= this.options.calibrationMaxSamples) {
+          // Fallback: continue processing without baseline subtraction if no-load criteria never appear.
+          this.isCalibrated = true;
+        }
+      }
+    }
+
+    const input = this.isCalibrated
+      ? {
+          heel: deadband(Math.max(0, rawInput.heel - this.baselinePressure.heel), this.options.pressureDeadband),
+          inner: deadband(Math.max(0, rawInput.inner - this.baselinePressure.inner), this.options.pressureDeadband),
+          outer: deadband(Math.max(0, rawInput.outer - this.baselinePressure.outer), this.options.pressureDeadband),
+          toe: deadband(Math.max(0, rawInput.toe - this.baselinePressure.toe), this.options.pressureDeadband),
+        }
+      : {
+          heel: 0,
+          inner: 0,
+          outer: 0,
+          toe: 0,
+        };
+
+    const correctedPitch = deadband(packet.pitch - this.baselinePitch, this.options.angleDeadband);
+    const correctedRoll = deadband(packet.roll - this.baselineRoll, this.options.angleDeadband);
 
     this.filtered = {
       heel: ema(input.heel, this.filtered.heel, this.options.alpha),
@@ -225,7 +326,7 @@ export class BiomechanicsEngine {
     const gaitPhase = this.detectPhase(this.filtered, totalPressure);
     const cop = this.computeCop(this.filtered, totalPressure);
 
-    const stabilityMagnitude = Math.sqrt(packet.pitch * packet.pitch + packet.roll * packet.roll);
+    const stabilityMagnitude = Math.sqrt(correctedPitch * correctedPitch + correctedRoll * correctedRoll);
     const stabilityBand: StabilityBand = stabilityMagnitude < 3 ? 'stable' : stabilityMagnitude < 6 ? 'moderate' : 'unstable';
 
     const impactLevel = clamp(packet.impact / this.options.maxImpact, 0, 1);
@@ -238,7 +339,7 @@ export class BiomechanicsEngine {
       this.heelDominantStreak = 0;
     }
 
-    const staticMode = Math.abs(packet.roll) < this.options.staticSwayThreshold && Math.abs(packet.pitch) < this.options.staticSwayThreshold;
+    const staticMode = Math.abs(correctedRoll) < this.options.staticSwayThreshold && Math.abs(correctedPitch) < this.options.staticSwayThreshold;
     const highMedialLateral = Math.max(this.filtered.inner, this.filtered.outer) > 50;
 
     if (highMedialLateral && staticMode) {
@@ -249,7 +350,7 @@ export class BiomechanicsEngine {
 
     const anomalyFlags: string[] = [];
 
-    if (Math.abs(packet.roll) > 8 && this.filtered.outer > this.filtered.inner) {
+    if (Math.abs(correctedRoll) > 8 && this.filtered.outer > this.filtered.inner) {
       anomalyFlags.push('Ankle instability / supination risk');
     }
 
@@ -269,6 +370,7 @@ export class BiomechanicsEngine {
 
     const metrics: ProcessedBiomechanicsMetrics = {
       timestampMs: packet.timestampMs,
+      isCalibrated: this.isCalibrated,
       filteredPressure: { ...this.filtered },
       normalizedPressure,
       totalPressure,
