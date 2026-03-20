@@ -19,10 +19,13 @@ type UseSensorDataResult = {
   error: string | null;
   lastMessageAt: number | null;
   url: string;
+  relayUrl: string;
   activeUrl: string;
   connectionMode: 'direct' | 'relay' | 'blocked';
   setUrl: (nextUrl: string) => void;
+  setRelayUrl: (nextUrl: string) => void;
   resetUrl: () => void;
+  resetRelayUrl: () => void;
   canAttemptInBrowser: boolean;
   connectionHint: string | null;
 };
@@ -30,6 +33,8 @@ type UseSensorDataResult = {
 const DEFAULT_WS_URL = 'ws://10.249.106.94:81';
 const WS_ENDPOINT_STORAGE_KEY = 'gaitguard:nexus:ws-endpoint';
 const WS_ENDPOINT_QUERY_KEY = 'esp32ws';
+const RELAY_ENDPOINT_STORAGE_KEY = 'gaitguard:nexus:ws-relay-endpoint';
+const RELAY_ENDPOINT_QUERY_KEY = 'esp32relay';
 const DEFAULT_RELAY_QUERY_KEY = 'target';
 
 const hasWindow = () => typeof window !== 'undefined';
@@ -130,17 +135,38 @@ const resolveInitialWsUrl = (): string => {
   return toWsUrl(envUrl) || DEFAULT_WS_URL;
 };
 
+const resolveInitialRelayUrl = (): string => {
+  const envRelay = toRelayUrl(
+    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_URL || '').trim()
+  );
+
+  if (!hasWindow()) {
+    return envRelay;
+  }
+
+  const queryRelay = toRelayUrl(new URL(window.location.href).searchParams.get(RELAY_ENDPOINT_QUERY_KEY) || '');
+  if (queryRelay) {
+    window.localStorage.setItem(RELAY_ENDPOINT_STORAGE_KEY, queryRelay);
+    return queryRelay;
+  }
+
+  const storedRelay = toRelayUrl(window.localStorage.getItem(RELAY_ENDPOINT_STORAGE_KEY) || '');
+  if (storedRelay) {
+    return storedRelay;
+  }
+
+  return envRelay;
+};
+
 export default function useSensorData(): UseSensorDataResult {
   const [data, setData] = useState<WsSensorData | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastMessageAt, setLastMessageAt] = useState<number | null>(null);
   const [wsUrl, setWsUrl] = useState(resolveInitialWsUrl);
+  const [relayUrl, setRelayUrlState] = useState(resolveInitialRelayUrl);
 
   const reconnectTimerRef = useRef<number | null>(null);
-  const relayBaseUrl = toRelayUrl(
-    ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_URL || '').trim()
-  );
   const relayTargetQueryKey = toRelayQueryKey(
     ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_TARGET_KEY || '').trim()
   );
@@ -156,25 +182,25 @@ export default function useSensorData(): UseSensorDataResult {
       };
     }
 
-    if (relayBaseUrl) {
-      const relay = new URL(relayBaseUrl);
+    if (relayUrl) {
+      const relay = new URL(relayUrl);
       relay.searchParams.set(relayTargetQueryKey, wsUrl);
 
       return {
         activeUrl: relay.toString(),
         mode: 'relay' as const,
-        hint: `Using secure relay for HTTPS deployment: ${relay.host}`,
+        hint: null,
       };
     }
 
     return {
       activeUrl: wsUrl,
       mode: 'blocked' as const,
-      hint: 'This site is running on HTTPS. Browsers block ws:// endpoints here. Add VITE_ESP32_WS_RELAY_URL (wss://...) for seamless deployed connection, or open the app locally over http:// for direct ws:// links.',
+      hint: 'This site is running on HTTPS. Browsers block ws:// endpoints here. Add a relay URL in Settings (wss://...) or open the app locally over http:// for direct ws:// links.',
     };
-  }, [relayBaseUrl, relayTargetQueryKey, wsUrl]);
+  }, [relayTargetQueryKey, relayUrl, wsUrl]);
 
-  const connectionHint = resolvedConnection.hint;
+  const connectionHint = resolvedConnection.mode === 'blocked' ? resolvedConnection.hint : null;
 
   const setUrl = useCallback((nextUrl: string) => {
     const normalized = toWsUrl(nextUrl);
@@ -200,10 +226,44 @@ export default function useSensorData(): UseSensorDataResult {
     setWsUrl(fallback);
   }, []);
 
+  const setRelayUrl = useCallback((nextUrl: string) => {
+    const normalized = toRelayUrl(nextUrl);
+    if (!normalized) {
+      setError('Enter a valid relay URL (example: wss://your-relay-domain/ws).');
+      return;
+    }
+
+    setError(null);
+    setRelayUrlState(normalized);
+  }, []);
+
+  const resetRelayUrl = useCallback(() => {
+    if (hasWindow()) {
+      window.localStorage.removeItem(RELAY_ENDPOINT_STORAGE_KEY);
+    }
+
+    const fallback = toRelayUrl(
+      ((import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env?.VITE_ESP32_WS_RELAY_URL || '').trim()
+    );
+
+    setError(null);
+    setRelayUrlState(fallback);
+  }, []);
+
   useEffect(() => {
     if (!hasWindow()) return;
     window.localStorage.setItem(WS_ENDPOINT_STORAGE_KEY, wsUrl);
   }, [wsUrl]);
+
+  useEffect(() => {
+    if (!hasWindow()) return;
+
+    if (relayUrl) {
+      window.localStorage.setItem(RELAY_ENDPOINT_STORAGE_KEY, relayUrl);
+    } else {
+      window.localStorage.removeItem(RELAY_ENDPOINT_STORAGE_KEY);
+    }
+  }, [relayUrl]);
 
   useEffect(() => {
     let socket: WebSocket | null = null;
@@ -289,10 +349,13 @@ export default function useSensorData(): UseSensorDataResult {
     error,
     lastMessageAt,
     url: wsUrl,
+    relayUrl,
     activeUrl: resolvedConnection.activeUrl,
     connectionMode: resolvedConnection.mode,
     setUrl,
+    setRelayUrl,
     resetUrl,
+    resetRelayUrl,
     canAttemptInBrowser: connectionHint === null,
     connectionHint,
   };

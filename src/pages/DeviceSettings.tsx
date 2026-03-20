@@ -140,19 +140,27 @@ export default function DeviceSettings() {
     error: wsError,
     lastMessageAt: wsLastMessageAt,
     url: wsUrl,
+    relayUrl,
     activeUrl,
     connectionMode,
     setUrl: setWsUrl,
+    setRelayUrl,
     resetUrl: resetWsUrl,
+    resetRelayUrl,
     canAttemptInBrowser,
     connectionHint,
   } = useSensorData();
   const [wsDraftUrl, setWsDraftUrl] = useState(wsUrl);
+  const [relayDraftUrl, setRelayDraftUrl] = useState(relayUrl);
   const [copyStatus, setCopyStatus] = useState('');
 
   useEffect(() => {
     setWsDraftUrl(wsUrl);
   }, [wsUrl]);
+
+  useEffect(() => {
+    setRelayDraftUrl(relayUrl);
+  }, [relayUrl]);
 
   const swingTarget = 100 - stanceTarget;
 
@@ -193,11 +201,24 @@ export default function DeviceSettings() {
     resetWsUrl();
   };
 
+  const handleApplyRelay = () => {
+    setRelayUrl(relayDraftUrl);
+  };
+
+  const handleResetRelay = () => {
+    resetRelayUrl();
+  };
+
   const handleCopyShareLink = async () => {
     if (typeof window === 'undefined') return;
 
     const url = new URL(window.location.href);
     url.searchParams.set('esp32ws', wsUrl);
+    if (relayUrl) {
+      url.searchParams.set('esp32relay', relayUrl);
+    } else {
+      url.searchParams.delete('esp32relay');
+    }
 
     try {
       await navigator.clipboard.writeText(url.toString());
@@ -286,7 +307,7 @@ export default function DeviceSettings() {
               <input
                 value={wsDraftUrl}
                 onChange={(event) => setWsDraftUrl(event.target.value)}
-                placeholder="ws://192.168.4.1:81 or wss://relay.example/ws"
+                placeholder="ws://192.168.4.1:81"
                 className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 font-mono text-[12px] text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
               />
               <button
@@ -297,6 +318,28 @@ export default function DeviceSettings() {
               </button>
               <button
                 onClick={handleResetEndpoint}
+                className="rounded-xl bg-slate-200 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-slate-700 dark:bg-slate-800 dark:text-slate-200"
+              >
+                Reset
+              </button>
+            </div>
+
+            <p className="mt-3 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Relay Endpoint (WSS)</p>
+            <div className="mt-2 flex flex-col gap-2 sm:flex-row">
+              <input
+                value={relayDraftUrl}
+                onChange={(event) => setRelayDraftUrl(event.target.value)}
+                placeholder="wss://your-relay-domain/ws"
+                className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 font-mono text-[12px] text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+              />
+              <button
+                onClick={handleApplyRelay}
+                className="rounded-xl bg-[#415AEE] px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-white"
+              >
+                Apply
+              </button>
+              <button
+                onClick={handleResetRelay}
                 className="rounded-xl bg-slate-200 px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.12em] text-slate-700 dark:bg-slate-800 dark:text-slate-200"
               >
                 Reset
@@ -334,6 +377,8 @@ export default function DeviceSettings() {
           <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900">
             <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Endpoint</p>
             <p className="mt-1 break-all font-mono text-[12px] text-slate-700 dark:text-slate-200">{wsUrl}</p>
+            <p className="mt-2 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Relay</p>
+            <p className="mt-1 break-all font-mono text-[12px] text-slate-700 dark:text-slate-200">{relayUrl || 'not configured'}</p>
             <p className="mt-2 text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Active Route</p>
             <p className="mt-1 break-all font-mono text-[12px] text-slate-700 dark:text-slate-200">{activeUrl}</p>
             <p className="mt-2 text-[11px] text-slate-500 dark:text-slate-400">Mode: <span className="font-semibold uppercase">{connectionMode}</span></p>
