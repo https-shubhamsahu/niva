@@ -15,6 +15,16 @@ Deterministic, explainable gait analytics platform for ESP32 smart insole teleme
 
 This project focuses on transparent biomechanics logic rather than black-box prediction. Every score and alert can be traced to explicit sensor rules.
 
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React, TypeScript, Vite |
+| Hardware link | Web Serial (USB) + WebSocket (WiFi) |
+| Storage | IndexedDB (browser-local dataset store) |
+| Firmware | ESP32 (Arduino, WiFiManager + WebSockets) |
+| Deployment | GitHub Pages via GitHub Actions |
+
 ## What This Project Does
 
 - Streams plantar + IMU telemetry from ESP32 over USB Serial and WiFi WebSocket.
@@ -435,3 +445,11 @@ This repository currently provides an engineering prototype for explainable scre
 For judging and deep algorithm mapping, see:
 
 - JUDGES_WALKTHROUGH.md
+
+## Contributing
+
+Fork the repository, create a feature branch, and open a pull request. Please keep new gait-state logic explainable (explicit thresholds/rules) rather than introducing opaque ML models, per this project's core design principle.
+
+## License
+
+No license file is currently present in this repository.
