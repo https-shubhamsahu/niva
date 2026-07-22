@@ -74,7 +74,17 @@ class DashboardScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                MetricLabel('PLANTAR PRESSURE MAP', trailing: _CopLegend()),
+                MetricLabel(
+                  'PLANTAR PRESSURE MAP',
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const _AdcBadge(),
+                      const SizedBox(width: 10),
+                      _CopLegend(),
+                    ],
+                  ),
+                ),
                 const SizedBox(height: 14),
                 FootPressureView(
                   pressure: metrics.normalizedPressure,
@@ -320,6 +330,32 @@ class _MetricsGrid extends StatelessWidget {
         MetricTile(label: 'MLPI', value: metrics.mlpi.toStringAsFixed(1)),
         MetricTile(label: 'IMPACT', value: '${(metrics.impactLevel * 100).round()}%'),
       ],
+    );
+  }
+}
+
+/// Small badge next to the pressure map label. "12-bit" is not decorative -
+/// it's the real resolution of the ESP32's ADC (0-4095), matching the
+/// `/ 4095` normalization in `biomechanics_engine.dart`.
+class _AdcBadge extends StatelessWidget {
+  const _AdcBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF3D375C) : const Color(0xFFEDECFE),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        '12-BIT ADC',
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              fontSize: 9,
+              color: isDark ? const Color(0xFFB3A9FA) : const Color(0xFF6E5AE6),
+            ),
+      ),
     );
   }
 }
