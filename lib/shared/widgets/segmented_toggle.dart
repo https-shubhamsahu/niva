@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SegmentedOption<T> {
   final T value;
@@ -41,11 +42,17 @@ class SegmentedToggle<T> extends StatelessWidget {
           final isActive = option.value == value;
           return Expanded(
             child: GestureDetector(
-              onTap: () => onChanged(option.value),
+              onTap: () {
+                if (!isActive) HapticFeedback.selectionClick();
+                onChanged(option.value);
+              },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 260),
                 curve: Curves.easeOutCubic,
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                // Vertical padding tuned so the full tappable segment clears
+                // the 44pt minimum touch-target guideline (16px icon + 2×14
+                // padding = 44).
+                padding: const EdgeInsets.symmetric(vertical: 14),
                 decoration: BoxDecoration(
                   color: isActive
                       ? activeColor

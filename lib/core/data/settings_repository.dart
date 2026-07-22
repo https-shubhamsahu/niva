@@ -15,6 +15,7 @@ class SettingsRepository {
   static const _uploadTokenKey = 'gaitguard.upload_token';
   static const _sessionIdKey = 'gaitguard.session_id';
   static const _trialIdKey = 'gaitguard.trial_id';
+  static const _deviceOrientationDismissedKey = 'gaitguard.device_orientation_dismissed';
 
   static const defaultWsUrl = 'ws://192.168.4.1:81';
 
@@ -47,4 +48,11 @@ class SettingsRepository {
 
   String get trialId => _prefs.getString(_trialIdKey) ?? 'trial-001';
   Future<void> setTrialId(String value) => _prefs.setString(_trialIdKey, value);
+
+  /// Whether the first-run "Live Sensor vs Simulation" orientation card on
+  /// the Device screen has been dismissed. Lightweight one-flag onboarding -
+  /// see `CONNECTIVITY_PLAN.md` for why this app deliberately doesn't have a
+  /// full multi-step setup wizard.
+  bool get deviceOrientationDismissed => _prefs.getBool(_deviceOrientationDismissedKey) ?? false;
+  Future<void> dismissDeviceOrientation() => _prefs.setBool(_deviceOrientationDismissedKey, true);
 }

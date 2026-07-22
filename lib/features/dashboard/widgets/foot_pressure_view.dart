@@ -33,6 +33,8 @@ class FootPressureView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return AspectRatio(
       aspectRatio: 1,
       child: ClipRRect(
@@ -41,6 +43,26 @@ class FootPressureView extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.asset('assets/images/feet.png', fit: BoxFit.cover),
+            // `feet.png` has a baked-in white canvas, not a transparent one -
+            // in dark mode that reads as a broken white rectangle. A radial
+            // vignette (transparent center, card-dark edges) lets the photo's
+            // own background blend into the surrounding dark card instead of
+            // fighting it, without touching the source asset's pixels.
+            if (isDark)
+              IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      radius: 0.85,
+                      colors: [
+                        Colors.transparent,
+                        const Color(0xFF1C1C1E).withOpacity(0.9),
+                      ],
+                      stops: const [0.55, 1.0],
+                    ),
+                  ),
+                ),
+              ),
             AnimatedOpacity(
               duration: const Duration(milliseconds: 400),
               opacity: isConnected ? 1 : 0.25,
@@ -62,6 +84,26 @@ class FootPressureView extends StatelessWidget {
                 size: 12,
                 color: AppColorsRef.copMarker,
                 animate: true,
+              ),
+            if (!isConnected)
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 12,
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: (isDark ? Colors.black : Colors.white).withOpacity(0.65),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      'Connect the insole or start a simulation to see live pressure data',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11),
+                    ),
+                  ),
+                ),
               ),
           ],
         ),

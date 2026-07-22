@@ -6,6 +6,7 @@ import '../../core/providers/app_providers.dart';
 import '../../core/providers/telemetry_state.dart';
 import '../../shared/widgets/rounded_card.dart';
 import '../../theme/app_theme.dart';
+import 'widgets/ai_coach_card.dart';
 
 /// "Health" tab - the plain-English read of what the engine is currently
 /// seeing. Consolidates `ClinicalInsightsUpdated.tsx` and its several
@@ -39,89 +40,95 @@ class InsightsScreen extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                child: RoundedCard(
-                  radius: 22,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('MLPI', style: theme.textTheme.labelSmall),
-                      const SizedBox(height: 6),
-                      Text(metrics.mlpi.toStringAsFixed(1), style: theme.textTheme.headlineMedium),
-                      const SizedBox(height: 4),
-                      Text('Medial-lateral pressure index', style: theme.textTheme.bodyMedium),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: RoundedCard(
-                  radius: 22,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('ISCHEMIC RISK', style: theme.textTheme.labelSmall),
-                      const SizedBox(height: 6),
-                      Text('${metrics.ischemicIntegralPct.round()}%', style: theme.textTheme.headlineMedium),
-                      const SizedBox(height: 4),
-                      Text('Sustained pressure integral', style: theme.textTheme.bodyMedium),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          AiCoachCard(snapshot: state),
           const SizedBox(height: 16),
-          RoundedCard(
-            radius: 28,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          if (!state.isLive)
+            const _EmptyState()
+          else ...[
+            Row(
               children: [
-                Text('AUTOMATED OBSERVATIONS', style: theme.textTheme.labelSmall),
-                const SizedBox(height: 12),
-                if (metrics.anomalyFlags.isEmpty)
-                  Text(
-                    'No anomalies in the current rolling buffer (last ${metrics.bufferLength} samples).',
-                    style: theme.textTheme.bodyMedium,
-                  )
-                else
-                  for (final flag in metrics.anomalyFlags)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(Icons.error_outline_rounded, size: 16, color: AppColors.danger),
-                          const SizedBox(width: 8),
-                          Expanded(child: Text(flag, style: theme.textTheme.bodyMedium)),
-                        ],
-                      ),
+                Expanded(
+                  child: RoundedCard(
+                    radius: 22,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('MLPI', style: theme.textTheme.labelSmall),
+                        const SizedBox(height: 6),
+                        Text(metrics.mlpi.toStringAsFixed(1), style: theme.textTheme.headlineMedium),
+                        const SizedBox(height: 4),
+                        Text('Medial-lateral pressure index', style: theme.textTheme.bodyMedium),
+                      ],
                     ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-          RoundedCard(
-            radius: 28,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('WHY THESE ALERTS FIRE', style: theme.textTheme.labelSmall),
-                const SizedBox(height: 10),
-                Text(
-                  'Every flag above comes from an explicit, published threshold - not a model prediction. '
-                  'Ankle instability requires >8° corrected roll with lateral-dominant pressure; heel-dominant '
-                  'trend requires 5 consecutive frames >70% heel load; ischemic risk requires a sustained '
-                  'medial/lateral pressure integral above 50%. This mirrors the "deterministic, explainable" '
-                  'design goal from the original dashboard.',
-                  style: theme.textTheme.bodyMedium,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: RoundedCard(
+                    radius: 22,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('ISCHEMIC RISK', style: theme.textTheme.labelSmall),
+                        const SizedBox(height: 6),
+                        Text('${metrics.ischemicIntegralPct.round()}%', style: theme.textTheme.headlineMedium),
+                        const SizedBox(height: 4),
+                        Text('Sustained pressure integral', style: theme.textTheme.bodyMedium),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
+            const SizedBox(height: 16),
+            RoundedCard(
+              radius: 28,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('AUTOMATED OBSERVATIONS', style: theme.textTheme.labelSmall),
+                  const SizedBox(height: 12),
+                  if (metrics.anomalyFlags.isEmpty)
+                    Text(
+                      'No anomalies in the current rolling buffer (last ${metrics.bufferLength} samples).',
+                      style: theme.textTheme.bodyMedium,
+                    )
+                  else
+                    for (final flag in metrics.anomalyFlags)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(Icons.error_outline_rounded, size: 16, color: AppColors.danger),
+                            const SizedBox(width: 8),
+                            Expanded(child: Text(flag, style: theme.textTheme.bodyMedium)),
+                          ],
+                        ),
+                      ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            RoundedCard(
+              radius: 28,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('WHY THESE ALERTS FIRE', style: theme.textTheme.labelSmall),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Every flag above comes from an explicit, published threshold - not a model prediction. '
+                    'Ankle instability requires >8° corrected roll with lateral-dominant pressure; heel-dominant '
+                    'trend requires 5 consecutive frames >70% heel load; ischemic risk requires a sustained '
+                    'medial/lateral pressure integral above 50%. This mirrors the "deterministic, explainable" '
+                    'design goal from the original dashboard.',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -146,5 +153,31 @@ class InsightsScreen extends ConsumerWidget {
       case StabilityBand.unstable:
         return 'Unstable sway detected in the current buffer.';
     }
+  }
+}
+
+/// Mirrors `TrendsScreen`'s empty state - the MLPI/Ischemic/Observations/
+/// Why-Alerts-Fire cards are all meaningless zeros with no live stream, so
+/// they're replaced with this instead of showing misleading numbers.
+class _EmptyState extends StatelessWidget {
+  const _EmptyState();
+
+  @override
+  Widget build(BuildContext context) {
+    return RoundedCard(
+      radius: 24,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.favorite_border_rounded, color: Theme.of(context).textTheme.labelSmall?.color),
+          const SizedBox(height: 10),
+          Text(
+            'No telemetry yet. Connect the insole or start a simulation from the Today tab to see detailed '
+            'pressure-index and anomaly readings here.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      ),
+    );
   }
 }

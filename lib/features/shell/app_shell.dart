@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../theme/app_theme.dart';
 import '../dashboard/dashboard_screen.dart';
@@ -6,10 +7,14 @@ import '../device/device_screen.dart';
 import '../insights/insights_screen.dart';
 import '../trends/trends_screen.dart';
 
-/// Root tab shell. Uses [IndexedStack] rather than named routes so every
-/// tab keeps its scroll position and the telemetry stream underneath never
-/// gets torn down when switching tabs - direct analog of the always-mounted
-/// `<BottomNav />` in `App.tsx`, minus the router.
+/// Root tab shell. All four screens stay permanently mounted (rather than
+/// named routes) so every tab keeps its scroll position and the telemetry
+/// stream underneath never gets torn down when switching tabs - direct
+/// analog of the always-mounted `<BottomNav />` in `App.tsx`, minus the
+/// router. Cross-fades between tabs (via stacked + opacity-animated
+/// `Positioned.fill`s, not `IndexedStack`) so a tab switch reads as a
+/// transition instead of an instant cut, while keeping the exact same
+/// "nothing ever unmounts" guarantee `IndexedStack` gave.
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
 
@@ -32,9 +37,21 @@ class _AppShellState extends State<AppShell> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: IndexedStack(
-        index: _index,
-        children: _tabs.map((tab) => tab.screen).toList(),
+      body: Stack(
+        children: [
+          for (var i = 0; i < _tabs.length; i++)
+            Positioned.fill(
+              child: IgnorePointer(
+                ignoring: _index != i,
+                child: AnimatedOpacity(
+                  opacity: _index == i ? 1 : 0,
+                  duration: AppMotion.fast,
+                  curve: AppMotion.springCurve,
+                  child: _tabs[i].screen,
+                ),
+              ),
+            ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -52,7 +69,12 @@ class _AppShellState extends State<AppShell> {
                     child: _NavButton(
                       spec: _tabs[i],
                       isActive: _index == i,
-                      onTap: () => setState(() => _index = i),
+                      onTap: () {
+                        if (_index != i) {
+                          HapticFeedback.selectionClick();
+                          setState(() => _index = i);
+                        }
+                      },
                     ),
                   ),
               ],

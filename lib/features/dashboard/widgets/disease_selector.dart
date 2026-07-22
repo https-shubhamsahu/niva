@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../core/engine/simulation_engine.dart';
 import '../../../theme/app_theme.dart';
@@ -36,7 +37,10 @@ class DiseaseSelector extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: onDemoToggle,
+              onTap: () {
+                HapticFeedback.selectionClick();
+                onDemoToggle();
+              },
               child: AnimatedContainer(
                 duration: AppMotion.fast,
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
@@ -73,10 +77,17 @@ class DiseaseSelector extends StatelessWidget {
             final isActive = mode == selected;
             final isLocked = isDemoMode && !isActive;
             return GestureDetector(
-              onTap: isDemoMode ? null : () => onSelect(mode),
+              onTap: isDemoMode
+                  ? null
+                  : () {
+                      if (!isActive) HapticFeedback.selectionClick();
+                      onSelect(mode);
+                    },
               child: AnimatedContainer(
                 duration: AppMotion.fast,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                // Vertical padding tuned to clear the 44pt minimum touch
+                // target (labelSmall line height + 2×14 padding).
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
                   color: isActive
                       ? AppColors.brand

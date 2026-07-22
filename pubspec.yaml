@@ -46,8 +46,25 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
   assets:
     - assets/images/feet.png
+
+# Generates android + ios launcher icons. Run: dart run flutter_launcher_icons
+#
+# Android uses a real adaptive icon (background color + foreground layer)
+# rather than a single flat image - a flat image gets auto-wrapped into an
+# adaptive icon's foreground slot by the OS, which has its own built-in
+# safe-zone padding on top of whatever padding the source image already has,
+# shrinking the logo and revealing a fallback background color behind it.
+# iOS has no such layering system, so it uses the flat combined tile.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#364348" # sampled from the tile's own dark background
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png" # logomark only, transparent bg

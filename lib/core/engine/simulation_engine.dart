@@ -181,8 +181,12 @@ class SimulationEngine {
       outer: frame.mt5,
       toe: frame.toe,
       impact: frame.impact,
-      pitch: frame.imuRollVariance * 2,
-      roll: frame.imuRollVariance * 3,
+      // Randomized (not just scaled) each frame, matching
+      // simulationEngine.ts's MainDashboard driver - this is what gives
+      // Ataxia mode its signature erratic sway; a deterministic formula
+      // flattens that out.
+      pitch: (_random.nextDouble() - 0.5) * frame.imuRollVariance * 10,
+      roll: (_random.nextDouble() - 0.5) * frame.imuRollVariance * 20,
       accZ: 9.8,
       timestampMs: timestampMs,
     );

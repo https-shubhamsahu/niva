@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/engine/simulation_engine.dart';
@@ -236,6 +237,7 @@ class _RingsCard extends StatelessWidget {
         children: [
           HealthRings(
             size: 148,
+            isLive: isLive,
             rings: [
               RingMetric(label: 'Stability', value: stability, color: AppColors.stability),
               RingMetric(label: 'Cadence', value: cadence, color: AppColors.cadence),
@@ -379,13 +381,26 @@ class _CopLegend extends StatelessWidget {
   }
 }
 
-class _AnomalyCard extends StatelessWidget {
+const _anomalyCollapsedLimit = 2;
+
+class _AnomalyCard extends StatefulWidget {
   final List<String> flags;
   const _AnomalyCard({required this.flags});
 
   @override
+  State<_AnomalyCard> createState() => _AnomalyCardState();
+}
+
+class _AnomalyCardState extends State<_AnomalyCard> {
+  bool _expanded = false;
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final flags = widget.flags;
+    final isTruncated = !_expanded && flags.length > _anomalyCollapsedLimit;
+    final visibleFlags = isTruncated ? flags.take(_anomalyCollapsedLimit).toList() : flags;
+
     return RoundedCard(
       radius: 22,
       child: Column(
@@ -393,10 +408,24 @@ class _AnomalyCard extends StatelessWidget {
         children: [
           Text('ANOMALY FLAGS', style: theme.textTheme.labelSmall?.copyWith(color: AppColors.danger)),
           const SizedBox(height: 8),
-          for (final flag in flags)
+          for (final flag in visibleFlags)
             Padding(
               padding: const EdgeInsets.only(top: 4),
               child: Text('•  $flag', style: theme.textTheme.bodyMedium),
+            ),
+          if (isTruncated)
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: GestureDetector(
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  setState(() => _expanded = true);
+                },
+                child: Text(
+                  'Show all ${flags.length}',
+                  style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.brand, fontWeight: FontWeight.w700),
+                ),
+              ),
             ),
         ],
       ),

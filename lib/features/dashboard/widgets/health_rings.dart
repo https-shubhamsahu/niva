@@ -23,11 +23,16 @@ class RingMetric {
 ///     against a healthy-range target.
 ///   - Impact safety (inner ring, cyan) - inverse of impact severity, so a
 ///     full ring means "gentle footfalls" not "high impact".
-class HealthRings extends StatelessWidget {
+class HealthRings extends StatefulWidget {
   final List<RingMetric> rings;
   final double size;
   final double strokeWidth;
   final Widget? center;
+
+  /// Whether a live/simulated stream is currently flowing. Gates the subtle
+  /// idle "breathing" pulse below - a static (disconnected) gauge shouldn't
+  /// breathe, since that would read as "still receiving data" when it isn't.
+  final bool isLive;
 
   const HealthRings({
     super.key,
@@ -35,38 +40,80 @@ class HealthRings extends StatelessWidget {
     this.size = 150,
     this.strokeWidth = 14,
     this.center,
+    this.isLive = false,
   });
+
+  @override
+  State<HealthRings> createState() => _HealthRingsState();
+}
+
+class _HealthRingsState extends State<HealthRings> with SingleTickerProviderStateMixin {
+  late final AnimationController _breatheController;
+  late final Animation<double> _breatheScale;
+
+  @override
+  void initState() {
+    super.initState();
+    _breatheController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1800),
+    );
+    _breatheScale = Tween(begin: 1.0, end: 1.015).animate(
+      CurvedAnimation(parent: _breatheController, curve: Curves.easeOutCubic),
+    );
+    if (widget.isLive) _breatheController.repeat(reverse: true);
+  }
+
+  @override
+  void didUpdateWidget(covariant HealthRings oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isLive && !_breatheController.isAnimating) {
+      _breatheController.repeat(reverse: true);
+    } else if (!widget.isLive && _breatheController.isAnimating) {
+      _breatheController.stop();
+      _breatheController.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _breatheController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          for (var i = 0; i < rings.length; i++)
-            TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0, end: rings[i].value.clamp(0, 1)),
-              duration: const Duration(milliseconds: 700),
-              curve: Curves.easeOutCubic,
-              builder: (context, animatedValue, _) {
-                return CustomPaint(
-                  size: Size.square(size),
-                  painter: _RingPainter(
-                    progress: animatedValue,
-                    color: rings[i].color,
-                    backgroundColor: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFEDEDF2),
-                    strokeWidth: strokeWidth,
-                    inset: i * (strokeWidth + 6),
-                  ),
-                );
-              },
-            ),
-          if (center != null) center!,
-        ],
+    return ScaleTransition(
+      scale: _breatheScale,
+      child: SizedBox(
+        width: widget.size,
+        height: widget.size,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            for (var i = 0; i < widget.rings.length; i++)
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: widget.rings[i].value.clamp(0, 1)),
+                duration: const Duration(milliseconds: 700),
+                curve: Curves.easeOutCubic,
+                builder: (context, animatedValue, _) {
+                  return CustomPaint(
+                    size: Size.square(widget.size),
+                    painter: _RingPainter(
+                      progress: animatedValue,
+                      color: widget.rings[i].color,
+                      backgroundColor: isDark ? const Color(0xFF2C2C2E) : const Color(0xFFEDEDF2),
+                      strokeWidth: widget.strokeWidth,
+                      inset: i * (widget.strokeWidth + 6),
+                    ),
+                  );
+                },
+              ),
+            if (widget.center != null) widget.center!,
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -48,6 +49,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
   String? _uploadMessage;
   String? _wsUrlError;
   String? _relayUrlError;
+  late bool _orientationDismissed;
 
   @override
   void initState() {
@@ -59,6 +61,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
     _trialIdController = TextEditingController(text: settings.trialId);
     _uploadUrlController = TextEditingController(text: settings.uploadUrl);
     _uploadTokenController = TextEditingController(text: settings.uploadToken);
+    _orientationDismissed = settings.deviceOrientationDismissed;
   }
 
   @override
@@ -87,6 +90,15 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
         children: [
           Text('Device', style: theme.textTheme.headlineMedium),
           const SizedBox(height: 20),
+          if (!_orientationDismissed) ...[
+            _OrientationCard(
+              onDismiss: () {
+                settings.dismissDeviceOrientation();
+                setState(() => _orientationDismissed = true);
+              },
+            ),
+            const SizedBox(height: 16),
+          ],
           RoundedCard(
             radius: 26,
             child: Column(
@@ -125,6 +137,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                         onPressed: state.isConnecting
                             ? null
                             : () {
+                                HapticFeedback.selectionClick();
                                 if (state.isConnected) {
                                   controller.disconnectLive();
                                   return;
@@ -164,15 +177,46 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                 if (state.connectionError != null) ...[
                   const SizedBox(height: 10),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Text(
-                          state.connectionError!,
-                          style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.danger),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.connectionError!,
+                              style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.danger),
+                            ),
+                            const SizedBox(height: 4),
+                            // The socket schedules an automatic reconnect any
+                            // time it isn't manually disconnected - which is
+                            // always true here, since a manual disconnect
+                            // clears connectionError instead of leaving it
+                            // set. Surfacing that explicitly so a user isn't
+                            // left guessing whether anything is happening
+                            // during the backoff wait.
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const _SpinningIcon(),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Auto-retrying with backoff…',
+                                  style: theme.textTheme.bodyMedium?.copyWith(
+                                    fontSize: 12,
+                                    color: theme.textTheme.labelSmall?.color,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       TextButton(
-                        onPressed: controller.connectLive,
+                        onPressed: () {
+                          HapticFeedback.selectionClick();
+                          controller.connectLive();
+                        },
                         child: const Text('Retry now'),
                       ),
                     ],
@@ -323,6 +367,87 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
           TextButton(
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Clear', style: TextStyle(color: AppColors.danger)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Small continuously-rotating icon used next to "Auto-retrying..." so the
+/// backoff wait reads as active rather than stuck.
+class _SpinningIcon extends StatefulWidget {
+  const _SpinningIcon();
+
+  @override
+  State<_SpinningIcon> createState() => _SpinningIconState();
+}
+
+class _SpinningIconState extends State<_SpinningIcon> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RotationTransition(
+      turns: _controller,
+      child: Icon(Icons.autorenew_rounded, size: 12, color: Theme.of(context).textTheme.labelSmall?.color),
+    );
+  }
+}
+
+/// First-run orientation - explains Live Sensor vs Simulation before the
+/// user hits Connect, without a multi-step wizard. Dismissible, persisted
+/// via [SettingsRepository.dismissDeviceOrientation] so it only shows once.
+class _OrientationCard extends StatelessWidget {
+  final VoidCallback onDismiss;
+  const _OrientationCard({required this.onDismiss});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return RoundedCard(
+      radius: 22,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.brand),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  'BEFORE YOU CONNECT',
+                  style: theme.textTheme.labelSmall?.copyWith(color: AppColors.brand),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  onDismiss();
+                },
+                child: Icon(Icons.close_rounded, size: 18, color: theme.textTheme.labelSmall?.color),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            '"Live Sensor" connects to a real ESP32 insole over WiFi using the endpoint below. '
+            '"Simulation" (on the Today tab) plays back synthetic gait data on-device - no hardware needed, '
+            "useful for demos or trying the app before your insole is set up. You don't need this device "
+            'connected to explore the rest of the app.',
+            style: theme.textTheme.bodyMedium,
           ),
         ],
       ),

@@ -11,7 +11,7 @@ import '../models/biomechanics_metrics.dart';
 import '../models/telemetry_sample.dart';
 import 'telemetry_state.dart';
 
-const _simulationTickHz = 20;
+const _simulationTickHz = 10; // matches simulationEngine.ts's 100ms/10Hz driver interval
 const _copTrailLength = 12;
 
 /// The single controller every screen reads from. It owns:
@@ -46,7 +46,7 @@ class TelemetryController extends StateNotifier<TelemetryState> {
     required this.settings,
   }) : super(TelemetryState.initial()) {
     _socketSub = socket.stateStream.listen(_onSocketState);
-    _flushTimer = Timer.periodic(const Duration(seconds: 2), (_) => _flush());
+    _flushTimer = Timer.periodic(const Duration(seconds: 1), (_) => _flush());
     state = state.copyWith(datasetCount: repository.sampleCount);
   }
 
@@ -98,10 +98,11 @@ class TelemetryController extends StateNotifier<TelemetryState> {
 
   void _tickSimulation() {
     if (state.isDemoMode) {
-      // Cycle through every mode every ~4 seconds so a clinician can watch
-      // the ring/heatmap react to each condition hands-free.
+      // Cycle through every mode every 8 seconds, matching MainDashboard.tsx's
+      // demoTimer, so a clinician can watch the ring/heatmap react to each
+      // condition hands-free.
       final modes = GaitMode.values;
-      final index = (DateTime.now().millisecondsSinceEpoch ~/ 4000) % modes.length;
+      final index = (DateTime.now().millisecondsSinceEpoch ~/ 8000) % modes.length;
       if (modes[index] != state.simMode) {
         state = state.copyWith(simMode: modes[index]);
       }
