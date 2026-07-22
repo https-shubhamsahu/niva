@@ -1,0 +1,70 @@
+name: niva
+description: "GaitGuard Nexus - explainable biomechanics dashboard for ESP32 smart insole telemetry."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management. Chosen over Provider/Bloc because the app is dominated by
+  # a single always-on telemetry stream feeding many independent widgets -
+  # Riverpod's StreamProvider/StateNotifier combo keeps that wiring explicit
+  # and testable without BuildContext lookups.
+  flutter_riverpod: ^2.5.1
+
+  # ESP32 transport. The web app used Web Serial (USB) + WebSocket (WiFi).
+  # Web Serial has no mobile equivalent, so this port standardizes on the
+  # WebSocket path (same JSON payload the firmware already emits) and treats
+  # USB/BLE as a future addition - see BETTERMENTS.md.
+  web_socket_channel: ^3.0.3
+
+  # Local telemetry dataset store, mirrors the IndexedDB store in the web app.
+  # Using dynamic (schema-less) boxes so no code-generated adapters are
+  # required - keeps this buildable without running build_runner first.
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+
+  # Persisted user settings: WS URL, relay URL, session/trial ids, thresholds.
+  shared_preferences: ^2.3.2
+
+  # Trend charts (Cadence/Stability/Impact over time) - fl_chart is the
+  # closest Flutter equivalent to the Recharts area/line charts used before.
+  fl_chart: ^0.68.0
+
+  # CSV export + share sheet, mirrors the "Export CSV" button in the web app.
+  share_plus: ^10.0.2
+
+  google_fonts: ^6.2.1
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/feet.png
+
+# Generates android + ios launcher icons. Run: dart run flutter_launcher_icons
+#
+# Android uses a real adaptive icon (background color + foreground layer)
+# rather than a single flat image - a flat image gets auto-wrapped into an
+# adaptive icon's foreground slot by the OS, which has its own built-in
+# safe-zone padding on top of whatever padding the source image already has,
+# shrinking the logo and revealing a fallback background color behind it.
+# iOS has no such layering system, so it uses the flat combined tile.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#364348" # sampled from the tile's own dark background
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png" # logomark only, transparent bg

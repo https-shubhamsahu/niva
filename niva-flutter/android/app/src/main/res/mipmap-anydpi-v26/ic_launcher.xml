@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+  <background android:drawable="@color/ic_launcher_background"/>
+  <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+  <!-- Android 13+ "Themed icons" (Material You) uses only this layer's
+       alpha channel, tinted with the system accent color - reusing the
+       foreground drawable is standard practice when there's no dedicated
+       single-color asset, since RGB is ignored either way. Without this,
+       launchers with themed icons enabled fall back to compositing the
+       regular icon behind an extra colored ring. -->
+  <monochrome android:drawable="@drawable/ic_launcher_foreground"/>
+</adaptive-icon>
