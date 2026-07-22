@@ -51,6 +51,11 @@ class TelemetryController extends StateNotifier<TelemetryState> {
   }
 
   void connectLive() {
+    // Mirrors stopSimulation()'s teardown - otherwise going live while a
+    // simulation is running leaves its Timer.periodic still ticking in the
+    // background, interleaving simulated and real samples.
+    _simulationTimer?.cancel();
+    _simulationTimer = null;
     state = state.copyWith(isSimulating: false, isDemoMode: false);
     engine.reset();
     socket.connect();
@@ -61,6 +66,10 @@ class TelemetryController extends StateNotifier<TelemetryState> {
   }
 
   void startSimulation() {
+    // A real connection (and its reconnect loop) left running in the
+    // background while simulated data drives the UI is confusing and wastes
+    // battery/network - only one of live/simulated should ever be active.
+    socket.disconnect();
     _simulationTimer?.cancel();
     engine.reset();
     _simulationClock = DateTime.now();

@@ -13,6 +13,22 @@ import '../../theme/app_theme.dart';
 /// troubleshooting-matrix reference sections were left out of the mobile
 /// UI on purpose - they're firmware documentation, better served by the
 /// README than by on-device screens - see BETTERMENTS.md.
+/// Validates a WebSocket endpoint typed into the ESP32 card: non-empty (when
+/// [required], i.e. the primary wsUrl field - the relay field is optional),
+/// a parseable URI, and a `ws`/`wss` scheme. Catching this inline means a
+/// clearly-malformed URL never reaches [Esp32SocketService.connect] at all,
+/// saving a doomed connect attempt and its backoff cycle.
+String? _validateWsUrl(String value, {required bool required}) {
+  final trimmed = value.trim();
+  if (trimmed.isEmpty) {
+    return required ? 'Required' : null;
+  }
+  final uri = Uri.tryParse(trimmed);
+  if (uri == null || !uri.hasScheme) return 'Enter a valid URL';
+  if (uri.scheme != 'ws' && uri.scheme != 'wss') return 'Must start with ws:// or wss://';
+  return null;
+}
+
 class DeviceScreen extends ConsumerStatefulWidget {
   const DeviceScreen({super.key});
 
@@ -30,6 +46,8 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
 
   bool _isUploading = false;
   String? _uploadMessage;
+  String? _wsUrlError;
+  String? _relayUrlError;
 
   @override
   void initState() {
@@ -80,41 +98,85 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                   label: 'Endpoint (ws:// or wss://)',
                   controller: _wsUrlController,
                   hint: 'ws://192.168.4.1:81',
-                  onSubmitted: (value) => settings.setWsUrl(value),
+                  errorText: _wsUrlError,
+                  onSubmitted: (value) {
+                    final error = _validateWsUrl(value, required: true);
+                    setState(() => _wsUrlError = error);
+                    if (error == null) settings.setWsUrl(value);
+                  },
                 ),
                 const SizedBox(height: 12),
                 _LabeledField(
                   label: 'Relay endpoint (optional, wss://)',
                   controller: _relayUrlController,
                   hint: 'wss://your-relay.example/ws',
-                  onSubmitted: (value) => settings.setRelayUrl(value),
+                  errorText: _relayUrlError,
+                  onSubmitted: (value) {
+                    final error = _validateWsUrl(value, required: false);
+                    setState(() => _relayUrlError = error);
+                    if (error == null) settings.setRelayUrl(value);
+                  },
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
                       child: FilledButton.icon(
-                        onPressed: () {
-                          settings.setWsUrl(_wsUrlController.text);
-                          settings.setRelayUrl(_relayUrlController.text);
-                          if (state.isConnected) {
-                            controller.disconnectLive();
-                          } else {
-                            controller.connectLive();
-                          }
-                        },
+                        onPressed: state.isConnecting
+                            ? null
+                            : () {
+                                if (state.isConnected) {
+                                  controller.disconnectLive();
+                                  return;
+                                }
+                                final wsError = _validateWsUrl(_wsUrlController.text, required: true);
+                                final relayError = _validateWsUrl(_relayUrlController.text, required: false);
+                                setState(() {
+                                  _wsUrlError = wsError;
+                                  _relayUrlError = relayError;
+                                });
+                                if (wsError != null || relayError != null) return;
+                                settings.setWsUrl(_wsUrlController.text);
+                                settings.setRelayUrl(_relayUrlController.text);
+                                controller.connectLive();
+                              },
                         style: FilledButton.styleFrom(
                           backgroundColor: state.isConnected ? AppColors.danger : AppColors.brand,
                         ),
-                        icon: Icon(state.isConnected ? Icons.link_off_rounded : Icons.link_rounded),
-                        label: Text(state.isConnected ? 'Disconnect' : 'Connect'),
+                        icon: state.isConnecting
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                              )
+                            : Icon(state.isConnected ? Icons.link_off_rounded : Icons.link_rounded),
+                        label: Text(
+                          state.isConnecting ? 'Connecting...' : (state.isConnected ? 'Disconnect' : 'Connect'),
+                        ),
                       ),
                     ),
                   ],
                 ),
+                if (state.isConnected) ...[
+                  const SizedBox(height: 10),
+                  _ConnectionStatusRow(activeUrl: state.activeUrl, lastMessageAt: state.lastMessageAt),
+                ],
                 if (state.connectionError != null) ...[
                   const SizedBox(height: 10),
-                  Text(state.connectionError!, style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.warning)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          state.connectionError!,
+                          style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.danger),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: controller.connectLive,
+                        child: const Text('Retry now'),
+                      ),
+                    ],
+                  ),
                 ],
               ],
             ),
@@ -268,12 +330,43 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
   }
 }
 
+/// Shows the currently-dialed endpoint and when data last arrived. Uses
+/// absolute wall-clock time rather than a relative "Xs ago" label so this
+/// stays pure data formatting - no periodic-rebuild timer needed on what's
+/// otherwise a static settings screen.
+class _ConnectionStatusRow extends StatelessWidget {
+  final String activeUrl;
+  final DateTime? lastMessageAt;
+
+  const _ConnectionStatusRow({required this.activeUrl, required this.lastMessageAt});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final style = theme.textTheme.bodySmall?.copyWith(color: theme.textTheme.labelSmall?.color);
+    final lastUpdateText = lastMessageAt == null ? 'No data yet' : 'Last update: ${_formatTime(lastMessageAt!)}';
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Connected to $activeUrl', style: style),
+        Text(lastUpdateText, style: style),
+      ],
+    );
+  }
+
+  String _formatTime(DateTime time) {
+    String two(int n) => n.toString().padLeft(2, '0');
+    return '${two(time.hour)}:${two(time.minute)}:${two(time.second)}';
+  }
+}
+
 class _LabeledField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
   final String hint;
   final ValueChanged<String> onSubmitted;
   final bool obscureText;
+  final String? errorText;
 
   const _LabeledField({
     required this.label,
@@ -281,6 +374,7 @@ class _LabeledField extends StatelessWidget {
     required this.hint,
     required this.onSubmitted,
     this.obscureText = false,
+    this.errorText,
   });
 
   @override
@@ -298,6 +392,7 @@ class _LabeledField extends StatelessWidget {
           onTapOutside: (_) => onSubmitted(controller.text),
           decoration: InputDecoration(
             hintText: hint,
+            errorText: errorText,
             isDense: true,
             filled: true,
             fillColor: theme.brightness == Brightness.dark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),

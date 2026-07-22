@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -64,6 +65,8 @@ class Esp32SocketService {
   StreamSubscription? _subscription;
   Timer? _reconnectTimer;
   bool _manuallyDisconnected = true;
+  int _reconnectAttempt = 0;
+  final _random = Random();
 
   final _stateController = StreamController<Esp32ConnectionState>.broadcast();
   Esp32ConnectionState _state = const Esp32ConnectionState();
@@ -105,7 +108,9 @@ class Esp32SocketService {
       // unreachable) rejects `channel.ready` rather than reaching
       // `stream.listen`'s `onError`. Left unawaited, that rejection becomes
       // an unhandled exception instead of the "connection error" state below.
-      channel.ready.catchError((error) {
+      channel.ready.then((_) {
+        _reconnectAttempt = 0;
+      }).catchError((error) {
         _emit(_state.copyWith(
           isConnected: false,
           isConnecting: false,
@@ -126,7 +131,15 @@ class Esp32SocketService {
               clearError: true,
             ));
           } catch (_) {
-            _emit(_state.copyWith(error: 'Received malformed JSON from ESP32 WebSocket stream.'));
+            // A single malformed frame on an otherwise-live link is a
+            // transient parse blip, not a connection failure - don't leave a
+            // stale error banner showing indefinitely if no more frames
+            // arrive. Only surface it when the link isn't already known-good.
+            if (_state.isConnected) {
+              _emit(_state.copyWith(clearError: true));
+            } else {
+              _emit(_state.copyWith(error: 'Received malformed JSON from ESP32 WebSocket stream.'));
+            }
           }
         },
         onError: (_) {
@@ -153,14 +166,28 @@ class Esp32SocketService {
     }
   }
 
+  // Capped exponential backoff with jitter: 1.5s, 3s, 6s, 12s, 24s, then a
+  // 30s ceiling. No max-attempt give-up - a failure here could mean "ESP32
+  // not powered on yet" (resolves in seconds) or "phone roamed off this
+  // WiFi" (could be hours), and the Device screen's "Retry now" action
+  // already gives the user a way to bypass the wait, so retrying forever at
+  // a gentle ceiling is safer than ever leaving the app with no path forward.
+  static const _baseReconnectDelayMs = 1500;
+  static const _maxReconnectDelayMs = 30000;
+
   void _scheduleReconnect() {
     if (_manuallyDisconnected) return;
     _reconnectTimer?.cancel();
-    _reconnectTimer = Timer(const Duration(milliseconds: 1500), connect);
+    final rawDelayMs = _baseReconnectDelayMs * (1 << _reconnectAttempt.clamp(0, 5));
+    final cappedMs = min(rawDelayMs, _maxReconnectDelayMs);
+    final jitteredMs = (cappedMs * (0.85 + _random.nextDouble() * 0.3)).round();
+    _reconnectAttempt++;
+    _reconnectTimer = Timer(Duration(milliseconds: jitteredMs), connect);
   }
 
   Future<void> disconnect() async {
     _manuallyDisconnected = true;
+    _reconnectAttempt = 0;
     _reconnectTimer?.cancel();
     await _subscription?.cancel();
     await _channel?.sink.close();
