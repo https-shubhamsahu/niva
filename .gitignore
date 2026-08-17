@@ -7,18 +7,43 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
 *.local
 
-# Editor directories and files
+# Flutter / Dart
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+**/.pub/
+**/build/
+coverage/
+app.*.symbols
+app.*.map.json
+
+# Android build artifacts
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+
+# Arduino / PlatformIO
+.pio/
+*.elf
+*.bin
+*.hex
+
+# Editor / OS
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
+*.iml
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.claude/

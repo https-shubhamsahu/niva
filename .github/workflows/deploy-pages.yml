@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "niva web"
     env:
       VITE_ESP32_WS_URL: ${{ vars.VITE_ESP32_WS_URL }}
       VITE_ESP32_WS_RELAY_URL: ${{ vars.VITE_ESP32_WS_RELAY_URL }}
@@ -30,6 +33,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: "niva web/package-lock.json"
 
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
@@ -46,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: "niva web/dist"
 
   deploy:
     environment:

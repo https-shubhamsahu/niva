@@ -21,16 +21,18 @@ flowchart LR
 
 ## 1. Firmware — the actual data source
 
-`firmware/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino`
+Active sketch: `niva arduino/niva_hardware/niva_hardware.ino`
 
 - **Pins**: heel `32`, inner `33`, outer `34`, toe `35`, piezo `36`, all analog, 12-bit ADC (`analogReadResolution(12)`, range 0–4095).
-- **WiFi**: hardcoded SSID/password (`WIFI_SSID`/`WIFI_PASS` constants — meant to be edited before flashing), auto-reconnect every `3000ms` if dropped (`maintainWiFi()`).
-- **Calibration**: first `40` samples (`CALIBRATION_SAMPLES`) after boot are averaged per-channel into a `baseline`; every subsequent reading is `raw - baseline`, clamped to ≥ 0 (`applyBaseline`). While calibrating, the firmware still broadcasts an all-zero packet every tick so the dashboard's link status stays "connected" instead of looking dead.
-- **Loop rate**: gated to `STREAM_INTERVAL_MS = 100` (10 Hz) via a `millis()` check, not a `delay()` — so `wsServer.loop()` and WiFi maintenance still run every pass even when a packet isn't due yet.
+- **IMU**: MPU6050 on I2C (SDA 21, SCL 22) supplies live `pitch` / `roll` / `accZ`.
+- **WiFi**: WiFiManager captive portal (`NIVA-GaitGuard-AP`), plus mDNS `ws://niva.local:81`.
+- **Calibration**: 60-sample zero-load tare, persisted in NVS. Send `calibrate` / `tare` over WebSocket or Serial to re-tare.
+- **Loop rate**: gated to `STREAM_INTERVAL_MS = 50` (20 Hz).
 - **Output — both at once, every tick**:
-  - **WebSocket** (`WebSocketsServer` on port `81`): JSON, e.g. `{"heel":12.00,"inner":8.00,"outer":3.00,"toe":1.00,"piezo":0.00,"pitch":0.00,"roll":0.00,"accZ":0.00}`.
-  - **USB Serial** (115200 baud): the same 8 values as a bare CSV line, e.g. `12.00,8.00,3.00,1.00,0.00,0.00,0.00,0.00`.
-- **`pitch`/`roll`/`accZ` are hardcoded to `0.0f`** in this firmware version — there's no IMU wired up in this build; the fields exist in the wire protocol for a future revision (or for the simulator, which does populate them).
+  - **WebSocket** (`WebSocketsServer` on port `81`): JSON, e.g. `{"heel":12.00,"inner":8.00,"outer":3.00,"toe":1.00,"piezo":0.00,"pitch":-2.10,"roll":1.40,"accZ":9.78}`.
+  - **USB Serial** (115200 baud): the same 8 values as a bare CSV line.
+
+A smaller variant remains at `niva arduino/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino` (hardcoded Wi-Fi, no IMU/OLED, `pitch`/`roll`/`accZ` sent as `0.0`). Packet shape is the same.
 
 ## 2. Transport into the browser
 

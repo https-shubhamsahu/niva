@@ -16,12 +16,12 @@ All pipeline logic is built around one packet shape:
 
 Primary type definitions:
 
-- src/utils/biomechanicsEngine.ts
+- `src/utils/biomechanicsEngine.ts` (this `niva web` directory)
 
 Transport-specific parsing:
 
-- USB CSV parsing: src/utils/esp32Telemetry.ts
-- WiFi JSON parsing and reconnect: src/hooks/useSensorData.ts
+- USB CSV parsing: `src/utils/esp32Telemetry.ts`
+- WiFi JSON parsing and reconnect: `src/hooks/useSensorData.ts`
 
 ## 2) End-to-End Processing Path
 
