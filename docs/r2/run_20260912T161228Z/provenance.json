@@ -1,0 +1,659 @@
+{
+  "utc": "2026-09-12T16:12:29.091823+00:00",
+  "plan_commit": "799f322ec30417475408307313fab0d774d1d366",
+  "implementation_commit": "458b748bf13b797ec55f3914680006404c76bdac",
+  "code_sha256": {
+    "tools/r2_study.py": "1801c32dc2eab17d2a0b6475df98d27d738c28ced0053d46c98daf39a4fd8603",
+    "tools/r2_data.py": "dde5e527a4a123c0b9da509c9d4fb55325dabb17f11abd414f75812e4cf02bf0"
+  },
+  "plan_sha256": "52cb338503ed5442583e2224649a8b8db56f96d570693a2575a637ab6d838b6c",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.3.5",
+  "inputs": [
+    {
+      "file": "data/stepup-p150/002/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/002/BF/W1/metadata.csv",
+      "sha256": "f626d23984e30428736fcec0a796d739a029234b0ebb818d73d535b89b1696b7",
+      "bytes": 9248,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/002/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/002/BF/W1/pipeline_1.npz",
+      "sha256": "e0537b8117ddb4aade920b160404c2e871985915ed9cb1a38b5997c89061d7b5",
+      "bytes": 3862658,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/002/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/002/ST/W1/metadata.csv",
+      "sha256": "a8d9dbe5ad9d74532bf4a51c1fc426ac38f26baf27620e67314851106bcbb4bd",
+      "bytes": 9718,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/002/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/002/ST/W1/pipeline_1.npz",
+      "sha256": "48e3bdaa0318d7fea1bb829b37181056e3f4a4d0f534cfa320f2b7635e9bb043",
+      "bytes": 4396404,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/003/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/003/BF/W1/metadata.csv",
+      "sha256": "f43d15015fb05886e6ed6694f625623bf4aa8e286a3518cd50c403272bb3caab",
+      "bytes": 10785,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/003/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/003/BF/W1/pipeline_1.npz",
+      "sha256": "ef777273c2e8fd29af8d86395b422084f07eb22cdf93a44cf1cdd73c1f33f252",
+      "bytes": 4403710,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/003/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/003/ST/W1/metadata.csv",
+      "sha256": "b9e59d7b4bb6008d436acb86a16aec74054e93737219c099010a14195e7e1826",
+      "bytes": 10331,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/003/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/003/ST/W1/pipeline_1.npz",
+      "sha256": "5318b91a759d9b129a041ba1e115f16cef817d49cfd65dfa0dcf78e06ae7697d",
+      "bytes": 4633899,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/004/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/004/BF/W1/metadata.csv",
+      "sha256": "b9eb88d6b012edd60c027a2d699d2f2f5b565af1af32ab82ca4cbd8440980576",
+      "bytes": 12842,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/004/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/004/BF/W1/pipeline_1.npz",
+      "sha256": "b6882fc3fe280ea2f60098dafaefe3365641a154b335b3cdb2257a6e1ae371d2",
+      "bytes": 6715922,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/004/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/004/ST/W1/metadata.csv",
+      "sha256": "7f73e4acb2fdcfc937e67a8bf1c8fbf80d342751bc8a3f084a21fb1d23060716",
+      "bytes": 10929,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/004/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/004/ST/W1/pipeline_1.npz",
+      "sha256": "5701137557081da829d45385848dbf262b8272615bf4cdd93cb99ccb112836a2",
+      "bytes": 6073549,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/005/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/005/BF/W1/metadata.csv",
+      "sha256": "651ce327314aa2bacd95b0d801e1348e06253d9a37360db39714aaca077fb4ee",
+      "bytes": 10767,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/005/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/005/BF/W1/pipeline_1.npz",
+      "sha256": "c9654066be1537e39a6c47121ef4d3d648a1e6fc45631e5419a131615f56ed2a",
+      "bytes": 4685337,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/005/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/005/ST/W1/metadata.csv",
+      "sha256": "1a76cebc2bb2a6c24b95d9d4cbcb2d4e3efd9d5603cf828dd8083094961941c2",
+      "bytes": 9730,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/005/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/005/ST/W1/pipeline_1.npz",
+      "sha256": "2f9772659fefac00aa4bb45ec4a49117959d86be1b891e1041c4be421dced163",
+      "bytes": 4708523,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/006/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/006/BF/W1/metadata.csv",
+      "sha256": "cb339d9f68ef0fc3fdff998737d4aa59edcb066e73ccadd6141723a81fc540b1",
+      "bytes": 9576,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/006/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/006/BF/W1/pipeline_1.npz",
+      "sha256": "aa17817641beeb299d3434332740f065c2b327e29ed96b72bebf13fdc10b0bbf",
+      "bytes": 3087643,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/006/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/006/ST/W1/metadata.csv",
+      "sha256": "5ff1440adbc1511b2ce33dc898c1b11738eb1338a4f733a56b6ab5b2f845a185",
+      "bytes": 9134,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/006/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/006/ST/W1/pipeline_1.npz",
+      "sha256": "f2908583d8bc424b95464fa7a7845d38ceffac72196794dfa88770a180320712",
+      "bytes": 3729272,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/007/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/007/BF/W1/metadata.csv",
+      "sha256": "41df2e0c47c3eb01d38179e066a2dfad67da10b0399abfb9368922cf80783b39",
+      "bytes": 11073,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/007/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/007/BF/W1/pipeline_1.npz",
+      "sha256": "cf74e48a64cddd6f62e77146d42fbca7a4886a7f26179a3db6922c35405402c2",
+      "bytes": 4197743,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/007/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/007/ST/W1/metadata.csv",
+      "sha256": "7cb3007a6d9997a274c381993589a3629fffbbf0e6395af26327e5f9ec4dfbdc",
+      "bytes": 12398,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/007/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/007/ST/W1/pipeline_1.npz",
+      "sha256": "0c891a3b558a6977812314409a55ad28fef9b7528ea058f7edd8bc39dd411a84",
+      "bytes": 4894245,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/008/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/008/BF/W1/metadata.csv",
+      "sha256": "0c34349ecb6a6e764546907344fb158548cff7e94190253f475c9ba04e643303",
+      "bytes": 12560,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/008/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/008/BF/W1/pipeline_1.npz",
+      "sha256": "b1949b51efefd609295899028993e4638865b20229c8e6964a41034328087e78",
+      "bytes": 4946418,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/008/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/008/ST/W1/metadata.csv",
+      "sha256": "a67f23a6683171375038db17373f49cbbce95f3dd3e854fe32318b3ce46075e4",
+      "bytes": 12232,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/008/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/008/ST/W1/pipeline_1.npz",
+      "sha256": "8032abf1f9bfe434d6f56cd69b3f55d9e884553060f129e5ff59b4524c7e0417",
+      "bytes": 4977978,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/009/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/009/BF/W1/metadata.csv",
+      "sha256": "b6fc80d738ebf80917cdba3d02fb185125caccc9cf94957bae59b8ee673cc397",
+      "bytes": 9543,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/009/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/009/BF/W1/pipeline_1.npz",
+      "sha256": "df1f2aed1041caf758284733153f7f01e3f347a6d54f02232926b43d5018b56b",
+      "bytes": 4833142,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/009/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/009/ST/W1/metadata.csv",
+      "sha256": "a5babc01d5ed44bbc781103ba8823ba41ef90f9469311e026ee381c336efe73c",
+      "bytes": 8995,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/009/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/009/ST/W1/pipeline_1.npz",
+      "sha256": "3f88f69f5d23e6565a1cfe8760d75f001c2fda64264e8a83096a51c1a3a12763",
+      "bytes": 5235881,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/010/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/010/BF/W1/metadata.csv",
+      "sha256": "76b68e0aa5b965bbe464b188c571bdcaba9624da940b52498ac152f5e750420d",
+      "bytes": 11727,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/010/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/010/BF/W1/pipeline_1.npz",
+      "sha256": "a3a3392010ab08ea391ccd91a457ad88e44318abe175fba1d6a3e9eb6c25ded4",
+      "bytes": 5494625,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/010/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/010/ST/W1/metadata.csv",
+      "sha256": "04d0ef1cf34998da3e56b526b2a48eb2fd240d295a0c24aa94a9c66ed513da71",
+      "bytes": 12597,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/010/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/010/ST/W1/pipeline_1.npz",
+      "sha256": "19a7259e89b33f0314ec11a907ed47109a68342537acb90cb3f0c9dfe1bee773",
+      "bytes": 5876699,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/011/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/011/BF/W1/metadata.csv",
+      "sha256": "e0512252bf5673cdf15c84aa123b22a5008881b3237ea57dcaf76d9a868ce229",
+      "bytes": 12024,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/011/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/011/BF/W1/pipeline_1.npz",
+      "sha256": "f466ef8eab09bac5e91e33bd6bf6c59e41c58d4a034bb75d021f252052440e69",
+      "bytes": 5793277,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/011/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/011/ST/W1/metadata.csv",
+      "sha256": "ed98fbd299021444ee8980b4cbb25643d3e0140982894bc79c5be8e65c1c8a84",
+      "bytes": 12148,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/011/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/011/ST/W1/pipeline_1.npz",
+      "sha256": "6d245889f67119c4329b7e7ade2f39a7b5ca63ff47fcf8d8cf429fa274690738",
+      "bytes": 6583034,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/012/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/012/BF/W1/metadata.csv",
+      "sha256": "40c664e73d39c0cf944ffb7b5d6e6c37cbda35533cf4a7009f5d2cd40d83a489",
+      "bytes": 13907,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/012/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/012/BF/W1/pipeline_1.npz",
+      "sha256": "aa78ca6b7c5d361dab4b4e86f5b7f1e159f674ad8ab128fec8efd7cc8101149c",
+      "bytes": 4798002,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/012/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/012/ST/W1/metadata.csv",
+      "sha256": "2ba66b73459568aa2b0153ff37fc13e4c59e31620ffcfa6c13613ddad8e57906",
+      "bytes": 12107,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/012/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/012/ST/W1/pipeline_1.npz",
+      "sha256": "ba92b74ea0003dafab10c31d196c7d1a260c9834227dd3f3ebc2802c6eac04e2",
+      "bytes": 4727014,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/013/BF/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/013/BF/W1/metadata.csv",
+      "sha256": "159c5984345cb74b1efe0f8c13cde9870c5abf45a4a4a4fa0562b456611f92c7",
+      "bytes": 13480,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/013/BF/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/013/BF/W1/pipeline_1.npz",
+      "sha256": "f10bc13fe9030a4cb2639d6a92f656207e4f6ff5ecfeade8109ef2bcf620b057",
+      "bytes": 4705042,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/013/ST/W1/metadata.csv",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/013/ST/W1/metadata.csv",
+      "sha256": "fdefb0a6611d2cd3945334136bec910d14a4b62ebf7184a1e7a5ad25bf4ac35f",
+      "bytes": 12570,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    },
+    {
+      "file": "data/stepup-p150/013/ST/W1/pipeline_1.npz",
+      "url": "https://www.frdr-dfdr.ca/repo/files/1/published/publication_1280/submitted_data/py/013/ST/W1/pipeline_1.npz",
+      "sha256": "5b7a5042f352c80e7d6a2e0976a0d3d257f253169612f59471975497c29d1c9a",
+      "bytes": 4832908,
+      "verified_frdr": true,
+      "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+      "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC"
+    }
+  ],
+  "qa_review": {
+    "reviewed": true,
+    "inputs_sha256": "f31780c19810abf75311af50a6a3eccef02c8e1c471f730d4be5632050b04add",
+    "selection_sha256": "d48620e1342af15a9f2b882cf50bc41e352c87109f0ccc67292aa484dc074428",
+    "sheet_sha256": {
+      "qa_BF.png": "aafa79c6d16feab35182e337e3f96d1c0fd9e2f3935e66b5e7300df021aa9bbb",
+      "qa_ST.png": "017feb1a9fe435866d9b5afe059d2be31ff5768c80cb53fc35cb6051a59d5531"
+    },
+    "review_notes": "Codex visually inspected qa_BF.png and qa_ST.png before cohort metrics on 2026-09-12. All 48 subject-condition-side mean panels show toes/forefoot above heel. BF hallux and arch asymmetry agree with metadata: medial at low columns for Right and high columns for Left. ST outsole outlines are upright and paired; individual hallux anatomy is obscured by the outsole, so side assignment relies on source metadata, corroborated by the paired BF maps. No structural orientation failure observed. Each panel contains the declared 12 selected steps. The pilot orientation_001.png was also inspected separately. No coverage outcomes were examined in this review."
+  },
+  "pitch_mm": 5.0,
+  "sensor_diameter_mm": 12.7,
+  "subgrid": 32,
+  "layouts": {
+    "niva4": [
+      [
+        0.86,
+        0.5
+      ],
+      [
+        0.36,
+        0.28
+      ],
+      [
+        0.36,
+        0.76
+      ],
+      [
+        0.1,
+        0.36
+      ]
+    ],
+    "niva6": [
+      [
+        0.86,
+        0.5
+      ],
+      [
+        0.36,
+        0.28
+      ],
+      [
+        0.36,
+        0.76
+      ],
+      [
+        0.1,
+        0.36
+      ],
+      [
+        0.6,
+        0.62
+      ],
+      [
+        0.36,
+        0.52
+      ]
+    ],
+    "published8": [
+      [
+        0.88,
+        0.44
+      ],
+      [
+        0.88,
+        0.62
+      ],
+      [
+        0.6,
+        0.66
+      ],
+      [
+        0.38,
+        0.24
+      ],
+      [
+        0.38,
+        0.4
+      ],
+      [
+        0.38,
+        0.56
+      ],
+      [
+        0.38,
+        0.74
+      ],
+      [
+        0.1,
+        0.34
+      ]
+    ],
+    "recommended13": [
+      [
+        0.92,
+        0.42
+      ],
+      [
+        0.92,
+        0.6
+      ],
+      [
+        0.78,
+        0.5
+      ],
+      [
+        0.62,
+        0.3
+      ],
+      [
+        0.62,
+        0.68
+      ],
+      [
+        0.4,
+        0.22
+      ],
+      [
+        0.4,
+        0.38
+      ],
+      [
+        0.4,
+        0.52
+      ],
+      [
+        0.4,
+        0.66
+      ],
+      [
+        0.4,
+        0.8
+      ],
+      [
+        0.16,
+        0.3
+      ],
+      [
+        0.16,
+        0.5
+      ],
+      [
+        0.06,
+        0.34
+      ]
+    ],
+    "ciniglio16": [
+      [
+        0.94,
+        0.4
+      ],
+      [
+        0.94,
+        0.62
+      ],
+      [
+        0.82,
+        0.46
+      ],
+      [
+        0.82,
+        0.6
+      ],
+      [
+        0.64,
+        0.3
+      ],
+      [
+        0.64,
+        0.52
+      ],
+      [
+        0.64,
+        0.72
+      ],
+      [
+        0.44,
+        0.2
+      ],
+      [
+        0.44,
+        0.34
+      ],
+      [
+        0.44,
+        0.48
+      ],
+      [
+        0.44,
+        0.62
+      ],
+      [
+        0.44,
+        0.78
+      ],
+      [
+        0.28,
+        0.28
+      ],
+      [
+        0.28,
+        0.48
+      ],
+      [
+        0.28,
+        0.68
+      ],
+      [
+        0.08,
+        0.34
+      ]
+    ]
+  }
+}
