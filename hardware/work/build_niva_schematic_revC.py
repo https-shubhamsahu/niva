@@ -120,7 +120,7 @@ class Sch:
                        flag=True, rotation=180)
         self.wire(x, y, x, y + 2.54)
     def place(self, libid, ref, value, x, y, nets, footprint='', rotation=0, stub=True, power=False, flag=False,
-              extra=None, unit=1, outward=None):
+              extra=None, unit=1, outward=None, bom=True):
         a = self.lib(libid); x, y = snap(x), snap(y)
         pins = []
         for sub in allof(a, 'symbol'):
@@ -146,7 +146,7 @@ class Sch:
         just = '(justify left)' if ref[0] in 'RCDL' and not power else ''
         rx, ry, vy = round(rx, 4), round(ry, 4), round(vy, 4)
         body = (f'(symbol (lib_id {q(libid)}) (at {x} {y} {rotation}) (unit {unit}) (exclude_from_sim no) '
-                f'(in_bom {"no" if power else "yes"}) (on_board {"no" if power else "yes"}) (dnp no) (uuid "{u}")'
+                f'(in_bom {"no" if power or not bom else "yes"}) (on_board {"no" if power else "yes"}) (dnp no) (uuid "{u}")'
                 f' (property "Reference" {q(ref)} (at {rx} {ry} 0) (effects (font (size 1.27 1.27)) {just} {hide}))'
                 f' (property "Value" {q(value)} (at {rx if not power else x} {vy} 0) (effects (font (size 1.27 1.27)) {just} {vhide}))'
                 f' (property "Footprint" {q(footprint)} (at {x} {y} 0) (effects (font (size 1.27 1.27)) (hide yes)))')
@@ -222,7 +222,9 @@ ctl.place('Switch:SW_Push', 'SW1', 'KMR221G (C&K KMR2)', 165, 200, {'1': 'BUTTON
           'Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2')
 ctl.place('Connector_Generic:Conn_01x06', 'J3', 'SERVICE PADS (TC2030-NL, underside)', 205, 190,
           {'1': '+3V3', '2': 'CHIP_EN', '3': 'USB_DP', '4': 'USB_DM', '5': 'BOOT9', '6': 'GND'},
-          'Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical')
+          'Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical', bom=False)
+for ref, x in (('H1', 230), ('H2', 245)):
+    ctl.place('Mechanical:MountingHole', ref, 'M2 board screw', x, 200, {}, 'MountingHole:MountingHole_2.2mm_M2', bom=False)
 ctl.text_block(35, 222, [
     'GPIO map (Rev C review of Rev B): IO0 I2C_SDA, IO2 I2C_SCL (strap: 4.7k pull-up keeps it high at reset), IO3 BUTTON,',
     'IO1 IMU_INT1, IO4/5/6 SPI SCK/MISO/MOSI, IO7 CS_ADC, IO10 CS_IMU, IO20 LED_R, IO21 LED_G, IO18/19 USB (service only).',
@@ -365,6 +367,19 @@ for old in ('NIVA-controller.kicad_pro', 'NIVA-heel-and-indicator.kicad_pro', 'c
 pro = json.loads((ROOT / 'work/kicad_pro_template.json').read_text())
 pro['meta']['filename'] = PROJECT + '.kicad_pro'
 pro['sheets'] = [[root.uuid, 'Root'], [S2, 'Controller'], [S3, 'Heel and indicator']]
+# Prototype-class 4-layer rules (assumed small-batch capability, not a specific fab's release rules).
+base = pro['net_settings']['classes'][0]
+def netclass(name, track, clearance, priority):
+    c = dict(base); c.update(name=name, track_width=track, clearance=clearance, via_diameter=0.6, via_drill=0.3,
+                             priority=priority); return c
+pro['net_settings']['classes'] = [netclass('Default', 0.2, 0.15, 2147483647), netclass('Power', 0.35, 0.15, 0)]
+pro['net_settings']['netclass_patterns'] = [{'netclass': 'Power', 'pattern': n} for n in ('+3V3', 'VBAT', 'GND', '*/VEXC')]
+pro['net_settings']['netclass_assignments'] = None
+rules = pro['board']['design_settings']['rules']
+rules.update(min_clearance=0.15, min_track_width=0.15, min_via_diameter=0.5, min_through_hole_diameter=0.25,
+             min_via_annular_width=0.1, min_copper_edge_clearance=0.3, min_hole_to_hole=0.25, min_hole_clearance=0.2)
+pro['board']['design_settings']['track_widths'] = [0.0, 0.2, 0.35, 0.5]
+pro['board']['design_settings']['via_dimensions'] = [{'diameter': 0.0, 'drill': 0.0}, {'diameter': 0.6, 'drill': 0.3}]
 (OUT / (PROJECT + '.kicad_pro')).write_text(json.dumps(pro, indent=2))
 
 # Project symbol library: the same objects embedded in the sheets, so KiCad sees no library mismatch.

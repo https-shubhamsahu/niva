@@ -1,482 +1,194 @@
 [
   {
-    "part": "01_RearHousing",
+    "part": "01_RearHousing_R",
+    "material": "PETG or ASA, navy",
+    "finish": "rigid",
+    "print_orientation": "rear face on bed; no supports (ledge gussets, chamfered grooves); bay ceiling bridges 28.8 mm",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 8761.69,
-    "closed_mesh": true,
-    "bounds_mm": [
+    "volume_mm3": 9998.2,
+    "print_bbox_mm": [
       42.0,
       60.0,
-      14.0
-    ]
+      14.35
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
-    "part": "02_FrontCover",
+    "part": "02_FrontCover_R",
+    "material": "PETG or ASA, pale grey-blue",
+    "finish": "rigid",
+    "print_orientation": "cosmetic face on bed (flipped); no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 5561.29,
-    "closed_mesh": true,
-    "bounds_mm": [
+    "volume_mm3": 5666.8,
+    "print_bbox_mm": [
       42.0,
       60.0,
-      6.0
-    ]
+      7.2
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
     "part": "03_BatteryCartridgeCup",
+    "material": "PETG, navy",
+    "finish": "rigid",
+    "print_orientation": "rear face on bed; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 2498.99,
-    "closed_mesh": true,
-    "bounds_mm": [
+    "volume_mm3": 2522.0,
+    "print_bbox_mm": [
       28.0,
       39.0,
       8.0
-    ]
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
     "part": "04_BatteryCartridgeLid",
+    "material": "PETG, navy",
+    "finish": "rigid",
+    "print_orientation": "contact face on bed (flipped); no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1109.49,
-    "closed_mesh": true,
-    "bounds_mm": [
+    "volume_mm3": 1698.8,
+    "print_bbox_mm": [
       27.6,
       33.6,
-      1.2
-    ]
+      2.0
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
-    "part": "Battery_Envelope_NOT_A_SELECTED_CELL",
+    "part": "05_Cradle_R",
+    "material": "PETG, navy",
+    "finish": "rigid",
+    "print_orientation": "back (leg side) on bed; latch arm prints flat; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 2525.71,
-    "closed_mesh": true,
-    "bounds_mm": [
-      22.0,
-      23.0,
-      5.0
-    ]
-  },
-  {
-    "part": "05_Cradle",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 9816.24,
-    "closed_mesh": true,
-    "bounds_mm": [
+    "volume_mm3": 9982.0,
+    "print_bbox_mm": [
       63.0,
-      56.0,
-      10.0
-    ]
+      63.0,
+      6.6
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
     "part": "06_SoftCradlePad_TPU",
+    "material": "TPU 85A-95A, teal",
+    "finish": "flexible",
+    "print_orientation": "flat",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 4533.08,
-    "closed_mesh": true,
-    "bounds_mm": [
-      44.0,
-      52.0,
+    "volume_mm3": 5618.2,
+    "print_bbox_mm": [
+      50.0,
+      60.0,
       2.0
-    ]
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
     "part": "07_Button_TPU",
+    "material": "TPU 85A-95A, teal",
+    "finish": "flexible",
+    "print_orientation": "crown on bed (flipped); 1.5 mm flange overhang, use support if the profile needs it",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 293.02,
+    "volume_mm3": 297.1,
+    "print_bbox_mm": [
+      12.99,
+      13.0,
+      5.3
+    ],
     "closed_mesh": true,
-    "bounds_mm": [
-      12.995,
-      12.997,
-      4.4
-    ]
+    "mesh_non_manifolds": false
   },
   {
     "part": "08_LightWindow_Clear",
+    "material": "clear SLA resin or clear PETG",
+    "finish": "rigid",
+    "print_orientation": "window face on bed (flipped); flange needs support in FDM - SLA preferred",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 43.53,
+    "volume_mm3": 94.2,
+    "print_bbox_mm": [
+      9.6,
+      3.6,
+      6.0
+    ],
     "closed_mesh": true,
-    "bounds_mm": [
-      8.0,
-      2.2,
-      2.6
-    ]
+    "mesh_non_manifolds": false
   },
   {
     "part": "09_SeamGasket_TPU",
+    "material": "die-cut 0.5 mm silicone/EPDM sheet (TPU print for fit trial only)",
+    "finish": "flexible",
+    "print_orientation": "flat",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 134.45,
-    "closed_mesh": true,
-    "bounds_mm": [
-      40.0,
-      58.0,
+    "volume_mm3": 100.0,
+    "print_bbox_mm": [
+      41.4,
+      59.4,
       0.5
-    ]
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
   },
   {
-    "part": "PCB_Substrate",
+    "part": "01_RearHousing_L",
+    "material": "PETG or ASA, navy",
+    "finish": "rigid",
+    "print_orientation": "rear face on bed; no supports (ledge gussets, chamfered grooves); bay ceiling bridges 28.8 mm",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1609.07,
+    "volume_mm3": 9998.2,
+    "print_bbox_mm": [
+      42.0,
+      60.0,
+      14.35
+    ],
     "closed_mesh": true,
-    "bounds_mm": [
-      34.0,
-      48.0,
-      1.0
-    ]
+    "mesh_non_manifolds": false
   },
   {
-    "part": "U1_ESP32C3",
+    "part": "02_FrontCover_L",
+    "material": "PETG or ASA, pale grey-blue",
+    "finish": "rigid",
+    "print_orientation": "cosmetic face on bed (flipped); no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 525.89,
+    "volume_mm3": 5670.6,
+    "print_bbox_mm": [
+      42.0,
+      60.0,
+      7.2
+    ],
     "closed_mesh": true,
-    "bounds_mm": [
-      13.2,
-      16.6,
-      2.4
-    ]
+    "mesh_non_manifolds": false
   },
   {
-    "part": "U2_MCP3208",
+    "part": "05_Cradle_L",
+    "material": "PETG, navy",
+    "finish": "rigid",
+    "print_orientation": "back (leg side) on bed; latch arm prints flat; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 113.75,
+    "volume_mm3": 9988.3,
+    "print_bbox_mm": [
+      63.0,
+      63.0,
+      6.6
+    ],
     "closed_mesh": true,
-    "bounds_mm": [
-      6.5,
-      10.0,
-      1.75
-    ]
-  },
-  {
-    "part": "U3_LSM6DSO32",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 6.75,
-    "closed_mesh": true,
-    "bounds_mm": [
-      2.5,
-      3.0,
-      0.9
-    ]
-  },
-  {
-    "part": "U4_MCP6001",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 9.9,
-    "closed_mesh": true,
-    "bounds_mm": [
-      3.0,
-      3.0,
-      1.1
-    ]
-  },
-  {
-    "part": "U5_TLV75533",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 8.93,
-    "closed_mesh": true,
-    "bounds_mm": [
-      2.9,
-      2.8,
-      1.1
-    ]
-  },
-  {
-    "part": "U6_MAX17048",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 7.2,
-    "closed_mesh": true,
-    "bounds_mm": [
-      3.0,
-      3.0,
-      0.8
-    ]
-  },
-  {
-    "part": "J1_SENSOR",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 192.0,
-    "closed_mesh": true,
-    "bounds_mm": [
-      16.0,
-      4.0,
-      3.0
-    ]
-  },
-  {
-    "part": "J2_BATTERY",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 56.0,
-    "closed_mesh": true,
-    "bounds_mm": [
-      7.0,
-      4.0,
-      2.0
-    ]
-  },
-  {
-    "part": "SW1_BUTTON",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 166.4,
-    "closed_mesh": true,
-    "bounds_mm": [
-      8.0,
-      8.0,
-      2.6
-    ]
-  },
-  {
-    "part": "D1_STATUS",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 37.5,
-    "closed_mesh": true,
-    "bounds_mm": [
-      5.0,
-      5.0,
-      1.5
-    ]
-  },
-  {
-    "part": "Passive_01",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_02",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_03",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_04",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_05",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_06",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_07",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_08",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_09",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_10",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_11",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_12",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_13",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_14",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_15",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_16",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_17",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Passive_18",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 0.77,
-    "closed_mesh": true,
-    "bounds_mm": [
-      1.6,
-      0.8,
-      0.6
-    ]
-  },
-  {
-    "part": "Cable_StrainRelief",
-    "valid": true,
-    "solids": 1,
-    "volume_mm3": 926.38,
-    "closed_mesh": true,
-    "bounds_mm": [
-      14.0,
-      16.0,
-      4.2
-    ]
+    "mesh_non_manifolds": false
   }
 ]
