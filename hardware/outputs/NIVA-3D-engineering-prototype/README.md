@@ -33,7 +33,8 @@ NIVA-3D-engineering-prototype/
 │   ├── exports/                       schematic PDF + SVG, ERC report, BOM, netlist
 │   │   └── pcb/                       DRC report, assembly drawings (PDF), PCBA STEP + GLB
 │   └── work-routing/                  Specctra DSN + Freerouting log (autoroute attempt, NOT adopted)
-├── renders/                           captioned images (2400 px wide); raw/ and pcb-raw/ uncaptioned
+├── renders/                           9 captioned images: 01..05 Blender scenes, pcb_* KiCad raytraces (colour reference for the PCB)
+│                                      raw/ and pcb-raw/ hold the uncaptioned originals
 └── blender/
     ├── NIVA-RevC-scenes.blend         editable Blender 4.5 file: 5 scenes + hidden library collections
     └── 01..05_*.glb                   glTF binary of each scene
