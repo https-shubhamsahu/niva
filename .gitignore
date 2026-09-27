@@ -47,3 +47,7 @@ app.*.map.json
 *.sln
 *.sw?
 .claude/
+
+# Python bytecode
+__pycache__/
+*.pyc
