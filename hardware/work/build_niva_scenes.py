@@ -19,6 +19,7 @@ OUT = ROOT / 'outputs/NIVA-3D-engineering-prototype'
 RENDERS = OUT / 'renders'; BLEND = OUT / 'blender'
 for p in (RENDERS, BLEND): p.mkdir(parents=True, exist_ok=True)
 PREVIEW = '--preview' in sys.argv
+ONLY = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else None   # e.g. --only 03,04
 MM = 0.001
 PCB_Z = 11.8
 
@@ -121,7 +122,7 @@ def import_pcba():
                 if rough is not None: b.inputs['Roughness'].default_value = rough
                 if coat is not None: b.inputs['Coat Weight'].default_value = coat
                 b.inputs['Alpha'].default_value = 1.0
-            if a < 0.95 and c[1] > c[0] and c[1] > c[2]:  setf((0.018, 0.105, 0.05, 1), 0.0, 0.3, 0.6); m.name = 'KiCad solder mask'
+            if a < 0.95 and c[1] > c[0] and c[1] > c[2]:  setf((0.018, 0.105, 0.05, 1), 0.0, 0.42, 0.12); m.name = 'KiCad solder mask'
             elif a < 0.95:                                setf((0.85, 0.87, 0.86, 1), 0.0, 0.6);       m.name = 'KiCad silkscreen'
             elif met < 0.5:                               setf((0.33, 0.30, 0.19, 1), 0.0, 0.75);      m.name = 'KiCad FR-4 core'
             elif c[0] > 0.5 and c[0] > c[1] > c[2]:       setf(None, 1.0, 0.28);                       m.name = 'KiCad gold/copper'
@@ -344,10 +345,10 @@ band('Tail_R', [tuple(boot_end), tuple(pod2w(21, -22, 10)), tuple(pod2w(21, -34,
                 (-20, -118, 1.2), (-45, -98, 1.2), tuple(tab_end)],
      8, 1.2, 'tpu_teal', c4)
 for sx, dirn in ((-5.8, -1), (47.8, 1)):                                          # strap from each cradle slot
-    a = pod2w(sx, 30.5, -4.4); b = pod2w(sx + dirn * 18, 30.5, -4.4); c = pod2w(sx + dirn * 150, 30.5, -4.4)
+    a = pod2w(sx, 30.5, -4.4); b = pod2w(sx + dirn * 18, 30.5, -4.4); c = pod2w(sx + dirn * 105, 30.5, -4.4)
     band(f'Strap_R_{"left" if dirn < 0 else "right"}', [tuple(a), tuple(b), tuple(c)], 35, 2.0, 'silicone', c4)
-tgt = Vector((-40, 40, 10)) * MM
-studio(s4, tgt, 0.8); camera(s4, tgt + Vector((0.02, -0.52, 0.62)), tgt, 50); shots.append(s4)
+tgt = Vector((-25, -28, 10)) * MM
+studio(s4, tgt, 0.8); camera(s4, tgt + Vector((0.02, -0.44, 0.64)), tgt, 50); shots.append(s4)
 
 # 5. bilateral kit: left and right sets side by side
 s5 = new_scene('05_Bilateral_Kit'); c5 = new_coll('Kit_LR', s5.collection)
@@ -380,6 +381,7 @@ for sc in shots:
 
 # ------------------------------------------------------------------ render + save
 for s in shots:
+    if ONLY and s.name[:2] not in ONLY: continue
     s.render.filepath = str(RENDERS / ('preview' if PREVIEW else 'raw') / f'{s.name}.png')
     bpy.ops.render.render(write_still=True, scene=s.name)
     print('rendered', s.name, flush=True)
