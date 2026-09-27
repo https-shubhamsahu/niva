@@ -1,0 +1,242 @@
+[
+  {
+    "name": "01_RearHousing",
+    "material": "navy",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\01_RearHousing.stl",
+    "printable": true
+  },
+  {
+    "name": "02_FrontCover",
+    "material": "grey",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\02_FrontCover.stl",
+    "printable": true
+  },
+  {
+    "name": "03_BatteryCartridgeCup",
+    "material": "navy",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\03_BatteryCartridgeCup.stl",
+    "printable": true
+  },
+  {
+    "name": "04_BatteryCartridgeLid",
+    "material": "navy",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\04_BatteryCartridgeLid.stl",
+    "printable": true
+  },
+  {
+    "name": "Battery_Envelope_NOT_A_SELECTED_CELL",
+    "material": "silver",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Battery_Envelope_NOT_A_SELECTED_CELL.stl",
+    "printable": false
+  },
+  {
+    "name": "05_Cradle",
+    "material": "navy",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\05_Cradle.stl",
+    "printable": true
+  },
+  {
+    "name": "06_SoftCradlePad_TPU",
+    "material": "teal",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\06_SoftCradlePad_TPU.stl",
+    "printable": true
+  },
+  {
+    "name": "07_Button_TPU",
+    "material": "teal",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\07_Button_TPU.stl",
+    "printable": true
+  },
+  {
+    "name": "08_LightWindow_Clear",
+    "material": "light",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\08_LightWindow_Clear.stl",
+    "printable": true
+  },
+  {
+    "name": "09_SeamGasket_TPU",
+    "material": "teal",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\09_SeamGasket_TPU.stl",
+    "printable": true
+  },
+  {
+    "name": "PCB_Substrate",
+    "material": "pcb",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\PCB_Substrate.stl",
+    "printable": false
+  },
+  {
+    "name": "U1_ESP32C3",
+    "material": "module",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U1_ESP32C3.stl",
+    "printable": false
+  },
+  {
+    "name": "U2_MCP3208",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U2_MCP3208.stl",
+    "printable": false
+  },
+  {
+    "name": "U3_LSM6DSO32",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U3_LSM6DSO32.stl",
+    "printable": false
+  },
+  {
+    "name": "U4_MCP6001",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U4_MCP6001.stl",
+    "printable": false
+  },
+  {
+    "name": "U5_TLV75533",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U5_TLV75533.stl",
+    "printable": false
+  },
+  {
+    "name": "U6_MAX17048",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\U6_MAX17048.stl",
+    "printable": false
+  },
+  {
+    "name": "J1_SENSOR",
+    "material": "connector",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\J1_SENSOR.stl",
+    "printable": false
+  },
+  {
+    "name": "J2_BATTERY",
+    "material": "connector",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\J2_BATTERY.stl",
+    "printable": false
+  },
+  {
+    "name": "SW1_BUTTON",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\SW1_BUTTON.stl",
+    "printable": false
+  },
+  {
+    "name": "D1_STATUS",
+    "material": "light",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\D1_STATUS.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_01",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_01.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_02",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_02.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_03",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_03.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_04",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_04.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_05",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_05.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_06",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_06.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_07",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_07.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_08",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_08.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_09",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_09.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_10",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_10.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_11",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_11.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_12",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_12.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_13",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_13.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_14",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_14.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_15",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_15.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_16",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_16.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_17",
+    "material": "chip",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_17.stl",
+    "printable": false
+  },
+  {
+    "name": "Passive_18",
+    "material": "ceramic",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Passive_18.stl",
+    "printable": false
+  },
+  {
+    "name": "Cable_StrainRelief",
+    "material": "teal",
+    "stl": "C:\\Users\\shubh\\Documents\\Codex\\2026-09-28\\you-are-an-industrial-designer-design\\work\\niva-meshes\\Cable_StrainRelief.stl",
+    "printable": false
+  }
+]
