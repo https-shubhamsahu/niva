@@ -18,7 +18,8 @@ import niva_layout as L
 ROOT = Path(__file__).resolve().parents[1]
 E = ROOT / 'outputs/NIVA-3D-engineering-prototype/electronics'
 PCB = E / 'NIVA-pod.kicad_pcb'; DSN = E / 'work-routing/NIVA-pod.dsn'; SES = E / 'work-routing/NIVA-pod.ses'
-STOCK = Path('/usr/share/kicad/footprints')
+STOCK = next(Path(p) for p in [os.environ.get('KICAD9_FOOTPRINT_DIR', ''), ROOT / 'work/tools3d/kicad/share/kicad/footprints',
+                                '/usr/share/kicad/footprints'] if p and Path(p, 'Resistor_SMD.pretty').exists())
 mm = pcbnew.FromMM
 V = lambda x, y: pcbnew.VECTOR2I(mm(x), mm(y))
 def K(x, y): return V(*L.to_kicad(x, y))

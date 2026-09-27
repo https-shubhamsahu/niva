@@ -44,7 +44,7 @@
       "30": "LED_R",
       "31": "LED_G"
     },
-    "uuid": "4a0426d9-d542-481b-b753-c3834a88317c",
+    "uuid": "8dacdf98-81c8-560e-b7d6-c95f81b7a9b6",
     "sheet": "NIVA-controller",
     "MPN": "ESP32-C3-MINI-1-N4",
     "Datasheet": "https://documentation.espressif.com/esp32-c3-mini-1_datasheet_en.pdf"
@@ -57,7 +57,7 @@
       "1": "+3V3",
       "2": "CHIP_EN"
     },
-    "uuid": "f5928e8e-0848-4421-9558-77624731df47",
+    "uuid": "f2ed4968-8a70-5ae3-bca4-d3db48983ebb",
     "sheet": "NIVA-controller"
   },
   {
@@ -68,7 +68,7 @@
       "1": "+3V3",
       "2": "BOOT8"
     },
-    "uuid": "c7c75a6b-978f-4877-9b1c-5617e7397403",
+    "uuid": "eb3e021d-1c59-581e-95c4-42f027c178a9",
     "sheet": "NIVA-controller"
   },
   {
@@ -79,7 +79,7 @@
       "1": "+3V3",
       "2": "BOOT9"
     },
-    "uuid": "bc408596-527c-445b-9d29-acad5951fd6e",
+    "uuid": "e44a30cb-5036-526d-b322-6fbca12e297f",
     "sheet": "NIVA-controller"
   },
   {
@@ -90,7 +90,7 @@
       "1": "+3V3",
       "2": "I2C_SCL"
     },
-    "uuid": "ce05d3dd-eba6-4f5e-abfb-bc7da16f3973",
+    "uuid": "1de8112e-8043-504a-8576-ab89bd0639d3",
     "sheet": "NIVA-controller"
   },
   {
@@ -101,7 +101,7 @@
       "1": "+3V3",
       "2": "I2C_SDA"
     },
-    "uuid": "621a08b3-99d0-4d3e-ad82-3b242a125eac",
+    "uuid": "e577610c-2298-52bd-a554-5c6b36f24735",
     "sheet": "NIVA-controller"
   },
   {
@@ -112,7 +112,7 @@
       "1": "+3V3",
       "2": "BUTTON"
     },
-    "uuid": "a59ca9bc-8781-406b-9576-bb26a30527b7",
+    "uuid": "c4bea2e9-74d4-50eb-ba31-9f3c10722495",
     "sheet": "NIVA-controller"
   },
   {
@@ -123,7 +123,7 @@
       "1": "CHIP_EN",
       "2": "GND"
     },
-    "uuid": "22a8a711-73be-4599-9c68-db42858f81c5",
+    "uuid": "95d97245-1b5b-5bba-adba-80d5e2ce80f6",
     "sheet": "NIVA-controller"
   },
   {
@@ -134,7 +134,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "50c0e16e-dbc1-4599-84ab-ce4879ff9784",
+    "uuid": "d5d5dbce-b044-54b6-906a-ba175366b012",
     "sheet": "NIVA-controller"
   },
   {
@@ -145,7 +145,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "78220b03-0ec6-4b1e-87b4-f6934d8c93c5",
+    "uuid": "2c34d7bf-7bfe-5bfa-aecd-24981ba8afaf",
     "sheet": "NIVA-controller"
   },
   {
@@ -156,7 +156,7 @@
       "1": "BUTTON",
       "2": "GND"
     },
-    "uuid": "cb60b7a6-0c8c-4048-80c4-b2c8089368a8",
+    "uuid": "278fc466-3b08-5215-8420-bbb9413124c1",
     "sheet": "NIVA-controller"
   },
   {
@@ -171,7 +171,7 @@
       "5": "BOOT9",
       "6": "GND"
     },
-    "uuid": "c7c06e31-10bb-4b1c-9130-9eabc1844ae6",
+    "uuid": "0c48f439-8ac5-5f41-bced-d50eb38a7f48",
     "sheet": "NIVA-controller"
   },
   {
@@ -179,7 +179,7 @@
     "value": "M2 board screw",
     "footprint": "MountingHole:MountingHole_2.2mm_M2",
     "nets": {},
-    "uuid": "fbfffbc2-12c3-4faa-b231-0001b6425fdb",
+    "uuid": "0cf66046-77e5-5bbd-97e5-32ad9b8445af",
     "sheet": "NIVA-controller"
   },
   {
@@ -187,7 +187,7 @@
     "value": "M2 board screw",
     "footprint": "MountingHole:MountingHole_2.2mm_M2",
     "nets": {},
-    "uuid": "8757947a-887d-466f-897d-f08e4d765dd2",
+    "uuid": "cb240b63-2940-5f72-ad18-743af84ec22d",
     "sheet": "NIVA-controller"
   },
   {
@@ -212,7 +212,7 @@
       "15": "+3V3",
       "16": "+3V3"
     },
-    "uuid": "8b3216be-6822-48a1-8ff1-1c5df6becfb5",
+    "uuid": "ff9a2017-7c84-55f1-9418-21f467e4ead3",
     "sheet": "NIVA-controller",
     "MPN": "MCP3208-CI/SL",
     "Datasheet": "https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf"
@@ -225,7 +225,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "9f267a8a-29ba-4f65-b819-576a899f6be1",
+    "uuid": "fbfb1095-f63f-5407-aefc-266e930e07c5",
     "sheet": "NIVA-controller"
   },
   {
@@ -236,7 +236,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "822d77da-62ac-4a14-90bf-43ed923372d1",
+    "uuid": "81cb56c8-4bec-572a-88e6-5aed5798ef3a",
     "sheet": "NIVA-controller"
   },
   {
@@ -256,7 +256,7 @@
       "13": "SPI_SCK",
       "14": "SPI_MOSI"
     },
-    "uuid": "00f635a0-ce37-445a-9ebc-7a2429ada3db",
+    "uuid": "5d436efd-90a2-5964-b348-f73e83593ac0",
     "sheet": "NIVA-controller",
     "MPN": "LSM6DSO32TR"
   },
@@ -268,7 +268,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "042399ed-434d-491d-b96d-246a34dd0c80",
+    "uuid": "7f27178e-30cb-575c-9b72-8fea00ab91da",
     "sheet": "NIVA-controller"
   },
   {
@@ -279,7 +279,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "ac9a6528-4f9a-47ef-9c83-a17da7bc912c",
+    "uuid": "42180b84-f7aa-5d85-89d2-2b6c38b8cfa7",
     "sheet": "NIVA-controller"
   },
   {
@@ -292,7 +292,7 @@
       "3": "VBAT",
       "5": "+3V3"
     },
-    "uuid": "06af1685-582b-4fb8-9b37-2b8e2cfe0d4a",
+    "uuid": "af3f7b89-0175-5942-ab39-f983c40e9a64",
     "sheet": "NIVA-controller",
     "MPN": "TLV75533PDBVR"
   },
@@ -304,7 +304,7 @@
       "1": "VBAT",
       "2": "GND"
     },
-    "uuid": "422a184e-35a4-422c-8d61-14bf418befdb",
+    "uuid": "cd5a0b60-7247-5e84-8f40-fd05c593be5b",
     "sheet": "NIVA-controller"
   },
   {
@@ -315,7 +315,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "efbbe1b2-6f6e-44fd-8af9-0a18d5a36b1a",
+    "uuid": "3584041b-1655-5651-89b5-69f036957e24",
     "sheet": "NIVA-controller"
   },
   {
@@ -326,7 +326,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "7f94aadf-26cb-4fcf-9074-1d2299b0655e",
+    "uuid": "2a9deb1a-f3bc-5131-bac2-59c8979679ae",
     "sheet": "NIVA-controller"
   },
   {
@@ -343,7 +343,7 @@
       "8": "I2C_SDA",
       "9": "GND"
     },
-    "uuid": "7811dbfe-e540-4e28-af96-d863dccb70e5",
+    "uuid": "a554b9b6-caf9-548f-b3b6-583f0d0a8043",
     "sheet": "NIVA-controller",
     "MPN": "MAX17048G+T10"
   },
@@ -355,7 +355,7 @@
       "1": "VBAT",
       "2": "GND"
     },
-    "uuid": "7057cb56-4ba6-4d73-9551-af5c8f34c61e",
+    "uuid": "bbf66aaf-3033-5cda-b2ae-43540fbfbf95",
     "sheet": "NIVA-controller"
   },
   {
@@ -368,7 +368,7 @@
       "3": "GND",
       "4": "GND"
     },
-    "uuid": "2ca0ef11-c861-4fd6-83e1-0902bbd4f53b",
+    "uuid": "687e5634-f0e3-5b5a-98bd-4e1acbfab19b",
     "sheet": "NIVA-controller"
   },
   {
@@ -387,7 +387,7 @@
       "5": "F4_RAW",
       "6": "F5_RAW"
     },
-    "uuid": "a110f502-5b3c-4ffc-a3db-1858bf9b986d",
+    "uuid": "d4536407-a05c-5ddd-929e-001a00a1433a",
     "sheet": "NIVA-controller",
     "MPN": "SM10B-GHS-TB"
   },
@@ -399,7 +399,7 @@
       "1": "F1_RAW",
       "2": "GND"
     },
-    "uuid": "17cc23be-2228-4bf0-bf11-0869327100ad",
+    "uuid": "e0221591-928b-541c-aec8-64f7198ef0f1",
     "sheet": "NIVA-controller"
   },
   {
@@ -410,7 +410,7 @@
       "1": "F1_RAW",
       "2": "F1_ADC"
     },
-    "uuid": "b4f3c54f-0c8d-4ce8-90de-8eae90c56bff",
+    "uuid": "c14c80f9-636e-5e90-bdec-0a9d4ad6f302",
     "sheet": "NIVA-controller"
   },
   {
@@ -421,7 +421,7 @@
       "1": "F1_ADC",
       "2": "GND"
     },
-    "uuid": "e0931ffa-e991-4d81-865d-5798d0b52f54",
+    "uuid": "511ae365-4659-59c4-85f1-b289f40f16a9",
     "sheet": "NIVA-controller"
   },
   {
@@ -432,7 +432,7 @@
       "1": "F2_RAW",
       "2": "GND"
     },
-    "uuid": "7029630a-e3e8-430d-9bd8-44e0858a52a3",
+    "uuid": "6a02d8a2-1689-57b1-beff-f41c242926a5",
     "sheet": "NIVA-controller"
   },
   {
@@ -443,7 +443,7 @@
       "1": "F2_RAW",
       "2": "F2_ADC"
     },
-    "uuid": "4b7728d8-67b0-42b7-85d0-a2b1f9816b39",
+    "uuid": "a08380a5-4694-504f-9006-fa6f3c6355dc",
     "sheet": "NIVA-controller"
   },
   {
@@ -454,7 +454,7 @@
       "1": "F2_ADC",
       "2": "GND"
     },
-    "uuid": "00bfdf64-e6dc-428a-b8ed-e57961a3c895",
+    "uuid": "0a349cb0-6011-5c0d-b08f-d80aee6363e9",
     "sheet": "NIVA-controller"
   },
   {
@@ -465,7 +465,7 @@
       "1": "F3_RAW",
       "2": "GND"
     },
-    "uuid": "dc9e4a86-8e31-4a49-8d9f-173928a3f8f1",
+    "uuid": "539a9f69-b30e-5d91-bb3b-488b509efc4c",
     "sheet": "NIVA-controller"
   },
   {
@@ -476,7 +476,7 @@
       "1": "F3_RAW",
       "2": "F3_ADC"
     },
-    "uuid": "8f020954-0cab-419a-80db-30765089829e",
+    "uuid": "3cb030cb-5210-5a88-bc59-9f0074b78bd6",
     "sheet": "NIVA-controller"
   },
   {
@@ -487,7 +487,7 @@
       "1": "F3_ADC",
       "2": "GND"
     },
-    "uuid": "c92f38e1-6d6b-4f17-9425-c1f9619ee864",
+    "uuid": "a84e0018-f308-5b08-afb7-025453bb40b5",
     "sheet": "NIVA-controller"
   },
   {
@@ -498,7 +498,7 @@
       "1": "F4_RAW",
       "2": "GND"
     },
-    "uuid": "a3a12c85-446a-417a-b971-747d1c3c8cad",
+    "uuid": "637d85e6-d87c-5405-9846-febe02bdb0cb",
     "sheet": "NIVA-controller"
   },
   {
@@ -509,7 +509,7 @@
       "1": "F4_RAW",
       "2": "F4_ADC"
     },
-    "uuid": "f838cb74-bd4c-48b8-b9e3-da50922ca671",
+    "uuid": "36a0e504-1a59-5b57-ae04-bec6596b413f",
     "sheet": "NIVA-controller"
   },
   {
@@ -520,7 +520,7 @@
       "1": "F4_ADC",
       "2": "GND"
     },
-    "uuid": "eb005678-49eb-4eae-a822-f81f9af98a17",
+    "uuid": "d5eb7605-1289-5e86-8b83-5e31206a8bb4",
     "sheet": "NIVA-controller"
   },
   {
@@ -531,7 +531,7 @@
       "1": "F5_RAW",
       "2": "GND"
     },
-    "uuid": "8c115c70-e185-4d8e-8a67-b2d7c45c5223",
+    "uuid": "72a58bfd-7c39-5766-919f-43bf6dad5638",
     "sheet": "NIVA-controller"
   },
   {
@@ -542,7 +542,7 @@
       "1": "F5_RAW",
       "2": "F5_ADC"
     },
-    "uuid": "6fa3af3b-61fe-44ea-8e46-43249c99cdc8",
+    "uuid": "7fb7b049-6a83-57fe-9797-c6f18b168256",
     "sheet": "NIVA-controller"
   },
   {
@@ -553,18 +553,18 @@
       "1": "F5_ADC",
       "2": "GND"
     },
-    "uuid": "2fbd83a4-486e-4448-93af-b5c9e10de8bb",
+    "uuid": "ef3fdd25-0725-5678-9087-f33aee73bd14",
     "sheet": "NIVA-controller"
   },
   {
     "ref": "R33",
-    "value": "22",
+    "value": "220",
     "footprint": "Resistor_SMD:R_0603_1608Metric",
     "nets": {
       "1": "+3V3",
       "2": "VEXC"
     },
-    "uuid": "459d6676-a8a3-4d0c-a0f0-0190ef1f325a",
+    "uuid": "cb10ec65-b56d-556e-9120-b4dbad7d3976",
     "sheet": "NIVA-controller"
   },
   {
@@ -575,7 +575,7 @@
       "1": "VEXC",
       "2": "GND"
     },
-    "uuid": "4eda91c4-3f4e-484d-8de9-d9b04b127fb0",
+    "uuid": "de2a7338-9a5c-5143-be40-c6b21e1ca4eb",
     "sheet": "NIVA-controller"
   },
   {
@@ -586,7 +586,7 @@
       "1": "VEXC",
       "2": "VEXC_HALF"
     },
-    "uuid": "bc91d68f-bd4f-47f6-9470-738f96b6f246",
+    "uuid": "27982a2c-2abb-5e54-8a41-8b881dbb5194",
     "sheet": "NIVA-controller"
   },
   {
@@ -597,7 +597,7 @@
       "1": "VEXC_HALF",
       "2": "GND"
     },
-    "uuid": "f6d89aeb-2db9-41fa-8773-5b3c477bf5b2",
+    "uuid": "f194f94b-aa4c-5bc0-9a3f-1d5df2be6dc5",
     "sheet": "NIVA-controller"
   },
   {
@@ -608,7 +608,7 @@
       "1": "VEXC_HALF",
       "2": "GND"
     },
-    "uuid": "1d34f6d9-3de8-4c6e-a376-91774df0f8b4",
+    "uuid": "c27805da-7199-5df4-9a92-377bd4ab1414",
     "sheet": "NIVA-controller"
   },
   {
@@ -619,7 +619,7 @@
       "1": "+3V3",
       "2": "INSERT_ID_RAW"
     },
-    "uuid": "611276ed-4a42-45d2-a031-a393952f286b",
+    "uuid": "4afd27b8-73a2-513e-bae9-e9f3e4dbb89a",
     "sheet": "NIVA-controller"
   },
   {
@@ -630,7 +630,7 @@
       "1": "INSERT_ID_RAW",
       "2": "INSERT_ID"
     },
-    "uuid": "69b78fbc-29dc-4ef7-bd06-b7fafeb4aaf2",
+    "uuid": "19cf397d-9b5a-58c5-bf43-15b153524ca5",
     "sheet": "NIVA-controller"
   },
   {
@@ -641,7 +641,7 @@
       "1": "INSERT_ID",
       "2": "GND"
     },
-    "uuid": "1e94d8e8-4787-4177-a437-90ee1f933f6a",
+    "uuid": "14b7bab8-a0d3-5849-9be0-f17107e0ec9c",
     "sheet": "NIVA-controller"
   },
   {
@@ -652,7 +652,7 @@
       "1": "+3V3",
       "2": "VMID"
     },
-    "uuid": "021daefe-cbc3-4ad5-bd54-077cbd5e6171",
+    "uuid": "8f8e54cc-ecb4-51bd-82cb-9e7fd9b143f4",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -663,7 +663,7 @@
       "1": "VMID",
       "2": "GND"
     },
-    "uuid": "5b35fc89-da5e-4e93-adbe-176b89245515",
+    "uuid": "dbbc7b44-c096-5960-a61f-e3b1eb03da2b",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -674,7 +674,7 @@
       "1": "VMID",
       "2": "GND"
     },
-    "uuid": "33234340-c570-4744-a2ba-cb91fde7f82c",
+    "uuid": "afa50a36-8732-53f5-b562-4a3d39f52c43",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -685,7 +685,7 @@
       "1": "PVDF_RAW",
       "2": "PZ_BIAS"
     },
-    "uuid": "713d6b51-fb64-4adc-b4ef-033f58ff0c5b",
+    "uuid": "d7e0a5cf-806b-56bd-8266-a906a46a8a37",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -696,7 +696,7 @@
       "1": "VMID",
       "2": "PZ_BIAS"
     },
-    "uuid": "36628589-999f-4406-ac84-c9416885787a",
+    "uuid": "a5c62841-125d-5474-ab1c-884aa198b90a",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -710,7 +710,7 @@
       "4": "PZ_BUF",
       "5": "+3V3"
     },
-    "uuid": "f65fca50-859d-49b8-a4fc-da5875c48d81",
+    "uuid": "c64e1f8f-c8e6-56cc-8267-26947ef31992",
     "sheet": "NIVA-heel-and-indicator",
     "MPN": "MCP6001T-I/OT"
   },
@@ -722,7 +722,7 @@
       "1": "PZ_BUF",
       "2": "PIEZO_ADC"
     },
-    "uuid": "783f8102-9b44-4b08-aa2f-0b880212ec4e",
+    "uuid": "ea8b583c-c92a-5e33-8f49-4082ba657d12",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -733,7 +733,7 @@
       "1": "PIEZO_ADC",
       "2": "GND"
     },
-    "uuid": "e9460553-6a11-40bb-80b6-d7f9065e2834",
+    "uuid": "9f0f5dfa-4ae2-5f51-b3af-d863487113c6",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -744,7 +744,7 @@
       "1": "+3V3",
       "2": "GND"
     },
-    "uuid": "ce64cd15-cfc7-49b4-a100-6d0834768b79",
+    "uuid": "324c6134-42cd-5cf6-ac90-5f4d2ab6b037",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -755,7 +755,7 @@
       "1": "+3V3",
       "2": "PZ_BIAS"
     },
-    "uuid": "2e3a3ad4-8088-464c-9cc8-2872bac1132b",
+    "uuid": "d63dcaff-00d4-52ec-8072-c4a215fbbef1",
     "sheet": "NIVA-heel-and-indicator",
     "MPN": "BAS416 (low-leakage, SOD-323)"
   },
@@ -767,7 +767,7 @@
       "1": "PZ_BIAS",
       "2": "GND"
     },
-    "uuid": "ee1f6453-08ce-4948-b2cd-e0c495b4b573",
+    "uuid": "898cce74-f06b-5e32-977c-222f1a4681c8",
     "sheet": "NIVA-heel-and-indicator",
     "MPN": "BAS416 (low-leakage, SOD-323)"
   },
@@ -779,7 +779,7 @@
       "1": "LED_R",
       "2": "LED_R_A"
     },
-    "uuid": "bbfe967a-919d-448e-a1f3-381f939437f9",
+    "uuid": "a15b1def-9935-5b3d-8037-9837377f52c8",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -790,7 +790,7 @@
       "1": "LED_G",
       "2": "LED_G_A"
     },
-    "uuid": "25495b0f-3bbf-4b75-8356-21785cb4573b",
+    "uuid": "34431738-1729-561f-a002-a66532e52cdd",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -801,7 +801,7 @@
       "1": "GND",
       "2": "LED_R_A"
     },
-    "uuid": "b50e8266-fd2f-4f41-aa84-3ec84ddcc548",
+    "uuid": "30af135e-8d1d-53e6-8238-ca5e52cca98e",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -812,7 +812,7 @@
       "1": "GND",
       "2": "LED_G_A"
     },
-    "uuid": "1e6f8efc-d485-4011-b4fc-7cc15d175307",
+    "uuid": "8395d641-f200-57f3-be7d-fca2f4055541",
     "sheet": "NIVA-heel-and-indicator"
   }
 ]

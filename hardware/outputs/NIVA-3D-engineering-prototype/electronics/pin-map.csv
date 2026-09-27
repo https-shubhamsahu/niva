@@ -163,8 +163,8 @@ NIVA-controller,R25,"3.3k",Resistor_SMD:R_0603_1608Metric,1,F5_RAW
 NIVA-controller,R25,"3.3k",Resistor_SMD:R_0603_1608Metric,2,F5_ADC
 NIVA-controller,C15,"1u X7R",Capacitor_SMD:C_0603_1608Metric,1,F5_ADC
 NIVA-controller,C15,"1u X7R",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-controller,R33,"22",Resistor_SMD:R_0603_1608Metric,1,+3V3
-NIVA-controller,R33,"22",Resistor_SMD:R_0603_1608Metric,2,VEXC
+NIVA-controller,R33,"220",Resistor_SMD:R_0603_1608Metric,1,+3V3
+NIVA-controller,R33,"220",Resistor_SMD:R_0603_1608Metric,2,VEXC
 NIVA-controller,C18,"1u",Capacitor_SMD:C_0603_1608Metric,1,VEXC
 NIVA-controller,C18,"1u",Capacitor_SMD:C_0603_1608Metric,2,GND
 NIVA-controller,R31,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,1,VEXC

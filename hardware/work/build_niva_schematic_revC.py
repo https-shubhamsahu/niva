@@ -16,17 +16,25 @@ Changes from Rev B (build_niva_schematic.py):
 All coordinates are snapped to KiCad's 1.27 mm connection grid.
 """
 from pathlib import Path
-import uuid, json, math, copy, shutil
+import uuid, json, math, copy, shutil, os
 from sexputils import Atom, parse, dump, find, allof, resolve
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/NIVA-3D-engineering-prototype/electronics'
-LIB = Path('/tmp/kicadlib/symbols')          # KiCad 9.0.9 stock symbols (copied from kicad/kicad:9.0)
+# KiCad 9 stock symbols: $KICAD9_SYMBOL_DIR, else the portable KiCad under work/tools3d, else a local copy.
+# Only KiCad 9 libraries (format >= 20241209) are accepted: embedding older copies triggers lib_symbol_mismatch.
+def _is_kicad9(d):
+    f = Path(d, 'Device.kicad_sym')
+    if not (d and f.exists()): return False
+    import re as _re; m = _re.search(r'\(version (\d+)\)', f.read_text(encoding='utf8')[:300]); return bool(m and int(m.group(1)) >= 20241209)
+LIB = next(Path(p) for p in [os.environ.get('KICAD9_SYMBOL_DIR', ''), ROOT / 'work/tools3d/kicad/share/kicad/symbols',
+                               '/usr/share/kicad/symbols', '/tmp/kicadlib/symbols'] if _is_kicad9(p))
 ESP = ROOT / 'work/espressif/Espressif.kicad_sym'
 PROJECT = 'NIVA-pod'
 OUT.mkdir(parents=True, exist_ok=True)
 
-uid = lambda: str(uuid.uuid4())
+_NS = uuid.UUID('6f1c2a44-9a3e-4d0b-8c1e-4e49564152c3'); _seq = iter(range(10 ** 9))
+uid = lambda: str(uuid.uuid5(_NS, str(next(_seq))))     # deterministic: reruns keep symbol/sheet UUIDs stable
 q = lambda s: json.dumps(str(s))
 FX = lambda size=1.27: f'(effects (font (size {size} {size})))'
 G = 1.27
@@ -280,7 +288,7 @@ for i, x in enumerate([95, 150, 205, 260, 315], 1):
     R(f'R{10 + i}', '10k 0.1%', x, 297, f'F{i}_RAW', 'GND')
     R(f'R{20 + i}', '3.3k', x, 325, f'F{i}_RAW', f'F{i}_ADC')
     C(f'C{10 + i}', '1u X7R', x, 352, f'F{i}_ADC', 'GND')
-R('R33', '22', 380, 290, '+3V3', 'VEXC'); C('C18', '1u', 400, 290, 'VEXC', 'GND')
+R('R33', '220', 380, 290, '+3V3', 'VEXC'); C('C18', '1u', 400, 290, 'VEXC', 'GND')
 R('R31', '10k 0.1%', 380, 320, 'VEXC', 'VEXC_HALF'); R('R32', '10k 0.1%', 400, 320, 'VEXC_HALF', 'GND')
 C('C16', '100n', 420, 320, 'VEXC_HALF', 'GND')
 R('R30', '10k 0.1%', 450, 290, '+3V3', 'INSERT_ID_RAW'); R('R34', '3.3k', 470, 290, 'INSERT_ID_RAW', 'INSERT_ID')
@@ -288,8 +296,9 @@ C('C17', '1u', 490, 290, 'INSERT_ID', 'GND')
 ctl.text_block(40, 400, [
     'Force channel: FSR from VEXC to Fn_RAW, 10k to GND, 3.3k + 1 uF low-pass (fc = 48 Hz) to the ADC. The 1 uF reservoir',
     'is ~50,000x the MCP3208 sample capacitor, so acquisition settling is set by the RC, not the ADC source-impedance limit.',
-    'Excitation is continuous (Rev B decision kept): switching it every 5 ms cannot settle a 3.3 ms RC. R33 limits a tail short',
-    'to ~150 mA so the 3V3 rail survives; VEXC is sensed after R33 (Rev B sensed +3V3, which could not detect this fault).',
+    'Excitation is continuous (Rev B decision kept): switching it every 5 ms cannot settle a 3.3 ms RC. R33 = 220R limits a tail',
+    'short to 15 mA / 0.05 W (22R would dissipate 0.5 W in an 0603). VEXC sags to ~2.94 V at full load and shifts with load, so',
+    'firmware must normalise every channel by CH6 (VEXC/2) in the same block; VEXC is sensed after R33 to see both effects.',
     'ESD at J1: every force/ID line reaches the ADC through 3.3k into a 1 uF reservoir (8 kV HBM = 0.8 uC -> ~0.8 V step).',
     'No TVS is fitted; the RC networks are the protection. System-level IEC 61000-4-2 testing is still required.',
     'Divider output is NOT the Tekscan A201 op-amp reference circuit and does not inherit its linearity or drift figures.'], 1.1)

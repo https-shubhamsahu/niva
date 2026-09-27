@@ -40,6 +40,7 @@ Niva/
 ├── niva flutter/     Mobile application (Flutter)
 ├── niva arduino/     ESP32 / Arduino firmware
 ├── niva web/         Clinician dashboard, Vite app, and WS relay
+├── hardware/         Wearable hardware prototype: CAD, KiCad, renders (engineering prototype)
 ├── docs/brand/       Logo source assets
 ├── README.md
 └── .github/          GitHub Pages deploy workflow
@@ -50,6 +51,7 @@ Niva/
 | `niva flutter/` | Patient/user-facing Flutter app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
 | `niva arduino/` | ESP32 firmware: ADC acquisition, calibration, IMU, telemetry, Wi-Fi / WebSocket |
 | `niva web/` | Clinician dashboard, biomechanics visualization, dataset export/upload, optional WebSocket relay |
+| `hardware/` | Rev C wearable prototype: printable FreeCAD enclosure, KiCad 9 schematic and unrouted placement PCB, Blender scenes. Start at `hardware/outputs/NIVA-3D-engineering-prototype/README.md`. Not for fabrication. |
 
 ## Development prerequisites
 
