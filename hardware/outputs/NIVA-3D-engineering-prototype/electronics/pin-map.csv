@@ -200,10 +200,9 @@ NIVA-heel-and-indicator,C41,"470n",Capacitor_SMD:C_0603_1608Metric,1,PIEZO_ADC
 NIVA-heel-and-indicator,C41,"470n",Capacitor_SMD:C_0603_1608Metric,2,GND
 NIVA-heel-and-indicator,C42,"100n",Capacitor_SMD:C_0603_1608Metric,1,+3V3
 NIVA-heel-and-indicator,C42,"100n",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-heel-and-indicator,D2,"BAS416",Diode_SMD:D_SOD-323,1,+3V3
-NIVA-heel-and-indicator,D2,"BAS416",Diode_SMD:D_SOD-323,2,PZ_BIAS
-NIVA-heel-and-indicator,D3,"BAS416",Diode_SMD:D_SOD-323,1,PZ_BIAS
-NIVA-heel-and-indicator,D3,"BAS416",Diode_SMD:D_SOD-323,2,GND
+NIVA-heel-and-indicator,D2,"BAV199",Package_TO_SOT_SMD:SOT-23,1,GND
+NIVA-heel-and-indicator,D2,"BAV199",Package_TO_SOT_SMD:SOT-23,3,PZ_BIAS
+NIVA-heel-and-indicator,D2,"BAV199",Package_TO_SOT_SMD:SOT-23,2,+3V3
 NIVA-heel-and-indicator,R45,"1k",Resistor_SMD:R_0603_1608Metric,1,LED_R
 NIVA-heel-and-indicator,R45,"1k",Resistor_SMD:R_0603_1608Metric,2,LED_R_A
 NIVA-heel-and-indicator,R46,"680",Resistor_SMD:R_0603_1608Metric,1,LED_G

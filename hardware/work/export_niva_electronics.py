@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 E = ROOT / 'outputs/NIVA-3D-engineering-prototype/electronics'
-BOARDS = {'pod': E, 'cartridge': E / 'cartridge', 'dock': E / 'dock'}
+BOARDS = {'pod': E, 'cartridge': E / 'cartridge', 'dock': E / 'dock', 'insole-R': E / 'insole', 'insole-L': E / 'insole'}
 
 # Open items that block ordering boards even when every automated check passes.
 BLOCKERS = {
@@ -24,10 +24,19 @@ BLOCKERS = {
                   'Wire pad sizes assume 30 AWG leads - confirm with the cell lot lead gauge.',
                   'ENIG finish and contact-pad wear under the dock spring pins untested.',
                   'No independent review, no DFM report from the chosen fabricator.'],
+    'insole-R': ['FSR ink film, spacer adhesive and lamination not selected; force-resistance curve, drift and hysteresis uncharacterised.',
+                 'PVDF film and its bond process (conductive adhesive or crimp) not selected; charge output untested.',
+                 'Flex stack-up (polyimide, rolled-annealed copper, coverlay) needs the fabricator\'s flex rules; heel-strike and '
+                 'tail-fold fatigue, bend radius at the heel tab and sweat ingress untested.',
+                 'Insole outline is the 1:1 medium fit template only - other sizes need their own layouts (no scaling).',
+                 'Skin contact, cleaning and sealing: see VERIFICATION-PLAN.md - no claims made.',
+                 'No independent review, no DFM report from a flex fabricator.'],
     'dock': ['J2 spring pins: PLACEHOLDER land pattern (part not selected; supplier datasheet not reachable here).',
              'Charger thermal window thresholds (R6/R7/R8) depend on the NTC fitted to the purchased cell - verify.',
              'No independent review, no DFM report from the chosen fabricator.'],
 }
+
+BLOCKERS['insole-L'] = BLOCKERS['insole-R']
 
 def kc(cwd, *args):
     r = subprocess.run(['kicad9', 'kicad-cli', *args], cwd=cwd, capture_output=True, text=True)
@@ -46,6 +55,7 @@ def export(key):
     rel = lambda f: str(f.relative_to(d))
     kc(d, 'sch', 'erc', '--severity-all', '-o', rel(x / f'{name}-ERC.rpt'), sch)
     kc(d, 'sch', 'export', 'pdf', '-o', rel(x / f'{name}-schematic.pdf'), sch)
+    if key == 'pod': kc(d, 'sch', 'export', 'svg', '-o', rel(x / 'svg'), sch)
     kc(d, 'sch', 'export', 'netlist', '--format', 'kicadsexpr', '-o', rel(x / f'{name}.net'), sch)
     kc(d, 'sch', 'export', 'bom', '--fields', 'Reference,Value,Footprint,MPN,${QUANTITY}', '--group-by', 'Value,Footprint,MPN',
        '-o', rel(x / f'{name}-BOM.csv'), sch)
@@ -54,15 +64,17 @@ def export(key):
        '-o', rel(p / f'{name}-assembly-top.pdf'), pcb)
     kc(d, 'pcb', 'export', 'pdf', '--layers', 'Edge.Cuts,B.Fab,B.Courtyard,B.Cu', '--mirror', '--include-border-title',
        '-o', rel(p / f'{name}-assembly-bottom.pdf'), pcb)
+    # STEP (mechanical: board, pads, mask, silk, component models; no copper pours, which would read as 0.035 mm
+    # clashes with clamp ribs) and GLB (visual: adds tracks and zones)
     for fmt in ('step', 'glb'):
-        extra = ['--subst-models'] if fmt == 'step' else []
-        kc(d, 'pcb', 'export', fmt, '--force', '--user-origin', '100x100mm', *extra, '--include-tracks', '--include-zones',
+        extra = ['--subst-models'] if fmt == 'step' else ['--include-tracks', '--include-zones']
+        kc(d, 'pcb', 'export', fmt, '--force', '--user-origin', '100x100mm', *extra,
            '--include-silkscreen', '--include-soldermask', '--include-pads', '-o', rel(p / f'{name}-PCBA.{fmt}'), pcb)
     erc, drc = counts(x / f'{name}-ERC.rpt'), counts(p / f'{name}-DRC.rpt')
     clean = erc['errors'] == 0 and drc['errors'] == 0 and drc['unconnected'] == 0 and drc['footprint'] == 0
     routed = 'UNROUTED' not in (d / pcb).read_text()
     print(f'{key}: ERC {erc} | DRC {drc} | routed={routed}')
-    fab = p / 'fab-REVIEW-ONLY-NOT-RELEASED'
+    fab = p / 'fab-REVIEW-ONLY-NOT-RELEASED' / name          # per board (the two insoles share a folder)
     if clean and routed:
         g = fab / 'gerber'; g.mkdir(parents=True, exist_ok=True)
         for f in g.glob('*'): f.unlink()
@@ -81,6 +93,9 @@ def export(key):
     elif fab.exists():
         for f in sorted(fab.rglob('*'), reverse=True): f.unlink() if f.is_file() else f.rmdir()
         fab.rmdir(); print('  stale fab data removed (board no longer clean)')
+    old = p / 'fab-REVIEW-ONLY-NOT-RELEASED'                   # pre-per-board layout
+    for f in [*old.glob('gerber/*'), *old.glob('*.csv'), *old.glob('STATUS.txt')]: f.unlink()
+    if (old / 'gerber').exists() and not any((old / 'gerber').iterdir()): (old / 'gerber').rmdir()
 
 if __name__ == '__main__':
     for k in (sys.argv[1:] or BOARDS): export(k)

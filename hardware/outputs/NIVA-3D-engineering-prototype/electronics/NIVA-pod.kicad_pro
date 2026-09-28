@@ -130,7 +130,7 @@
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.01,
-        "min_clearance": 0.15,
+        "min_clearance": 0.127,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.3,
         "min_groove_width": 0.0,
@@ -142,10 +142,10 @@
         "min_silk_clearance": 0.0,
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
-        "min_through_hole_diameter": 0.25,
-        "min_track_width": 0.15,
+        "min_through_hole_diameter": 0.2,
+        "min_track_width": 0.127,
         "min_via_annular_width": 0.1,
-        "min_via_diameter": 0.5,
+        "min_via_diameter": 0.45,
         "solder_mask_to_copper_clearance": 0.0,
         "use_height_for_length_calcs": true
       },
@@ -195,8 +195,9 @@
       ],
       "track_widths": [
         0.0,
+        0.15,
         0.2,
-        0.35,
+        0.3,
         0.5
       ],
       "tuning_pattern_settings": {
@@ -231,8 +232,8 @@
           "drill": 0.0
         },
         {
-          "diameter": 0.6,
-          "drill": 0.3
+          "diameter": 0.5,
+          "drill": 0.25
         }
       ],
       "zones_allow_external_fillets": false,
@@ -487,7 +488,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.15,
+        "clearance": 0.127,
         "diff_pair_gap": 0.35,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.4,
@@ -498,14 +499,14 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "track_width": 0.15,
+        "via_diameter": 0.5,
+        "via_drill": 0.25,
         "wire_width": 6
       },
       {
         "bus_width": 12,
-        "clearance": 0.15,
+        "clearance": 0.127,
         "diff_pair_gap": 0.35,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.4,
@@ -516,9 +517,9 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.35,
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "track_width": 0.3,
+        "via_diameter": 0.5,
+        "via_drill": 0.25,
         "wire_width": 6
       }
     ],
@@ -688,15 +689,15 @@
   },
   "sheets": [
     [
-      "d0baa98b-9520-5f20-9129-b58114850076",
+      "e67e5f51-5c43-59d9-b78a-9f0dfc3d8b5e",
       "Root"
     ],
     [
-      "68d54277-014f-557d-a121-0b444089f175",
+      "2e42cba0-034b-5dd8-9cef-dae769e393ff",
       "Controller"
     ],
     [
-      "760325a9-bcc0-5052-959f-0a5548461b2d",
+      "39bb554a-4124-5743-9be1-ac823171f23b",
       "Heel and indicator"
     ]
   ],

@@ -12,23 +12,37 @@ R = ROOT / 'outputs/NIVA-3D-engineering-prototype/renders'
 FONT = next((f for f in ['/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 'C:/Windows/Fonts/arial.ttf'] if Path(f).exists()), None)
 BOLD = next((f for f in ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 'C:/Windows/Fonts/arialbd.ttf'] if Path(f).exists()), None)
 NAVY, TEAL, PALE = (20, 49, 75), (11, 111, 121), (234, 240, 242)
-PCB_NOTE = ('PCB: UNROUTED PLACEMENT PROTOTYPE - no copper tracks designed - not for fabrication. Models: KiCad library '
-            '(generic) + Espressif ESP32-C3-MINI-1 (supplier); U6 TDFN and J2 spring contacts are simplified envelopes.')
+PCB_NOTE = ('PCB: routed prototype (signals autorouted with Freerouting, GND by pours, fan-out vias and a solid In1 plane); '
+            'KiCad ERC/DRC clean; not independently reviewed, not released for fabrication. Models: KiCad library (generic) + '
+            'Espressif ESP32-C3-MINI-1 (supplier); U6 TDFN and J2 spring contacts are simplified envelopes.')
 CAPTIONS = {
     'raw/01_Pod_Assembled': ('NIVA pod Rev C (right) on its cradle',
         'Rendered from the FreeCAD Rev C meshes and the KiCad PCBA. Printed-prototype materials: PETG shells, TPU pad/button, '
         'teal tail boot. Engineering prototype, not a released medical device.'),
     'raw/02_Pod_Exploded': ('NIVA pod Rev C - exploded along the assembly axis',
         'Top to bottom: button + light pipe, front cover, gasket, PCBA, rear housing (tail boot beside), cartridge lid + plates, '
-        'cup, cradle, TPU pad. ORANGE = placeholder envelopes (cell not selected, protection board not designed). ' + PCB_NOTE),
-    'raw/03_PCB_Closeup': ('NIVA pod Rev C PCB - Blender close-up of the KiCad assembly',
-        'Finishes assigned per part class because KiCad GLB/STEP exports drop library model colours. ' + PCB_NOTE),
+        'strip PCB, cup, cradle, TPU pad. ORANGE = EEMB LP502030-class cell drawn at its published maximum size (no supplier model). '
+        + PCB_NOTE),
+    'raw/03_PCB_Closeup': ('NIVA pod Rev C PCB - Blender close-up of the routed KiCad assembly',
+        'KiCad GLB colours linearised (KiCad 9 writes sRGB values into linear glTF factors, which made the mask read pale); '
+        'component finishes assigned per part class because GLB/STEP exports drop library model colours. ' + PCB_NOTE),
     'raw/04_Complete_Product_Flatlay': ('NIVA right set: insole, protected tail, pod on cradle, strap',
-        'Insole outline, toe-post slot and lateral heel tail tab from the 1:1 medium fit template; five force regions and the '
-        'PVDF film are sealed inside and not shown. Toe-sensor tail routing (A201 length, hold H1) is unresolved.'),
+        'Insole outline, toe-post slot and lateral heel tail tab from the 1:1 medium fit template. The sensing flex (five '
+        'printed force regions + PVDF bond pads, see 07) is laminated inside and not shown. Sealing, skin contact and '
+        'cleaning are unverified - see VERIFICATION-PLAN.md.'),
     'raw/05_Bilateral_Kit': ('NIVA bilateral kit - left and right sets',
-        'L/R keys: cradle key post + rear slot, keyed tail boot, debossed marks and tactile dots. A complete matched set worn '
-        'on the wrong leg is not prevented mechanically; the app side check and fitting check remain required.'),
+        'L/R keys: cradle key post + rear slot, keyed tail boot, debossed marks and tactile dots, and an electrical insert ID '
+        '(R-M 4.7k / L-M 47k). A complete matched set worn on the wrong leg is not prevented mechanically; the app side check '
+        'and fitting check remain required.'),
+    'raw/06_Dock_Charging': ('NIVA charging dock with a cartridge seated; spare cartridge turned over',
+        'Charging only with the cartridge removed from the pod. Dock: USB-C sink, MCP73831 charger (100 mA) gated by a hardware '
+        'LM393 NTC window; spring pins (ORANGE, placeholder envelope, part not selected) reach the gold pads through the '
+        'cartridge floor. Keyed well, tab ledge and snap latch printed in PETG. Designed and DRC-checked, not built or tested.'),
+    'raw/07_Insole_Flex': ('NIVA insole flex (hold H1) laid on the 1:1 right medium insert',
+        'Polyimide flex, one copper layer underfoot: five 12 mm interdigitated shunt-mode electrodes (grey discs = FSR ink film '
+        'on spacer), PVDF bond pads, paired drive/sense lanes to the lateral heel tab, 115 mm tail, stiffened transition with '
+        'the insert ID resistor above the collar. In the product it is laminated inside the insert. FSR response, fatigue and '
+        'sweat ingress are uncharacterised; no force or clinical value is implied.'),
     'pcb-raw/pcb_iso': ('NIVA pod Rev C PCB - KiCad 9 raytrace, isometric', PCB_NOTE),
     'pcb-raw/pcb_top': ('NIVA pod Rev C PCB - KiCad 9 raytrace, top', PCB_NOTE),
     'pcb-raw/pcb_underside': ('NIVA pod Rev C PCB - KiCad 9 raytrace, underside (cartridge contacts J2, service pads J3)', PCB_NOTE),

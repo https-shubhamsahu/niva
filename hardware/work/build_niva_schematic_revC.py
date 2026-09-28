@@ -139,13 +139,11 @@ heel.place('Amplifier_Operational:MCP6001-OT', 'U4', 'MCP6001T-I/OT', 190, 75,
            extra={'MPN': 'MCP6001T-I/OT'})
 R('R44', '1k', 250, 65, 'PZ_BUF', 'PIEZO_ADC'); C('C41', '470n', 270, 90, 'PIEZO_ADC', 'GND')
 C('C42', '100n', 190, 110, '+3V3', 'GND')
-heel.place('Device:D_Small', 'D2', 'BAS416', 140, 60, {'1': '+3V3', '2': 'PZ_BIAS'}, 'Diode_SMD:D_SOD-323',
-           extra={'MPN': 'BAS416 (low-leakage, SOD-323)'})
-heel.place('Device:D_Small', 'D3', 'BAS416', 140, 95, {'1': 'PZ_BIAS', '2': 'GND'}, 'Diode_SMD:D_SOD-323',
-           extra={'MPN': 'BAS416 (low-leakage, SOD-323)'})
+heel.place('NIVA:BAV199', 'D2', 'BAV199', 140, 78, {'1': 'GND', '3': 'PZ_BIAS', '2': '+3V3'}, 'Package_TO_SOT_SMD:SOT-23',
+           extra={'MPN': 'BAV199,215 (Nexperia) low-leakage series pair, SOT-23'})
 heel.text_block(160, 128, [
     'PVDF film (~1.4 nF class) with 10M bias: high-pass ~11 Hz. R42 limits clamp current during heel-strike spikes.',
-    'D2/D3 clamp the buffer input to the rails. Low-leakage diodes: leakage x 10M sets the offset budget (check datasheet).',
+    'D2 (BAV199 series pair: GND-A1, K1/A2-PZ_BIAS, K2-+3V3) clamps the buffer input to the rails; 3 pA typ leakage x 10M = 30 uV.',
     'R44/C41 = 339 Hz single pole for 2 kHz sampling: only ~10 dB at Nyquist. Treat as exploratory; oversample and',
     'decimate in firmware or add a 2nd-order stage after the E3 cable-motion experiment.'], 1.1)
 heel.text(30, 170, '02  STATUS EMITTERS: RED + YELLOW-GREEN UNDER ONE LIGHT WINDOW', 1.8)
@@ -199,19 +197,20 @@ for old in ('NIVA-controller.kicad_pro', 'NIVA-heel-and-indicator.kicad_pro', 'c
 pro = json.loads((ROOT / 'work/kicad_pro_template.json').read_text())
 pro['meta']['filename'] = PROJECT + '.kicad_pro'
 pro['sheets'] = [[root.uuid, 'Root'], [S2, 'Controller'], [S3, 'Heel and indicator']]
-# Prototype-class 4-layer rules (assumed small-batch capability, not a specific fab's release rules).
+# Prototype-class 4-layer rules: 0.15 mm tracks / 0.127 mm gaps, 0.5 / 0.25 mm vias - inside common small-batch
+# 4-layer capability, but not a specific fab's release rules (confirm with the chosen fab before ordering).
 base = pro['net_settings']['classes'][0]
 def netclass(name, track, clearance, priority):
-    c = dict(base); c.update(name=name, track_width=track, clearance=clearance, via_diameter=0.6, via_drill=0.3,
+    c = dict(base); c.update(name=name, track_width=track, clearance=clearance, via_diameter=0.5, via_drill=0.25,
                              priority=priority); return c
-pro['net_settings']['classes'] = [netclass('Default', 0.2, 0.15, 2147483647), netclass('Power', 0.35, 0.15, 0)]
+pro['net_settings']['classes'] = [netclass('Default', 0.15, 0.127, 2147483647), netclass('Power', 0.3, 0.127, 0)]
 pro['net_settings']['netclass_patterns'] = [{'netclass': 'Power', 'pattern': n} for n in ('+3V3', 'VBAT', 'GND', '*/VEXC')]
 pro['net_settings']['netclass_assignments'] = None
 rules = pro['board']['design_settings']['rules']
-rules.update(min_clearance=0.15, min_track_width=0.15, min_via_diameter=0.5, min_through_hole_diameter=0.25,
+rules.update(min_clearance=0.127, min_track_width=0.127, min_via_diameter=0.45, min_through_hole_diameter=0.2,
              min_via_annular_width=0.1, min_copper_edge_clearance=0.3, min_hole_to_hole=0.25, min_hole_clearance=0.2)
-pro['board']['design_settings']['track_widths'] = [0.0, 0.2, 0.35, 0.5]
-pro['board']['design_settings']['via_dimensions'] = [{'diameter': 0.0, 'drill': 0.0}, {'diameter': 0.6, 'drill': 0.3}]
+pro['board']['design_settings']['track_widths'] = [0.0, 0.15, 0.2, 0.3, 0.5]
+pro['board']['design_settings']['via_dimensions'] = [{'diameter': 0.0, 'drill': 0.0}, {'diameter': 0.5, 'drill': 0.25}]
 (OUT / (PROJECT + '.kicad_pro')).write_text(json.dumps(pro, indent=2))
 
 # Project symbol library: the same objects embedded in the sheets, so KiCad sees no library mismatch.

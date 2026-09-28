@@ -50,6 +50,13 @@ def chip(name, pins, ref='U', fp='', datasheet='', descr=''):
                               f' (name {q(nam)} {FX()}) (number {q(num)} {FX()}))'))
     a.append(body); custom[name] = a
 
+# BAV199 low-leakage series double diode, SOT-23. Pinning per the Nexperia BAV199 product data sheet (2023-04):
+# 1 = A1, 2 = K2, 3 = K1/A2 (the BAV99-family series pinout). Drawn as a box with named pins on purpose: KiCad's
+# stock dual-diode symbols disagree with their own unit grouping, so the pin mapping is stated here explicitly.
+chip('BAV199', [('1', 'A1', 'passive'), ('3', 'K1/A2', 'passive'), ('2', 'K2', 'passive')], ref='D',
+     fp='Package_TO_SOT_SMD:SOT-23', datasheet='https://assets.nexperia.com/documents/data-sheet/BAV199.pdf',
+     descr='Low-leakage (3 pA typ) series double diode, 75 V, SOT-23: 1 A1, 2 K2, 3 K1/A2')
+
 # LSM6DSO32 is pin-compatible with the LGA-14 LSM6DSx family; pin functions from ST DS13210.
 chip('LSM6DSO32', [('1', 'SDO/SA0', 'bidirectional'), ('2', 'SDx', 'bidirectional'), ('3', 'SCx', 'input'),
                    ('4', 'INT1', 'output'), ('5', 'VDDIO', 'power_in'), ('6', 'GND', 'power_in'),

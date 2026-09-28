@@ -1,17 +1,13 @@
 {
   "interference": {
-    "DockPCB_Components_KiCad x DockSpringPins_ENVELOPE": {
-      "volume_mm3": 0.051,
-      "expected": "pin bases on their own solder pads (KiCad pad copper drawn 0.04 mm into the envelope)"
-    },
     "DockSpringPins_ENVELOPE x Cartridge_StripPCB": {
       "volume_mm3": 1.245,
       "expected": "spring pins drawn at free height: design compression on the gold pads"
     }
   },
   "gaps": {
-    "DockPCB_Components_KiCad to 11_DockTop": 0.055,
-    "DockPCB_Components_KiCad to 10_DockBase": 0.025,
+    "DockPCB_Components_KiCad to 11_DockTop": 0.53,
+    "DockPCB_Components_KiCad to 10_DockBase": 1.735,
     "DockPCB_Substrate to 10_DockBase": 0.06,
     "Cartridge_Cup to 11_DockTop": 0.0,
     "Cartridge_Lid to 11_DockTop": 0.1,

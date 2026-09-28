@@ -1,163 +1,170 @@
-# NIVA 3D engineering prototype — Revision C
+# NIVA 3D engineering prototype — Revision C.1
 
-Bilateral gait-sensing research/screening kit: a passive five-region force insole with heel PVDF film, a protected flat tail, and a lower-shin pod (ESP32-C3, MCP3208, LSM6DSO32, removable battery cartridge, one button, one light) controlled offline from a phone over Bluetooth.
+Bilateral gait-sensing research/screening kit with four parts:
 
-> **Status: engineering prototype for fit, handling and bench work. Not a released medical device. Not for fabrication.**
-> - The PCB is an **unrouted placement prototype**.
-> - The battery cell is **not selected**, and no charging electronics exist.
-> - Nothing here establishes clinical performance.
+- **Insole:** a five-region force insole with a heel PVDF film and a protected flat tail.
+- **Pod:** worn on the lower shin (ESP32-C3, MCP3208, LSM6DSO32, removable battery cartridge, one button, one light) and controlled offline from a phone over Bluetooth.
+- **Cartridge:** a removable battery cartridge.
+- **Dock:** a desk dock that charges bare cartridges.
+
+> **Status: engineering prototype for fit, handling and bench work. Not a released medical device. Not released for fabrication.**
+> - Every KiCad board is routed and passes KiCad ERC and DRC. That is an automated check, **not a design review**.
+> - Gerbers exist only in `fab-REVIEW-ONLY-NOT-RELEASED/` folders, each with a list of open blockers.
+> - Nothing has been built, powered or measured. Nothing here establishes clinical performance.
 > - The sensing concept does **not** measure medial knee contact force.
+> - Sealing, skin contact and cleaning are **unverified**: see `VERIFICATION-PLAN.md`.
+
+## What changed in Rev C.1 (this update)
+
+| Open item in Rev C | Rev C.1 resolution | Still open |
+|---|---|---|
+| Pod PCB unrouted. Freerouting stalled at about 40 open connections, no Gerbers. | GND fan-out first: every GND pad gets its own via to the solid In1 plane. Signals are then autorouted, followed by pours and stitching. **0 DRC errors, 0 unconnected, parity clean.** Review-only Gerbers/drill/placement files. | Independent review, fab DFM, return-path and RF review |
+| R33 = 220 Ω made every force reading depend on VEXC, so firmware had to normalise it. | The MCP3208 VREF is now VEXC, so readings are ratiometric in hardware and need **no firmware normalisation**. CH6 becomes a tail-fault monitor. | Bench confirmation |
+| Dual clamp diodes not used (contradictory KiCad symbol). | One **BAV199** series pair (SOT-23) on a project symbol that states the data-sheet pinning (1 A1, 2 K2, 3 K1/A2). | Check the reel marking; the PDF host was unreachable, so the pinning comes from two search sources quoting the Nexperia data sheet |
+| Battery cell not selected; 300 mAh fit unproven. | EEMB **LP502030** class (230 mAh min, 20.5 × 32 × 5.3 mm max, PCM + NTC). The cartridge is resized around its maximum size plus 8 % swell. **300 mAh does not fit and is not claimed.** | A purchased lot, swelling under cycling, and cell safety evidence |
+| Cartridge electronics not designed. | `electronics/cartridge/`: interconnect strip PCB with a series polyfuse and gold dock pads. No active parts. The cell PCM is protection layer 1. | Polyfuse part number, pad wear |
+| Charging dock not designed. | `electronics/dock/`: USB-C, MCP73831 at 100 mA, and a **hardware NTC window** (LM393 → PROG gate). `mechanical/` has a printable dock with a keyed well, tab ledge, snap latch, spring-pin holes and a light pipe. | Spring-pin part not selected; thresholds and termination unmeasured |
+| Insole tail could not reach the big toe (A201 tails too short, hold H1). | `electronics/insole/`: an **integrated sensing flex** (R and L). Five printed shunt-mode electrodes and PVDF bond pads, with copper lanes to the heel tab. Only F.Cu and no parts underfoot. A 115 mm tail runs to a stiffened above-collar transition that carries the insert ID resistor. | FSR ink film selection and characterisation, fatigue, lamination |
+| No sealing, skin-contact or cleaning claims. | Still **none claimed**. `VERIFICATION-PLAN.md` gives materials, test methods and proposed acceptance criteria. | Every test in that plan |
+| Blender PCB close-up read too light green. | Root cause: KiCad 9's GLB writer stores sRGB colours as linear glTF factors. The import now linearises them, and the close-up lights no longer mirror into the glossy mask. | — |
 
 ## Contents
 
 ```
 NIVA-3D-engineering-prototype/
 ├── README.md                          this file
+├── VERIFICATION-PLAN.md               sealing / skin contact / cleaning (and dependent) tests - plan only, no claims
 ├── mechanical/
-│   ├── NIVA-RevC-assembly.FCStd       native FreeCAD 1.1 assembly: groups Pod_R and Pod_L (left pod at x - 80 mm)
-│   ├── NIVA-RevC-assembly.step        STEP AP214 of the same assembly (includes the KiCad PCBA solids)
-│   ├── STEP-parts/                    9 printable parts in the pod frame (_R/_L where sided)
-│   ├── STL-print-parts/               the same parts, rotated to the recommended print orientation
-│   ├── PRINT-AND-ASSEMBLY.md          materials, orientation, fasteners, clearances, sequence, unverified fits
-│   ├── geometry-validation.json       per-part solid/mesh checks and print bounding boxes
-│   └── interference-report.json       pairwise interference + functional gaps against the real PCBA model
+│   ├── NIVA-RevC-assembly.FCStd/.step pod assembly: groups Pod_R and Pod_L (left pod at x - 80 mm), incl. routed PCBA
+│   ├── NIVA-dock-assembly.FCStd/.step dock assembly with dock PCBA and a seated cartridge
+│   ├── STEP-parts/, STL-print-parts/  12 printable parts (01-09 pod, 10-12 dock); STLs in print orientation
+│   ├── PRINT-AND-ASSEMBLY.md          materials, orientation, fasteners, clearances, pod/cartridge/dock assembly, open items
+│   ├── geometry-validation.json, dock-geometry-validation.json     per-part solid/mesh checks
+│   └── interference-report.json, dock-interference-report.json     pairwise interference + functional gaps
 ├── electronics/
-│   ├── NIVA-pod.kicad_pro/.kicad_sch  KiCad 9 project: root sheet
-│   ├── NIVA-controller.kicad_sch      sub-sheet: MCU, ADC, IMU, power, insert connector
-│   ├── NIVA-heel-and-indicator.kicad_sch   sub-sheet: PVDF buffer, status emitters
-│   ├── NIVA-pod.kicad_pcb             4-layer 34 x 48 mm UNROUTED PLACEMENT PROTOTYPE
-│   ├── NIVA.kicad_sym, Espressif.kicad_sym, NIVA.pretty/, sym-lib-table, fp-lib-table   project libraries
-│   ├── 3dmodels/                      STEP models used by the board (KiCad library, Espressif, *_ENVELOPE)
-│   ├── ELECTRICAL-REVIEW.md           Rev B findings, ERC, pin/boot review, analog values, open items
-│   ├── component-net-map.json, pin-map.csv
-│   ├── exports/                       schematic PDF + SVG, ERC report, BOM, netlist
-│   │   └── pcb/                       DRC report, assembly drawings (PDF), PCBA STEP + GLB
-│   └── work-routing/                  Specctra DSN + Freerouting log (autoroute attempt, NOT adopted)
-├── renders/                           9 captioned images: 01..05 Blender scenes, pcb_* KiCad raytraces (colour reference for the PCB)
-│                                      raw/ and pcb-raw/ hold the uncaptioned originals
+│   ├── NIVA-pod.kicad_pro/.kicad_sch/.kicad_pcb + 2 sub-sheets     pod: 4-layer 34 x 48 mm, ROUTED
+│   ├── ELECTRICAL-REVIEW.md           findings, ERC, pin/boot review, analog values, power, PCB, open items
+│   ├── exports/                       pod schematic PDF/SVG, ERC, BOM, netlist; pcb/ DRC, assembly PDFs, PCBA STEP+GLB,
+│   │                                  fab-REVIEW-ONLY-NOT-RELEASED/ (Gerber, drill, placement, STATUS.txt)
+│   ├── cartridge/  NIVA-cartridge.*   interconnect strip (hand-routed) + exports/ (same structure)
+│   ├── dock/       NIVA-dock.*        charging dock (autorouted) + exports/
+│   ├── insole/     NIVA-insole-R.*, NIVA-insole-L.*   sensing flex, right/left medium + exports/
+│   ├── 3dmodels/                      STEP models (KiCad library, Espressif, *_ENVELOPE stand-ins)
+│   └── work-routing/                  Specctra DSN/SES + Freerouting logs (the sessions actually imported)
+├── renders/                           11 captioned images: 01-07 Blender scenes, pcb_* KiCad raytraces; raw/, pcb-raw/ originals
 └── blender/
-    ├── NIVA-RevC-scenes.blend         editable Blender 4.5 file: 5 scenes + hidden library collections
-    └── 01..05_*.glb                   glTF binary of each scene
+    ├── NIVA-RevC-scenes.blend         editable Blender 4.5 file: 7 scenes + hidden library collections
+    └── 01..07_*.glb                   glTF binary of each scene
 ```
 
 ## Opening the files
 
-- **FreeCAD 1.1:** open `mechanical/NIVA-RevC-assembly.FCStd`; it was saved with FreeCAD 1.1.3. Each object carries `Material`, `Kind` and `Note` properties. The model is a solid assembly, not a parametric feature tree. Change dimensions in the generator and re-run it (see *Regenerating*).
-- **KiCad 9:** open `electronics/NIVA-pod.kicad_pro`.
-  - Project libraries resolve through `${KIPRJMOD}`, and 3D models through `${KIPRJMOD}/3dmodels`.
-  - The Espressif symbol has been converted from KiCad 10 to KiCad 9 format; see the review.
-  - The PCB shows a ratsnest by design.
-- **Blender 4.5:** open `blender/NIVA-RevC-scenes.blend`.
-  - Scenes `01_Pod_Assembled` … `05_Bilateral_Kit` each have their own camera, lights and studio floor.
-  - The `LIB_*` collections in `NIVA_library` hold the source meshes (render-hidden).
-  - Pod parts, the PCBA root and the insoles record their source file in a `source` custom property.
-- **Any glTF viewer:** `blender/*.glb`, `electronics/exports/pcb/NIVA-pod-PCBA.glb`.
+- **FreeCAD 1.1:** open `mechanical/NIVA-RevC-assembly.FCStd` or `NIVA-dock-assembly.FCStd`. Objects carry `Material`, `Kind` and `Note` properties. The models are solid assemblies generated by script, so change dimensions in `work/niva_layout.py` and re-run the generators.
+- **KiCad 9:** open any `.kicad_pro`.
+  - Project libraries resolve through `${KIPRJMOD}`; 3D models through `${KIPRJMOD}/3dmodels` (pod) or `${KIPRJMOD}/../3dmodels`.
+  - The insole flex boards use negative y coordinates: the insole frame has the heel at y = 100 mm and the toe above it.
+- **Blender 4.5:** open `blender/NIVA-RevC-scenes.blend`, which has scenes `01_Pod_Assembled` … `07_Insole_Flex`. The `LIB_*` collections hold the source meshes and GLBs (render-hidden).
+- **Any glTF viewer:** `blender/*.glb` and `electronics/**/exports/pcb/*-PCBA.glb`.
 
-## Revision changes (Rev B → Rev C)
+## Boards at a glance
 
-Rev B inputs came from the earlier session and were committed as received. They are retrievable from git history (commit `b7eb80f`, `hardware/`).
-
-**Mechanical.** In Rev B, a limited clash check passed, but a full audit showed parts that could not assemble. Rev C findings and fixes:
-
-- **M1 Gasket:** it sat in the parting plane with no groove or stop (42 and 31 mm³ overlaps). It is now a continuous rim gasket, 0.5 → 0.35 mm, with boss hard stops.
-- **M2 Cover screws:** each head bore on 0.6 mm of plastic over a 4.2 mm unsupported span. Rev C adds full-height bosses and Ø4.5 counterbores.
-- **M3 PCB mounting:** the board had no standoffs, and two of its holes were over the open battery pocket. Rev C has two bosses outside the bay, self-supporting side ledges, bottom ledges and front clamp ribs. The board is notched around the case bosses.
-- **M4 Cable path:** the aperture was below the connector, and the strain relief ran into the bay wall. Rev C moves the aperture to J1 height, split on the parting line, with an overmoulded boot that carries the L/R key.
-- **M5 Light window:** it ended 3.5 mm above the LED. The light pipe now reaches 0.3 mm above the two emitters.
-- **M6 Battery connection:** a JST cable connector on the top side could not reach a rear-removable cartridge. Rev C uses underside spring contacts through a bay-ceiling window onto flush lid plates. The cartridge lid is bonded.
-- **M7 Cradle retention:** there was no undercut, no latch and no L/R key. Rev C adds chamfered rails, a bottom stop, a flat-printing cantilever latch, and an L/R key post and slot, plus debossed marks and tactile dots.
-- **M8 Bay ceiling:** new. Fingers and debris stay off the board when the cartridge is out, and the windows give access to the contacts and service pads only.
-
-**Electronics.**
-
-- The Rev B schematics never parsed in KiCad (every symbol record was unclosed), and they were two unconnected projects.
-- Rev C is one connected hierarchy with ERC at 0 errors.
-- It adds VEXC current limiting and sensing, ID filtering, low-leakage piezo clamps, retuned anti-aliasing, per-device decoupling, the spring-contact battery interface, and a service pad set with no charge path.
-
-Details: `electronics/ELECTRICAL-REVIEW.md`.
-
-**New shared source of truth:** `work/niva_layout.py`. The KiCad board outline, mounting holes and every placement are generated from it, and so are the matching enclosure features.
+| Board | Size / layers | Routing | KiCad ERC / DRC (schematic parity on) |
+|---|---|---|---|
+| Pod | 34 × 48 × 1.0 mm, 4 layers (In1 = GND plane) | GND fan-out, then Freerouting signals, then pours; 547 segments, 126 vias | 0 errors, 1 reviewed warning / **0 errors, 0 unconnected**, 3 silk warnings (module outline at the antenna edge) |
+| Cartridge strip | 3.4 × 30 × 0.8 mm, 2 layers | hand-routed | 0 / 0, 0 unconnected |
+| Dock | 58 × 56 × 1.6 mm, 2 layers | Freerouting + GND pours | 0 / 0, 0 unconnected |
+| Insole flex R, L | 0.12 mm polyimide; F.Cu only underfoot | generated paired lanes; B.Cu only at the above-collar transition | 0 / 0, 0 unconnected |
 
 ## Printing and assembly
 
-See `mechanical/PRINT-AND-ASSEMBLY.md`:
-- rigid vs flexible material assignment and print orientation for all 9 parts;
-- fastener list (4 × M2×10, 2 × M2×5, 1 × M2×6 per pod) and nominal clearances;
-- the assembly and charging-removal sequence;
+See `mechanical/PRINT-AND-ASSEMBLY.md`. It covers:
+- material and print orientation for all 12 printed parts;
+- fasteners for the pod and dock;
+- nominal clearances measured in CAD;
+- pod, cartridge and dock assembly sequences;
 - the list of unverified fits and safety mechanisms.
-
-## Electrical verification status
-
-| Check | Result |
-|---|---|
-| KiCad 9.0.9 parses all sheets | yes: 66 symbols, 3 sheets |
-| ERC (all severities, default rules, no exclusions) | 0 errors, 1 reviewed warning (unused IMU hub pins tied to GND) |
-| Schematic ↔ PCB parity (DRC) | 0 issues |
-| DRC placement / clearance / footprint | 0 errors; 4 warnings (isolated inner GND before vias, module silk at the antenna edge) |
-| Routing | **not done**: 183 unconnected items; Freerouting stalled at about 40 unrouted, not adopted |
-| Built, powered, measured | **no** |
-| Gerbers / drill / pick-and-place | **not produced** (not fabrication-ready) |
 
 ## Complete vs provisional
 
 | Area | Complete in this package | Provisional / open |
 |---|---|---|
-| Enclosure | Rev C solids and printable STL/STEP for R and L, full interference audit vs the real PCBA, fastener list, orientation | Every 0.2 mm fit, sealing, latch and screw durability, skin contact, cleaning — see §5 of the assembly doc |
-| Battery | Cartridge cup/lid/contact geometry and the charging-exclusion concept | Cell not selected; 300 mAh fit not established; cartridge electronics and dock not designed |
-| Schematic | Connected hierarchy, reviewed values, ERC-clean, PDF/SVG/BOM/netlist | Bench validation of the analog front end, spring-contact part, datasheet re-checks listed in the review |
-| PCB | Placement, outline, mounting, keepouts, 3D models, DRC-clean placement | Routing, RF/return-path review, fab rules — **unrouted** |
-| Insole / tail | Visual model from the 1:1 fit template (outline, toe slot, tail tab) | Sensor laminate and tail routing to the toe (A201 length, hold H1); no rigid joints underfoot |
-| Renders | 5 Blender scenes + 4 KiCad raytraces, captioned with status | Soft goods (strap, tail) are parametric bands, not CAD parts |
+| Pod enclosure | Rev C solids and printable STL/STEP for R and L; interference audit against the routed PCBA (only the intended spring preload overlaps) | Every 0.2 mm fit, sealing, latch and screw durability, skin contact, cleaning |
+| Battery | Selected cell class; cartridge cup, lid, strip PCB, pads and windows; charge-only-when-removed concept | Purchased lot, swelling, lid welding, cell safety evidence |
+| Dock | Schematic, routed PCB and printable enclosure; audit shows only the intended spring-pin compression | Spring-pin part, measured thresholds and termination, latch life |
+| Schematic | Connected hierarchy, ratiometric ADC, reviewed values, ERC-clean | Bench validation of the analog front end, datasheet re-checks listed in the review |
+| Pod PCB | Routed, DRC-clean, review-only fab data | Independent review, fab DFM, RF and return-path review |
+| Insole | Sensing flex R/L (schematic, routed layout, review-only fab data); visual insert from the 1:1 fit template | FSR film, lamination, fatigue, sweat ingress, other sizes (no automatic grading) |
+| Renders | 7 Blender scenes + 4 KiCad raytraces, captioned with status | Soft goods (strap, tail) are parametric bands, not CAD parts |
 
 ## Regenerating
 
-Everything is script-generated. Run from `hardware/work/`:
+Everything is script-generated. From `hardware/work/` (paths below are the Linux build used for this package: KiCad 9.0.9 in Docker via a `kicad9` wrapper, FreeCAD 1.1.3, `bpy` 4.5, Freerouting 2.1.0 via `niva-route`, which is Freerouting headless on `work-routing/<name>.dsn`):
 
-```powershell
-# enclosure (FreeCAD 1.1 python). Reads niva_layout.py and, if present, electronics/exports/pcb/NIVA-pod-PCBA.step
-& 'C:\Program Files\FreeCAD 1.1\bin\python.exe' build_niva_cad_revC.py
-# schematic (plain python 3; set KICAD9_SYMBOL_DIR if the portable KiCad is not under work\tools3d)
-python build_niva_schematic_revC.py
-# then, with KiCad 9: ERC + netlist, PCB placement, finalize, DRC
-kicad-cli sch export netlist --format kicadsexpr -o ..\outputs\NIVA-3D-engineering-prototype\electronics\exports\NIVA-pod.net ..\outputs\NIVA-3D-engineering-prototype\electronics\NIVA-pod.kicad_sch
-.\tools3d\kicad\bin\python.exe build_niva_pcb.py place
-.\tools3d\kicad\bin\python.exe build_niva_pcb.py finalize "UNROUTED PLACEMENT PROTOTYPE - RATSNEST ONLY - NOT FOR FABRICATION"
-# scenes (Blender 4.5), then captions (python + Pillow)
-blender -b --factory-startup -P build_niva_scenes.py
-python caption_renders.py
+```sh
+python3 build_niva_schematic_revC.py            # pod schematic + project rules
+python3 build_niva_power_schematics.py          # cartridge + dock schematics
+python3 build_niva_insole_flex.py               # insole flex schematics, footprints, lane geometry (needs shapely)
+# netlists: kicad-cli sch export netlist --format kicadsexpr -o <dir>/exports/<name>.net <name>.kicad_sch
+kicad9 python3 build_niva_pcb.py place <pod|cartridge|dock|insole-R|insole-L>
+niva-route NIVA-pod 100 900                     # (and NIVA-dock); cartridge and insoles are hand/generated
+kicad9 python3 build_niva_pcb.py finalize pod "<status>" ../outputs/.../work-routing/NIVA-pod.ses
+kicad9 python3 build_niva_pcb.py finalize cartridge "<status>" hand     # likewise insole-R / insole-L
+python3 export_niva_electronics.py              # ERC, DRC, PDFs, BOMs, STEP/GLB, review-only fab data
+./render_kicad_pcb.sh                           # KiCad raytraces of the pod
+PYTHONPATH=/opt/freecad/lib /opt/freecad/bin/python build_niva_envelopes.py   # spring-pin envelope model
+PYTHONPATH=/opt/freecad/lib /opt/freecad/bin/python build_niva_cad_revC.py    # pod enclosure + audit
+PYTHONPATH=/opt/freecad/lib /opt/freecad/bin/python build_niva_dock_cad.py    # dock enclosure + audit
+/opt/bpyenv/bin/python build_niva_scenes.py && python3 caption_renders.py
 ```
 
-The schematic generator uses deterministic UUIDs, so re-running it keeps the schematic and PCB linked. Re-run the netlist, `place` and `finalize` after any schematic change.
+- **UUIDs:** the schematic generators use deterministic UUIDs, so re-running them keeps each schematic and PCB linked.
+- **Autorouting:** Freerouting is not deterministic. The committed `.ses` files are the ones that were imported and DRC-checked; a new routing run must be re-checked.
 
 ## Sources and third-party assets
 
 - **Engineering brief:** "Niva prototype blueprint: from bench insole to health-camp kit", draft v0.1 (`hardware/brief/engineering-brief.txt`). Its component choices were reviewed, not assumed validated. Its prices, literature figures and unpublished study results are not adopted here.
-- **Rev A vector blueprints:** `outputs/niva-vector-blueprints/`. The 1:1 fit template provides the insole geometry used in the renders.
-- **Espressif KiCad libraries** (ESP32-C3-MINI-1 symbol, footprint and STEP model): github.com/espressif/kicad-libraries, commit `dd76561` (2026-07-28). CC-BY-SA 4.0 with the KiCad library design-use exception. The symbol was converted to KiCad 9 format; the footprint and model are unmodified.
-- **KiCad 9 libraries:**
-  - Symbols and footprints: KiCad 9.0.9, official `kicad/kicad:9.0` image.
-  - 3D models: gitlab.com/kicad/libraries/kicad-packages3D, tag 9.0.0; the KMR2 model is from `master`, since it is absent in 9.0.0.
-  - License: CC-BY-SA 4.0 with the design-use exception.
-- **Simplified envelopes (not supplier models):**
-  - `TDFN-8-2x2mm_ENVELOPE.step` (MAX17048; KiCad has no model);
-  - `NIVA_SpringContact_1x04_ENVELOPE.step` (part not selected);
-  - cell and cell-protection envelopes in the enclosure model. These are orange in the renders.
+- **Rev A vector blueprints:** `outputs/niva-vector-blueprints/`. The 1:1 fit template supplies the insole outline, the sensor-region centres and the heel tab used by the flex and the renders.
+- **Espressif KiCad libraries** (ESP32-C3-MINI-1 symbol, footprint and STEP model): github.com/espressif/kicad-libraries, commit `dd76561`. CC-BY-SA 4.0 with the design-use exception. The symbol was converted to KiCad 9 format; the footprint and model are unmodified.
+- **KiCad 9 libraries:** symbols and footprints from KiCad 9.0.9. 3D models from gitlab.com/kicad/libraries/kicad-packages3D, tag 9.0.0 (KMR2 from `master`). CC-BY-SA 4.0 with the design-use exception.
+- **Simplified envelopes (not supplier models; orange in the renders):**
+  - `TDFN-8-2x2mm_ENVELOPE.step` (MAX17048);
+  - `NIVA_SpringContact_1x04_ENVELOPE.step` (pod J2);
+  - `NIVA_SpringPin_1x03_ENVELOPE.step` (dock J2);
+  - the cell, drawn at its published maximum size.
+- **Component data used in Rev C.1** (from web search, because manufacturer sites were blocked from the build environment):
+  - MCP3208 VREF range 0.25 V–VDD and VREF current (Microchip DS21298);
+  - MCP73831 PROG behaviour and I_REG = 1000 V / R_PROG (Microchip);
+  - LM393 input common-mode behaviour (TI);
+  - EEMB LP502030 size and capacity (EEMB listing);
+  - BAV199 pinning and leakage (Nexperia data sheet, as quoted in search results).
+
+  Confirm each against the current PDF before any release.
 - **Tools:**
-  - FreeCAD 1.1.3 (conda-forge).
-  - KiCad 9.0.9 (Docker).
-  - Blender 4.5.14 LTS (`bpy` from PyPI; `.blend` saved in 4.5 format).
-  - CadQuery 2.7 (envelope models).
-  - Freerouting 2.1.0 (attempt only).
-  - DejaVu Sans font for the debossed CAD lettering.
-- **Datasheets cited in the review:** Espressif ESP32-C3 and ESP32-C3-MINI-1, Microchip MCP3208 and MCP6001, ST LSM6DSO32, TI TLV755P, ADI MAX17048, Tekscan A201. They are cited as in the brief. Where a figure matters it is marked "verify": several manufacturer sites were unreachable from the build environment.
+  - FreeCAD 1.1.3.
+  - KiCad 9.0.9 (Docker `kicad/kicad:9.0`).
+  - Blender 4.5.14 LTS (`bpy`).
+  - Freerouting 2.1.0.
+  - shapely 2.1 (flex geometry).
+  - DejaVu Sans font (CAD lettering).
 
 ## Checks actually completed
 
-- KiCad CLI: parse, ERC, netlist, BOM, PDF/SVG export; PCB DRC with schematic parity; STEP/GLB export; raytraced renders.
-- FreeCAD: every printable part is one valid solid with a closed, manifold mesh. A pairwise interference check covered every part of the right pod, including the KiCad PCBA solids. The only intersections are the intentional 0.4 mm spring-contact preload. Functional gaps are listed in `interference-report.json`.
-- Blender: every scene was rendered and visually inspected for clipping, floating parts and wrong geometry. Issues found and fixed included:
-  - edge-on bands;
-  - pods overlapping insoles;
-  - tails dipping below the floor;
-  - uncoloured KiCad GLB components.
-- **Not done:** any physical print, electrical build, measurement, routing, RF test, sealing test, skin or pressure assessment, or cleaning test.
+- **KiCad CLI, every board:**
+  - ERC with all severities;
+  - DRC with schematic parity;
+  - netlist, BOM, PDF, STEP and GLB exports;
+  - review-only Gerber, drill and placement exports;
+  - raytraced renders of the pod.
+- **FreeCAD:**
+  - Every printable part is one valid solid with a closed, manifold mesh.
+  - Pairwise interference audits cover the right pod, including the routed PCBA and the cartridge internals, and the dock with a seated cartridge.
+  - The only intersections are the intended spring-contact and spring-pin compressions.
+- **Insole flex:** the lane corridors stay at least 1 mm inside the 1:1 insole outline, except where the lanes intentionally cross the edge into the heel tab. This is checked by the generator.
+- **Blender:** all scenes were rendered and visually inspected. The KiCad GLB colour error was diagnosed and fixed at the import.
+- **Not done:**
+  - any physical print or electrical build;
+  - any measurement;
+  - RF test;
+  - sealing, skin, pressure or cleaning tests;
+  - FSR characterisation;
+  - independent design review.

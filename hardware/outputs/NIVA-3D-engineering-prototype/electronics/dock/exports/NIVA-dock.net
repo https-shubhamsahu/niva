@@ -1,7 +1,7 @@
 (export (version "E")
   (design
     (source "/home/user/niva/hardware/outputs/NIVA-3D-engineering-prototype/electronics/dock/NIVA-dock.kicad_sch")
-    (date "2026-09-28T03:21:11+0000")
+    (date "2026-09-28T04:10:29+0000")
     (tool "Eeschema 9.0.9")
     (sheet (number "1") (name "/") (tstamps "/")
       (title_block

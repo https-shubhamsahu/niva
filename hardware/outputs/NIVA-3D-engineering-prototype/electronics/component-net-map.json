@@ -749,27 +749,16 @@
   },
   {
     "ref": "D2",
-    "value": "BAS416",
-    "footprint": "Diode_SMD:D_SOD-323",
+    "value": "BAV199",
+    "footprint": "Package_TO_SOT_SMD:SOT-23",
     "nets": {
-      "1": "+3V3",
-      "2": "PZ_BIAS"
+      "1": "GND",
+      "3": "PZ_BIAS",
+      "2": "+3V3"
     },
     "uuid": "e7980434-ac43-5d59-975e-c4410f773e67",
     "sheet": "NIVA-heel-and-indicator",
-    "MPN": "BAS416 (low-leakage, SOD-323)"
-  },
-  {
-    "ref": "D3",
-    "value": "BAS416",
-    "footprint": "Diode_SMD:D_SOD-323",
-    "nets": {
-      "1": "PZ_BIAS",
-      "2": "GND"
-    },
-    "uuid": "2cc8911d-1029-523c-86b1-4b471f3c88cd",
-    "sheet": "NIVA-heel-and-indicator",
-    "MPN": "BAS416 (low-leakage, SOD-323)"
+    "MPN": "BAV199,215 (Nexperia) low-leakage series pair, SOT-23"
   },
   {
     "ref": "R45",
@@ -779,7 +768,7 @@
       "1": "LED_R",
       "2": "LED_R_A"
     },
-    "uuid": "a70266e2-3875-5f2a-b784-6fc19b7f5cb5",
+    "uuid": "728e785c-c923-5566-9805-2740a467be38",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -790,7 +779,7 @@
       "1": "LED_G",
       "2": "LED_G_A"
     },
-    "uuid": "a480f6ee-8791-54a0-802c-8deff12a2854",
+    "uuid": "d4fd32b9-d95a-5a25-a999-de46144c3bd2",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -801,7 +790,7 @@
       "1": "GND",
       "2": "LED_R_A"
     },
-    "uuid": "d6a8a22b-d699-549a-a309-b7379b12c1ba",
+    "uuid": "0477babb-a3fb-5a09-82fb-4b868390b9c8",
     "sheet": "NIVA-heel-and-indicator"
   },
   {
@@ -812,7 +801,7 @@
       "1": "GND",
       "2": "LED_G_A"
     },
-    "uuid": "7e690a46-344a-5c17-98d5-4a8fde3d0529",
+    "uuid": "a47bd6d4-1103-538c-a2bf-c5581290d1ce",
     "sheet": "NIVA-heel-and-indicator"
   }
 ]

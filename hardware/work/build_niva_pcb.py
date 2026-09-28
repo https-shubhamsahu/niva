@@ -9,7 +9,7 @@ battery cartridge), dock (charging dock). Footprints, pad nets and symbol links 
 schematic netlist, never typed by hand. Placement and outlines come from niva_layout.py, which also
 drives the FreeCAD enclosure, cartridge and dock, so boards and mechanics cannot drift apart.
 """
-import sys, os, re, math
+import sys, os, re, math, json
 from pathlib import Path
 import pcbnew, subprocess
 sys.path.insert(0, str(Path(__file__).parent))
@@ -60,7 +60,7 @@ def rect_outline(pts):
         for i in range(4): seg(board, pts[i], pts[(i + 1) % 4])
     return draw
 
-def zone(board, layers, pts, net=None, keepout=False, priority=0, name=''):
+def zone(board, layers, pts, net=None, keepout=False, priority=0, name='', solid=False):
     z = pcbnew.ZONE(board)
     if keepout:
         z.SetIsRuleArea(True); z.SetDoNotAllowCopperPour(True); z.SetDoNotAllowTracks(True)
@@ -71,7 +71,8 @@ def zone(board, layers, pts, net=None, keepout=False, priority=0, name=''):
     if net: z.SetNet(net)
     z.SetAssignedPriority(priority); z.SetZoneName(name)
     z.SetMinThickness(mm(0.2)); z.SetLocalClearance(mm(0.2)); z.SetThermalReliefGap(mm(0.25))
-    z.SetThermalReliefSpokeWidth(mm(0.3)); z.SetPadConnection(pcbnew.ZONE_CONNECTION_THERMAL)
+    z.SetThermalReliefSpokeWidth(mm(0.3))
+    z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL if solid else pcbnew.ZONE_CONNECTION_THERMAL)
     o = z.Outline(); o.NewOutline()
     for p in pts: o.Append(K(*p))
     board.Add(z); return z
@@ -88,7 +89,7 @@ BOARDS = {
     'pod': dict(dir=E, name='NIVA-pod', layers=4, t=L.BOARD['t'], place=L.PLACE, outline=notched_outline,
                 poly=rect(L.BOARD['x0'], L.BOARD['y0'], L.BOARD['w'], L.BOARD['h']), libs={'NIVA': E / 'NIVA.pretty'},
                 sheets={'/Controller/': 'NIVA-controller.kicad_sch', '/Heel and indicator/': 'NIVA-heel-and-indicator.kicad_sch'},
-                fab_refs=('H1', 'H2', 'J1', 'J3', 'U5'), gnd='GND', title=(21.0, 56.0)),
+                fab_refs=('H1', 'H2', 'J1', 'J3', 'U5'), gnd='GND', title=(21.0, 56.0), pour_nets=('GND',)),
     'cartridge': dict(dir=E / 'cartridge', name='NIVA-cartridge', layers=2, t=L.STRIP['t'], place=L.CART_PLACE,
                 poly=rect(L.STRIP['x0'], L.STRIP['y0'], L.STRIP['w'], L.STRIP['l']),
                 libs={'NIVA_power': E / 'cartridge/NIVA_power.pretty'}, sheets={}, fab_refs=('F1', 'J1', 'J2', 'J3'),
@@ -97,6 +98,18 @@ BOARDS = {
                 poly=rect(D['pcb_x0'], D['pcb_y0'], D['pcb_w'], D['pcb_h']), libs={'NIVA_power': E / 'dock/NIVA_power.pretty'},
                 sheets={}, fab_refs=('J1', 'J2'), gnd='GND', title=(D['pcb_x0'] + D['pcb_w'] / 2, D['pcb_y0'] + 2.0)),
 }
+def poly_outline(rings):
+    def draw(board):
+        for ring in rings:
+            for p, q in zip(ring, ring[1:] + ring[:1]): seg(board, p, q)
+    return draw
+# Sensing insole flex (right / left medium): geometry from build_niva_insole_flex.py (host python + shapely)
+INSOLE = {s: json.loads(f.read_text()) for s in 'RL' if (f := ROOT / f'work/insole-layout-{s}.json').exists()}
+for s, lay in INSOLE.items():
+    BOARDS[f'insole-{s}'] = dict(dir=E / 'insole', name=f'NIVA-insole-{s}', layers=2, t=0.12,
+                                place={r: tuple(v) for r, v in lay['place'].items()}, outline=poly_outline(lay['outline']),
+                                poly=lay['outline'][0], libs={'NIVA_insole': E / 'insole/NIVA_insole.pretty'}, sheets={},
+                                fab_refs=('J1', 'J2', 'R1'), gnd=None, title=(150.0 if s == 'R' else -54.0, 26.0))
 for b in BOARDS.values():
     b.setdefault('outline', rect_outline(b['poly']))
     b['pcb'] = b['dir'] / (b['name'] + '.kicad_pcb'); b['net'] = b['dir'] / 'exports' / (b['name'] + '.net')
@@ -168,6 +181,13 @@ def place(key):
         text(board, 'SERVICE', 21.0, 31.4, pcbnew.B_SilkS, 0.8)
         # IMU axes (LSM6DSO32 package: +X/+Y per ST pin-1 marking; confirm in placement review)
         text(board, 'X>', 30.6, 45.4, pcbnew.F_SilkS, 0.8); text(board, 'Y^', 36.6, 38.9, pcbnew.F_SilkS, 0.8)
+    elif key.startswith('insole'):
+        lay = INSOLE[key[-1]]; LAY = {'F.SilkS': pcbnew.F_SilkS, 'F.Fab': pcbnew.F_Fab}
+        for t, x, y, layer, size in lay['texts']: text(board, t, x, y, LAY[layer], size)
+        for ring, name in ((lay['insole'], 'INSOLE OUTLINE (1:1 medium fit template)'), (lay['stiffener'], 'STIFFENER')):
+            for p, q in zip(ring, ring[1:] + ring[:1]):
+                g = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_SEGMENT); g.SetStart(K(*p)); g.SetEnd(K(*q))
+                g.SetLayer(pcbnew.Dwgs_User); g.SetWidth(mm(0.15)); board.Add(g)
     elif key == 'dock':
         text(board, 'NIVA DOCK REV C.1', D['pcb_x0'] + 14, D['pcb_y0'] + 5, pcbnew.F_SilkS, 1.0)
         text(board, '+', D['pads'][0][0] + 3.0, D['pads'][0][1], pcbnew.F_SilkS, 1.0)
@@ -175,9 +195,24 @@ def place(key):
     board = pcbnew.LoadBoard(str(b['pcb']))           # reload so net classes and rules come from the .kicad_pro
     pcbnew.ZONE_FILLER(board).Fill(board.Zones()); pcbnew.SaveBoard(str(b['pcb']), board)
     relink_models(b); board = pcbnew.LoadBoard(str(b['pcb']))
+    if b.get('pour_nets'):
+        # fan-out first: every GND pad gets its own via to the In1 plane before any signal is routed, so the
+        # autorouter sees GND as complete (through the plane) and routes signals around the vias
+        gnd_fanout(board); pcbnew.SaveBoard(str(b['pcb']), board); relink_models(b); board = pcbnew.LoadBoard(str(b['pcb']))
     b['dsn'].parent.mkdir(exist_ok=True)
     assert pcbnew.ExportSpecctraDSN(board, str(b['dsn'])), 'DSN export failed'
     print(key, 'placed', len(comps), 'footprints,', len(nets), 'nets; DSN written')
+
+def dsn_without(path, nets):
+    """Hide pour-only nets from Freerouting: drop their network entry, class membership and plane. Their pins stay
+    in the DSN as copper obstacles; finalize() connects them with pours on every layer plus fan-out vias."""
+    t = path.read_text()
+    for n in nets:
+        e = re.escape(n)
+        t = re.sub(r'\(net ' + e + r'\s*\(pins[^)]*\)\s*\)', '', t)
+        t = re.sub(r'\(plane ' + e + r' \(polygon[^)]*\)\)', '', t)
+        t = re.sub(r'(\(class [^()]*?)\s' + e + r'(?=[\s)])', r'\1', t)
+    path.write_text(t)
 
 # Hand route for the 3.4 mm cartridge strip (four nets; the autorouter cannot hold the edge clearance there).
 # Pod-frame coordinates. Top channel: CELL_P at x 32.6, PACK_P at x 32.0 (0.3 mm tracks, 0.15 mm gaps);
@@ -192,15 +227,22 @@ HAND = {'cartridge': dict(
             ('/PACK_N', 'B.Cu', 0.3, [(32.0, 28.35), (32.0, 24.0), (31.55, 24.0)])],
     vias=[('/PACK_P', 32.0, 14.2), ('/NTC', 32.0, 34.1), ('/PACK_N', 32.0, 28.35)])}
 
+for s, lay in INSOLE.items():
+    HAND[f'insole-{s}'] = dict(tracks=[(n, l, 0.25, [tuple(p) for p in pts]) for n, l, pts in lay['tracks']],
+                               vias=[tuple(v) for v in lay['vias']], via=(0.5, 0.25))
+
 def hand_route(board, key):
+    nets = board.GetNetsByName()
+    net_of = lambda n: board.FindNet(n) if nets.has_key(n) else board.FindNet('/' + n)
+    vd, vh = HAND[key].get('via', (0.6, 0.3))
     for net, layer, w, pts in HAND[key]['tracks']:
-        ni = board.FindNet(net); lay = board.GetLayerID(layer)
+        ni = net_of(net); lay = board.GetLayerID(layer); assert ni, net
         for a, c in zip(pts, pts[1:]):
             t = pcbnew.PCB_TRACK(board); t.SetStart(K(*a)); t.SetEnd(K(*c)); t.SetWidth(mm(w)); t.SetLayer(lay)
             t.SetNet(ni); board.Add(t)
     for net, x, y in HAND[key]['vias']:
-        v = pcbnew.PCB_VIA(board); v.SetPosition(K(x, y)); v.SetWidth(mm(0.6)); v.SetDrill(mm(0.3))
-        v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); v.SetNet(board.FindNet(net)); board.Add(v)
+        v = pcbnew.PCB_VIA(board); v.SetPosition(K(x, y)); v.SetWidth(mm(vd)); v.SetDrill(mm(vh))
+        v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); v.SetNet(net_of(net)); board.Add(v)
 
 def strip_pass(path):
     """One pass: delete track segments with an unconnected end. Returns the number removed."""
@@ -219,6 +261,115 @@ def remove_dangling(path):
         n = int(re.search(r'STRIPPED (\d+)', out.stdout).group(1)); removed += n
         if not n: return removed
 
+def gnd_fanout(board, net_name='GND', clear=0.127, margin=0.03, via=(0.5, 0.25)):
+    """Give every SMD pad of a pour-only net its own via to the inner plane, at the nearest free spot.
+    A spot is free when the via and its stub clear every other-net pad, track and via (KiCad HitTest), all holes by
+    the hole-to-hole rule, the board edge and the antenna keep-out. Large pads (thermal pads) get a via in pad."""
+    net = board.FindNet(net_name); nc = net.GetNetCode(); b = L.BOARD; k = L.ANTENNA_KEEPOUT
+    vr, vh = via[0] / 2, via[1] / 2
+    items = [(p, p.GetBoundingBox()) for p in board.GetPads() if p.GetNetCode() != nc]
+    items += [(t, t.GetBoundingBox()) for t in board.GetTracks() if t.GetNetCode() != nc]
+    holes = [(p.GetPosition(), max(p.GetDrillSize().x, p.GetDrillSize().y) / 2) for p in board.GetPads() if p.GetDrillSize().x > 0]
+    holes += [(t.GetPosition(), t.GetDrillValue() / 2) for t in board.GetTracks() if t.GetClass() == 'PCB_VIA']
+    def near(pt, r):
+        return [it for it, bb in items if bb.GetLeft() - r <= pt.x <= bb.GetRight() + r and bb.GetTop() - r <= pt.y <= bb.GetBottom() + r]
+    def inside(x, y):                                            # board frame, mm
+        if not (b['x0'] + 0.65 <= x <= b['x0'] + b['w'] - 0.65 and b['y0'] + 0.65 <= y <= b['y0'] + b['h'] - 0.65): return False
+        if any(math.hypot(x - cx, y - cy) < L.BOARD_NOTCH_R + 0.7 for cx, cy in L.CASE_SCREWS): return False
+        return not (k['x0'] - 0.5 <= x <= k['x1'] + 0.5 and k['y0'] - 0.5 <= y <= k['y1'] + 1.5)
+    def free_via(pt):
+        acc = mm(vr + clear + margin)
+        if any(it.HitTest(pt, acc) for it in near(pt, acc)): return False
+        return all((pt - hp).EuclideanNorm() >= hr + mm(vh + 0.3) for hp, hr in holes)
+    def free_stub(a, c, layer, w):
+        n = max(2, int((c - a).EuclideanNorm() / mm(0.1)))
+        for i in range(n + 1):
+            q = pcbnew.VECTOR2I(int(a.x + (c.x - a.x) * i / n), int(a.y + (c.y - a.y) * i / n)); acc = mm(w / 2 + clear + margin)
+            for it in near(q, acc):
+                if it.IsOnLayer(layer) and it.HitTest(q, acc): return False
+        return True
+    added, failed = 0, []
+    ends = [t.GetPosition() for t in board.GetTracks() if t.GetNetCode() == nc and t.GetClass() == 'PCB_VIA']
+    ends += [e for t in board.GetTracks() if t.GetNetCode() == nc and t.GetClass() == 'PCB_TRACK' for e in (t.GetStart(), t.GetEnd())]
+    pads = [p for p in board.GetPads() if p.GetNetCode() == nc and p.GetAttribute() in (pcbnew.PAD_ATTRIB_SMD, pcbnew.PAD_ATTRIB_CONN)
+            and not any(p.HitTest(e) for e in ends)]                 # already wired (e.g. by a second routing pass)
+    for pad in pads:
+        pos = pad.GetPosition(); fp = pad.GetParentFootprint(); layer = pcbnew.F_Cu if pad.IsOnLayer(pcbnew.F_Cu) else pcbnew.B_Cu
+        sz = pad.GetSize(); big = min(sz.x, sz.y) >= mm(0.9) and max(sz.x, sz.y) >= mm(0.9) and fp.GetReference().startswith('U')
+        spot = pos if big and free_via(pos) else None       # thermal / large pad: via in pad when nothing runs beneath
+        stub = False
+        if spot is None:
+            c = fp.GetPosition(); d = pos - c
+            base = math.atan2(d.y, d.x) if d.EuclideanNorm() > mm(0.05) else 0.0
+            ext = max(sz.x, sz.y) / 2 / 1e6
+            w = 0.15 if min(sz.x, sz.y) < mm(0.4) else 0.2
+            for dist in (ext + vr + 0.2, ext + vr + 0.4, ext + vr + 0.7, ext + vr + 1.0, ext + vr + 1.4, ext + vr + 1.9):
+                for da in (0, 15, -15, 30, -30, 45, -45, 60, -60, 75, -75, 90, -90, 120, -120, 150, -150, 180):
+                    a = base + math.radians(da)
+                    cand = pos + pcbnew.VECTOR2I(mm(dist * math.cos(a)), mm(dist * math.sin(a)))
+                    x, y = L.from_kicad(cand.x / 1e6, cand.y / 1e6)
+                    if inside(x, y) and free_via(cand) and free_stub(pos, cand, layer, w): spot = cand; break
+                if spot is not None: break
+            stub = True
+        if spot is None:
+            # fallback: a straight or L-shaped stub on the pad's layer to an existing via of the net (<= 4 mm)
+            gv = sorted((t.GetPosition() for t in board.GetTracks() if t.GetClass() == 'PCB_VIA' and t.GetNetCode() == nc),
+                        key=lambda q: (q - pos).EuclideanNorm())
+            w = 0.15; path = None
+            for q in gv:
+                if (q - pos).EuclideanNorm() > mm(4.0): break
+                for mid in (None, pcbnew.VECTOR2I(q.x, pos.y), pcbnew.VECTOR2I(pos.x, q.y)):
+                    pts = [pos, q] if mid is None else [pos, mid, q]
+                    if all(free_stub(a, c, layer, w) for a, c in zip(pts, pts[1:])): path = pts; break
+                if path: break
+            if path is None: failed.append(fp.GetReference() + '.' + pad.GetNumber()); continue
+            for a, c in zip(path, path[1:]):
+                t = pcbnew.PCB_TRACK(board); t.SetStart(a); t.SetEnd(c); t.SetWidth(mm(w)); t.SetLayer(layer); t.SetNet(net)
+                board.Add(t)
+            added += 1; continue
+        v = pcbnew.PCB_VIA(board); v.SetPosition(spot); v.SetWidth(mm(via[0])); v.SetDrill(mm(via[1]))
+        v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); v.SetNet(net); board.Add(v); holes.append((spot, mm(vh)))
+        if stub and spot != pos:
+            t = pcbnew.PCB_TRACK(board); t.SetStart(pos); t.SetEnd(spot); t.SetWidth(mm(w)); t.SetLayer(layer); t.SetNet(net)
+            board.Add(t)
+        added += 1
+    print(f'GND fan-out: {added} vias for {len(pads)} pads; no free spot for {failed}')
+    return failed
+
+def stitch_islands(board, net_name='GND', via=(0.5, 0.25), clear=0.127, margin=0.03):
+    """After a fill: put a via into every pour island of the net that has none (islands that touch a pad the
+    fan-out could not reach). Candidate points on a 0.1 mm grid inside the island, >= via radius from its edge,
+    clear of other-net copper on every layer and of all holes."""
+    net = board.FindNet(net_name); nc = net.GetNetCode(); vr, vh = via[0] / 2, via[1] / 2
+    others = [t for t in list(board.GetPads()) + list(board.GetTracks()) if t.GetNetCode() != nc]
+    holes = [(p.GetPosition(), max(p.GetDrillSize().x, p.GetDrillSize().y) / 2) for p in board.GetPads() if p.GetDrillSize().x > 0]
+    holes += [(t.GetPosition(), t.GetDrillValue() / 2) for t in board.GetTracks() if t.GetClass() == 'PCB_VIA']
+    vias = [t.GetPosition() for t in board.GetTracks() if t.GetClass() == 'PCB_VIA' and t.GetNetCode() == nc]
+    added = 0
+    for z in board.Zones():
+        if z.GetNetCode() != nc or z.GetIsRuleArea(): continue
+        for layer in z.GetLayerSet().CuStack():
+            polys = z.GetFilledPolysList(layer)
+            for i in range(polys.OutlineCount()):
+                ch = polys.Outline(i)
+                if any(ch.PointInside(v) for v in vias): continue
+                bb = ch.BBox(); spot = None; step = mm(0.1)
+                for yy in range(bb.GetY(), bb.GetY() + bb.GetHeight(), step):
+                    for xx in range(bb.GetX(), bb.GetX() + bb.GetWidth(), step):
+                        pt = pcbnew.VECTOR2I(xx, yy)
+                        if not ch.PointInside(pt) or ch.SquaredDistance(pt) < mm(vr + 0.01) ** 2: continue
+                        if any((pt - hp).EuclideanNorm() < hr + mm(vh + 0.3) for hp, hr in holes): continue
+                        acc = mm(vr + clear + margin)
+                        if any(o.HitTest(pt, acc) for o in others): continue
+                        spot = pt; break
+                    if spot is not None: break
+                if spot is None: print('  island without a via spot on', board.GetLayerName(layer), bb.GetX() / 1e6, bb.GetY() / 1e6); continue
+                v = pcbnew.PCB_VIA(board); v.SetPosition(spot); v.SetWidth(mm(via[0])); v.SetDrill(mm(via[1]))
+                v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu); v.SetNet(net); board.Add(v)
+                holes.append((spot, mm(vh))); vias.append(spot); added += 1
+    print(f'island stitching: {added} vias')
+    return added
+
 def finalize(key, status, ses=None):
     """Import a routed Specctra session (if given), add GND pours on every copper layer, stamp the status."""
     b = BOARDS[key]; board = pcbnew.LoadBoard(str(b['pcb']))
@@ -228,17 +379,20 @@ def finalize(key, status, ses=None):
         assert pcbnew.ImportSpecctraSES(board, str(ses)), 'SES import failed'
         pcbnew.SaveBoard(str(b['pcb']), board)
         print(key, 'removed dangling segments:', remove_dangling(b['pcb'])); board = pcbnew.LoadBoard(str(b['pcb']))
+    if ses and b.get('pour_nets'): gnd_fanout(board)          # re-fans any GND pad the router left without a via
     if ses and b['gnd']:
         gnd = board.FindNet(b['gnd'])
         layers = [pcbnew.F_Cu, pcbnew.B_Cu] + ([pcbnew.In2_Cu] if b['layers'] == 4 else [])
-        for layer in layers: zone(board, [layer], b['poly'], gnd, name='GND_' + board.GetLayerName(layer))
+        for layer in layers: zone(board, [layer], b['poly'], gnd, name='GND_' + board.GetLayerName(layer), solid=bool(b.get('pour_nets')))
     x, y = b['title']
     for layer in (pcbnew.Cmts_User, pcbnew.F_Fab):
         t = pcbnew.PCB_TEXT(board); t.SetText(status); t.SetPosition(K(x, y)); t.SetLayer(layer)
         t.SetTextSize(V(0.6 if key == 'cartridge' else 0.9, 0.6 if key == 'cartridge' else 0.9)); t.SetTextThickness(mm(0.1))
         if key == 'cartridge': t.SetTextAngleDegrees(90)
         board.Add(t)
-    pcbnew.ZONE_FILLER(board).Fill(board.Zones()); pcbnew.SaveBoard(str(b['pcb']), board)
+    pcbnew.ZONE_FILLER(board).Fill(board.Zones())
+    if ses and b.get('pour_nets') and stitch_islands(board): pcbnew.ZONE_FILLER(board).Fill(board.Zones())
+    pcbnew.SaveBoard(str(b['pcb']), board)
     relink_models(b)
     print(key, 'finalized:', status)
 

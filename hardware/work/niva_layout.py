@@ -23,6 +23,8 @@ KX0, KY0 = 100.0, 100.0
 
 def to_kicad(x, y):
     return KX0 + x, KY0 - y
+def from_kicad(x, y):
+    return x - KX0, KY0 - y
 
 # Two M2 screws through the board into rear-housing bosses outside the battery bay.
 # The lower board edge rests on housing ledges and is clamped by front-cover ribs.
@@ -56,16 +58,15 @@ PLACE = {
 }
 ROW_A = ['R11', 'R21', 'R12', 'R22', 'R13', 'R23', 'R14', 'R24', 'R15', 'R25',
          'R33', 'C18', 'R31', 'R32', 'C16', 'R30', 'R34', 'C17']
-ROW_B = ['C11', 'C12', 'C13', 'C14', 'C15', 'R6', 'R40', 'R41', 'C40', 'R42', 'R43', 'R44', 'C41', 'C42', 'D2', 'D3']
+ROW_B = ['C11', 'C12', 'C13', 'C14', 'C15', 'R6', 'R40', 'R41', 'C40', 'R42', 'R43', 'R44', 'C41', 'C42', 'D2']
 def _rows():
     x = 5.4
     for ref in ROW_A:
         PLACE[ref] = (round(x, 2), 14.4, 90, 'F'); x += 1.8
     x = 5.4
     for ref in ROW_B:
-        wide = ref.startswith('D')
-        if wide: x += 0.25
-        PLACE[ref] = (round(x, 2), 17.9, 90, 'F'); x += 2.1 if wide else 1.8
+        if ref == 'D2': x += 0.9                                 # BAV199, SOT-23: 2.6 mm across the pads
+        PLACE[ref] = (round(x, 2), 17.9, 90, 'F'); x += 1.8
 _rows()
 
 # Front-panel features that the CAD must align with (pod frame).

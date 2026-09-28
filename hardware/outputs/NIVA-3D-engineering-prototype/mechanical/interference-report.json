@@ -29,6 +29,6 @@
     "CartridgeStripPCB_R to 03_BatteryCartridgeCup_R": 0.0
   },
   "notes": [
-    "KiCad PCBA STEP imported: 658 component/pad solids, z 8.71..17.04; KiCad board body 1445 mm3 vs enclosure board solid 1590 mm3 (difference 9.1 %, KiCad dielectric body excludes outer copper/mask)"
+    "KiCad PCBA STEP imported: 656 component/pad solids, z 8.71..17.04; KiCad board body 1445 mm3 vs enclosure board solid 1590 mm3 (difference 9.1 %, KiCad dielectric body excludes outer copper/mask)"
   ]
 }

@@ -1,0 +1,8 @@
+NIVA-pod - FABRICATION DATA FOR REVIEW ONLY - NOT RELEASED - DO NOT ORDER
+
+Automated checks at export: ERC errors 0, DRC errors 0, unconnected 0, footprint errors 0 (KiCad 9.0.9, schematic parity on).
+Passing KiCad ERC/DRC is not a design review. Open blockers:
+  - J2 cartridge spring contacts: NIVA land pattern and 3D envelope, part not selected - replace with supplier data.
+  - U6 MAX17048 TDFN: stock KiCad land pattern, simplified 3D envelope - confirm against the purchased package.
+  - Antenna keep-out and ESP32-C3-MINI-1 placement need a radiated check in the closed enclosure.
+  - No independent schematic/layout review, no DFM report from the chosen fabricator, no bring-up of a first article.
