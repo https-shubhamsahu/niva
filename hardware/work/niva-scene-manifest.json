@@ -1,0 +1,212 @@
+[
+  {
+    "name": "01_RearHousing_R",
+    "material": "PETG or ASA, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/01_RearHousing_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "02_FrontCover_R",
+    "material": "PETG or ASA, pale grey-blue",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/02_FrontCover_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "03_BatteryCartridgeCup_R",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/03_BatteryCartridgeCup_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "04_BatteryCartridgeLid_R",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/04_BatteryCartridgeLid_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "05_Cradle_R",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/05_Cradle_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "06_SoftCradlePad_TPU_R",
+    "material": "TPU 85A-95A, teal",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/06_SoftCradlePad_TPU_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "07_Button_TPU_R",
+    "material": "TPU 85A-95A, teal",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/07_Button_TPU_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "08_LightWindow_Clear_R",
+    "material": "clear SLA resin or clear PETG",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/08_LightWindow_Clear_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "09_SeamGasket_TPU_R",
+    "material": "die-cut 0.5 mm silicone/EPDM sheet (TPU print for fit trial only)",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/09_SeamGasket_TPU_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "PCB_Substrate_R",
+    "material": "FR-4 1.0 mm, 4-layer (KiCad board body)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/PCB_Substrate_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "TailBoot_R",
+    "material": "TPU overmould on insert tail (not printed)",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/TailBoot_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "ContactPlates_R",
+    "material": "brass, gold flash (to select)",
+    "kind": "envelope-compound",
+    "stl": "work/niva-meshes/ContactPlates_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "Cell_LP502030_MAXSIZE_R",
+    "material": "EEMB LP502030 class, published max size (supplier model not available)",
+    "kind": "envelope",
+    "stl": "work/niva-meshes/Cell_LP502030_MAXSIZE_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "CartridgeStripPCB_R",
+    "material": "FR-4 0.8 mm interconnect + polyfuse (see electronics/cartridge)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/CartridgeStripPCB_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "PCB_Components_KiCad_R",
+    "material": "KiCad library + Espressif models",
+    "kind": "envelope-compound",
+    "stl": "work/niva-meshes/PCB_Components_KiCad_R.stl",
+    "offset_x": 0.0
+  },
+  {
+    "name": "01_RearHousing_L",
+    "material": "PETG or ASA, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/01_RearHousing_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "02_FrontCover_L",
+    "material": "PETG or ASA, pale grey-blue",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/02_FrontCover_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "03_BatteryCartridgeCup_L",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/03_BatteryCartridgeCup_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "04_BatteryCartridgeLid_L",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/04_BatteryCartridgeLid_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "05_Cradle_L",
+    "material": "PETG, navy",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/05_Cradle_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "06_SoftCradlePad_TPU_L",
+    "material": "TPU 85A-95A, teal",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/06_SoftCradlePad_TPU_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "07_Button_TPU_L",
+    "material": "TPU 85A-95A, teal",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/07_Button_TPU_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "08_LightWindow_Clear_L",
+    "material": "clear SLA resin or clear PETG",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/08_LightWindow_Clear_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "09_SeamGasket_TPU_L",
+    "material": "die-cut 0.5 mm silicone/EPDM sheet (TPU print for fit trial only)",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/09_SeamGasket_TPU_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "PCB_Substrate_L",
+    "material": "FR-4 1.0 mm, 4-layer (KiCad board body)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/PCB_Substrate_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "TailBoot_L",
+    "material": "TPU overmould on insert tail (not printed)",
+    "kind": "flexible",
+    "stl": "work/niva-meshes/TailBoot_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "ContactPlates_L",
+    "material": "brass, gold flash (to select)",
+    "kind": "envelope-compound",
+    "stl": "work/niva-meshes/ContactPlates_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "Cell_LP502030_MAXSIZE_L",
+    "material": "EEMB LP502030 class, published max size (supplier model not available)",
+    "kind": "envelope",
+    "stl": "work/niva-meshes/Cell_LP502030_MAXSIZE_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "CartridgeStripPCB_L",
+    "material": "FR-4 0.8 mm interconnect + polyfuse (see electronics/cartridge)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/CartridgeStripPCB_L.stl",
+    "offset_x": -80.0
+  },
+  {
+    "name": "PCB_Components_KiCad_L",
+    "material": "KiCad library + Espressif models",
+    "kind": "envelope-compound",
+    "stl": "work/niva-meshes/PCB_Components_KiCad_L.stl",
+    "offset_x": -80.0
+  }
+]

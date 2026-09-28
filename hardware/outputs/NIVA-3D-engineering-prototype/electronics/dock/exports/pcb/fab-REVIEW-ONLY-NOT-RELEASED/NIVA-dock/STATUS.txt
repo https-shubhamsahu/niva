@@ -1,0 +1,7 @@
+NIVA-dock - FABRICATION DATA FOR REVIEW ONLY - NOT RELEASED - DO NOT ORDER
+
+Automated checks at export: ERC errors 0, DRC errors 0, unconnected 0, footprint errors 0 (KiCad 9.0.9, schematic parity on).
+Passing KiCad ERC/DRC is not a design review. Open blockers:
+  - J2 spring pins: PLACEHOLDER land pattern (part not selected; supplier datasheet not reachable here).
+  - Charger thermal window thresholds (R6/R7/R8) depend on the NTC fitted to the purchased cell - verify.
+  - No independent review, no DFM report from the chosen fabricator.

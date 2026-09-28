@@ -1,0 +1,14 @@
+ERC report (2026-09-28T04:16:19+0000, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+
+***** Sheet /Controller/
+[pin_to_pin]: Pins of type Bidirectional and Power output are connected
+    ; warning
+    @(405.13 mm, 69.85 mm): Symbol U3 Pin 2 [SDx, Bidirectional, Line]
+    @(519.43 mm, 214.63 mm): Symbol #FLG02 Pin 1 [Power output, Line]
+
+***** Sheet /Heel and indicator/
+
+ ** ERC messages: 1  Errors 0  Warnings 1

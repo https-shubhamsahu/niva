@@ -1,0 +1,9 @@
+Ref,Val,Package,PosX,PosY,Rot,Side
+"FSR1","P1 Big toe (shunt FSR, 12 mm)","FSR_Interdigitated_D12mm",172.000000,135.000000,0.000000,top
+"FSR2","P2 Medial forefoot (shunt FSR, 12 mm)","FSR_Interdigitated_D12mm",172.000000,93.000000,0.000000,top
+"FSR3","P3 Lateral forefoot (shunt FSR, 12 mm)","FSR_Interdigitated_D12mm",116.000000,80.000000,0.000000,top
+"FSR4","P4 Lateral midfoot (shunt FSR, 12 mm)","FSR_Interdigitated_D12mm",126.000000,17.000000,0.000000,top
+"FSR5","P5 Heel (shunt FSR, 12 mm)","FSR_Interdigitated_D12mm",153.000000,-68.000000,-90.000000,top
+"J1","CABLE TO POD J1 (JST GH 10)","WirePads_1x10_P2.0mm_LaneOrder",-28.000000,-80.000000,0.000000,top
+"J2","V1 PVDF FILM (signal, return)","PVDF_BondPads_2x6x2mm",141.000000,-86.000000,0.000000,top
+"R1","47k 0.1%","R_0603_1608Metric",-22.000000,-88.000000,90.000000,top
