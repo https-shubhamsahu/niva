@@ -1,0 +1,131 @@
+<style>
+#glance{left:40px;top:226px;width:1110px;height:250px;padding:10px 12px}
+.pillars{position:absolute;left:12px;top:46px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:1084px;list-style:none}
+.pil{height:192px;border-radius:12px;background:var(--wash);border:1.5px solid var(--line);border-top:7px solid var(--green);padding:10px 12px}
+.pil.amber{border-top-color:var(--amber)}
+.pil h4{display:flex;align-items:center;gap:8px;font:700 17px/1 var(--f);color:var(--navy);margin-bottom:9px;flex-wrap:wrap}
+.pil .st{font:700 14px/1 var(--f);border-radius:999px;padding:4px 8px;background:var(--mint);color:var(--green-dk)}
+.pil.amber .st{background:var(--sand);color:#8A4B00}
+.pil ul{margin:0;padding-left:20px;font:400 16px/1.25 var(--f)}
+.pil li{margin-bottom:6px}
+.pil li b{color:var(--navy)}
+
+#cost{left:1162px;top:226px;width:718px;height:250px;padding:10px 14px}
+.headline{position:absolute;left:14px;top:42px;display:flex;align-items:center;gap:14px}
+.headline .n{font:700 54px/1 var(--num);color:var(--orange)}
+.headline .t{font:700 17px/1.2 var(--f);color:var(--navy);width:470px}
+.bars{position:absolute;left:14px;top:100px;width:690px;list-style:none}
+.bar{display:flex;align-items:center;height:21px;margin-bottom:3px}
+.bar .l{width:200px;font:600 15px/1 var(--f);color:var(--ink)}
+.bar .v{height:16px;border-radius:0 4px 4px 0}
+.bar .x{margin-left:8px;font:700 15px/1 var(--f)}
+.relay{position:absolute;left:14px;top:197px;width:690px;background:var(--peach);border-radius:8px;font:600 15px/1.3 var(--f);color:var(--orange-dk);padding:3px 9px}
+.src{position:absolute;left:14px;top:230px;font:400 14px/1 var(--f);color:var(--muted);white-space:nowrap}
+
+#risks{left:40px;top:522px;width:1195px;height:468px;padding:0;list-style:none}
+.rk{position:absolute;left:0;width:1195px;height:66.8px;display:flex;align-items:center;border-bottom:1px solid #EEF2F7}
+.rk:nth-child(even){background:var(--wash)}
+.rk .risk{width:420px;flex:none;display:flex;gap:10px;align-items:center;padding-left:14px}
+.rk .risk .ico{width:30px;height:30px}
+.rk .risk h4{font:700 16.5px/1.15 var(--f);color:var(--ink)}
+.rk .risk p{font:400 15px/1.2 var(--f);color:var(--muted)}
+.rk .arrow{width:34px;flex:none}
+.rk .strat{flex:1;font:400 16px/1.28 var(--f);color:var(--ink);padding-right:10px}
+.rk .strat b{color:var(--navy)}
+.rk .chip{margin-right:14px}
+
+#mass{left:1248px;top:486px;width:632px;height:190px;padding:10px 14px}
+.mbar{position:absolute;left:14px;top:48px;width:600px;height:26px;background:#EEF2F7;border-radius:6px}
+.mbar span{position:absolute;top:0;height:26px}
+.target{position:absolute;left:14px;top:44px;height:34px;border:2px dashed var(--green);border-radius:6px}
+.mleg{position:absolute;left:14px;top:84px;width:604px;display:flex;flex-wrap:wrap;gap:4px 14px;font:400 14px/1.2 var(--f);color:var(--ink);list-style:none}
+.mleg li{display:inline-flex;align-items:center;gap:5px}
+.mleg i{display:inline-block;width:12px;height:12px;border-radius:3px}
+.kpi{position:absolute;left:14px;top:132px;width:604px;font:400 15.5px/1.3 var(--f);color:var(--ink)}
+.kpi b{color:var(--navy)}
+
+#road{left:1248px;top:686px;width:632px;height:304px;padding:10px 14px}
+.ladder{position:absolute;left:14px;top:48px;width:604px;list-style:none}
+.rail{position:absolute;left:24px;top:58px;width:4px;height:236px;background:linear-gradient(#2E9E6A,#1B3A6B 50%,#5E35B1)}
+.rung{position:relative;display:flex;gap:12px;margin-bottom:9px}
+.rung .dot{width:24px;height:24px;border-radius:50%;background:#fff;border:4px solid var(--navy);flex:none;margin-top:1px;z-index:1}
+.rung.now .dot{border-color:var(--green);background:var(--green)}
+.rung.p2 .dot{border-color:var(--purple)}
+.rung p{font:400 15px/1.28 var(--f);color:var(--ink)}
+.rung .dt{display:inline-block;font:700 14px/1 var(--f);color:#fff;background:var(--navy);border-radius:5px;padding:3px 6px;margin-right:6px}
+.rung.now .dt{background:var(--green)} .rung.p2 .dt{background:var(--purple)}
+.rung b{color:var(--navy)}
+</style>
+<main>
+<h2 class="ptr" style="left:60px;top:188px">Analysis of the feasibility of the idea</h2>
+
+<div class="p" id="glance">
+  <h3 class="tag">Feasibility at a glance</h3>
+  <ul class="pillars">
+    <li class="pil"><h4><i data-icon="cpu" data-color="#1B3A6B" data-size="24"></i>TECHNICAL<span class="st">✓ OFF-THE-SHELF</span></h4><ul>
+      <li>Every part is <b>off-the-shelf</b></li><li>Open stack: ArduPilot · ROS 2 · FAST-LIO2</li><li><b>Software prototype live</b></li></ul></li>
+    <li class="pil"><h4><i data-icon="indian-rupee" data-color="#1B3A6B" data-size="24"></i>ECONOMIC<span class="st">✓ LOW COST</span></h4><ul>
+      <li><b>₹1.5 L</b> SIH prototype (team BOM)</li><li><b>≈ ₹3 L</b> field unit (est.)</li><li>Sensors return; only <b>₹900 relays</b> stay</li></ul></li>
+    <li class="pil"><h4><i data-icon="hard-hat" data-color="#1B3A6B" data-size="24"></i>OPERATIONAL<span class="st">✓ FITS</span></h4><ul>
+      <li><b>1 operator + 1 laptop</b></li><li>Launches from the rescue base or van</li><li><b>Search &amp; rescue</b> + triage modes</li></ul></li>
+    <li class="pil amber"><h4><i data-icon="shield-check" data-color="#1B3A6B" data-size="24"></i>SAFETY PATH<span class="st">PLANNED</span></h4><ul>
+      <li><b>Gas-free trials</b> first</li><li><b>Doctor-in-the-loop</b> triage</li><li>Drone Rules 2021 · Ex-proof → <b>DGMS</b></li></ul></li>
+  </ul>
+</div>
+
+<div class="p" id="cost">
+  <h3 class="tag orange">Cost vs imports</h3>
+  <p class="headline"><span class="n">16–24×</span><span class="t">cheaper: our field unit vs the leading imported caged drone</span></p>
+  <ul class="bars">
+    <li class="bar"><span class="l">Elios 3 Enterprise</span><span class="v" style="width:360px;background:#9AA5B1"></span><span class="x" style="color:#4B5563">₹71.5 L</span></li>
+    <li class="bar"><span class="l">Elios 3 Light</span><span class="v" style="width:249px;background:#9AA5B1"></span><span class="x" style="color:#4B5563">₹49.5 L</span></li>
+    <li class="bar"><span class="l"><b>SURANG field unit</b></span><span class="v" style="width:15px;background:var(--orange)"></span><span class="x" style="color:var(--orange-dk)">≈ ₹3 L (est.)</span></li>
+    <li class="bar"><span class="l">SURANG SIH prototype</span><span class="v" style="width:8px;background:var(--orange)"></span><span class="x" style="color:var(--orange-dk)">₹1.5 L</span></li>
+  </ul>
+  <p class="relay">Five SUTRA relays = <b>₹4,500</b>, robot-dropped, vs a ₹5.5 L hand-placed Elios extender (~120×)</p>
+  <p class="src">Flyability price list v3.6 (2023) at ₹95.96/US$ · prototype = team BOM ₹1,29,515 + 15 %</p>
+</div>
+
+<h2 class="ptr" style="left:60px;top:486px;font-size:24px">Potential challenges and risks</h2>
+<h2 class="ptr" style="left:494px;top:486px;font-size:24px">Strategies for overcoming these challenges</h2>
+<ul class="p" id="risks">
+  <li class="rk" style="top:0"><div class="risk"><i data-icon="wifi-off" data-color="#D64541"></i><div><h4>Radio dies around bends</h4><p>≈ 24 dB lost at a single bend</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>AI drops a SUTRA relay at the bend apex</b> · Long-Range fallback · black-box keeps full data</p><span class="chip ok">designed-in</span></li>
+  <li class="rk" style="top:66.8px"><div class="risk"><i data-icon="heart-pulse" data-color="#F2A93B"></i><div><h4>Contactless vitals can mislead</h4><p>dust, angle, movement</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>Fuse radar + thermal + camera</b>, read while perched, props idle · AI only suggests; <b>a doctor confirms</b></p><span class="chip ok">designed-in</span></li>
+  <li class="rk" style="top:133.6px"><div class="risk"><i data-icon="battery" data-color="#F2A93B"></i><div><h4>Short drone endurance</h4><p>caged drones fly about 10 min</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>Roll-first mission:</b> rolling cages showed ~4× range in research; fly only over obstacles</p><span class="chip ok">designed-in</span></li>
+  <li class="rk" style="top:200.4px"><div class="risk"><i data-icon="construction" data-color="#F2A93B"></i><div><h4>Voids tighter than the cage</h4><p>500 mm cage vs dense rubble</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>Tunnels, galleries, stairwells &amp; voids ≥ 0.6 m</b> · SURANG-mini on the roadmap</p><span class="chip road">roadmap</span></li>
+  <li class="rk" style="top:267.2px"><div class="risk"><i data-icon="package" data-color="#F2A93B"></i><div><h4>Relay jams or double-drops</h4><p>two pucks fall together</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>Two-pin escapement + break-beam exit check</b> · one servo, no motor in the relays</p><span class="chip ok">designed-in</span></li>
+  <li class="rk" style="top:334px"><div class="risk"><i data-icon="user-round-search" data-color="#F2A93B"></i><div><h4>False survivor alarms</h4><p>hot rock, noise, echoes</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>Multi-sense fusion + confidence score</b> · a human confirms with one tap</p><span class="chip ok">designed-in</span></li>
+  <li class="rk" style="top:400.8px;border-bottom:none"><div class="risk"><i data-icon="flame" data-color="#D64541"></i><div><h4>Ignition risk in gassy mines</h4><p>motors and battery near CH₄</p></div></div><span class="arrow"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="24"></i></span><p class="strat"><b>CH₄ interlock</b> (0.75 % turn back, 1.25 % land) · gas-free trials · Ex-proof → CIMFR → DGMS</p><span class="chip road">roadmap</span></li>
+</ul>
+
+<figure class="p" id="mass" aria-label="Mass and power budget, planning estimate">
+  <h3 class="tag">Mass &amp; power budget · planning estimate</h3>
+  <div class="target" style="left:505px;width:111px"></div>
+  <div class="mbar">
+    <span style="left:0;width:109px;background:#1B3A6B;border-radius:6px 0 0 6px"></span>
+    <span style="left:109px;width:123px;background:#4F86C6"></span>
+    <span style="left:232px;width:131px;background:#ED861C"></span>
+    <span style="left:363px;width:93px;background:#2E9E6A"></span>
+    <span style="left:456px;width:38px;background:#5E35B1"></span>
+    <span style="left:494px;width:46px;background:#F6B06A"></span>
+    <span style="left:540px;width:22px;background:#9AA5B1"></span>
+  </div>
+  <ul class="mleg">
+    <li><i style="background:#1B3A6B"></i>cage 0.40 kg</li><li><i style="background:#4F86C6"></i>propulsion 0.45</li><li><i style="background:#ED861C"></i>6S battery 0.48</li><li><i style="background:#2E9E6A"></i>sensors 0.34</li>
+    <li><i style="background:#5E35B1"></i>compute 0.14</li><li><i style="background:#F6B06A"></i>cassette + 5 relays 0.17</li><li><i style="background:#9AA5B1"></i>wiring 0.08</li><li><i style="background:#fff;border:2px dashed #2E9E6A"></i>target 1.8–2.2 kg</li>
+  </ul>
+  <p class="kpi"><b>≈ 2.1 kg all-up</b> · thrust ≈ 4 × 1.7 kg → <b>T/W ≈ 3.3</b> · flight 8–10 min, <b>roll-first mission 25+ min</b> (targets; weighed at the Oct bench test)</p>
+</figure>
+
+<div class="p" id="road">
+  <h3 class="tag">Roadmap · build tiers</h3>
+  <div class="rail"></div>
+  <ol class="ladder">
+    <li class="rung now"><span class="dot"></span><p><span class="dt">NOW · SEP 2026 ✓</span><b>Live 3D simulation + mission replay</b>; design frozen</p></li>
+    <li class="rung"><span class="dot"></span><p><span class="dt">OCT–NOV 2026</span><b>Bench proofs:</b> 100-cycle relay release, bend radio test, thrust &amp; roll test</p></li>
+    <li class="rung"><span class="dot"></span><p><span class="dt">DEC 2026 · SIH FINALE</span><b>Core tier:</b> roll-fly cage, 2 live relays, thermal + triage demo, 3D map, command centre</p></li>
+    <li class="rung"><span class="dot"></span><p><span class="dt">2027</span><b>Add-ons:</b> radar vitals, geophone, voice, AI brief · mock-collapse trials with an SDRF &amp; a medical college (proposed)</p></li>
+    <li class="rung p2"><span class="dot"></span><p><span class="dt">2027+ · PHASE 2</span>e-nose, SURANG-mini for tight voids, digital twin · pilots with NDRF, tunnel builders &amp; mine rescue (proposed)</p></li>
+  </ol>
+</div>
+</main>

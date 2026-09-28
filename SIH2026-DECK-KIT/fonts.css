@@ -1,0 +1,20 @@
+/* Portable fonts. Each face tries the installed Windows font first (so output on Windows is unchanged),
+   then falls back to a bundled, metric-compatible open font (so Linux/cloud renders keep the same layout).
+   Italic faces are local-only on purpose: where the font is missing, Chrome synthesises the slant. */
+@font-face{font-family:"Arial";font-weight:400;font-style:normal;src:local("Arial"),local("ArialMT"),url("fonts/Arimo-VF.ttf")}
+@font-face{font-family:"Arial";font-weight:700;font-style:normal;src:local("Arial Bold"),local("Arial-BoldMT"),url("fonts/Arimo-VF.ttf")}
+@font-face{font-family:"Arial";font-weight:400;font-style:italic;src:local("Arial Italic"),local("Arial-ItalicMT"),url("fonts/Arimo-Italic-VF.ttf")}
+@font-face{font-family:"Arial";font-weight:700;font-style:italic;src:local("Arial Bold Italic"),local("Arial-BoldItalicMT"),url("fonts/Arimo-Italic-VF.ttf")}
+@font-face{font-family:"Segoe UI";font-weight:400;font-style:normal;src:local("Segoe UI"),local("SegoeUI"),url("fonts/selawk.ttf")}
+@font-face{font-family:"Segoe UI";font-weight:600;font-style:normal;src:local("Segoe UI Semibold"),local("SegoeUI-Semibold"),url("fonts/selawksb.ttf")}
+@font-face{font-family:"Segoe UI";font-weight:700;font-style:normal;src:local("Segoe UI Bold"),local("SegoeUI-Bold"),url("fonts/selawkb.ttf")}
+@font-face{font-family:"Segoe UI";font-weight:400;font-style:italic;src:local("Segoe UI Italic"),local("SegoeUI-Italic")}
+@font-face{font-family:"Segoe UI";font-weight:700;font-style:italic;src:local("Segoe UI Bold Italic"),local("SegoeUI-BoldItalic")}
+@font-face{font-family:"Calibri";font-weight:400;font-style:normal;src:local("Calibri"),url("fonts/Carlito-Regular.ttf")}
+@font-face{font-family:"Calibri";font-weight:700;font-style:normal;src:local("Calibri Bold"),local("Calibri-Bold"),url("fonts/Carlito-Bold.ttf")}
+@font-face{font-family:"Times New Roman";font-weight:400;font-style:normal;src:local("Times New Roman"),local("TimesNewRomanPSMT"),url("fonts/Tinos-Regular.ttf")}
+@font-face{font-family:"Times New Roman";font-weight:700;font-style:normal;src:local("Times New Roman Bold"),local("TimesNewRomanPS-BoldMT"),url("fonts/Tinos-Bold.ttf")}
+@font-face{font-family:"Garamond";font-weight:700;font-style:normal;src:local("Garamond Bold"),local("Garamond-Bold"),url("fonts/EBGaramond-VF.ttf")}
+@font-face{font-family:"Garamond";font-weight:400;font-style:normal;src:local("Garamond"),url("fonts/EBGaramond-VF.ttf")}
+@font-face{font-family:"Nirmala UI";font-weight:400;font-style:normal;src:local("Nirmala UI"),local("NirmalaUI"),url("fonts/NotoSansDevanagari-VF.ttf")}
+@font-face{font-family:"Barlow Semi Condensed";font-weight:700;font-style:normal;unicode-range:U+0020-007E;src:url("fonts/BarlowSemiCondensed-Bold.ttf")}

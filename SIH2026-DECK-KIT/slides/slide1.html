@@ -1,0 +1,55 @@
+<!-- SLIDE 1 · TITLE. Template frame (SIH title, logo, hexagon art + bulb on the right) is added by build.py.
+     Usable area: left column x 60..730 and middle column x 745..1125 (hero art). Do not place anything right of x 1125.
+     The metadata block (dt/dd) is a template requirement: keep every label, fill values from deck.json. -->
+<style>
+.name{position:absolute;left:138px;top:178px;font:700 58px/1.2 Arial,sans-serif;color:var(--navy)}
+.tagline{position:absolute;left:60px;top:252px;width:670px;font:400 30px/1.2 Arial,sans-serif;color:#244F85}
+.sub{position:absolute;left:60px;top:333px;width:680px;font:italic 400 17px/1.2 "Nirmala UI","Segoe UI",sans-serif;color:var(--muted);white-space:nowrap}
+.pills{position:absolute;left:60px;top:362px;width:670px;display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;list-style:none}
+.pill{height:52px;border-radius:12px;display:flex;align-items:center;gap:10px;padding:0 12px}
+.pill .ico{width:26px;height:26px}
+.pill .t{font:700 16.5px/1.1 var(--f)}
+.pill .s{font:400 15px/1.2 var(--f);color:var(--ink);margin-top:2px}
+.hook{position:absolute;left:60px;top:478px;font:italic 700 22px/1.2 Arial,sans-serif;color:var(--orange);white-space:nowrap}
+.meta dt{position:absolute;left:60px;font:700 28px/1.2 Arial,sans-serif;color:#111;white-space:nowrap}
+.meta dd{position:absolute;left:60px;width:675px;font:400 21px/1.26 Arial,sans-serif;color:#111}
+.college{position:absolute;left:60px;top:874px;font:400 24px/1.2 Arial,sans-serif;color:#333}
+.hero{position:absolute;left:745px;top:178px;width:380px;height:880px}
+.demo{position:absolute;left:60px;top:930px;width:670px;height:120px;background:var(--wash);border:1.5px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:16px;padding:10px}
+.demo .a{font:700 18px/1.2 var(--f);color:var(--navy);display:flex;gap:8px;align-items:center}
+.demo .b{font:600 17px/1.35 var(--f);color:var(--blue);text-decoration:underline}
+.demo .c{font:400 15px/1.3 var(--f);color:var(--muted)}
+</style>
+<main>
+<!-- optional logo mark: <i data-svg="brand" style="position:absolute;left:60px;top:182px;width:66px;height:66px"></i> (without it, set .name left:60px) -->
+<h2 class="name">IDEA NAME</h2>
+<p class="tagline">One-line tagline: who it helps and what it does differently</p>
+<p class="sub">optional second line (meaning of the name, Hindi strapline, etc.)</p>
+<ul class="pills">
+  <li class="pill" style="background:var(--sky)"><i data-icon="sparkles" data-color="#1B3A6B"></i><div><div class="t" style="color:var(--navy)">FEATURE 1</div><div class="s">short proof line</div></div></li>
+  <li class="pill" style="background:var(--peach)"><i data-icon="sparkles" data-color="#B85F16"></i><div><div class="t" style="color:var(--orange-dk)">FEATURE 2</div><div class="s">short proof line</div></div></li>
+  <li class="pill" style="background:var(--mint)"><i data-icon="sparkles" data-color="#1E7B4F"></i><div><div class="t" style="color:var(--green-dk)">FEATURE 3</div><div class="s">short proof line</div></div></li>
+  <li class="pill" style="background:var(--rose)"><i data-icon="sparkles" data-color="#B3261E"></i><div><div class="t" style="color:var(--red-dk)">FEATURE 4</div><div class="s">short proof line</div></div></li>
+</ul>
+<p class="hook">one shock number: cost, speed or scale vs the status quo</p>
+<dl class="meta">
+  <dt style="top:526px">Problem Statement ID - XXXXX</dt>
+  <dt style="top:566px">Problem Statement Title-</dt>
+  <dd style="top:602px">FULL PS TITLE, VERBATIM (adjust font-size/tops below if it needs more or fewer lines)</dd>
+  <dt style="top:708px">Theme- THEME</dt>
+  <dt style="top:748px">PS Category- CATEGORY</dt>
+  <dt style="top:788px">Team ID- 121295</dt>
+  <dt style="top:828px">Team Name- Team Palanteen</dt>
+</dl>
+<p class="college">Thakur Shyamnarayan Engineering College</p>
+<figure class="hero" aria-label="DESCRIBE THE HERO ART">
+  <!-- hero art: 3 stacked hexagon vignettes (see reference/slides-html/slide1.html) or one product illustration -->
+</figure>
+<div class="demo">
+  <!-- if there is a live demo: python tools/qr.py https://demo-url qr-demo, then:
+  <a href="https://demo-url"><i data-svg="qr-demo" style="width:100px;height:100px"></i></a> -->
+  <div><div class="a"><i data-icon="monitor-smartphone" data-color="#1B3A6B" data-size="22"></i>LIVE DEMO / PROTOTYPE</div>
+  <a class="b" href="https://demo-url">demo-url</a>
+  <div class="c">what it is, labelled honestly (simulation, mock-up, prototype)</div></div>
+</div>
+</main>
