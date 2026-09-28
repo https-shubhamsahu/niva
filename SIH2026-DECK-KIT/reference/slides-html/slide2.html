@@ -1,0 +1,172 @@
+<style>
+.lead{position:absolute;left:60px;top:229px;width:1810px;font:400 21px/1.25 var(--f);color:var(--ink);white-space:nowrap}
+.lead b{color:var(--navy)}
+.modes{position:absolute;left:60px;top:262px;width:1820px;height:36px;display:flex;align-items:center;gap:12px;font:400 16.5px/1.2 var(--f);color:var(--ink)}
+.modes .chip{font-size:15px}
+.modes .sep{width:1.5px;height:24px;background:var(--line);margin:0 6px}
+
+#map{left:40px;top:340px;width:1155px;height:398px;padding:0}
+#map > svg{position:absolute;left:0;top:0}
+#map > .tag{position:absolute;left:14px;top:12px}
+.lab{position:absolute;display:flex;gap:8px;align-items:flex-start;font:400 16px/1.22 var(--f);color:var(--ink)}
+.lab b{color:var(--navy)}
+.lab .badge{width:28px;height:28px;font-size:15px}
+.mchip{position:absolute;font:700 14px/1 var(--f);border-radius:999px;padding:5px 9px;white-space:nowrap}
+.legend{position:absolute;display:flex;gap:14px;align-items:center;font:600 14px/1 var(--f);color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.inset{position:absolute;left:16px;top:50px;width:376px;height:130px;background:#fff;border:1.5px solid var(--line);border-radius:12px}
+.inset .chip{position:absolute;left:10px;top:8px;background:var(--sky);color:var(--navy)}
+.inset .il{position:absolute;font:700 14px/1 var(--f)}
+
+#hz{left:1205px;top:340px;width:675px;height:398px}
+.hz{display:flex;align-items:center;gap:8px;height:54px;margin-top:5px}
+.hz .pain{width:190px;height:48px;flex:none;background:var(--rose);border-radius:10px;display:flex;align-items:center;gap:8px;padding:0 10px;font:700 15px/1.1 var(--f);color:var(--red-dk)}
+.hz .ans{font:400 16.5px/1.22 var(--f);color:var(--ink)}
+.hz .ans b{color:var(--navy)}
+
+.cards{position:absolute;left:40px;top:780px;width:1226px;height:212px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:10px;list-style:none}
+.card{background:#fff;border:1.5px solid var(--line);border-left:6px solid var(--orange);border-radius:12px;padding:9px 12px;display:flex;gap:10px;align-items:flex-start}
+.card .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--peach);color:var(--orange-dk);font:700 15px/26px var(--f);text-align:center}
+.card h3{font:700 17px/1.1 var(--f);color:var(--navy);margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.card p{font:400 16px/1.25 var(--f);color:var(--ink)}
+.mx{position:absolute;left:1278px;top:780px;width:602px;height:212px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 10px}
+.mx table{width:100%;border-collapse:separate;border-spacing:0;font:400 15px/1 var(--f)}
+.mx th{font:700 14px/1.1 var(--f);color:var(--muted);text-align:center;padding:2px 2px 4px;vertical-align:bottom}
+.mx th:first-child{text-align:left}
+.mx td{height:23.5px;text-align:center;border-top:1px solid #EEF2F7;padding:0 2px}
+.mx td:first-child{text-align:left;font:600 15px/1.1 var(--f);color:var(--ink);white-space:nowrap}
+.mx .us{background:var(--peach);border-left:2px solid var(--orange);border-right:2px solid var(--orange)}
+.mx th.us{border-top:2px solid var(--orange);border-radius:8px 8px 0 0;color:var(--orange-dk)}
+.mx tr:last-child td.us{border-bottom:2px solid var(--orange)}
+.y{color:var(--green)} .n{color:var(--red)} .t{color:#B7791F;font:700 17px var(--f)}
+.mx td .ico{width:19px;height:19px}
+.mx .price td{font:700 14.5px var(--f);color:var(--ink);white-space:nowrap}
+.mx .goal{font:700 14px var(--f);color:var(--orange-dk)}
+</style>
+<main>
+<h2 class="ptr" style="left:60px;top:190px;font-size:28px">Proposed Solution (Describe your Idea/Solution/Prototype)</h2>
+<p class="lead"><b>SURANG</b> rolls in, flies over debris &amp; water, <b>finds &amp; triages</b> trapped people and drops <b>₹900 SUTRA relays</b>, so video, vitals &amp; voice reach rescuers and doctors first.</p>
+<p class="modes"><span class="chip ok"><i data-icon="user-round-search" data-color="#1E7B4F" data-size="16"></i>SEARCH &amp; RESCUE</span>tunnel, mine &amp; building collapses, floods<span class="sep"></span><span class="chip" style="background:var(--rose);color:var(--red-dk)"><i data-icon="heart-pulse" data-color="#B3261E" data-size="16"></i>MEDICAL EMERGENCY</span>remote triage + a doctor's voice before extrication · the 9-step mission below</p>
+
+<h2 class="ptr l2" style="left:60px;top:308px">Detailed explanation of the proposed solution</h2>
+<h2 class="ptr l2" style="left:1215px;top:308px">How it addresses the problem</h2>
+
+<figure class="p wash" id="map" aria-label="Mission flow, top view of a collapsed tunnel">
+<svg width="1155" height="398" viewBox="0 0 1155 398">
+  <defs>
+    <radialGradient id="s2halo"><stop offset="0" stop-color="#D64541" stop-opacity=".55"/><stop offset="1" stop-color="#D64541" stop-opacity="0"/></radialGradient>
+    <pattern id="s2rock" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1.2" fill="#D8CDB9"/><circle cx="10" cy="11" r="1" fill="#D8CDB9"/></pattern>
+    <marker id="s2ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1B3A6B"/></marker>
+    <marker id="s2ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1B3A6B"/></marker>
+  </defs>
+  <polyline points="95,326 430,326 430,112 1128,112" fill="none" stroke="#C9BBA3" stroke-width="64" stroke-linejoin="miter"/>
+  <polyline points="95,326 430,326 430,112 1128,112" fill="none" stroke="#EFE9DF" stroke-width="56" stroke-linejoin="miter"/>
+  <polyline points="95,326 430,326 430,112 1128,112" fill="none" stroke="url(#s2rock)" stroke-width="56" stroke-linejoin="miter"/>
+  <polygon points="248,308 262,300 276,309 271,323 253,321" fill="#8C8C8C"/>
+  <polygon points="272,326 292,314 308,326 300,346 278,348" fill="#A7A7A7"/>
+  <polygon points="244,330 262,326 268,344 250,352" fill="#9B9B9B"/>
+  <polygon points="284,302 298,298 306,310 292,315" fill="#B4B4B4"/>
+  <ellipse cx="610" cy="112" rx="74" ry="21" fill="#BFE3F7" stroke="#5AA9D6" stroke-width="2"/>
+  <path d="M575,108 q8,-6 16,0 t16,0 t16,0 t16,0" fill="none" stroke="#5AA9D6" stroke-width="2"/>
+  <path d="M588,118 q8,-6 16,0 t16,0 t16,0" fill="none" stroke="#5AA9D6" stroke-width="2"/>
+  <circle cx="830" cy="108" r="24" fill="#F2A93B" opacity=".38"/>
+  <circle cx="856" cy="100" r="28" fill="#F2A93B" opacity=".38"/>
+  <circle cx="880" cy="116" r="22" fill="#F2A93B" opacity=".38"/>
+  <circle cx="1088" cy="112" r="40" fill="url(#s2halo)"/>
+  <polyline points="100,340 444,340 444,126 968,126" fill="none" stroke="#ED861C" stroke-width="3" stroke-dasharray="8 6"/>
+  <polyline points="110,318 232,318" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linecap="round"/>
+  <polyline points="232,318 318,318" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-dasharray="7 6"/>
+  <polyline points="318,318 422,318 422,104 540,104" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <polyline points="540,104 690,104" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-dasharray="7 6"/>
+  <polyline points="690,104 944,104" fill="none" stroke="#1B3A6B" stroke-width="4" stroke-linecap="round" marker-end="url(#s2ah)"/>
+  <g transform="translate(430,326)"><ellipse cx="0" cy="0" rx="15" ry="8" fill="#ED861C" stroke="#B85F16" stroke-width="2"/><ellipse cx="0" cy="-2" rx="9" ry="4" fill="#F6B06A"/></g>
+  <g transform="translate(430,112)"><ellipse cx="0" cy="0" rx="15" ry="8" fill="#ED861C" stroke="#B85F16" stroke-width="2"/><ellipse cx="0" cy="-2" rx="9" ry="4" fill="#F6B06A"/></g>
+  <path d="M452,314 a18,18 0 0 1 0,24 M460,308 a26,26 0 0 1 0,36" fill="none" stroke="#ED861C" stroke-width="2"/>
+  <path d="M452,100 a18,18 0 0 1 0,24 M460,94 a26,26 0 0 1 0,36" fill="none" stroke="#ED861C" stroke-width="2"/>
+  <art name="surang" x="950" y="80" w="54" h="50"/>
+  <rect x="12" y="290" width="84" height="72" rx="10" fill="#fff" stroke="#1B3A6B" stroke-width="2"/>
+  <line x1="84" y1="292" x2="84" y2="270" stroke="#1B3A6B" stroke-width="2"/>
+  <path d="M76,266 a10,10 0 0 1 16,0 M72,260 a16,16 0 0 1 24,0" fill="none" stroke="#ED861C" stroke-width="2"/>
+</svg>
+  <span class="tag">Mission flow · top view of a collapsed tunnel</span>
+  <div class="inset">
+    <span class="chip">SIDE VIEW · ROLL → HOP → ROLL</span>
+    <svg width="376" height="130" viewBox="0 0 376 130" style="position:absolute;left:0;top:0">
+      <line x1="14" y1="114" x2="364" y2="114" stroke="#8C7B63" stroke-width="3"/>
+      <polygon points="172,114 184,90 198,98 208,82 224,94 234,114" fill="#9B9B9B"/>
+      <polygon points="190,114 198,100 212,106 218,114" fill="#7E7E7E"/>
+      <art name="surang" x="40" y="78" w="40" h="37"/>
+      <line x1="86" y1="104" x2="134" y2="104" stroke="#1B3A6B" stroke-width="3" marker-end="url(#s2ah2)"/>
+      <path d="M144,100 C164,30 244,30 266,100" fill="none" stroke="#1B3A6B" stroke-width="3" stroke-dasharray="7 5" marker-end="url(#s2ah2)"/>
+      <art name="surang" x="186" y="34" w="38" h="35"/>
+      <art name="surang" x="286" y="78" w="40" h="37"/>
+      <line x1="330" y1="104" x2="362" y2="104" stroke="#1B3A6B" stroke-width="3" marker-end="url(#s2ah2)"/>
+    </svg>
+    <span class="il" style="left:28px;top:52px;color:var(--green)">ROLL</span>
+    <span class="il" style="left:232px;top:40px;color:var(--navy)">FLY over rubble</span>
+    <span class="il" style="left:300px;top:58px;color:var(--green)">ROLL</span>
+  </div>
+
+  <div style="position:absolute;left:18px;top:308px;display:flex;gap:4px"><i data-icon="hard-hat" data-color="#1B3A6B" data-size="30"></i><i data-icon="monitor-smartphone" data-color="#1B3A6B" data-size="30"></i></div>
+  <div style="position:absolute;left:12px;top:366px;font:700 14px/1 var(--f);color:var(--navy)">Rescue base</div>
+  <div style="position:absolute;left:602px;top:78px"><i data-icon="plane" data-color="#1B3A6B" data-size="22"></i></div>
+  <div style="position:absolute;left:1076px;top:100px;width:26px;height:26px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center"><i data-icon="user" data-color="#fff" data-size="18"></i></div>
+
+  <span class="mchip" style="left:236px;top:266px;background:#FFE7BF;color:#8A4B00">debris</span>
+  <span class="mchip" style="left:568px;top:140px;background:#DCEFFB;color:#1F6F99">flooded dip</span>
+  <span class="mchip" style="left:818px;top:140px;background:#FFE7BF;color:#8A4B00">CO · low O₂</span>
+  <span class="mchip" style="left:1016px;top:140px;background:var(--mint);color:var(--green-dk)">breath ✓ pulse ✓</span>
+  <span class="mchip" style="left:470px;top:344px;background:var(--orange);color:#fff">SUTRA #1</span>
+  <span class="mchip" style="left:452px;top:62px;background:var(--orange);color:#fff">SUTRA #2</span>
+
+  <ol style="list-style:none">
+  <li class="lab" style="left:20px;top:200px;width:228px"><span class="badge">1</span><span><b>Launch</b> from the rescue base</span></li>
+  <li class="lab" style="left:112px;top:368px;width:330px"><span class="badge">2</span><span><b>ROLLS</b> on sound floor, saving battery</span></li>
+  <li class="lab" style="left:250px;top:196px;width:170px"><span class="badge">3</span><span><b>FLIES</b> over the debris</span></li>
+  <li class="lab" style="left:474px;top:272px;width:270px"><span class="badge">4</span><span>Link fading? <b>AI drops SUTRA #1</b> at the bend</span></li>
+  <li class="lab" style="left:474px;top:190px;width:270px"><span class="badge">5</span><span><b>SUTRA #2</b> at the next bend</span></li>
+  <li class="lab" style="left:640px;top:18px;width:222px"><span class="badge">6</span><span><b>FLIES</b> over flooded dips</span></li>
+  <li class="lab" style="left:770px;top:190px;width:250px"><span class="badge">7</span><span><b>Sniffs air:</b> safe for rescuers?</span></li>
+  <li class="lab" style="left:872px;top:14px;width:275px"><span class="badge">8</span><span><b>Survivor:</b> found, triaged, a doctor talks</span></li>
+  <li class="lab" style="left:770px;top:262px;width:370px"><span class="badge" style="background:var(--green)">9</span><span>Last relay stays as the <b>victim's lifeline</b>; scout returns</span></li>
+  </ol>
+  <div class="legend" style="left:770px;top:334px">
+    <span><svg width="26" height="6"><line x1="0" y1="3" x2="26" y2="3" stroke="#1B3A6B" stroke-width="4"/></svg>roll</span>
+    <span><svg width="26" height="6"><line x1="0" y1="3" x2="26" y2="3" stroke="#1B3A6B" stroke-width="4" stroke-dasharray="6 4"/></svg>fly</span>
+    <span><svg width="22" height="12"><ellipse cx="11" cy="6" rx="9" ry="5" fill="#ED861C"/></svg>SUTRA relay</span>
+    <span><svg width="26" height="6"><line x1="0" y1="3" x2="26" y2="3" stroke="#ED861C" stroke-width="3" stroke-dasharray="6 4"/></svg>live link</span>
+  </div>
+  <span class="cap" style="left:1000px;top:370px">concept illustration</span>
+</figure>
+
+<div class="p" id="hz">
+  <h3 class="tag">India's rescue gap → our answer</h3>
+  <div class="hz"><div class="pain"><i data-icon="eye-off" data-color="#D64541" data-size="24"></i>BLIND FOR DAYS</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>Live video + 3D map in minutes</b> (target); Silkyara's first look took 10 days</p></div>
+  <div class="hz"><div class="pain"><i data-icon="wifi-off" data-color="#D64541" data-size="24"></i>NO SIGNAL, NO GPS</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>SUTRA relays</b> carry video &amp; voice; each relay is a position beacon</p></div>
+  <div class="hz"><div class="pain"><i data-icon="construction" data-color="#D64541" data-size="24"></i>DEBRIS &amp; WATER</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>Flies over</b> debris &amp; flooded dips; rolls to save battery</p></div>
+  <div class="hz"><div class="pain"><i data-icon="wind" data-color="#D64541" data-size="24"></i>TOXIC AIR</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>Enters first</b>; maps CO · O₂ · CH₄ · H₂S so no rescuer walks in blind</p></div>
+  <div class="hz"><div class="pain"><i data-icon="heart-pulse" data-color="#D64541" data-size="24"></i>UNTREATED VICTIM</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>Remote triage:</b> breath · pulse · temp → red / yellow / green for a doctor</p></div>
+  <div class="hz"><div class="pain"><i data-icon="languages" data-color="#D64541" data-size="24"></i>NO ONE TO TALK</div><i data-icon="arrow-right" data-color="#1B3A6B" data-size="22"></i><p class="ans"><b>A doctor talks to the victim</b> over the relays, in their own language</p></div>
+</div>
+
+<h2 class="ptr l2" style="left:60px;top:748px">Innovation and uniqueness of the solution</h2>
+<ul class="cards">
+  <li class="card"><div class="num">1</div><div><h3><i data-icon="rotate-cw" data-color="#ED861C" data-size="22"></i>ROBOT + DRONE</h3><p>The PS asks for drones <b>and</b> robots. SURANG is <b>both</b> in one body.</p></div></li>
+  <li class="card"><div class="num">2</div><div><h3><i data-icon="radio-tower" data-color="#ED861C" data-size="22"></i>SUTRA LIFELINE</h3><p>AI drops a <b>₹900 relay</b> at each bend to keep the link alive.</p></div></li>
+  <li class="card"><div class="num">3</div><div><h3><i data-icon="locate-fixed" data-color="#ED861C" data-size="22"></i>BREADCRUMB GPS</h3><p>Each relay is also a <b>position beacon</b> that cancels map drift.</p></div></li>
+  <li class="card"><div class="num">4</div><div><h3><i data-icon="user-round-search" data-color="#ED861C" data-size="22"></i>MULTI-SENSE SEARCH</h3><p>Heat, sound, breathing and worker ID tags; <b>a human confirms</b>.</p></div></li>
+  <li class="card"><div class="num">5</div><div><h3><i data-icon="heart-pulse" data-color="#ED861C" data-size="22"></i>REMOTE TRIAGE</h3><p>Breath, pulse, temperature &amp; air → a <b>triage colour</b>; a doctor decides.</p></div></li>
+  <li class="card"><div class="num">6</div><div><h3><i data-icon="languages" data-color="#ED861C" data-size="22"></i>TALK-THROUGH</h3><p>A doctor talks to trapped people in <b>22 Indian languages</b> via the relays.</p></div></li>
+</ul>
+<div class="mx">
+  <table>
+    <tr><th><h3 class="tag orange">How it compares</h3></th><th>Student rovers</th><th>GPS drones</th><th>Elios 3 (import)</th><th class="us">SURANG-SUTRA (design)</th></tr>
+    <tr><td>Crosses falls &amp; water</td><td class="n"><i data-icon="circle-x"></i></td><td class="y"><i data-icon="circle-check"></i></td><td class="y"><i data-icon="circle-check"></i></td><td class="us y"><i data-icon="circle-check"></i></td></tr>
+    <tr><td>Survives wall hits</td><td class="t">–</td><td class="n"><i data-icon="circle-x"></i></td><td class="y"><i data-icon="circle-check"></i></td><td class="us y"><i data-icon="circle-check"></i></td></tr>
+    <tr><td>Signal past many bends</td><td class="t">~</td><td class="n"><i data-icon="circle-x"></i></td><td class="t">~</td><td class="us y"><i data-icon="circle-check"></i></td></tr>
+    <tr><td>Triages the victim</td><td class="n"><i data-icon="circle-x"></i></td><td class="n"><i data-icon="circle-x"></i></td><td class="n"><i data-icon="circle-x"></i></td><td class="us y"><i data-icon="circle-check"></i></td></tr>
+    <tr><td>Field-proven underground</td><td class="n"><i data-icon="circle-x"></i></td><td class="t">~</td><td class="y"><i data-icon="circle-check"></i></td><td class="us goal">2027 goal</td></tr>
+    <tr class="price"><td>Price</td><td>₹0.5–1 L</td><td>₹0.5–2 L</td><td>₹49.5–71.5 L</td><td class="us" style="color:var(--orange-dk)">≈ ₹3 L</td></tr>
+  </table>
+</div>
+</main>

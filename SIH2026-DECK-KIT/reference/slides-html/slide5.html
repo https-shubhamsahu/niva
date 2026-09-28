@@ -1,0 +1,163 @@
+<style>
+#hero{left:40px;top:234px;width:1190px;height:372px;padding:0;border:none;background:#111822}
+#hero > svg{position:absolute;left:0;top:0}
+.ov{position:absolute;top:14px;border-radius:12px;padding:12px 14px;color:#fff;list-style:none}
+.ov h3{display:inline-block;font:700 15px/1 var(--f);padding:6px 9px;border-radius:6px;margin-bottom:10px}
+.ov li{display:flex;gap:9px;align-items:flex-start;font:400 17px/1.3 var(--f);margin-bottom:9px}
+.ov li:last-child{margin-bottom:0}
+.ov .ico{width:22px;height:22px;margin-top:2px}
+.vs{position:absolute;left:575px;top:164px;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--navy);font:700 16px/44px var(--f);text-align:center}
+
+#who{left:1242px;top:196px;width:638px;height:410px;padding:10px 12px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;list-style:none}
+.tile{height:72px;background:var(--wash);border:1.5px solid var(--line);border-radius:10px;padding:7px 9px;display:flex;gap:8px;align-items:flex-start}
+.tile .ico{width:24px;height:24px}
+.tile h4{font:700 15.5px/1.15 var(--f);color:var(--navy)}
+.tile p{font:400 14px/1.2 var(--f);color:var(--muted);margin-top:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;list-style:none}
+.stat{border-radius:10px;padding:8px 10px;background:#fff;border:1.5px solid var(--line);height:122px}
+.stat .n{font:700 30px/1 var(--num)}
+.stat p{font:400 15px/1.25 var(--f);color:var(--ink);margin-top:6px}
+.srcl{font:400 14px/1.2 var(--f);color:var(--muted);margin-top:7px}
+
+#ben{position:absolute;left:40px;top:660px;width:1190px;height:330px;list-style:none}
+.ben{position:absolute;top:0;width:288px;height:330px;background:#fff;border:1.5px solid var(--line);border-top:7px solid;border-radius:12px;padding:11px 13px}
+.ben h3{display:flex;gap:8px;align-items:center;font:700 15px/1 var(--f);color:var(--muted)}
+.ben h3 .ico{width:26px;height:26px}
+.ben .bn{font:700 48px/1 var(--num);margin-top:16px}
+.ben .bs{font:600 16px/1.2 var(--f);color:var(--ink);margin-top:5px}
+.ben ul{margin:16px 0 0;padding-left:20px;font:400 17px/1.32 var(--f)}
+.ben li{margin-bottom:10px}
+.ben li b{color:var(--navy)}
+
+#cc{left:1242px;top:622px;width:638px;height:368px;padding:0;background:#0F1B2D;border-color:#0F1B2D}
+#cc > .tag{position:absolute;left:10px;top:10px}
+.built2{position:absolute;right:10px;top:11px;font:700 14px/1 var(--f);background:var(--mint);color:var(--green-dk);border-radius:999px;padding:5px 9px}
+.shot{position:absolute;left:10px;top:42px;width:618px;height:220px;border-radius:8px;overflow:hidden;border:1.5px solid rgba(255,255,255,.2)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:0 0}
+.concept{position:absolute;right:10px;top:268px;font:700 14px/1 var(--f);color:#8FB3DE}
+.wid{position:absolute;top:284px;width:198px;height:78px;background:#16263D;border-radius:9px;padding:7px 9px;color:#E6EEF8;font:400 14px/1.25 var(--f)}
+.wid h4{font:700 14px/1 var(--f);color:#8FB3DE;margin-bottom:5px}
+.gauge{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:2px 0 4px}
+.gauge span{flex:1}
+.btn{display:inline-block;border-radius:6px;padding:3px 7px;font:700 14px/1 var(--f);color:#fff;margin-top:3px}
+</style>
+<main>
+<h2 class="ptr" style="left:60px;top:196px">Potential impact on the target audience</h2>
+
+<figure class="p" id="hero" aria-label="Today rescuers go in blind; with SURANG-SUTRA they see first">
+<svg width="1190" height="372" viewBox="0 0 1190 372">
+  <defs>
+    <linearGradient id="s5bl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B222C"/><stop offset="1" stop-color="#0E1218"/></linearGradient>
+    <linearGradient id="s5br" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0C2138"/><stop offset="1" stop-color="#0A2A45"/></linearGradient>
+    <linearGradient id="s5lamp" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#FFE7A3" stop-opacity=".75"/><stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/></linearGradient>
+    <radialGradient id="s5glow"><stop offset="0" stop-color="#FFB25B" stop-opacity=".85"/><stop offset="1" stop-color="#FFB25B" stop-opacity="0"/></radialGradient>
+    <radialGradient id="s5gas"><stop offset="0" stop-color="#F2A93B" stop-opacity=".35"/><stop offset="1" stop-color="#F2A93B" stop-opacity="0"/></radialGradient>
+    <clipPath id="s5cl"><rect x="0" y="0" width="596" height="372"/></clipPath>
+    <clipPath id="s5cr"><rect x="596" y="0" width="594" height="372"/></clipPath>
+  </defs>
+  <g clip-path="url(#s5cl)">
+    <rect width="596" height="372" fill="url(#s5bl)"/>
+    <g fill="none" stroke="#3A4553">
+      <path d="M190,372 L190,120 Q190,-40 470,-40 Q750,-40 750,120 L750,372" stroke-width="5"/>
+      <path d="M268,330 L268,130 Q268,15 470,15 Q672,15 672,130 L672,330" stroke-width="4"/>
+      <path d="M330,290 L330,140 Q330,60 470,60 Q610,60 610,140 L610,290" stroke-width="3"/>
+      <path d="M375,262 L375,150 Q375,95 470,95 Q565,95 565,150 L565,262" stroke-width="2.5"/>
+      <path d="M408,240 L408,160 Q408,122 470,122 Q532,122 532,160 L532,240" stroke-width="2"/>
+      <path d="M190,372 L408,240 M750,372 L532,240" stroke-width="2"/>
+    </g>
+    <circle cx="470" cy="190" r="90" fill="url(#s5gas)"/>
+    <polygon points="528,236 428,180 440,236" fill="url(#s5lamp)"/>
+    <g fill="#07090D" stroke="#56606E" stroke-width="2">
+      <path d="M514,244 q18,-20 36,0 z"/>
+      <circle cx="532" cy="256" r="12"/>
+      <rect x="514" y="270" width="36" height="58" rx="10"/>
+      <rect x="516" y="324" width="12" height="42" rx="5"/><rect x="536" y="324" width="12" height="42" rx="5"/>
+    </g>
+    <circle cx="528" cy="238" r="4" fill="#FFE7A3"/>
+  </g>
+  <g clip-path="url(#s5cr)">
+    <rect x="596" width="594" height="372" fill="url(#s5br)"/>
+    <g fill="none" stroke="#2B4A6B">
+      <path d="M560,372 L560,120 Q560,-40 840,-40 Q1120,-40 1120,120 L1120,372" stroke-width="5"/>
+      <path d="M638,330 L638,130 Q638,15 840,15 Q1042,15 1042,130 L1042,330" stroke-width="4"/>
+      <path d="M700,290 L700,140 Q700,60 840,60 Q980,60 980,140 L980,290" stroke-width="3"/>
+      <path d="M560,372 L778,240 M1120,372 L902,240" stroke-width="2"/>
+    </g>
+    <g fill="none" stroke="#7EE2A8" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.5 9" opacity=".8">
+      <path d="M712,170 A120,120 0 0 1 752,300"/><path d="M742,150 A160,160 0 0 1 790,318"/><path d="M772,130 A200,200 0 0 1 826,336"/>
+    </g>
+    <path d="M640,346 L720,326 L790,312" fill="none" stroke="#7EE2A8" stroke-width="2.5" stroke-dasharray="7 6"/>
+    <circle cx="640" cy="346" r="26" fill="url(#s5glow)"/><ellipse cx="640" cy="346" rx="16" ry="6" fill="#FFB25B"/>
+    <line x1="640" y1="341" x2="640" y2="324" stroke="#FFD29A" stroke-width="2.5"/>
+    <circle cx="720" cy="326" r="22" fill="url(#s5glow)"/><ellipse cx="720" cy="326" rx="13" ry="5" fill="#FFB25B"/>
+    <line x1="720" y1="322" x2="720" y2="308" stroke="#FFD29A" stroke-width="2.5"/>
+    <art name="surang-dark" x="616" y="74" w="176" h="164"/>
+  </g>
+  <line x1="596" y1="14" x2="596" y2="358" stroke="#fff" stroke-opacity=".6" stroke-width="2" stroke-dasharray="7 6"/>
+</svg>
+  <ul class="ov" style="left:14px;width:432px;background:rgba(11,18,32,.8)">
+    <li style="display:block"><h3 style="background:var(--red)">TODAY: RESCUERS GO IN BLIND</h3></li>
+    <li><i data-icon="circle-x" data-color="#FF8A80"></i><span>Silkyara 2023: first sight of 41 trapped workers on <b>day 10</b>, via a medical endoscope</span></li>
+    <li><i data-icon="circle-x" data-color="#FF8A80"></i><span>Radio &amp; GPS <b>die under rubble &amp; round bends</b></span></li>
+    <li><i data-icon="circle-x" data-color="#FF8A80"></i><span>The first "sensor" in bad air is <b>a human</b></span></li>
+    <li><i data-icon="circle-x" data-color="#FF8A80"></i><span>Victims wait <b>untreated</b>: no doctor can see or hear them</span></li>
+  </ul>
+  <div class="vs">VS</div>
+  <ul class="ov" style="left:806px;width:372px;background:rgba(8,40,60,.82)">
+    <li style="display:block"><h3 style="background:var(--green)">WITH SURANG-SUTRA: SEE FIRST</h3></li>
+    <li><i data-icon="circle-check" data-color="#7EE2A8"></i><span><b>First eyes inside in minutes</b> (target); no person goes first</span></li>
+    <li><i data-icon="circle-check" data-color="#7EE2A8"></i><span><b>Remote triage:</b> breath, pulse &amp; air sent to a doctor</span></li>
+    <li><i data-icon="circle-check" data-color="#7EE2A8"></i><span><b>Relay trail</b> keeps video &amp; voice live</span></li>
+    <li><i data-icon="circle-check" data-color="#7EE2A8"></i><span>Survivors <b>found, triaged, spoken to</b> in their language</span></li>
+  </ul>
+  <span class="cap" style="left:1030px;top:350px;color:rgba(255,255,255,.8)">concept visualisation</span>
+</figure>
+
+<div class="p" id="who">
+  <h3 class="tag">Who gains</h3>
+  <ul class="tiles">
+    <li class="tile"><i data-icon="siren" data-color="#ED861C"></i><div><h4>NDRF / SDRF</h4><p>collapses &amp; floods</p></div></li>
+    <li class="tile"><i data-icon="flame" data-color="#1B3A6B"></i><div><h4>Fire &amp; emergency services</h4><p>first on scene in cities</p></div></li>
+    <li class="tile"><i data-icon="heart-pulse" data-color="#ED861C"></i><div><h4>Doctors &amp; hospitals</h4><p>triage before extrication</p></div></li>
+    <li class="tile"><i data-icon="construction" data-color="#1B3A6B"></i><div><h4>Tunnel &amp; metro builders</h4><p>NHIDCL · rail · metro</p></div></li>
+    <li class="tile"><i data-icon="hard-hat" data-color="#ED861C"></i><div><h4>Mine-rescue stations</h4><p>Coal India · DGMS</p></div></li>
+    <li class="tile"><i data-icon="users" data-color="#1B3A6B"></i><div><h4>Trapped people &amp; families</h4><p>faster, informed rescue</p></div></li>
+  </ul>
+  <h3 class="tag red" style="margin-top:12px">Why India, why now</h3>
+  <ul class="stats">
+    <li class="stat"><div class="n" style="color:var(--red)">8,756</div><p>deaths in structure collapses, 2018–22: <b>~5 a day</b></p></li>
+    <li class="stat"><div class="n" style="color:var(--navy)">Day 10</div><p>first sight of Silkyara's 41 trapped workers (2023)</p></li>
+    <li class="stat"><div class="n" style="color:#B7791F">498</div><p>sewer &amp; septic deaths, 2019–Jun 2026: <b>humans go in first</b></p></li>
+  </ul>
+  <p class="srcl">Sources: NCRB ADSI (Factly) · ANI, Nov 2023 · MoSJE Lok Sabha reply, Aug 2026</p>
+</div>
+
+<h2 class="ptr" style="left:60px;top:622px">Benefits of the solution (social, economic, environmental, etc.)</h2>
+<ul id="ben">
+  <li class="ben" style="left:0;border-top-color:var(--red)"><h3><i data-icon="heart-pulse" data-color="#D64541"></i>SOCIAL</h3>
+    <div class="bn" style="color:var(--red)">0 rescuers</div><p class="bs">in the first, deadliest entry</p>
+    <ul><li>Humans follow a <b>mapped, air-checked route</b></li><li><b>A doctor's voice</b> reaches the trapped</li><li><b>Triage starts</b> before extrication</li></ul></li>
+  <li class="ben" style="left:301px;border-top-color:var(--orange)"><h3><i data-icon="indian-rupee" data-color="#ED861C"></i>ECONOMIC</h3>
+    <div class="bn" style="color:var(--orange)">≈ ₹3 L</div><p class="bs">field kit vs ₹49.5–71.5 L import</p>
+    <ul><li>One kit <b>per NDRF / SDRF team</b></li><li>Sensors <b>come home</b>; only ₹900 relays stay</li><li>One tool for <b>collapse, tunnel &amp; mine</b> calls</li></ul></li>
+  <li class="ben" style="left:602px;border-top-color:var(--green)"><h3><i data-icon="leaf" data-color="#2E9E6A"></i>ENVIRONMENTAL</h3>
+    <div class="bn" style="color:var(--green)">Reuse</div><p class="bs">not throw-away sensor nodes</p>
+    <ul><li><b>Rechargeable, recoverable</b> relays</li><li>Victim located: <b>less blind drilling</b> in debris</li><li><b>Repairable</b> cage sectors</li></ul></li>
+  <li class="ben" style="left:903px;border-top-color:var(--navy)"><h3><i data-icon="sparkles" data-color="#1B3A6B"></i>STRATEGIC</h3>
+    <div class="bn" style="color:var(--navy);font-size:36px">Make in India</div><p class="bs">open, indigenous design</p>
+    <ul><li><b>22-language voice</b> via Bhashini</li><li>One scout for <b>collapses, tunnels &amp; mines</b></li><li>Scales to <b>every NDRF battalion &amp; SDRF</b></li></ul></li>
+</ul>
+
+<figure class="p" id="cc" aria-label="Surface command centre">
+  <h3 class="tag blue">Surface command centre</h3>
+  <span class="built2">BUILT TODAY · SIMULATION</span>
+  <div class="shot"><img src="../assets/shot-cc.jpg" alt="Command-centre screen of the live SURANG-SUTRA simulation"></div>
+  <p class="concept">NEXT WIDGETS · UI CONCEPT · EXAMPLE VALUES</p>
+  <div class="wid" style="left:10px"><h4>AIR AT VICTIM</h4>
+    <div class="gauge"><span style="background:#2E9E6A"></span><span style="background:#F2A93B;outline:2px solid #fff;outline-offset:-2px"></span><span style="background:#D64541"></span></div>
+    <b style="color:#F2A93B">CAUTION</b> · CO 60 ppm</div>
+  <div class="wid" style="left:220px"><h4>SURVIVOR #1 · <span style="color:#F2A93B">YELLOW</span></h4>breath 24/min · pulse 110<br><span class="btn" style="background:#2E9E6A">Confirm</span> <span class="btn" style="background:#ED861C">Talk</span></div>
+  <div class="wid" style="left:430px"><h4>AI BRIEF · 60 s</h4>Survivor 42 m past bend 2, conscious. Send O₂ first.</div>
+</figure>
+</main>
