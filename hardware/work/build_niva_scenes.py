@@ -437,8 +437,8 @@ for i, (x, y) in enumerate(FSR_XY):
     f = bpy.context.active_object; f.name = f'FSR_film_P{i + 1}'
     for cc in f.users_collection: cc.objects.unlink(f)
     link(f, c7); f.data.materials.append(FSRFILM)
-tgt = Vector((112, -135, 3)) * MM
-studio(s7, tgt, 0.8); camera(s7, tgt + Vector((0.0, -0.20, 0.44)), tgt, 50); shots.append(s7)
+tgt = Vector((114, -134, 3)) * MM
+studio(s7, tgt, 0.8); camera(s7, tgt + Vector((0.0, -0.27, 0.60)), tgt, 50); shots.append(s7)
 
 def scene_bbox(sc):
     dg = bpy.context.evaluated_depsgraph_get()

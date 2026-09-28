@@ -54,3 +54,4 @@ __pycache__/
 *.FCBak
 *.kicad_prl
 hardware/outputs/NIVA-3D-engineering-prototype/renders/preview/
+*.blend1

@@ -51,7 +51,7 @@ Niva/
 | `niva flutter/` | Patient/user-facing Flutter app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
 | `niva arduino/` | ESP32 firmware: ADC acquisition, calibration, IMU, telemetry, Wi-Fi / WebSocket |
 | `niva web/` | Clinician dashboard, biomechanics visualization, dataset export/upload, optional WebSocket relay |
-| `hardware/` | Rev C wearable prototype: printable FreeCAD enclosure, KiCad 9 schematic and unrouted placement PCB, Blender scenes. Start at `hardware/outputs/NIVA-3D-engineering-prototype/README.md`. Not for fabrication. |
+| `hardware/` | Rev C.1 wearable prototype: printable FreeCAD pod enclosure and charging dock; KiCad 9 pod (routed, DRC-clean), cartridge strip, dock and insole sensing flex; verification plan; Blender scenes. Start at `hardware/outputs/NIVA-3D-engineering-prototype/README.md`. Not reviewed or released for fabrication. |
 
 ## Development prerequisites
 

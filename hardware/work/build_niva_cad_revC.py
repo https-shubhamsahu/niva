@@ -4,7 +4,7 @@
 
 Continues build_niva_cad.py (Rev B). Board outline, mounting, button, emitter, connector and
 spring-contact positions are read from niva_layout.py, the same module that places the KiCad PCB.
-If the KiCad STEP export (electronics/exports/NIVA-pod-components.step) exists, the real component
+If the KiCad STEP export (electronics/exports/pcb/NIVA-pod-PCBA.step) exists, the real component
 bodies are imported and included in the interference audit.
 
 Rev B -> Rev C mechanical changes (details in the package README):
