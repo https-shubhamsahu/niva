@@ -22,52 +22,13 @@ import json, math, sys, itertools
 import FreeCAD as A, Part, Mesh, MeshPart
 sys.path.insert(0, str(Path(__file__).parent))
 import niva_layout as L
+from niva_cad_lib import *
 
 V = A.Vector
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/NIVA-3D-engineering-prototype'
 CAD = OUT / 'mechanical'; PRINT = CAD / 'STL-print-parts'; STEPS = CAD / 'STEP-parts'; MESH = ROOT / 'work/niva-meshes'
 for p in (CAD, PRINT, STEPS, MESH): p.mkdir(parents=True, exist_ok=True)
-FONT = next((f for f in ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 'C:/Windows/Fonts/arialbd.ttf',
-                         '/Library/Fonts/Arial Bold.ttf'] if Path(f).exists()), None)
-
-# ------------------------------------------------------------------ geometry helpers
-def rr(w, h, r, z, t, x=0, y=0):
-    """Rounded rectangle prism: w x h at (x, y), corner radius r, from z to z + t."""
-    r = min(r, w / 2 - 1e-3, h / 2 - 1e-3)
-    p = [V(x + r, y, z), V(x + w - r, y, z), V(x + w, y + r, z), V(x + w, y + h - r, z),
-         V(x + w - r, y + h, z), V(x + r, y + h, z), V(x, y + h - r, z), V(x, y + r, z)]
-    c = [V(x + w - r, y + r, z), V(x + w - r, y + h - r, z), V(x + r, y + h - r, z), V(x + r, y + r, z)]
-    s = math.sqrt(.5)
-    mids = [V(c[0].x + r * s, c[0].y - r * s, z), V(c[1].x + r * s, c[1].y + r * s, z),
-            V(c[2].x - r * s, c[2].y + r * s, z), V(c[3].x - r * s, c[3].y - r * s, z)]
-    e = [Part.LineSegment(p[0], p[1]).toShape(), Part.Arc(p[1], mids[0], p[2]).toShape(),
-         Part.LineSegment(p[2], p[3]).toShape(), Part.Arc(p[3], mids[1], p[4]).toShape(),
-         Part.LineSegment(p[4], p[5]).toShape(), Part.Arc(p[5], mids[2], p[6]).toShape(),
-         Part.LineSegment(p[6], p[7]).toShape(), Part.Arc(p[7], mids[3], p[0]).toShape()]
-    return Part.Face(Part.Wire(e)).extrude(V(0, 0, t))
-def box(x, y, z, w, h, t): return Part.makeBox(w, h, t, V(x, y, z))
-def cyl(x, y, z, r, h): return Part.makeCylinder(r, h, V(x, y, z))
-def prism_xz(pts, y0, length):
-    """Polygon given as (x, z) pairs in the plane y = y0, extruded along +y."""
-    w = Part.makePolygon([V(x, y0, z) for x, z in pts] + [V(pts[0][0], y0, pts[0][1])])
-    return Part.Face(w).extrude(V(0, length, 0))
-def prism_yz(pts, x0, length):
-    w = Part.makePolygon([V(x0, y, z) for y, z in pts] + [V(x0, pts[0][0], pts[0][1])])
-    return Part.Face(w).extrude(V(length, 0, 0))
-def text_solid(s, size, x, y, z, depth, centre=True):
-    if not FONT: return None
-    faces = []
-    for ch in Part.makeWireString(s, FONT, size, 0):
-        if ch: faces.append(Part.makeFace(ch, 'Part::FaceMakerBullseye'))
-    if not faces: return None
-    sh = Part.makeCompound(faces); bb = sh.BoundBox
-    sh.translate(V(x - (bb.XMin + bb.XLength / 2 if centre else bb.XMin), y - (bb.YMin + bb.YLength / 2), z))
-    return sh.extrude(V(0, 0, depth))
-def clean(s):
-    s = s.removeSplitter()
-    if s.ShapeType == 'Compound' and len(s.Solids) == 1: s = s.Solids[0]
-    return s
 
 W, H = L.POD_W, L.POD_H
 RIM_Z, STOP_Z, TOP_Z = 14.0, 14.35, 20.0         # rear rim, boss hard stop / front-cover seat, front face
@@ -85,14 +46,17 @@ def rear_housing(side):
     outer = rr(W, H, 8, 0, RIM_Z)
     s = outer.cut(rr(38.4, 56.4, 6.2, 1.8, 12.4, 1.8, 1.8))
     # battery bay: frame + 0.8 mm ceiling; the cartridge pocket is open to the rear face only
-    s = s.fuse(rr(31, 37, 3, 0, 10.8, 5.5, 3.5))
-    s = s.cut(rr(28.8, 34.8, 2, -0.5, 10.5, 6.6, 4.6))
+    C, bc = L.CART, L.BAY_CLEAR
+    px0, py0, pw, pl = C['cup_x0'] - bc, C['cup_y0'] - bc, C['cup_w'] + 2 * bc, C['cup_l'] + 2 * bc
+    s = s.fuse(rr(pw + 2.2, pl + 2.2, 3, 0, 10.8, px0 - 1.1, py0 - 1.1))          # bay frame, 1.1 mm wall
+    s = s.cut(rr(pw, pl, 2, -0.5, 10.5, px0, py0))                               # cartridge pocket
     jx, jy = L.SPRING_CONTACTS_XY; s = s.cut(box(jx - 6.2, jy - 2.2, 9.9, 12.4, 4.4, 1.0))
     sx, sy = L.SERVICE_PADS_XY;    s = s.cut(box(sx - 4.5, sy - 3.0, 9.9, 9.0, 6.0, 1.0))
     # cartridge retention: M2 screw through the cartridge tab into this post (hidden by the cradle)
-    s = s.fuse(box(17, 39.4, 0, 8, 5, 9))
-    s = s.cut(rr(8.8, 6.8, 1, -0.1, 1.7, 16.6, 37.7))           # tab recess, flush at z = 0
-    s = s.cut(cyl(21, 42, -0.2, 0.8, 7.2))                        # M2 pilot 1.6 mm
+    T = L.CART_TAB; tx, ty = T['screw']
+    s = s.fuse(box(T['x0'], py0 + pl, 0, T['w'], T['y0'] + T['l'] + 0.3 - (py0 + pl), 9))            # retention post
+    s = s.cut(rr(T['w'] + 0.8, T['l'] + 0.8, 1, -0.1, T['t'] + 0.1, T['x0'] - 0.4, T['y0'] - 0.4))   # tab recess
+    s = s.cut(cyl(tx, ty, -0.2, 0.8, 7.2))                        # M2 pilot 1.6 mm
     # enclosure screw bosses (wall-merged) with a reduced hard-stop ring above the rim
     for b in case_bosses(1.8, RIM_Z): s = s.fuse(b.common(outer))
     for x, y in L.CASE_SCREWS: s = s.fuse(cyl(x, y, RIM_Z, 1.9, STOP_Z - RIM_Z))
@@ -136,22 +100,6 @@ def front_cover(side):
         if t: s = s.cut(t)
     return clean(s)
 
-def cartridge_cup():
-    s = rr(28, 34, 2, 0, 8, 7, 5).cut(rr(25, 31, 1, 1.4, 8, 8.5, 6.5))
-    s = s.fuse(rr(8, 6, 1, 0, 1.6, 17, 38).cut(cyl(21, 42, -0.1, 1.1, 2)))
-    s = s.cut(box(15, 5.5, -0.1, 12, 2.0, 0.7))                   # finger pull groove on the rear face
-    return clean(s)
-
-def contact_xy():
-    jx, jy = L.SPRING_CONTACTS_XY
-    return [(jx + (i - 1.5) * 2.54, jy) for i in range(4)]
-
-def cartridge_lid():
-    s = rr(27.6, 33.6, 1.8, 8.0, 1.2, 7.2, 5.2).fuse(rr(24.6, 30.6, 0.8, 7.2, 0.8, 8.7, 6.7))
-    for x, y in contact_xy():
-        s = s.cut(box(x - 0.9, y - 1.6, 8.8, 1.8, 3.2, 0.5)); s = s.cut(cyl(x, y, 7.0, 0.4, 2))
-    return clean(s)
-
 def cradle(side):
     s = rr(48, 58, 6, -3.4, 3.0, -3, 1).fuse(rr(63, 39, 4, -3.4, 3.0, -10.5, 11))
     for x in (-7.8, 45.8): s = s.cut(rr(4, 35.5, 1, -3.6, 3.4, x, 12.75))          # 35 mm strap slots
@@ -159,7 +107,7 @@ def cradle(side):
     s = s.fuse(prism_xz([(-0.2, 1.4), (0.6, 1.4), (0.6, 1.8), (-0.2, 2.6)], 12.0, 46))
     s = s.fuse(prism_xz([(W + 0.2, 1.4), (W + 0.2, 2.6), (W - 0.6, 1.8), (W - 0.6, 1.4)], 12.0, 46))
     s = s.fuse(box(KEY_X[side] - 1.3, 48, -0.4, 2.6, 4, 1.2))                         # L/R key post
-    s = s.cut(cyl(21, 42, -2.0, 2.4, 1.7))                                             # cartridge screw head relief
+    s = s.cut(cyl(*L.CART_TAB['screw'], -2.0, 2.4, 1.7))                              # cartridge screw head relief
     # cantilever latch: slots either side, arm thinned from the top (prints flat), hook + ramp + tab
     for x in (16.2, 25.0): s = s.cut(box(x, 45, -3.6, 0.8, 16, 3.4))
     s = s.cut(box(17, 46.5, -1.8, 8, 14, 1.5))
@@ -199,12 +147,6 @@ def tail_boot(side):
     s = s.fuse(box(a['x0'] - 1.0, -2.5, a['z0'] - 1.0, a['x1'] - a['x0'] + 2.0, 2.3, a['z1'] - a['z0'] + 2.0))
     k0, k1 = BOOT_KEY[side]; s = s.fuse(box(k0 + 0.2, -10, a['z1'] - 0.2, k1 - k0 - 0.4, 11.8, 0.5))
     return clean(s)
-
-def contact_plates():
-    return Part.makeCompound([box(x - 0.8, y - 1.5, 8.8, 1.6, 3.0, 0.4) for x, y in contact_xy()])
-
-cell = lambda: rr(22, 23, 1, 1.8, 5, 10, 8)
-pcm = lambda: box(10, 32, 1.8, 22, 4.5, 1.6)
 
 # ------------------------------------------------------------------ build + export
 PRINTS = {  # name: (builder, material, finish, print orientation note, orientation)
@@ -278,8 +220,8 @@ for side, dx in (('R', 0.0), ('L', -80.0)):
     add(f'PCB_Substrate_{side}', kicad_board.copy() if kicad_board else pcb(), g, 'FR-4 1.0 mm, 4-layer (KiCad board body)', 'rigid', pl)
     add(f'TailBoot_{side}', tail_boot(side), g, 'TPU overmould on insert tail (not printed)', 'flexible', pl)
     add(f'ContactPlates_{side}', contact_plates(), g, 'brass, gold flash (to select)', 'envelope-compound', pl)
-    add(f'Cell_ENVELOPE_NOT_A_SELECTED_CELL_{side}', cell(), g, 'placeholder envelope', 'envelope', pl)
-    add(f'CellProtection_ENVELOPE_{side}', pcm(), g, 'placeholder envelope', 'envelope', pl)
+    add(f'Cell_LP502030_MAXSIZE_{side}', cell(), g, 'EEMB LP502030 class, published max size (supplier model not available)', 'envelope', pl)
+    add(f'CartridgeStripPCB_{side}', strip_pcb(), g, 'FR-4 0.8 mm interconnect + polyfuse (see electronics/cartridge)', 'rigid', pl)
     if components is not None:
         add(f'PCB_Components_KiCad_{side}', components.copy(), g, 'KiCad library + Espressif models', 'envelope-compound', pl)
 
@@ -306,7 +248,8 @@ for a, b in [('PCB_Substrate_R', '01_RearHousing_R'), ('PCB_Substrate_R', '02_Fr
              ('03_BatteryCartridgeCup_R', '01_RearHousing_R'), ('04_BatteryCartridgeLid_R', '01_RearHousing_R'),
              ('05_Cradle_R', '01_RearHousing_R'), ('TailBoot_R', '01_RearHousing_R'), ('TailBoot_R', '02_FrontCover_R'),
              ('TailBoot_R', 'PCB_Components_KiCad_R'), ('TailBoot_R', 'PCB_Substrate_R'),
-             ('Cell_ENVELOPE_NOT_A_SELECTED_CELL_R', '04_BatteryCartridgeLid_R')]:
+             ('Cell_LP502030_MAXSIZE_R', '04_BatteryCartridgeLid_R'), ('Cell_LP502030_MAXSIZE_R', '03_BatteryCartridgeCup_R'),
+             ('CartridgeStripPCB_R', 'Cell_LP502030_MAXSIZE_R'), ('CartridgeStripPCB_R', '03_BatteryCartridgeCup_R')]:
     if byl(a) and byl(b): gap(a, b)
 (CAD / 'geometry-validation.json').write_text(json.dumps(report['parts'], indent=2))
 (CAD / 'interference-report.json').write_text(json.dumps({k: report[k] for k in ('interference', 'gaps', 'notes')}, indent=2))

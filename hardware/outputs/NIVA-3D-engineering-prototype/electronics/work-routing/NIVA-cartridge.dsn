@@ -1,0 +1,140 @@
+(pcb "/home/user/niva/hardware/outputs/NIVA-3D-engineering-prototype/electronics/work-routing/NIVA-cartridge.dsn"
+  (parser
+    (string_quote ")
+    (space_in_quoted_tokens on)
+    (host_cad "KiCad's Pcbnew")
+    (host_version "9.0.9")
+  )
+  (resolution um 10)
+  (unit um)
+  (structure
+    (layer F.Cu
+      (type signal)
+      (property
+        (index 0)
+      )
+    )
+    (layer B.Cu
+      (type signal)
+      (property
+        (index 1)
+      )
+    )
+    (boundary
+      (path pcb 0  133250 -92000  129850 -92000  129850 -62000  133250 -62000
+            133250 -92000)
+    )
+    (via "Via[0-1]_600:300_um")
+    (rule
+      (width 200)
+      (clearance 150)
+      (clearance 37.5 (type smd_smd))
+    )
+  )
+  (placement
+    (component NIVA_power:WirePads_1x03_P1.8mm
+      (place J1 130949.999000 -65000.000000 front 0.000000 (PN "CELL LEADS (+, NTC, -)"))
+    )
+    (component NIVA_power:WirePads_1x04_P1.7mm
+      (place J2 130949.999000 -72500.000000 front 0.000000 (PN "TO LID PLATES (P-, P-, P+, P+) -> pod J2"))
+    )
+    (component Fuse:Fuse_0805_2012Metric
+      (place F1 130949.999000 -87900.000000 front 90.000000 (PN "PTC 0805 hold>=0.5 A, >=6 V"))
+    )
+    (component NIVA_power:ContactPads_1x03_P6.0mm
+      (place J3 131550.000000 -82000.000000 back 180.000000 (PN "DOCK PADS (P+, NTC, P-), underside"))
+    )
+  )
+  (library
+    (image NIVA_power:WirePads_1x03_P1.8mm
+      (outline (path signal 50  -1100 2700  1100 2700  1100 -2700  -1100 -2700  -1100 2700))
+      (outline (path signal 100  -850 2450  850 2450  850 -2450  -850 -2450  -850 2450))
+      (pin Rect[T]Pad_1500.000000x1100.000000_um 1 0 1800)
+      (pin Rect[T]Pad_1500.000000x1100.000000_um 2 0 0)
+      (pin Rect[T]Pad_1500.000000x1100.000000_um 3 0 -1800)
+    )
+    (image NIVA_power:WirePads_1x04_P1.7mm
+      (outline (path signal 50  -1100 3300  1100 3300  1100 -3300  -1100 -3300  -1100 3300))
+      (outline (path signal 100  -850 3050  850 3050  850 -3050  -850 -3050  -850 3050))
+      (pin Rect[T]Pad_1500.000000x1000.000000_um 1 0 2550)
+      (pin Rect[T]Pad_1500.000000x1000.000000_um 2 0 850)
+      (pin Rect[T]Pad_1500.000000x1000.000000_um 3 0 -850)
+      (pin Rect[T]Pad_1500.000000x1000.000000_um 4 0 -2550)
+    )
+    (image Fuse:Fuse_0805_2012Metric
+      (outline (path signal 120  -258.578 710  258.578 710))
+      (outline (path signal 120  -258.578 -710  258.578 -710))
+      (outline (path signal 50  -1680 950  -1680 -950  1680 -950  1680 950  -1680 950))
+      (outline (path signal 100  -1000 600  -1000 -600  1000 -600  1000 600  -1000 600))
+      (pin RoundRect[T]Pad_975.000000x1400.000000_244.678000_um_0.000000_0 1 -937.5 0)
+      (pin RoundRect[T]Pad_975.000000x1400.000000_244.678000_um_0.000000_0 2 937.5 0)
+    )
+    (image NIVA_power:ContactPads_1x03_P6.0mm
+      (outline (path signal 50  -1450 7450  1450 7450  1450 -7450  -1450 -7450  -1450 7450))
+      (outline (path signal 100  -1200 7200  1200 7200  1200 -7200  -1200 -7200  -1200 7200))
+      (pin Round[T]Pad_2000.000000_um 1 0 6000)
+      (pin Round[T]Pad_2000.000000_um 2 0 0)
+      (pin Round[T]Pad_2000.000000_um 3 0 -6000)
+    )
+    (padstack Round[T]Pad_2000.000000_um
+      (shape (circle F.Cu 2000))
+      (attach off)
+    )
+    (padstack RoundRect[T]Pad_975.000000x1400.000000_244.678000_um_0.000000_0
+      (shape (polygon F.Cu 0  -488.428 456.25  -469.803 549.884  -416.763 629.263  -337.384 682.303
+            -243.75 700.928  243.75 700.928  337.384 682.303  416.763 629.263
+            469.803 549.884  488.428 456.25  488.428 -456.25  469.803 -549.884
+            416.763 -629.263  337.384 -682.303  243.75 -700.928  -243.75 -700.928
+            -337.384 -682.303  -416.763 -629.263  -469.803 -549.884  -488.428 -456.25
+            -488.428 456.25))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_1500.000000x1000.000000_um
+      (shape (rect F.Cu -750 -500 750 500))
+      (attach off)
+    )
+    (padstack Rect[T]Pad_1500.000000x1100.000000_um
+      (shape (rect F.Cu -750 -550 750 550))
+      (attach off)
+    )
+    (padstack "Via[0-1]_600:300_um"
+      (shape (circle F.Cu 600))
+      (shape (circle B.Cu 600))
+      (attach off)
+    )
+  )
+  (network
+    (net /CELL_P
+      (pins J1-1 F1-1)
+    )
+    (net /NTC
+      (pins J1-2 J3-2)
+    )
+    (net /PACK_N
+      (pins J1-3 J2-1 J2-2 J3-3)
+    )
+    (net /PACK_P
+      (pins J2-3 J2-4 F1-2 J3-1)
+    )
+    (class kicad_default /NTC
+      (circuit
+        (use_via "Via[0-1]_600:300_um")
+      )
+      (rule
+        (width 200)
+        (clearance 150)
+      )
+    )
+    (class Power /CELL_P /PACK_N /PACK_P
+      (circuit
+        (use_via "Via[0-1]_600:300_um")
+      )
+      (rule
+        (width 300)
+        (clearance 150)
+      )
+    )
+  )
+  (wiring
+  )
+)

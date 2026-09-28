@@ -23,7 +23,10 @@
     "TailBoot_R to 02_FrontCover_R": 0.2,
     "TailBoot_R to PCB_Components_KiCad_R": 0.4,
     "TailBoot_R to PCB_Substrate_R": 0.1,
-    "Cell_ENVELOPE_NOT_A_SELECTED_CELL_R to 04_BatteryCartridgeLid_R": 0.4
+    "Cell_LP502030_MAXSIZE_R to 04_BatteryCartridgeLid_R": 0.9,
+    "Cell_LP502030_MAXSIZE_R to 03_BatteryCartridgeCup_R": 0.0,
+    "CartridgeStripPCB_R to Cell_LP502030_MAXSIZE_R": 0.55,
+    "CartridgeStripPCB_R to 03_BatteryCartridgeCup_R": 0.0
   },
   "notes": [
     "KiCad PCBA STEP imported: 658 component/pad solids, z 8.71..17.04; KiCad board body 1445 mm3 vs enclosure board solid 1590 mm3 (difference 9.1 %, KiCad dielectric body excludes outer copper/mask)"

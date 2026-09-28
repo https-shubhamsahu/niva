@@ -1,0 +1,46 @@
+[
+  {
+    "name": "10_DockBase",
+    "stl": "work/niva-meshes/10_DockBase.stl"
+  },
+  {
+    "name": "11_DockTop",
+    "stl": "work/niva-meshes/11_DockTop.stl"
+  },
+  {
+    "name": "12_DockLightPipe_Clear",
+    "stl": "work/niva-meshes/12_DockLightPipe_Clear.stl"
+  },
+  {
+    "name": "DockPCB_Substrate",
+    "stl": "work/niva-meshes/DockPCB_Substrate.stl"
+  },
+  {
+    "name": "DockPCB_Components_KiCad",
+    "stl": "work/niva-meshes/DockPCB_Components_KiCad.stl"
+  },
+  {
+    "name": "DockSpringPins_ENVELOPE",
+    "stl": "work/niva-meshes/DockSpringPins_ENVELOPE.stl"
+  },
+  {
+    "name": "Cartridge_Cup",
+    "stl": "work/niva-meshes/Cartridge_Cup.stl"
+  },
+  {
+    "name": "Cartridge_Lid",
+    "stl": "work/niva-meshes/Cartridge_Lid.stl"
+  },
+  {
+    "name": "Cartridge_Cell_LP502030_MAXSIZE",
+    "stl": "work/niva-meshes/Cartridge_Cell_LP502030_MAXSIZE.stl"
+  },
+  {
+    "name": "Cartridge_StripPCB",
+    "stl": "work/niva-meshes/Cartridge_StripPCB.stl"
+  },
+  {
+    "name": "Cartridge_LidPlates",
+    "stl": "work/niva-meshes/Cartridge_LidPlates.stl"
+  }
+]

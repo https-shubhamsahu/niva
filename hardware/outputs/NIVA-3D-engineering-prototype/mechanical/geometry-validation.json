@@ -6,7 +6,7 @@
     "print_orientation": "rear face on bed; no supports (ledge gussets, chamfered grooves); bay ceiling bridges 28.8 mm",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 9998.2,
+    "volume_mm3": 9897.1,
     "print_bbox_mm": [
       42.0,
       60.0,
@@ -38,10 +38,10 @@
     "print_orientation": "rear face on bed; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 2522.0,
+    "volume_mm3": 2356.5,
     "print_bbox_mm": [
       28.0,
-      39.0,
+      41.0,
       8.0
     ],
     "closed_mesh": true,
@@ -54,10 +54,10 @@
     "print_orientation": "contact face on bed (flipped); no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1698.8,
+    "volume_mm3": 1883.6,
     "print_bbox_mm": [
       27.6,
-      33.6,
+      37.1,
       2.0
     ],
     "closed_mesh": true,
@@ -150,7 +150,7 @@
     "print_orientation": "rear face on bed; no supports (ledge gussets, chamfered grooves); bay ceiling bridges 28.8 mm",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 9998.2,
+    "volume_mm3": 9897.1,
     "print_bbox_mm": [
       42.0,
       60.0,

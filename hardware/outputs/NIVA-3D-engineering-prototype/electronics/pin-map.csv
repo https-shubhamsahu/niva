@@ -70,7 +70,7 @@ NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,3,F3_ADC
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,4,F4_ADC
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,5,F5_ADC
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,6,PIEZO_ADC
-NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,7,VEXC_HALF
+NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,7,V33_HALF
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,8,INSERT_ID
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,9,GND
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,10,CS_ADC
@@ -78,11 +78,11 @@ NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,11,SPI_M
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,12,SPI_MISO
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,13,SPI_SCK
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,14,GND
-NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,15,+3V3
+NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,15,VEXC
 NIVA-controller,U2,"MCP3208-CI/SL",Package_SO:SOIC-16_3.9x9.9mm_P1.27mm,16,+3V3
 NIVA-controller,C4,"100n",Capacitor_SMD:C_0603_1608Metric,1,+3V3
 NIVA-controller,C4,"100n",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-controller,C19,"1u",Capacitor_SMD:C_0603_1608Metric,1,+3V3
+NIVA-controller,C19,"1u",Capacitor_SMD:C_0603_1608Metric,1,VEXC
 NIVA-controller,C19,"1u",Capacitor_SMD:C_0603_1608Metric,2,GND
 NIVA-controller,U3,"LSM6DSO32TR",Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y,1,SPI_MISO
 NIVA-controller,U3,"LSM6DSO32TR",Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y,2,GND
@@ -167,19 +167,19 @@ NIVA-controller,R33,"220",Resistor_SMD:R_0603_1608Metric,1,+3V3
 NIVA-controller,R33,"220",Resistor_SMD:R_0603_1608Metric,2,VEXC
 NIVA-controller,C18,"1u",Capacitor_SMD:C_0603_1608Metric,1,VEXC
 NIVA-controller,C18,"1u",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-controller,R31,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,1,VEXC
-NIVA-controller,R31,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,2,VEXC_HALF
-NIVA-controller,R32,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,1,VEXC_HALF
-NIVA-controller,R32,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,2,GND
-NIVA-controller,C16,"100n",Capacitor_SMD:C_0603_1608Metric,1,VEXC_HALF
+NIVA-controller,R31,"10k 1%",Resistor_SMD:R_0603_1608Metric,1,+3V3
+NIVA-controller,R31,"10k 1%",Resistor_SMD:R_0603_1608Metric,2,V33_HALF
+NIVA-controller,R32,"10k 1%",Resistor_SMD:R_0603_1608Metric,1,V33_HALF
+NIVA-controller,R32,"10k 1%",Resistor_SMD:R_0603_1608Metric,2,GND
+NIVA-controller,C16,"100n",Capacitor_SMD:C_0603_1608Metric,1,V33_HALF
 NIVA-controller,C16,"100n",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-controller,R30,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,1,+3V3
+NIVA-controller,R30,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,1,VEXC
 NIVA-controller,R30,"10k 0.1%",Resistor_SMD:R_0603_1608Metric,2,INSERT_ID_RAW
 NIVA-controller,R34,"3.3k",Resistor_SMD:R_0603_1608Metric,1,INSERT_ID_RAW
 NIVA-controller,R34,"3.3k",Resistor_SMD:R_0603_1608Metric,2,INSERT_ID
 NIVA-controller,C17,"1u",Capacitor_SMD:C_0603_1608Metric,1,INSERT_ID
 NIVA-controller,C17,"1u",Capacitor_SMD:C_0603_1608Metric,2,GND
-NIVA-heel-and-indicator,R40,"100k",Resistor_SMD:R_0603_1608Metric,1,+3V3
+NIVA-heel-and-indicator,R40,"100k",Resistor_SMD:R_0603_1608Metric,1,VEXC
 NIVA-heel-and-indicator,R40,"100k",Resistor_SMD:R_0603_1608Metric,2,VMID
 NIVA-heel-and-indicator,R41,"100k",Resistor_SMD:R_0603_1608Metric,1,VMID
 NIVA-heel-and-indicator,R41,"100k",Resistor_SMD:R_0603_1608Metric,2,GND

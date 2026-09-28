@@ -84,17 +84,17 @@
     "offset_x": 0.0
   },
   {
-    "name": "Cell_ENVELOPE_NOT_A_SELECTED_CELL_R",
-    "material": "placeholder envelope",
+    "name": "Cell_LP502030_MAXSIZE_R",
+    "material": "EEMB LP502030 class, published max size (supplier model not available)",
     "kind": "envelope",
-    "stl": "work/niva-meshes/Cell_ENVELOPE_NOT_A_SELECTED_CELL_R.stl",
+    "stl": "work/niva-meshes/Cell_LP502030_MAXSIZE_R.stl",
     "offset_x": 0.0
   },
   {
-    "name": "CellProtection_ENVELOPE_R",
-    "material": "placeholder envelope",
-    "kind": "envelope",
-    "stl": "work/niva-meshes/CellProtection_ENVELOPE_R.stl",
+    "name": "CartridgeStripPCB_R",
+    "material": "FR-4 0.8 mm interconnect + polyfuse (see electronics/cartridge)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/CartridgeStripPCB_R.stl",
     "offset_x": 0.0
   },
   {
@@ -189,17 +189,17 @@
     "offset_x": -80.0
   },
   {
-    "name": "Cell_ENVELOPE_NOT_A_SELECTED_CELL_L",
-    "material": "placeholder envelope",
+    "name": "Cell_LP502030_MAXSIZE_L",
+    "material": "EEMB LP502030 class, published max size (supplier model not available)",
     "kind": "envelope",
-    "stl": "work/niva-meshes/Cell_ENVELOPE_NOT_A_SELECTED_CELL_L.stl",
+    "stl": "work/niva-meshes/Cell_LP502030_MAXSIZE_L.stl",
     "offset_x": -80.0
   },
   {
-    "name": "CellProtection_ENVELOPE_L",
-    "material": "placeholder envelope",
-    "kind": "envelope",
-    "stl": "work/niva-meshes/CellProtection_ENVELOPE_L.stl",
+    "name": "CartridgeStripPCB_L",
+    "material": "FR-4 0.8 mm interconnect + polyfuse (see electronics/cartridge)",
+    "kind": "rigid",
+    "stl": "work/niva-meshes/CartridgeStripPCB_L.stl",
     "offset_x": -80.0
   },
   {
