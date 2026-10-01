@@ -2,6 +2,8 @@
 
 **Every step, understood.**
 
+> Three projects share this insole: the Niva startup, the Aavishkar 2026–27 research entry, and the SIH 2026 problem statement 26213. See [PROJECTS.md](PROJECTS.md) for what belongs to which.
+
 Niva is an explainable gait-analytics platform for a smart insole. Plantar pressure, impact, and IMU telemetry are acquired on an ESP32, streamed to software, then scored with explicit biomechanics rules rather than a black-box model.
 
 This repository is a monorepo for the three implemented Niva applications.
@@ -36,20 +38,23 @@ What is actually in the code:
 ## Repository structure
 
 ```text
-Niva/
-├── niva flutter/     Mobile application (Flutter)
-├── niva arduino/     ESP32 / Arduino firmware
-├── niva web/         Clinician dashboard, Vite app, and WS relay
-├── docs/brand/       Logo source assets
-├── README.md
-└── .github/          GitHub Pages deploy workflow
+niva/
+├── startup/
+│   ├── niva flutter/   Mobile application (Flutter)
+│   ├── niva arduino/   ESP32 / Arduino firmware (shared by all three projects)
+│   └── niva web/       Dashboard, Vite app and WS relay
+├── aavishkar/          Aavishkar 2026–27 research entry
+├── sih-26213/          SIH 2026, problem statement 26213
+├── media/              Shared photos, logos, 3D CAD and renders, video scripts
+├── PROJECTS.md         Which project owns what
+└── .github/            GitHub Pages deploy workflow
 ```
 
 | Directory | Responsibility |
 |---|---|
-| `niva flutter/` | Patient/user-facing Flutter app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
-| `niva arduino/` | ESP32 firmware: ADC acquisition, calibration, IMU, telemetry, Wi-Fi / WebSocket |
-| `niva web/` | Clinician dashboard, biomechanics visualization, dataset export/upload, optional WebSocket relay |
+| `startup/niva flutter/` | Patient/user-facing Flutter app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
+| `startup/niva arduino/` | ESP32 firmware: ADC acquisition, calibration, IMU, telemetry, Wi-Fi / WebSocket |
+| `startup/niva web/` | Clinician dashboard, biomechanics visualization, dataset export/upload, optional WebSocket relay |
 
 ## Development prerequisites
 
@@ -64,7 +69,7 @@ Install only what you need for the component you are running:
 ### Web dashboard (`niva web`)
 
 ```bash
-cd "niva web"
+cd "startup/niva web"
 npm install
 # if peer dependency conflicts appear:
 npm install --legacy-peer-deps
@@ -79,7 +84,7 @@ npm run preview
 npm run lint
 ```
 
-Optional environment file: create `niva web/.env.local`
+Optional environment file: create `startup/niva web/.env.local`
 
 ```bash
 VITE_ESP32_WS_URL=ws://<esp32-ip>:81
@@ -92,7 +97,7 @@ VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token
 Optional local WebSocket relay (needed when a HTTPS dashboard must reach a `ws://` ESP32):
 
 ```bash
-cd "niva web/relay"
+cd "startup/niva web/relay"
 npm install
 npm start
 ```
@@ -100,7 +105,7 @@ npm start
 ### Flutter app (`niva flutter`)
 
 ```bash
-cd "niva flutter"
+cd "startup/niva flutter"
 flutter pub get
 flutter analyze
 flutter test
@@ -111,10 +116,10 @@ ESP32 endpoint, relay URL, and upload URL are runtime settings on the Device tab
 
 ### Firmware (`niva arduino`)
 
-Open one of these sketches in Arduino IDE, install the libraries listed in `niva arduino/README.md`, select an ESP32 board, and upload:
+Open one of these sketches in Arduino IDE, install the libraries listed in `startup/niva arduino/README.md`, select an ESP32 board, and upload:
 
-- **Active hardware sketch:** `niva arduino/niva_hardware/niva_hardware.ino`
-- **Simpler hardcoded-WiFi sketch:** `niva arduino/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino`
+- **Active hardware sketch:** `startup/niva arduino/niva_hardware/niva_hardware.ino`
+- **Simpler hardcoded-WiFi sketch:** `startup/niva arduino/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino`
 
 Serial Monitor baud rate: **115200**.
 
@@ -144,12 +149,12 @@ There is no application server or database in this repository. Dataset persisten
 
 | Location | Contents |
 |---|---|
-| `niva flutter/README.md` | Flutter setup, architecture, and run commands |
-| `niva arduino/README.md` | Firmware sketches, pin map, libraries |
-| `niva web/README.md` | Dashboard setup, telemetry formats, Pages deploy |
-| `niva web/JUDGES_WALKTHROUGH.md` | Algorithm and data walkthrough |
-| `niva flutter/DESIGN.md` | Flutter visual/design notes |
-| `niva flutter/BACKEND_LOGIC.md` | Data contract and storage |
-| `docs/brand/` | Logo source assets |
+| `startup/niva flutter/README.md` | Flutter setup, architecture, and run commands |
+| `startup/niva arduino/README.md` | Firmware sketches, pin map, libraries |
+| `startup/niva web/README.md` | Dashboard setup, telemetry formats, Pages deploy |
+| `startup/niva web/JUDGES_WALKTHROUGH.md` | Algorithm and data walkthrough |
+| `startup/niva flutter/DESIGN.md` | Flutter visual/design notes |
+| `startup/niva flutter/BACKEND_LOGIC.md` | Data contract and storage |
+| `media/brand/` | Logo source assets |
 
 This prototype is an engineering / research screening tool. It is not a medical diagnosis device.
