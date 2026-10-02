@@ -1,0 +1,842 @@
+<title>Niva Evidence Base</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#F1F4F5;
+  --surface:#FFFFFF;
+  --surface-sunk:#E7ECEE;
+  --ink:#101819;
+  --ink-soft:#3D4E52;
+  --ink-mute:#65787D;
+  --rule:#D2DBDD;
+  --rule-soft:#E2E9EA;
+  --accent:#0E6E78;
+  --accent-soft:#DCEDEF;
+  --accent-ink:#0A5158;
+  --crit:#A32017;
+  --crit-soft:#F8E2E0;
+  --warn:#8A5300;
+  --warn-soft:#F8ECD8;
+  --ok:#2A6640;
+  --ok-soft:#DEEDE2;
+  --measure:68ch;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1214;
+    --surface:#141D1F;
+    --surface-sunk:#0F1719;
+    --ink:#E2EAEB;
+    --ink-soft:#B2C2C5;
+    --ink-mute:#83979B;
+    --rule:#263437;
+    --rule-soft:#1C282A;
+    --accent:#4FBAC4;
+    --accent-soft:#123137;
+    --accent-ink:#8AD6DD;
+    --crit:#F08379;
+    --crit-soft:#331714;
+    --warn:#E3A94B;
+    --warn-soft:#2E2211;
+    --ok:#79C494;
+    --ok-soft:#14291C;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1214;
+  --surface:#141D1F;
+  --surface-sunk:#0F1719;
+  --ink:#E2EAEB;
+  --ink-soft:#B2C2C5;
+  --ink-mute:#83979B;
+  --rule:#263437;
+  --rule-soft:#1C282A;
+  --accent:#4FBAC4;
+  --accent-soft:#123137;
+  --accent-ink:#8AD6DD;
+  --crit:#F08379;
+  --crit-soft:#331714;
+  --warn:#E3A94B;
+  --warn-soft:#2E2211;
+  --ok:#79C494;
+  --ok-soft:#14291C;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;
+  line-height:1.62;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- masthead ---------- */
+.mast{
+  border-bottom:2px solid var(--ink);
+  padding:44px 0 20px;
+  margin-bottom:36px;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+  margin:0 0 14px;
+}
+h1{
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-weight:700;
+  font-size:clamp(34px,5.4vw,54px);
+  line-height:1.02;
+  letter-spacing:-.02em;
+  margin:0 0 14px;
+  text-wrap:balance;
+}
+.standfirst{
+  font-size:19px;
+  color:var(--ink-soft);
+  max-width:60ch;
+  margin:0 0 28px;
+}
+.tally{
+  display:flex;
+  flex-wrap:wrap;
+  gap:0;
+  border-top:1px solid var(--rule);
+  padding-top:16px;
+}
+.tally div{
+  padding-right:34px;
+  margin-right:34px;
+  border-right:1px solid var(--rule-soft);
+}
+.tally div:last-child{border-right:0;margin-right:0;padding-right:0}
+.tally b{
+  display:block;
+  font-family:Archivo,sans-serif;
+  font-size:27px;
+  font-weight:700;
+  line-height:1.1;
+  font-variant-numeric:tabular-nums;
+}
+.tally span{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--ink-mute);
+}
+
+/* ---------- sections ---------- */
+section{margin:0 0 60px}
+.sechead{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  border-bottom:1px solid var(--ink);
+  padding-bottom:8px;
+  margin-bottom:26px;
+}
+.sig{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  flex:none;
+}
+h2{
+  font-family:Archivo,sans-serif;
+  font-weight:600;
+  font-size:clamp(22px,3vw,29px);
+  letter-spacing:-.01em;
+  margin:0;
+  line-height:1.15;
+  text-wrap:balance;
+}
+h3{
+  font-family:Archivo,sans-serif;
+  font-weight:600;
+  font-size:18px;
+  letter-spacing:-.005em;
+  margin:34px 0 10px;
+  text-wrap:balance;
+}
+p{margin:0 0 15px;max-width:var(--measure)}
+.lede{font-size:18px;color:var(--ink-soft);max-width:var(--measure)}
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+strong{font-weight:600}
+em.term{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:.88em;background:var(--surface-sunk);padding:1px 5px;border-radius:2px}
+
+/* ---------- findings ---------- */
+.findings{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:8px}
+.finding{
+  background:var(--surface);
+  padding:20px 22px 20px 20px;
+  border-left:4px solid var(--crit);
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:4px 16px;
+}
+.finding.warn{border-left-color:var(--warn)}
+.finding.ok{border-left-color:var(--ok)}
+.fnum{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  font-weight:600;
+  color:var(--ink-mute);
+  padding-top:5px;
+  font-variant-numeric:tabular-nums;
+}
+.fbody h4{
+  font-family:Archivo,sans-serif;
+  font-size:17px;
+  font-weight:600;
+  margin:0 0 6px;
+  line-height:1.3;
+  text-wrap:balance;
+}
+.fbody p{margin:0;font-size:16px;color:var(--ink-soft);max-width:62ch}
+.fbody p + p{margin-top:8px}
+.cite{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  color:var(--ink-mute);
+  letter-spacing:.01em;
+}
+
+/* ---------- tables ---------- */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);background:var(--surface);margin:0 0 14px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+th{
+  font-family:Archivo,sans-serif;
+  font-size:11.5px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:600;
+  text-align:left;
+  color:var(--ink-mute);
+  padding:11px 14px;
+  border-bottom:1px solid var(--ink);
+  white-space:nowrap;
+  background:var(--surface-sunk);
+}
+td{padding:11px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:600}
+td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:13.5px}
+.verdict{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:2px 7px;
+  border-radius:2px;
+  white-space:nowrap;
+  display:inline-block;
+}
+.v-no{background:var(--crit-soft);color:var(--crit)}
+.v-yes{background:var(--ok-soft);color:var(--ok)}
+.v-maybe{background:var(--warn-soft);color:var(--warn)}
+caption{
+  caption-side:bottom;
+  text-align:left;
+  font-size:13px;
+  color:var(--ink-mute);
+  padding:10px 14px;
+  border-top:1px solid var(--rule-soft);
+}
+
+/* ---------- callout ---------- */
+.pull{
+  border-left:3px solid var(--accent);
+  background:var(--accent-soft);
+  padding:16px 20px;
+  margin:0 0 20px;
+  max-width:var(--measure);
+}
+.pull p{margin:0;font-size:16px}
+.pull p + p{margin-top:10px}
+.pull .k{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  font-weight:600;
+  display:block;
+  margin-bottom:6px;
+}
+
+/* ---------- paper entries ---------- */
+.papers{display:grid;gap:0;border-top:1px solid var(--rule)}
+.paper{
+  padding:16px 0;
+  border-bottom:1px solid var(--rule-soft);
+  max-width:var(--measure);
+}
+.paper .ref{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;
+  line-height:1.5;
+  color:var(--ink);
+  margin:0 0 6px;
+  max-width:none;
+}
+.paper .find{margin:0 0 6px;font-size:16px;color:var(--ink-soft)}
+.paper .impl{
+  margin:0;
+  font-size:15.5px;
+  color:var(--ink);
+  padding-left:15px;
+  border-left:2px solid var(--accent);
+}
+.chip{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:1px 6px;
+  border:1px solid var(--rule);
+  color:var(--ink-mute);
+  border-radius:2px;
+  margin-left:6px;
+  white-space:nowrap;
+}
+.chip.unv{border-color:var(--warn);color:var(--warn)}
+
+/* ---------- actions ---------- */
+ol.actions{list-style:none;counter-reset:act;padding:0;margin:0;display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+ol.actions li{
+  counter-increment:act;
+  background:var(--surface);
+  padding:16px 20px 16px 62px;
+  position:relative;
+}
+ol.actions li::before{
+  content:counter(act,decimal-leading-zero);
+  position:absolute;
+  left:20px;
+  top:16px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+ol.actions b{font-family:Archivo,sans-serif;font-weight:600;font-size:16px;display:block;margin-bottom:3px}
+ol.actions p{margin:0;font-size:15.5px;color:var(--ink-soft);max-width:62ch}
+.cost{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--ink-mute);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-top:6px;
+  display:block;
+}
+
+/* ---------- bibliography ---------- */
+details.bib{border:1px solid var(--rule);background:var(--surface);margin-bottom:10px}
+details.bib > summary{
+  font-family:Archivo,sans-serif;
+  font-weight:600;
+  font-size:16px;
+  padding:13px 18px;
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+details.bib > summary::-webkit-details-marker{display:none}
+details.bib > summary::after{content:"+";font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:18px;flex:none}
+details.bib[open] > summary::after{content:"–"}
+details.bib[open] > summary{border-bottom:1px solid var(--rule-soft)}
+.biblist{padding:6px 18px 14px;margin:0;list-style:none}
+.biblist li{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;
+  line-height:1.55;
+  padding:8px 0;
+  border-bottom:1px solid var(--rule-soft);
+  color:var(--ink-soft);
+}
+.biblist li:last-child{border-bottom:0}
+.biblist a{word-break:break-word}
+.summcount{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-mute);font-weight:400;letter-spacing:.05em}
+
+/* ---------- note ---------- */
+.note{
+  border-top:2px solid var(--ink);
+  padding-top:18px;
+  margin-top:56px;
+  font-size:15px;
+  color:var(--ink-soft);
+}
+.note h3{margin-top:0}
+.note p{max-width:var(--measure)}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 18px 72px}
+  .tally div{padding-right:20px;margin-right:20px}
+  .finding{grid-template-columns:1fr;padding:16px}
+  .fnum{padding-top:0}
+  ol.actions li{padding-left:20px;padding-top:38px}
+  ol.actions li::before{top:14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="eyebrow">Literature review · compiled 5 September 2026</p>
+  <h1>Niva Evidence Base</h1>
+  <p class="standfirst">What the published literature says about a four-sensor FSR insole for diabetic foot screening — what it supports, what it contradicts, and what has to change.</p>
+  <div class="tally">
+    <div><b>121</b><span>sources located</span></div>
+    <div><b>96</b><span>content verified</span></div>
+    <div><b>8</b><span>usable datasets</span></div>
+    <div><b>13</b><span>named competitors</span></div>
+    <div><b>6</b><span>findings that change the plan</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sechead"><span class="sig">§1</span><h2>The six findings that change the project</h2></div>
+  <p class="lede">Ordered by how much they cost you if you don't act on them. Four are bad news. Two are the best news in the whole review.</p>
+
+  <div class="findings">
+
+    <div class="finding">
+      <span class="fnum">01</span>
+      <div class="fbody">
+        <h4>In India, the word "screening" is what makes you a regulated medical device</h4>
+        <p>Niva's positioning — "screening, explicitly not diagnostic" — has been treated as a shield. Under CDSCO's Medical Device Software guidance it is the opposite. The general-wellness exclusion carries an explicit carve-out: software intended to measure, estimate or report physiologic values for medical or clinical purposes, <strong>including screening</strong>, monitoring or alerting, is not general wellness software. Section 6 lists screening/triage as a medical purpose outright. Software that drives hardware inherits the hardware's risk class.</p>
+        <p>You have two honest options: drop every disease reference and claim activity/loading tracking only, or accept that Niva is a regulated device and plan accordingly. The current framing gets you the regulation without the protection.</p>
+        <p class="cite">CDSCO/MD/GD/MDSW/01/2026, issued 21 July 2026 · doc no. and scope independently corroborated (Nishith Desai / National Law Review, 3 Aug 2026)</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="fnum">02</span>
+      <div class="fbody">
+        <h4>Your FSR402s saturate at 20 N. Heel strike is 300–800 N.</h4>
+        <p>The FSR402's nominal range is 0.2–20 N. Under sustained compressive load it saturated within 2–3 seconds on the first trial, took ~5 s and got noisier on the second, and by the third trial was <strong>completely saturated throughout</strong> — the authors attribute it to irreversible microstructural damage from cyclic loading.</p>
+        <p>Your four pressure channels are not measuring pressure. They are binary contact detectors that degrade over a few thousand steps. Everything downstream that treats them as a magnitude — time-pressure exposure, load asymmetry ratios, any kPa figure — inherits that.</p>
+        <p class="cite">Sêco et al. 2025, <em>Sensors</em> 25(23):7377 — verified directly against the paper</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <span class="fnum">03</span>
+      <div class="fbody">
+        <h4>Four sensors is below the literature's own floor for centre of pressure</h4>
+        <p>Benchmarked against a 99-sensor Pedar-X, layouts of 3–9 sensors produced 8–11 mm medial-lateral and 20–22 mm anterior-posterior CoP error, and the authors state plainly that caution is warranted at nine sensors or fewer. Thirteen is their recommended compromise. A separate systematic review of 33 insole studies puts the recommended minimum at fifteen.</p>
+        <p>Niva has four. Publishing a CoP trajectory from this build is not defensible. The one variable that survives sensor reduction is <strong>medial-lateral CoP</strong> — 0.61% RMSE even at 16 sensors, while ground reaction force in the same study hit 82.4%.</p>
+        <p class="cite">Fuchs et al. 2024, <em>Sensors</em> 24(15):4918 · Ciniglio et al. 2021, <em>Sensors</em> 21(4):1450 · Santos et al. 2024, <em>Appl Sci</em> 14:6085</p>
+      </div>
+    </div>
+
+    <div class="finding warn">
+      <span class="fnum">04</span>
+      <div class="fbody">
+        <h4>Your EMA filter is erasing the heel-strike edge your piezo exists to catch</h4>
+        <p>A single-pole EMA at α = 0.15 has a −3 dB cutoff of roughly 0.026 × f<sub>s</sub> and a DC group delay of (1−α)/α = 5.67 samples. At 100 Hz that is a <strong>2.6 Hz cutoff and 57 ms of lag</strong> — half the lowest cutoff in common use, and a delay larger than the entire error budget of a good pressure-based event detector (1.0 ms in the best published algorithm).</p>
+        <p>Published practice is a zero-phase Butterworth low-pass at 5–15 Hz. Worse, the lag is frequency-dependent, so it distorts the intervals between events, not just their absolute timing — which corrupts exactly the asymmetry and phase-duration features you compute from them.</p>
+        <p class="cite">Derived from the filter definition; benchmarks from Lin et al. 2025 <em>Sensors</em> 25:3481 · Blades et al. 2023 <em>Sensors</em> 23:2736</p>
+      </div>
+    </div>
+
+    <div class="finding ok">
+      <span class="fnum">05</span>
+      <div class="fbody">
+        <h4>The competing modality's best trial failed, and it failed at behaviour, not sensing</h4>
+        <p>DIATEMP is the largest, best-designed RCT in diabetic foot monitoring — 304 patients, 18 months, home thermometry. It <strong>missed its primary endpoint</strong>: 29.1% vs 37.3% ulcer recurrence, RR 0.782, p = 0.133. Of 83 participants who detected a hotspot, only 24 actually reduced walking — and in those 24, RR was 0.336 (p = 0.017).</p>
+        <p>The signal was detected. The patients didn't act. Add Littman's 1,137-veteran study — 37.6% abandoned the leading commercial device within a year, with the sickest patients abandoning most — and the picture is consistent: <strong>detection is solved, acting on it is not</strong>. That gap, not better sensing, is the opportunity.</p>
+        <p class="cite">Bus et al. 2021, <em>BMJ Open Diab Res Care</em> 9:e002392 · Littman et al. 2024, <em>JMIR Diabetes</em> 9:e53083</p>
+      </div>
+    </div>
+
+    <div class="finding ok">
+      <span class="fnum">06</span>
+      <div class="fbody">
+        <h4>Nobody has published this from a low- or middle-income country. Not one study.</h4>
+        <p>A scoping review screened 1,925 papers on data-driven remote care for diabetic foot and included 81. It found <strong>zero studies from India or any low- or middle-income setting</strong>. Only 15 of the 81 had cohorts above 100 participants; only 7 were randomised.</p>
+        <p>This is your strongest honest claim, and it is a novelty claim rather than a clinical one: a competently run Indian pilot would be the first of its kind in the published record. It costs nothing to make and no competitor can take it from you.</p>
+        <p class="cite">Sharp et al. 2023, <em>Front Clin Diabetes Healthc</em> 4:1212182</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§2</span><h2>What this hardware can and cannot claim</h2></div>
+  <p class="lede">Every row is backed by a measurement against a reference system. Print this and put it next to the pitch deck — it is the fastest way to stop a claim you can't defend from reaching a clinician.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Verdicts derived from validation studies of insoles with 3–235 sensors against Pedar-X, F-Scan, Kistler and AMTI force plates, and Vicon motion capture.</caption>
+      <thead><tr><th>Claim</th><th>Verdict</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr><td>Step count, cadence, stride timing</td><td><span class="verdict v-yes">Supported</span></td><td class="num">95.5–99.5% accuracy on a 5×FSR402 insole; cadence ICC 0.99 across three commercial systems</td></tr>
+        <tr><td>Gait phase / event timing</td><td><span class="verdict v-yes">Supported</span></td><td class="num">88.9–90.2% reliability with 2 FSRs/foot using adaptive thresholds; &lt;1 ms latency</td></tr>
+        <tr><td>Medial-lateral loading asymmetry</td><td><span class="verdict v-maybe">With caveats</span></td><td class="num">ML CoP RMSE 0.61% survives sensor reduction — but needs load gating and per-user baseline</td></tr>
+        <tr><td>Footwear adherence (% of steps in prescribed shoe)</td><td><span class="verdict v-yes">Supported</span></td><td class="num">The field's own validated measure; your FSR+IMU stack computes it natively</td></tr>
+        <tr><td>Relative loading shift within one session</td><td><span class="verdict v-maybe">With caveats</span></td><td class="num">Requires per-sensor calibration and rolling re-zero for thermal drift</td></tr>
+        <tr><td>Centre of pressure trajectory</td><td><span class="verdict v-no">Not supported</span></td><td class="num">8–22 mm error at ≤9 sensors; authors advise against below 9, recommend 11–13</td></tr>
+        <tr><td>Plantar pressure in kPa</td><td><span class="verdict v-no">Not supported</span></td><td class="num">43–83% contact-area and mean-pressure error even at 16 sensors</td></tr>
+        <tr><td>Force / ground reaction force in newtons</td><td><span class="verdict v-no">Not supported</span></td><td class="num">82.4% GRF RMSE at 16 sensors; FSR402 saturates above 20 N</td></tr>
+        <tr><td>Impact magnitude as a tissue-load risk score</td><td><span class="verdict v-no">Not supported</span></td><td class="num">Impact peak vs tibial bone load r = −0.29; 76 of 80 subjects contradicted the assumption</td></tr>
+        <tr><td>Cumulative time-pressure exposure as a dose</td><td><span class="verdict v-no">Not supported</span></td><td class="num">Requires calibrated kPa; saturated ADC counts cannot express it</td></tr>
+        <tr><td>Ulcer risk prediction</td><td><span class="verdict v-no">Not supported</span></td><td class="num">A 250 Hz pressure plate, 155 subjects, prospective follow-up reached only AUC 0.639</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull">
+    <p><span class="k">The defensible sentence</span>Niva identifies elevated and asymmetric plantar loading patterns and quantifies the proportion of steps taken in prescribed footwear. That claim is measurement and behaviour, not disease — it is supportable at pilot scale, it is what the field actually lacks, and it survives the DIATEMP result rather than being refuted by it.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§3</span><h2>The competitors your materials say don't exist</h2></div>
+  <p class="lede">Your dossier records no competitor analysis. The market splits cleanly in two: pressure, where Orpyx is essentially alone and holds the only positive prevention RCT; and temperature, which is crowded, better-evidenced, and home to the field's biggest published failure.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Compiled from peer-reviewed sources only. No source located stated FDA clearance or CE marking for any product — verify regulatory status directly in the FDA 510(k) and EU databases before citing it either way.</caption>
+      <thead><tr><th>Product</th><th>Company</th><th>Modality</th><th>Published evidence</th></tr></thead>
+      <tbody>
+        <tr><td>SurroSense Rx / Orpyx SI</td><td>Orpyx Medical, Canada</td><td>Continuous in-shoe pressure + smartwatch alerts</td><td class="num">Abbott 2019 RCT: IRR 0.29 (0.09–0.93), n=58 completers. The only positive pressure RCT.</td></tr>
+        <tr><td>SmartMat</td><td>Podimetrics, US</td><td>Daily-stand thermal mat, ~2,000 thermistors</td><td class="num">97% sensitivity, 37-day lead time — at 57% false-positive rate. 37.6% abandonment at n=1,137.</td></tr>
+        <tr><td>Neurofabric socks</td><td>Siren Care, US</td><td>Temperature-sensing textile</td><td class="num">Uncontrolled pre/post registry, n=115. Economics vendor-funded.</td></tr>
+        <tr><td>TempTouch</td><td>Xilas Medical, US</td><td>Handheld IR thermometer, 2.2 °C asymmetry rule</td><td class="num">Three RCTs 2004–2007; OR 10.3, HR 2.9. Sets the field's alert threshold.</td></tr>
+        <tr><td>OneStep / EveryStep</td><td>Bluedrop Medical</td><td>Thermal + visual imaging, scale form factor</td><td class="num">Vendor-cited pilots n=27–62</td></tr>
+        <tr><td>Stridalyzer Insight</td><td>ReTiSense, India</td><td>Instrumented insole, gait analysis</td><td class="num">Your closest domestic competitor</td></tr>
+        <tr><td>Pedar / Pliance</td><td>novel GmbH, Germany</td><td>Capacitive pressure, 99 sensors/insole</td><td class="num">The reference standard everything else is validated against</td></tr>
+        <tr><td>F-Scan</td><td>Tekscan, US</td><td>Resistive in-shoe pressure, 21×60 array</td><td class="num">Research gold standard</td></tr>
+        <tr><td>XSENSOR X4</td><td>XSENSOR, Canada</td><td>235 sensels/insole, 1.5–2.0 sensors/cm²</td><td class="num">7–9% peak pressure error — defines what "good" costs</td></tr>
+        <tr><td>Moticon OpenGo</td><td>Moticon, Germany</td><td>16 pressure sensors + IMU</td><td class="num">The insole used in the WearGait-PD dataset</td></tr>
+        <tr><td>FeetMe</td><td>FeetMe, France</td><td>18 capacitive sensors + 6-axis IMU, 110 Hz</td><td class="num">Realistic target spec for your BLE build</td></tr>
+        <tr><td>PODOSmart</td><td>Digitsole, France</td><td>IMU-based, 208 Hz</td><td class="num">Cadence ICC 0.990; clearance ICC 0.337</td></tr>
+        <tr><td>Orthotimer</td><td>—</td><td>In-insole temperature logger, adherence only</td><td class="num">Used to establish the 62% adherence figure</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Two things are true at once here. Nobody in this table is selling into an Indian screening context, and no product in the literature combines plantar pressure with an IMU for gait context. That is real white space. But it is white space in <em class="term">market</em>, not in <em class="term">technology</em> — a systematic review of 98 articles catalogues resistive, piezoresistive, piezoelectric, capacitive, inductive and fibre-Bragg sensing in this exact application. Your differentiation is cost, form factor and setting. It is not novelty of transduction, and a reviewer will know that.</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§4</span><h2>Hardware: what to change before the next board</h2></div>
+
+  <h3>Each sensor needs its own calibration curve</h3>
+  <p>Across 64 FSR402 specimens, sensitivity varied with a coefficient of variation of roughly <strong>26%</strong> (μ = 0.0735 V/N, σ = 0.019). A separate study varying temperature, sensor curvature and tissue compliance concluded directly that if multiple FSRs are used in a system, they must be calibrated independently.</p>
+  <p>This is a latent defect, not a refinement. Four sensors sharing one curve will encode inter-sensor manufacturing variation as left-right gait asymmetry — which is precisely the signal your heuristics are hunting for. You would be detecting your own bill of materials.</p>
+
+  <h3>Calibration method is worth 20 percentage points, free</h3>
+  <div class="tablewrap">
+    <table>
+      <caption>Full-range error by calibration method on a Tekscan sensor. Zero hardware cost — this is arithmetic and a loading protocol.</caption>
+      <thead><tr><th>Method</th><th>Error (MPa)</th><th>% of range</th></tr></thead>
+      <tbody>
+        <tr><td>20% linear (single point)</td><td class="num">3.55 ± 0.19</td><td class="num">24%</td></tr>
+        <tr><td>80% linear</td><td class="num">1.53 ± 0.08</td><td class="num">11%</td></tr>
+        <tr><td>Power fit (manufacturer default)</td><td class="num">0.39 ± 0.14</td><td class="num">2.7%</td></tr>
+        <tr><td>Three-point quadratic</td><td class="num">0.18 ± 0.02</td><td class="num">1.2%</td></tr>
+        <tr><td>Ten-point cubic</td><td class="num">0.08 ± 0.03</td><td class="num">0.6%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Calibrating on the loading curve alone is the worst case: including the unloading curve cut force estimation error by 76% in a hysteresis study that measured 7.6–17% hysteresis on FSRs against a manufacturer claim of under 4.5%.</p>
+
+  <h3>Your one-shot baseline is calibrating the thing that drifts most</h3>
+  <p>Across 24–60 °C, FSR sensitivity drift was ±6.7%/−6.1% — but <strong>null-force output drift was ±16.2%/−13.8%</strong>, and non-deterministic between temperatures. Averaging 100 stationary samples at boot fixes a zero that will have moved 20% by the time the shoe reaches foot temperature. Re-zero periodically during detected quiet standing instead.</p>
+
+  <h3>The paper that is your architecture, one generation ahead</h3>
+  <p>A 2026 paper built eight FSR402s on an <strong>ESP32-C3 with a 74HC4051 8:1 analog mux</strong>, BLE, and a 3D-printed 12.7 mm loading puck for calibration, at roughly USD 48 per pair. It reached 88% accuracy classifying diabetic vs non-diabetic plantar patterns and found forefoot pressure elevated 36–44% in diabetic participants.</p>
+  <p>Three things to copy immediately: the mux (eight channels off one ADC pin), the <strong>1 kΩ divider resistor instead of your 10 kΩ</strong> — 1 kΩ pushes the sensitive region toward body-weight loads, which is the correct direction — and the matched-diameter loading puck.</p>
+
+  <div class="pull">
+    <p><span class="k">If the flexible matrix gets built, build it capacitive</span>Every failure mode hurting your FSRs is materially better in capacitive sensing at equal sensitivity: hysteresis ~2% vs "significantly different" loading/unloading curves, stable across 3,000 s cyclic testing vs visible drift, and stable from 25–60 °C where piezoresistive showed "extremely unstable" resistance change. A four-site BLE capacitive insole with a published parts list already exists — same sensor positions as yours, swapping FSR402 + divider for PDMS pads and an FDC1004.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§5</span><h2>Firmware: seven specific corrections</h2></div>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Each row is a concrete change with a citation behind it. Ordered by impact on measurement validity.</caption>
+      <thead><tr><th>Current</th><th>Change to</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>EMA α = 0.15</td><td>2nd-order Butterworth, 10–15 Hz</td><td>EMA gives 2.6 Hz cutoff and 57 ms lag at 100 Hz; field standard is 5–15 Hz zero-phase</td></tr>
+        <tr><td>Single sample rate</td><td>100 Hz FSR/IMU, ≥500 Hz burst on piezo</td><td>Kinetic peaks need ≥500 Hz; 100 Hz systematically mis-measures the impact peak</td></tr>
+        <tr><td>No anti-alias filter</td><td>Analog AA filter ahead of every ADC channel</td><td>100 Hz sampling without one produces spectral distortion an EMA cannot undo</td></tr>
+        <tr><td>Complementary filter</td><td>Madgwick or Mahony</td><td>2–4° RMSE vs &lt;1°, at lower CPU cost than the naive filter</td></tr>
+        <tr><td>No drift correction</td><td>Add ZUPT on detected stance</td><td>Holds foot-IMU stride error to −6%…+3%; your stance detection already finds the windows</td></tr>
+        <tr><td>Fixed thresholds</td><td>Per-session adaptive (CFAR-style)</td><td>Fixed thresholds lose ~2× accuracy on pathological gait — your target population</td></tr>
+        <tr><td>"Persistence across several steps"</td><td>≥12 steps/foot; ~80 strides for variance metrics</td><td>12 steps is the canonical minimum for valid in-shoe pressure; variability metrics need 8× longer</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Two hardware limits the firmware cannot work around</h3>
+  <p>The <strong>MPU6050 caps at ±16 g</strong>, but foot heel-strike accelerations were measured at 24.6 ± 4.1 g. It will clip, and clipping biases everything downstream of integration — so impact magnitude must come from the piezo, never the accelerometer. Second, the <strong>medial arch is the penalised mounting position</strong>: ranked below insole and midsole-cavity placements, with occasional outliers above 30 cm attributed to foot interference. Rare large outliers are exactly what inflates a variance-based heuristic, which is what your ankle-sway metric is.</p>
+
+  <h3>Two of your heuristics are contradicted outright</h3>
+  <p><strong>Impact peak as a risk score.</strong> Ground reaction force impact peak correlated with peak tibial bone load at r = −0.29 ± 0.37 — slightly negative — and 76 of 80 subject-specific correlations contradicted the assumption that higher impact means higher internal load. The authors named wearables as the field getting this wrong. Present the piezo as an event detector and gait-quality feature.</p>
+  <p><strong>Medial-lateral asymmetry as the primary risk signal.</strong> The one prospective study with a full 250 Hz pressure plate and 155 subjects found the predictive signal was <strong>forefoot peak pressure</strong> — toes 2–5, metatarsals 1 and 3 — and reached only AUC 0.639 even so. Healthy people are also genuinely asymmetric: the dominant limb generates 56–61% of positive work, so any population-fixed threshold carries a built-in false-positive floor. Use Symmetry Angle rather than the classic Symmetry Index, which is undefined at y = −x and inflates when both signals sit near the noise floor; SA was the only index showing no speed dependence (p = 0.28).</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§6</span><h2>Real data you can download this week</h2></div>
+  <p class="lede">You have no patient dataset and five synthetic gait signatures that cannot substitute for one — generative models fail specifically at cross-modal consistency across simultaneous sensor streams, which is exactly the pressure + IMU case. These are real, labelled, and mostly free.</p>
+
+  <div class="tablewrap">
+    <table>
+      <caption>Licence terms matter commercially — two of these are non-commercial only. Verify before training anything you intend to ship.</caption>
+      <thead><tr><th>Dataset</th><th>Contents</th><th>Sensors</th><th>Licence</th></tr></thead>
+      <tbody>
+        <tr><td>WearGait-PD</td><td>100 Parkinson's + 85 matched controls, MDS-UPDRS scored</td><td class="num">Moticon insoles, 16 pressure + IMU, 100 Hz; 13 Xsens IMUs; pressure walkway</td><td class="num">CC BY 4.0</td></tr>
+        <tr><td>PhysioNet gaitpdb</td><td>93 Parkinson's + 73 controls</td><td class="num">8 force sensors per foot, 100 Hz, vertical GRF in newtons</td><td class="num">ODC-By 1.0</td></tr>
+        <tr><td>UNB StepUP-P150</td><td>150 participants, 200,000+ footsteps, 16 conditions</td><td class="num">240×720 grid at 5 mm, 4 sensors/cm², 100 Hz</td><td class="num">Confirm at source</td></tr>
+        <tr><td>GaitRec</td><td>211 controls + 2,084 patients, 75,732 trials</td><td class="num">Kistler force plates, 2000 Hz, 3-axis + CoP</td><td class="num">CC BY 4.0</td></tr>
+        <tr><td>Voisard clinical gait</td><td>260 participants — Parkinson's, stroke, neuropathy, orthopaedic</td><td class="num">4 IMUs incl. dorsum of each foot, 100 Hz</td><td class="num">CC BY-NC-ND</td></tr>
+        <tr><td>Smart-Insole (Chatzaki)</td><td>29 subjects: healthy, elderly, Parkinson's</td><td class="num">Moticon, 16 pressure + 6-axis IMU, 100 Hz, event-annotated</td><td class="num">Request + agreement</td></tr>
+        <tr><td>Daphnet FoG</td><td>10 Parkinson's patients, 8+ hours, freeze-annotated</td><td class="num">3 accelerometers, ankle/thigh/trunk</td><td class="num">CC BY 4.0</td></tr>
+        <tr><td>Camargo lower-limb</td><td>22 subjects, stairs, ramps, transitions</td><td class="num">IMUs, EMG, goniometers, force plates, mocap</td><td class="num">Confirm at source</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pull">
+    <p><span class="k">The experiment to run first</span>StepUP-P150 gives you a 240×720 pressure grid at 5 mm resolution. Subsample it at your four FSR402 positions and see empirically how much of the pressure map you capture — and how much four more sensors would buy. That answers the sensor-count question with real feet, before you spend anything on a board revision.</p>
+    <p>WearGait-PD is CC BY 4.0 with 100 Parkinson's patients on Moticon insoles and clinical scores attached. It can replace your synthetic Parkinsonian signature with real labelled data, and it permits commercial use.</p>
+  </div>
+
+  <p>One more result worth having in the pitch: on Cortex-M class hardware, a 50-tree random forest reached ~91% F1 at under 1 ms inference in 15–20 kB, matching an int8 CNN that took ~3 ms. Your preference for deterministic auditable models costs you no accuracy. State it as an engineering result, not as an apology for not doing deep learning.</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§7</span><h2>What the six-month plan should actually say</h2></div>
+  <p class="lede">Your current plan has the right shape. The literature gives it a vocabulary regulators recognise, a validation protocol you can afford, and two steps you haven't budgeted.</p>
+
+  <h3>Use the V3 framework's names</h3>
+  <p>Verification (sensor output against specification, on the bench) → analytical validation (does the algorithm measure the intended physiological metric, in vivo) → clinical validation (does the measure identify a clinical state, in a defined population). Your months 1–2 are verification. Months 3–5 are analytical validation. The clinician-reviewed pilot is the <em>start</em> of clinical validation, not the whole of it. V3+ adds usability validation as a fourth component — worth taking seriously, since for an insole worn by people with reduced foot sensation, usability failure is the single most likely way the programme fails.</p>
+  <p>Write a one-sentence <strong>context of use</strong> before anything else. Everything downstream is judged against it.</p>
+
+  <h3>Copy this validation protocol — it costs one action camera</h3>
+  <p>A 2024 study validated a 12-sensor insole in <strong>17 chronic stroke patients</strong> against frame-by-frame video labelling from a single GoPro at 120 Hz, dual-rater. It reported 90.86% of 3,820 gait events correctly identified, stance duration ICC 0.874, test-retest ICC 0.928. Comparable sensor count, n of 17, no motion-capture lab. This is a publishable analytical validation an undergraduate team can execute inside six months.</p>
+
+  <h3>Two steps missing from your budget</h3>
+  <p><strong>Prospective CTRI registration</strong> — free, but must precede your first participant, and retrofitting it is not possible. And <strong>ethics committee registration</strong>: confirm your host institution's committee holds a current DHR/NECRBHR registration number and put it in the protocol. An unregistered committee's approval will not support publication or any later regulatory filing. ICMR's guidelines require EC review of <em>all</em> human research including healthy volunteers — but supervised walking in an insole is arguable as minimal risk, which is the specific claim that qualifies you for expedited rather than full-committee review.</p>
+
+  <h3>Statistics that will survive a reviewer</h3>
+  <p>Report Bland-Altman limits of agreement, not correlation — correlation is the wrong statistic for method comparison and it is the most common error in student validation work. Pre-declare a clinically acceptable difference before you collect data. And be honest about what a small n does: establishing agreement properly needed n = 83 in a worked example, so present your healthy-volunteer phase as <em>estimating</em> the mean and SD of differences to power a future study, not as establishing agreement. A pilot of 10–25 per group is defensible <em>as a pilot</em> when the protocol says its objective is feasibility and variance estimation.</p>
+
+  <p>One design decision to make now rather than later: if any output is model-derived, WHO's regulatory considerations call for external validation, which means holding out a cohort the model never sees. That has to be planned before data collection, not after.</p>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§8</span><h2>Ten things to do, in order</h2></div>
+
+  <ol class="actions">
+    <li><b>Ask CDSCO for a written classification opinion</b><p>Their own FAQ 78 provides for it: submit product documentation and request a classification from the Central Licensing Authority. If a foot-worn gait analyser lands Class A non-sterile non-measuring, the clinical-investigation chapter falls away and only free registration remains. This single letter determines your entire regulatory cost.</p><span class="cost">Cost: a letter · Blocks: everything else</span></li>
+    <li><b>Rewrite the claim, both ways, and pick one</b><p>Draft the wellness version (activity and loading tracking, no disease reference) and the regulated version. You cannot have the screening language and the wellness exemption together.</p><span class="cost">Cost: an afternoon</span></li>
+    <li><b>Reply to the doctor's email thread</b><p>Still the highest-value unactioned item in the project. Everything in this document is better with one clinician's reaction to it.</p><span class="cost">Cost: one email</span></li>
+    <li><b>Give each FSR its own calibration curve</b><p>Ten-point cubic, loading and unloading, per sensor, using a matched-diameter loading puck. 24% error becomes 0.6%. Without this you are measuring your own component tolerances.</p><span class="cost">Cost: zero BOM · Highest accuracy return available</span></li>
+    <li><b>Replace the EMA with a Butterworth low-pass</b><p>2nd-order at 10–15 Hz on FSR channels; leave the piezo peak path unsmoothed and burst-sample it at ≥500 Hz.</p><span class="cost">Cost: firmware</span></li>
+    <li><b>Run the StepUP-P150 subsampling experiment</b><p>Answers "how many sensors and where" with 200,000 real footsteps before you spend on hardware.</p><span class="cost">Cost: a weekend of Python</span></li>
+    <li><b>Fatigue-test one FSR402 to 10,000 cycles</b><p>Log sensitivity every 500 cycles under ~500 N. Given the published degradation across three trials, you will likely produce bad news — and that data is more valuable to your team than any accuracy claim, because nobody has published a dedicated in-shoe fatigue study.</p><span class="cost">Cost: one sensor, one fixture</span></li>
+    <li><b>Do the ISO 14971 hazard analysis</b><p>False reassurance from a missed high-pressure region, sensor drift, battery and thermal risk against insensate feet. It is cheap, it is named in the CDSCO guidance, and it is the first document any reviewer or investor asks for.</p><span class="cost">Cost: a week · Named in CDSCO guidance</span></li>
+    <li><b>Retrieve the five blocked papers</b><p>Pitei 1996 on FSR creep in an actual plantar insole is the most on-point missing source. Also Hall 2008 (the conditioning protocol you need before writing a calibration SOP), the IWGDF 2023 prevention guideline, the Crawford meta-analysis, and Waaijman 2013. All reachable via DELNET/INFLIBNET N-LIST or by emailing corresponding authors.</p><span class="cost">Cost: library access</span></li>
+    <li><b>Delete the synthetic pathology signatures from anything a clinician sees</b><p>Keep them in the test harness. A demo showing simulated Parkinsonian and stroke gait in a product with no patient data is a credibility risk in exactly the room where credibility is the currency.</p><span class="cost">Cost: a config flag</span></li>
+  </ol>
+</section>
+
+<section>
+  <div class="sechead"><span class="sig">§9</span><h2>References</h2></div>
+  <p class="lede">121 sources located across six searches. Grouped by cluster; DOIs given where confirmed. Items marked <span class="chip unv">unverified</span> were located but not fully content-checked — the note at the end says what that means.</p>
+
+  <details class="bib">
+    <summary>Sensor metrology and insole hardware <span class="summcount">25 sources</span></summary>
+    <ul class="biblist">
+      <li>Sêco et al. 2025. From Static to Dynamic: Complementary Roles of FSR and Piezoelectric Sensors in Wearable Gait and Pressure Monitoring. <em>Sensors</em> 25(23):7377. <a href="https://doi.org/10.3390/s25237377">10.3390/s25237377</a></li>
+      <li>Paredes-Madrid et al. 2017. Underlying Physics of Conductive Polymer Composites and Force Sensing Resistors: A Study on Creep Response and Dynamic Loading. <em>Materials</em> 10(11):1334. <a href="https://doi.org/10.3390/ma10111334">10.3390/ma10111334</a></li>
+      <li>Paredes-Madrid et al. 2018. Experimental characterization, modeling and compensation of hysteresis in force sensing resistors. <em>DYNA</em> 85(205). <a href="https://doi.org/10.15446/dyna.v85n205.66432">10.15446/dyna.v85n205.66432</a></li>
+      <li>Paredes-Madrid, Matute &amp; Peña 2017. Framework for a Calibration-Less Operation of Force Sensing Resistors at Different Temperatures. <em>IEEE Sensors J</em>. <a href="https://doi.org/10.1109/JSEN.2017.2706697">10.1109/JSEN.2017.2706697</a></li>
+      <li>Garzón-Posada et al. 2022. Enhancing Part-to-Part Repeatability of Force-Sensing Resistors Using a Lean Six Sigma Approach. <em>Micromachines</em> 13(6):840. <a href="https://doi.org/10.3390/mi13060840">10.3390/mi13060840</a></li>
+      <li>Palacio Gómez, Paredes-Madrid &amp; Garzon 2022. Statistical process control of commercial force-sensing resistors. <em>Metrol Meas Syst</em> 29(3):469–481. <a href="https://doi.org/10.24425/mms.2022.142267">10.24425/mms.2022.142267</a></li>
+      <li>Paredes-Madrid et al. 2018. Self-Compensated Driving Circuit for Reducing Drift and Hysteresis in Force Sensing Resistors. <em>Electronics</em> 7(8):146. <a href="https://doi.org/10.3390/electronics7080146">10.3390/electronics7080146</a></li>
+      <li>Schofield et al. 2016. The effect of biomechanical variables on force sensitive resistor error: Implications for calibration and improved accuracy. <em>J Biomech</em> 49(5):786–792. <a href="https://doi.org/10.1016/j.jbiomech.2016.01.022">10.1016/j.jbiomech.2016.01.022</a></li>
+      <li>Hodgson / Brimacombe et al. 2009. Effect of Calibration Method on Tekscan Sensor Accuracy. <em>J Biomech Eng</em> 131(3):034503. <a href="https://doi.org/10.1115/1.3005165">10.1115/1.3005165</a> <span class="chip unv">author order</span></li>
+      <li>Kammoun, Ravier &amp; Buttelli 2025. Selection of insole pressure sensors for ground reaction force estimation through PCA. <em>Biomed Signal Process Control</em>. <a href="https://doi.org/10.1016/j.bspc.2025.107848">10.1016/j.bspc.2025.107848</a></li>
+      <li>Fuchs, Chen &amp; Shiang 2024. Center of Pressure Measurement Accuracy via Insoles with a Reduced Pressure Sensor Number during Gaits. <em>Sensors</em> 24(15):4918. <a href="https://doi.org/10.3390/s24154918">10.3390/s24154918</a></li>
+      <li>Ciniglio et al. 2021. The Design and Simulation of a 16-Sensors Plantar Pressure Insole Layout. <em>Sensors</em> 21(4):1450. <a href="https://doi.org/10.3390/s21041450">10.3390/s21041450</a></li>
+      <li>Lin et al. 2020. Optimizing the Sensor Placement for Foot Plantar Center of Pressure without Prior Knowledge Using Deep Reinforcement Learning. <em>Sensors</em> 20(19):5588. <a href="https://doi.org/10.3390/s20195588">10.3390/s20195588</a></li>
+      <li>Santos et al. 2024. A Systematic Review of Insole Sensor Technology. <em>Appl Sci</em> 14(14):6085. <a href="https://doi.org/10.3390/app14146085">10.3390/app14146085</a></li>
+      <li>Ngueleu et al. 2019. Design and Accuracy of an Instrumented Insole Using Pressure Sensors for Step Count. <em>Sensors</em> 19(5):984. <a href="https://doi.org/10.3390/s19050984">10.3390/s19050984</a></li>
+      <li>Ngueleu et al. 2019. Validity of Instrumented Insoles for Step Counting, Posture and Activity Recognition: A Systematic Review. <em>Sensors</em> 19(11):2438. <a href="https://doi.org/10.3390/s19112438">10.3390/s19112438</a></li>
+      <li>Lambrich et al. 2023. Concurrent Validity and Test–Retest Reliability of Pressure-Detecting Insoles. <em>Sensors</em> 23(10):4913. <a href="https://doi.org/10.3390/s23104913">10.3390/s23104913</a></li>
+      <li>Parker, Andrews &amp; Price 2023. Validity and reliability of the XSENSOR in-shoe pressure measurement system. <em>PLOS ONE</em>. <a href="https://doi.org/10.1371/journal.pone.0277971">10.1371/journal.pone.0277971</a></li>
+      <li>Cudejko, Button &amp; Al-Amri 2023. Wireless pressure insoles for measuring ground reaction forces and CoP trajectories. <em>Sci Rep</em> 13. <a href="https://doi.org/10.1038/s41598-023-41622-3">10.1038/s41598-023-41622-3</a></li>
+      <li>Ziagkas et al. 2021. A Novel Tool for Gait Analysis: Validation Study of the Smart Insole PODOSmart. <em>Sensors</em> 21(17):5972. <a href="https://doi.org/10.3390/s21175972">10.3390/s21175972</a></li>
+      <li>Huang et al. 2025. Comparison of FeetMe insoles with a motion capture system coupled to force plates. <em>Sci Rep</em>. <a href="https://doi.org/10.1038/s41598-025-96878-8">10.1038/s41598-025-96878-8</a></li>
+      <li>Cramer et al. 2022. Validity and Reliability of the Insole3 Instrumented Shoe Insole for GRF Measurement. <em>Sensors</em> 22(6):2203. <a href="https://doi.org/10.3390/s22062203">10.3390/s22062203</a></li>
+      <li>Oh et al. 2022. Comparative Study of Carbon Nanotube Composites as Capacitive and Piezoresistive Pressure Sensors. <em>Materials</em> 15(21):7637. <a href="https://doi.org/10.3390/ma15217637">10.3390/ma15217637</a></li>
+      <li>Das et al. 2024. Gait Pattern Analysis: Integration of a Highly Sensitive Flexible Pressure Sensor on a Wireless Instrumented Insole. <em>Sensors</em> 24(9):2944. <a href="https://doi.org/10.3390/s24092944">10.3390/s24092944</a></li>
+      <li>Tan et al. 2021. A Soft Wearable and Fully-Textile Piezoresistive Sensor for Plantar Pressure Capturing. <em>Micromachines</em> 12(2):110. <a href="https://doi.org/10.3390/mi12020110">10.3390/mi12020110</a></li>
+      <li>Zhang et al. 2022. Comparison between Piezoelectric and Piezoresistive Wearable Gait Monitoring Techniques. <em>Materials</em> 15(14):4837. <a href="https://doi.org/10.3390/ma15144837">10.3390/ma15144837</a></li>
+      <li>Morales-Morales et al. 2026. Low-Cost Smart Insole System for Evaluating Plantar Pressure Patterns Related to Diabetic Foot Risk. <em>Technologies</em> 14(6):362. <a href="https://doi.org/10.3390/technologies14060362">10.3390/technologies14060362</a></li>
+      <li>Pitei et al. 1996. Time-Dependent Behaviour of a Force-Sensitive Resistor Plantar Pressure Measurement Insole. <em>Proc IMechE H</em>. <a href="https://doi.org/10.1243/PIME_PROC_1996_210_400_02">10.1243/PIME_PROC_1996_210_400_02</a> <span class="chip unv">blocked</span></li>
+      <li>Hall et al. 2008. A technique for conditioning and calibrating force-sensing resistors. <em>J Biomech</em>. PMID 19019374 <span class="chip unv">blocked</span></li>
+      <li>Giovanelli &amp; Farella 2016. Force Sensing Resistor and Evaluation of Technology for Wearable Body Pressure Sensing. <em>J Sensors</em>. <a href="https://doi.org/10.1155/2016/9391850">10.1155/2016/9391850</a> <span class="chip unv">blocked</span></li>
+      <li>Razak et al. 2012. Foot Plantar Pressure Measurement System: A Review. <em>Sensors</em> 12(7):9884–9912. <span class="chip unv">blocked</span></li>
+      <li>Lee et al. 2025. Flexible Smart Insole and Plantar Pressure Monitoring Using Screen-Printed Nanomaterials. <em>ACS Appl Mater Interfaces</em> 17(33):47153. <a href="https://doi.org/10.1021/acsami.5c08296">10.1021/acsami.5c08296</a> <span class="chip unv">blocked</span></li>
+    </ul>
+  </details>
+
+  <details class="bib">
+    <summary>Gait algorithms, events, asymmetry, IMU <span class="summcount">30 sources</span></summary>
+    <ul class="biblist">
+      <li>Blades et al. 2023. Evaluation of Different Pressure-Based Foot Contact Event Detection Algorithms across Slopes and Speeds. <em>Sensors</em> 23(5):2736. <a href="https://doi.org/10.3390/s23052736">10.3390/s23052736</a></li>
+      <li>Niswander &amp; Kontson 2021. Evaluating the Impact of IMU Sensor Location and Walking Task on Accuracy of Gait Event Detection. <em>Sensors</em> 21(12):3989. <a href="https://doi.org/10.3390/s21123989">10.3390/s21123989</a></li>
+      <li>Zampier et al. 2025. Accuracy and Inter-Subject Variability of Gait Event Detection Methods. <em>Sensors</em> 25(24):7652. <a href="https://doi.org/10.3390/s25247652">10.3390/s25247652</a></li>
+      <li>Martini et al. 2020. Pressure-Sensitive Insoles for Real-Time Gait-Related Applications. <em>Sensors</em> 20(5):1448. <a href="https://doi.org/10.3390/s20051448">10.3390/s20051448</a></li>
+      <li>Prasanth et al. 2021. Wearable Sensor-Based Real-Time Gait Detection: A Systematic Review. <em>Sensors</em> 21(8):2727. <a href="https://doi.org/10.3390/s21082727">10.3390/s21082727</a></li>
+      <li>Larsen et al. Accurate detection of gait events using neural networks and IMU data mimicking real-world smartphone usage. <em>Comput Methods Biomech Biomed Engin</em> 29(5):987–997. <a href="https://doi.org/10.1080/10255842.2024.2423252">10.1080/10255842.2024.2423252</a></li>
+      <li>Brindle et al. 2022. Validity of estimating center of pressure with plantar load from a three-sensor wireless insole. <em>Wearable Technologies</em> 3:e8. <a href="https://doi.org/10.1017/wtc.2022.5">10.1017/wtc.2022.5</a></li>
+      <li>Choi et al. 2024. Calibrating Low-Cost Smart Insole Sensors with Recurrent Neural Networks for Accurate Prediction of Center of Pressure. <em>Sensors</em> 24(15):4765. <a href="https://doi.org/10.3390/s24154765">10.3390/s24154765</a></li>
+      <li>Yu et al. 2018. Adjustable Method for Real-Time Gait Pattern Detection Based on GRF Using FSRs and CFAR Statistical Analysis. <em>Sensors</em> 18(11):3764. <a href="https://doi.org/10.3390/s18113764">10.3390/s18113764</a></li>
+      <li>Li et al. 2026. A Wearable Multi-Modal Measurement System with Self-Developed IMUs and Plantar Pressure Sensors. <em>Micromachines</em> 17(3):371. <a href="https://doi.org/10.3390/mi17030371">10.3390/mi17030371</a></li>
+      <li>Fiaz, Guido &amp; Conforti 2026. Machine Learning Models for Reliable Gait Phase Detection Using Lower-Limb Wearable Sensor Data. <em>Appl Sci</em> 16(3):1397. <a href="https://doi.org/10.3390/app16031397">10.3390/app16031397</a></li>
+      <li>Lee et al. 2025. Determination of Spatiotemporal Gait Parameters Using a Smartphone's IMU: Threshold-Based and Deep Learning Approaches. <em>Sensors</em> 25:4395. <a href="https://doi.org/10.3390/s25144395">10.3390/s25144395</a></li>
+      <li>Xu et al. 2025. The Detection of Gait Events Based on Smartphones and Deep Learning. <em>Bioengineering</em> 12(5):491. <a href="https://doi.org/10.3390/bioengineering12050491">10.3390/bioengineering12050491</a></li>
+      <li>Sadeghi et al. 2000. Symmetry and limb dominance in able-bodied gait: a review. <em>Gait &amp; Posture</em> 12:34–45.</li>
+      <li>Alves et al. 2020. Quantifying Asymmetry in Gait: The Weighted Universal Symmetry Index. <em>Front Bioeng Biotechnol</em> 8:579511. <a href="https://doi.org/10.3389/fbioe.2020.579511">10.3389/fbioe.2020.579511</a></li>
+      <li>Bergamini, Cereatti &amp; Pavei 2024. Walking symmetry is speed and index dependent. <em>Sci Rep</em> 14:19548. <a href="https://doi.org/10.1038/s41598-024-69461-w">10.1038/s41598-024-69461-w</a></li>
+      <li>Cabral et al. 2022. Reliability of a Global Gait Symmetry Index Based on Linear Joint Displacements. <em>Appl Sci</em> 12(24):12558. <a href="https://doi.org/10.3390/app122412558">10.3390/app122412558</a></li>
+      <li>Arts &amp; Bus 2011. Twelve steps per foot are recommended for valid and reliable in-shoe plantar pressure data in neuropathic diabetic patients. <em>Clin Biomech</em> 26(8):880–884.</li>
+      <li>Commandeur et al. 2024. The Minimum Number of Strides Required for Reliable Gait Measurements in Older Adult Fallers and Non-Fallers. <em>Sensors</em> 24(23):7666. <a href="https://doi.org/10.3390/s24237666">10.3390/s24237666</a></li>
+      <li>Hollman et al. 2010. Number of strides required for reliable measurements of pace, rhythm and variability parameters of gait. <em>Gait &amp; Posture</em>. <a href="https://doi.org/10.1016/j.gaitpost.2010.02.017">10.1016/j.gaitpost.2010.02.017</a></li>
+      <li>Fan et al. 2025. Influence of Sampling Rate on Wearable IMU Orientation Estimation Accuracy. <em>Sensors</em> 25(7):1976. <a href="https://doi.org/10.3390/s25071976">10.3390/s25071976</a></li>
+      <li>Lin et al. 2025. A Review of Gait Analysis Using Gyroscopes and Inertial Measurement Units. <em>Sensors</em> 25(11):3481. <a href="https://doi.org/10.3390/s25113481">10.3390/s25113481</a></li>
+      <li>Mitschke, Zaumseil &amp; Milani 2017. The influence of inertial sensor sampling frequency on the accuracy of measurement parameters in rearfoot running. <em>Comput Methods Biomech Biomed Engin</em> 20(14):1502–1511. <a href="https://doi.org/10.1080/10255842.2017.1382482">10.1080/10255842.2017.1382482</a></li>
+      <li>Mitschke, Kiesewetter &amp; Milani 2018. The Effect of the Accelerometer Operating Range on Biomechanical Parameters. <em>Sensors</em> 18(1):130. <a href="https://doi.org/10.3390/s18010130">10.3390/s18010130</a></li>
+      <li>Küderle et al. 2022. The placement of foot-mounted IMU sensors does affect the accuracy of spatial parameters during regular walking. <em>medRxiv</em>. <a href="https://doi.org/10.1101/2022.05.20.22275197">10.1101/2022.05.20.22275197</a></li>
+      <li>Aristizábal Pla et al. 2024. Assessing the validity of the zero-velocity update method for sprinting speeds. <em>PLOS ONE</em> 19:e0288896. <a href="https://doi.org/10.1371/journal.pone.0288896">10.1371/journal.pone.0288896</a></li>
+      <li>Ludwig et al. Comparison of Attitude and Heading Reference Systems using Foot Mounted MIMU Sensor Data: Basic, Madgwick and Mahony. <span class="chip unv">venue/year</span></li>
+      <li>Htun et al. 2018. Performance Comparison of Experimental-based Kalman Filter and Complementary Filter for IMU Sensor Fusion. <em>IJSRP</em> 8(11). <a href="https://doi.org/10.29322/IJSRP.8.11.2018.p8304">10.29322/IJSRP.8.11.2018.p8304</a></li>
+      <li>Wu et al. 2021. An Intelligent In-Shoe System for Gait Monitoring and Analysis with Optimized Sampling. <em>Sensors</em> 21(8):2869. <a href="https://doi.org/10.3390/s21082869">10.3390/s21082869</a></li>
+      <li>Matijevich et al. 2019. Ground reaction force metrics are not strongly correlated with tibial bone load. <em>PLOS ONE</em> 14:e0210000. <a href="https://doi.org/10.1371/journal.pone.0210000">10.1371/journal.pone.0210000</a></li>
+      <li>Nuyts et al. 2022. Machine-learned-based prediction of lower extremity overuse injuries using pressure plates. <em>Front Bioeng Biotechnol</em> 10:987118. <a href="https://doi.org/10.3389/fbioe.2022.987118">10.3389/fbioe.2022.987118</a></li>
+      <li>Castro-Martins et al. 2024. Plantar pressure thresholds as a strategy to prevent diabetic foot ulcers: A systematic review. <em>Heliyon</em> 10(4):e26161. <a href="https://doi.org/10.1016/j.heliyon.2024.e26161">10.1016/j.heliyon.2024.e26161</a></li>
+      <li>A Low-Cost Instrumented Shoe System for Gait Phase Detection Based on Foot Plantar Pressure Data. <em>IEEE J Transl Eng Health Med</em> 2024. <span class="chip unv">authors</span></li>
+    </ul>
+  </details>
+
+  <details class="bib">
+    <summary>Clinical trials, adherence, competing modalities <span class="summcount">20 sources</span></summary>
+    <ul class="biblist">
+      <li>Abbott et al. 2019. Innovative intelligent insole system reduces diabetic foot ulcer recurrence at plantar sites: a prospective, randomised, proof-of-concept study. <em>Lancet Digital Health</em>. <a href="https://doi.org/10.1016/S2589-7500(19)30128-1">10.1016/S2589-7500(19)30128-1</a></li>
+      <li>Chatwin et al. 2021. An intelligent insole system with personalised digital feedback reduces foot pressures during daily life: an 18-month RCT. <em>Diabetes Res Clin Pract</em>. <a href="https://doi.org/10.1016/j.diabres.2021.109091">10.1016/j.diabres.2021.109091</a></li>
+      <li>Bus et al. 2021. Effectiveness of at-home skin temperature monitoring in reducing foot ulcer recurrence (DIATEMP). <em>BMJ Open Diab Res Care</em> 9(1):e002392. <a href="https://doi.org/10.1136/bmjdrc-2021-002392">10.1136/bmjdrc-2021-002392</a></li>
+      <li>van Netten et al. 2024. Cost-effectiveness of temperature monitoring to help prevent foot ulcer recurrence. <em>Diabetes Metab Res Rev</em> 40(4):e3805. <a href="https://doi.org/10.1002/dmrr.3805">10.1002/dmrr.3805</a></li>
+      <li>Lavery et al. 2004. Home monitoring of foot skin temperatures to prevent ulceration. <em>Diabetes Care</em> 27(11):2642–2647.</li>
+      <li>Lavery et al. 2007. Preventing diabetic foot ulcer recurrence in high-risk patients: use of temperature monitoring as a self-assessment tool. <em>Diabetes Care</em> 30:14–20. <a href="https://doi.org/10.2337/dc06-1600">10.2337/dc06-1600</a></li>
+      <li>Armstrong et al. 2007. Skin Temperature Monitoring Reduces the Risk for Diabetic Foot Ulceration in High-risk Patients. <em>Am J Med</em> 120(12):1042–1046. <a href="https://doi.org/10.1016/j.amjmed.2007.06.028">10.1016/j.amjmed.2007.06.028</a></li>
+      <li>Frykberg et al. 2017. Feasibility and Efficacy of a Smart Mat Technology to Predict Development of Diabetic Plantar Ulcers. <em>Diabetes Care</em> 40(7):973. <span class="chip unv">primary blocked</span></li>
+      <li>Crisologo &amp; Lavery 2017. Remote home monitoring to identify and prevent diabetic foot ulceration. <em>Ann Transl Med</em> 5(21):430. <a href="https://doi.org/10.21037/atm.2017.08.40">10.21037/atm.2017.08.40</a></li>
+      <li>Littman et al. 2024. Remote Foot Temperature Monitoring Among Veterans: Large Observational Study of Noncompliance and Its Correlates. <em>JMIR Diabetes</em> 9:e53083. <a href="https://doi.org/10.2196/53083">10.2196/53083</a></li>
+      <li>Jarl et al. 2023. Adherence and Wearing Time of Prescribed Footwear among People at Risk of Diabetes-Related Foot Ulcers: Which Measure to Use? <em>Sensors</em> 23(3):1648. <a href="https://doi.org/10.3390/s23031648">10.3390/s23031648</a></li>
+      <li>Differences in adherence to using removable cast walker treatment during daytime and nighttime weight-bearing activities. <em>Ther Adv Endocrinol Metab</em> 2023. <span class="chip unv">authors</span></li>
+      <li>Shih, Scholten et al. Effectiveness of a Continuous Remote Temperature Monitoring Program to Reduce Foot Ulcers and Amputations. <em>JMIR Diabetes</em> 9:e46096. <a href="https://doi.org/10.2196/46096">10.2196/46096</a></li>
+      <li>Brooks et al. 2021. Remote Diabetic Foot Temperature Monitoring for Early Detection of Diabetic Foot Ulcers: A Cost-Effectiveness Analysis. <em>ClinicoEcon Outcomes Res</em> 13:873–881. <a href="https://doi.org/10.2147/CEOR.S322424">10.2147/CEOR.S322424</a></li>
+      <li>Sharp et al. 2023. Data-driven digital health technologies in the remote clinical care of diabetic foot ulcers: a scoping review. <em>Front Clin Diabetes Healthc</em> 4:1212182. <a href="https://doi.org/10.3389/fcdhc.2023.1212182">10.3389/fcdhc.2023.1212182</a></li>
+      <li>Khalaf et al. 2025. Diabetic foot prevention, assessment, and management using innovative smart wearable technology: a systematic review. <em>J NeuroEng Rehabil</em> 22:168. <a href="https://doi.org/10.1186/s12984-025-01695-9">10.1186/s12984-025-01695-9</a></li>
+      <li>Ulbrecht et al. 2014. Prevention of Recurrent Foot Ulcers With Plantar Pressure-Based In-Shoe Orthoses: CareFUL Prevention RCT. <em>Diabetes Care</em>. <span class="chip unv">blocked</span></li>
+      <li>Waaijman et al. 2013. Adherence to wearing prescription custom-made footwear in patients with diabetes at high risk for plantar foot ulceration. <em>Diabetes Care</em> 36(6):1613. <span class="chip unv">blocked</span></li>
+      <li>Crawford et al. Preventing foot ulceration in diabetes: systematic review and meta-analyses of RCT data. <em>Diabetologia</em>. <a href="https://doi.org/10.1007/s00125-019-05020-7">10.1007/s00125-019-05020-7</a> <span class="chip unv">blocked</span></li>
+      <li>Bus et al. Guidelines on the prevention of foot ulcers in persons with diabetes (IWGDF 2023 update). <em>Diabetes Metab Res Rev</em>. <a href="https://doi.org/10.1002/dmrr.3651">10.1002/dmrr.3651</a> <span class="chip unv">blocked</span></li>
+      <li>Reyzelman et al. 2018. Continuous Temperature-Monitoring Socks for Home Use in Patients With Diabetes: Observational Study. <em>JMIR</em> 20(12):e12460. <a href="https://doi.org/10.2196/12460">10.2196/12460</a> <span class="chip unv">blocked</span></li>
+    </ul>
+  </details>
+
+  <details class="bib">
+    <summary>Datasets, edge ML, explainability <span class="summcount">22 sources</span></summary>
+    <ul class="biblist">
+      <li>Anderson et al. 2026. WearGait-PD: An Open-Access Wearables Dataset for Gait in Parkinson's Disease and Age-Matched Controls. <em>Sci Data</em>. <a href="https://doi.org/10.1038/s41597-026-06806-2">10.1038/s41597-026-06806-2</a></li>
+      <li>Hausdorff et al. 2008. Gait in Parkinson's Disease. <em>PhysioNet</em>. <a href="https://doi.org/10.13026/C24H3N">10.13026/C24H3N</a></li>
+      <li>Larracy, Phinyomark, Salehi &amp; Scheme 2025. A dataset of high-resolution plantar pressures for gait analysis across varying footwear and walking speeds (StepUP-P150). <em>Sci Data</em>. <a href="https://doi.org/10.1038/s41597-025-05792-1">10.1038/s41597-025-05792-1</a></li>
+      <li>Horsak et al. 2020. GaitRec, a large-scale ground reaction force dataset of healthy and impaired gait. <em>Sci Data</em>. <a href="https://doi.org/10.1038/s41597-020-0481-z">10.1038/s41597-020-0481-z</a></li>
+      <li>Voisard et al. 2025. A Dataset of Clinical Gait Signals with Wearable Sensors from Healthy, Neurological, and Orthopedic Cohorts. <em>Sci Data</em>. <a href="https://doi.org/10.1038/s41597-025-05959-w">10.1038/s41597-025-05959-w</a></li>
+      <li>Bächlin et al. 2010. Wearable Assistant for Parkinson's Disease Patients With the Freezing of Gait Symptom (Daphnet). <em>IEEE Trans Inf Technol Biomed</em> 14(2):436–446. <a href="https://doi.org/10.24432/C56K78">10.24432/C56K78</a></li>
+      <li>Chatzaki et al. 2021. The Smart-Insole Dataset: Gait Analysis Using Wearable Sensors with a Focus on Elderly and Parkinson's Patients. <em>Sensors</em> 21(8):2821. <a href="https://doi.org/10.3390/s21082821">10.3390/s21082821</a></li>
+      <li>Camargo et al. 2021. A comprehensive, open-source dataset of lower limb biomechanics in multiple conditions. <em>J Biomech</em>. <span class="chip unv">DOI/licence</span></li>
+      <li>Elsts et al. 2021. Are Microcontrollers Ready for Deep Learning-Based Human Activity Recognition? <em>Electronics</em> 10(21):2640. <a href="https://doi.org/10.3390/electronics10212640">10.3390/electronics10212640</a></li>
+      <li>Verbiest et al. 2023. Gait Stride Length Estimation Using Embedded Machine Learning. <em>Sensors</em> 23(16):7166. <a href="https://doi.org/10.3390/s23167166">10.3390/s23167166</a></li>
+      <li>Lin et al. 2020. MCUNet: Tiny Deep Learning on IoT Devices. <em>NeurIPS</em>. <a href="https://arxiv.org/abs/2007.10319">arXiv:2007.10319</a></li>
+      <li>Rudin 2019. Stop explaining black box machine learning models for high stakes decisions and use interpretable models instead. <em>Nat Mach Intell</em> 1:206–215. <a href="https://doi.org/10.1038/s42256-019-0048-x">10.1038/s42256-019-0048-x</a></li>
+      <li>Salimparsa et al. 2025. Explainable AI for Clinical Decision Support Systems: Literature Review, Key Gaps, and Research Synthesis. <em>Informatics</em> 12(4):119. <a href="https://doi.org/10.3390/informatics12040119">10.3390/informatics12040119</a></li>
+      <li>Di Martino, Delmastro et al. 2025. Challenges and Limitations of Generative AI in Synthesizing Wearable Sensor Data. <a href="https://arxiv.org/abs/2505.14206">arXiv:2505.14206</a></li>
+      <li>US FDA 2023. Assessing the Credibility of Computational Modeling and Simulation in Medical Device Submissions. Docket FDA-2021-D-0980.</li>
+      <li>Culman et al. 2020. Easing Power Consumption of Wearable Activity Monitoring with Change Point Detection. <em>Sensors</em> 20(1):310. <a href="https://doi.org/10.3390/s20010310">10.3390/s20010310</a></li>
+      <li>Wang et al. 2023. Comparison between Two Time Synchronization and Data Alignment Methods for Multi-Channel Wearable Biosensor Systems Using BLE. <em>Sensors</em> 23(5):2465. <a href="https://doi.org/10.3390/s23052465">10.3390/s23052465</a></li>
+    </ul>
+  </details>
+
+  <details class="bib">
+    <summary>Regulatory, standards, validation methodology, expansion <span class="summcount">24 sources</span></summary>
+    <ul class="biblist">
+      <li>CDSCO 2026. Guidance Document on Medical Device Software under MDR 2017. Doc CDSCO/MD/GD/MDSW/01/2026, 21 July 2026. <a href="https://cdsco.gov.in/opencms/export/sites/CDSCO_WEB/Pdf-documents/Guidance-document-on-Medical-Device-Software-under-MDR-2017.pdf">cdsco.gov.in</a></li>
+      <li>MoHFW 2017. Medical Devices Rules, 2017. G.S.R. 78(E), 31 January 2017.</li>
+      <li>CDSCO 2024. Frequently Asked Questions on Medical Devices Rules, 2017. Doc CDSCO/FAQ/MD/01/2024.</li>
+      <li>Punnen &amp; Antani 2023. Regulation of SaMDs in India: navigating the regulatory maze. International Bar Association.</li>
+      <li>DHR. National Ethics Committee Registry for Biomedical and Health Research (NECRBHR) — registration requirements under NDCT Rules 2019.</li>
+      <li>ICMR 2017. National Ethical Guidelines for Biomedical and Health Research Involving Human Participants.</li>
+      <li>CDSA/THSTI. Regulatory approval pathway for medical device clinical investigation in India.</li>
+      <li>ISO 14971:2019. Medical devices — Application of risk management to medical devices.</li>
+      <li>ISO 13485:2016. Medical devices — Quality management systems.</li>
+      <li>IEC 62304:2006+A1:2015. Medical device software — Software life cycle processes.</li>
+      <li>IEC 60601-1:2005+A1:2012+A2:2020. Medical electrical equipment — Part 1.</li>
+      <li>US FDA 2026. General Wellness: Policy for Low Risk Devices.</li>
+      <li>MDCG 2019-11 Rev.1 (June 2025). Qualification and Classification of Software in MDR/IVDR.</li>
+      <li>WHO 2023. Regulatory considerations on artificial intelligence for health.</li>
+      <li>CDSCO classification of rehabilitation medical devices, 13 Sept 2021 — "Gait analysis system, Class A". <span class="chip unv">single-sourced</span></li>
+      <li>Goldsack et al. 2020. Verification, analytical validation, and clinical validation (V3). <em>npj Digit Med</em> 3:55. <a href="https://doi.org/10.1038/s41746-020-0260-4">10.1038/s41746-020-0260-4</a></li>
+      <li>Bakker et al. 2025. V3+ extends the V3 framework to ensure user-centricity and scalability. <em>npj Digit Med</em>. <a href="https://doi.org/10.1038/s41746-024-01322-2">10.1038/s41746-024-01322-2</a></li>
+      <li>Vasey et al. 2022. DECIDE-AI: reporting guideline for early-stage clinical evaluation of AI decision support systems. <em>Nat Med</em> 28(5):924–933. <a href="https://doi.org/10.1038/s41591-022-01772-9">10.1038/s41591-022-01772-9</a></li>
+      <li>Johnston et al. 2021. Recommendations for determining the validity of consumer wearable and smartphone step count (INTERLIVE). <em>Br J Sports Med</em> 55(14):780–793. <a href="https://doi.org/10.1136/bjsports-2020-103147">10.1136/bjsports-2020-103147</a></li>
+      <li>Bland &amp; Altman 1986. Statistical methods for assessing agreement between two methods of clinical measurement. <em>Lancet</em> 327(8476):307–310. <a href="https://doi.org/10.1016/S0140-6736(86)90837-8">10.1016/S0140-6736(86)90837-8</a></li>
+      <li>Lu et al. 2016. Sample Size for Assessing Agreement between Two Methods of Measurement by Bland−Altman Method. <em>Int J Biostat</em>. <a href="https://doi.org/10.1515/ijb-2015-0039">10.1515/ijb-2015-0039</a></li>
+      <li>Whitehead et al. 2016. Estimating the sample size for a pilot randomised trial. <em>Stat Methods Med Res</em> 25(3):1057–1073. <a href="https://doi.org/10.1177/0962280215588241">10.1177/0962280215588241</a></li>
+      <li>Accuracy of wearable devices in predicting falls in older adults: systematic review and meta-analysis. <em>Front Public Health</em> 2026. <a href="https://doi.org/10.3389/fpubh.2026.1778750">10.3389/fpubh.2026.1778750</a></li>
+      <li>van Schooten et al. 2016. Daily-Life Gait Quality as Predictor of Falls in Older People. <em>PLOS ONE</em> 11(7):e0158623. <a href="https://doi.org/10.1371/journal.pone.0158623">10.1371/journal.pone.0158623</a></li>
+      <li>Sapienza et al. 2024. Assessing the clinical utility of inertial sensors for home monitoring in Parkinson's disease. <em>npj Parkinsons Dis</em> 10:161. <a href="https://doi.org/10.1038/s41531-024-00755-6">10.1038/s41531-024-00755-6</a></li>
+      <li>Neumann et al. 2024. Accuracy, concurrent validity, and test–retest reliability of pressure-based insoles for gait measurement in chronic stroke patients. <em>Front Digit Health</em> 6:1359771. <a href="https://doi.org/10.3389/fdgth.2024.1359771">10.3389/fdgth.2024.1359771</a></li>
+    </ul>
+  </details>
+</section>
+
+<div class="note">
+  <h3>How this was built, and what to trust</h3>
+  <p>Six parallel searches across PubMed/PMC, MDPI, IEEE Xplore, ScienceDirect, Nature, Frontiers, arXiv, PhysioNet, UCI, CDSCO and ISO/IEC. Every citation here was located by search during compilation; none was written from memory. Where a paper's full text was reachable, the numbers quoted were read off the source.</p>
+  <p><strong>Items marked unverified</strong> were located and their existence confirmed, but a specific field — an author list, a DOI, a numeric result — could not be checked because the publisher blocked automated access (Wiley, SAGE, ScienceDirect and ACS were the usual culprits). Treat those as leads to retrieve through your university's DELNET or INFLIBNET N-LIST access, not as citable facts.</p>
+  <p><strong>Two claims deserve your own verification before you act on them.</strong> The CDSCO screening carve-out is quoted from the guidance PDF itself; the document number and its treatment of monitoring were independently corroborated, but read the PDF yourself before rewriting your positioning on it. And the report that CDSCO classifies a "gait analysis system" as Class A is single-sourced from a consultancy blog — if true it changes your entire regulatory cost, which is exactly why you should confirm it with the Central Licensing Authority rather than trust it.</p>
+  <p>One search — the clinical evidence base for plantar pressure thresholds and ulceration risk — was cut short by a rate limit. Its core finding survived through other clusters (200 kPa in-shoe is the threshold with consensus), but a dedicated pass on pressure-threshold epidemiology, and on diabetic foot ulcer prevalence in India specifically, is still owed.</p>
+</div>
+
+</div>

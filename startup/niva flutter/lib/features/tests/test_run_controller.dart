@@ -44,6 +44,7 @@ class TestRunController extends ChangeNotifier {
   final MonotonicClock clock;
   final TrialStore store;
   final InsoleStatus Function() readInsole;
+  final bool Function()? hapticsEnabled;
 
   final FlamingoSession flamingo = FlamingoSession();
   final VrikshasanaSession hold = VrikshasanaSession();
@@ -61,6 +62,7 @@ class TestRunController extends ChangeNotifier {
     required this.clock,
     required this.store,
     required this.readInsole,
+    this.hapticsEnabled,
     required Stream<TimedContactEvent> events,
   }) {
     _events = events.listen(_onEvent);
@@ -167,7 +169,7 @@ class TestRunController extends ChangeNotifier {
                 deviceMs: event.deviceMs,
                 nowMs: clock.nowMs);
     if (flagged) {
-      HapticFeedback.heavyImpact();
+      if (hapticsEnabled?.call() ?? true) HapticFeedback.heavyImpact();
       _changed();
     }
   }

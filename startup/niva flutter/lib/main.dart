@@ -5,7 +5,9 @@ import 'core/data/settings_repository.dart';
 import 'core/data/telemetry_repository.dart';
 import 'core/data/trial_store.dart';
 import 'core/providers/app_providers.dart';
-import 'features/shell/app_shell.dart';
+import 'features/experience/welcome_screen.dart';
+import 'core/experience/experience_provider.dart';
+import 'shared/widgets/app_haptics.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -36,18 +38,25 @@ Future<void> main() async {
   );
 }
 
-class NivaApp extends StatelessWidget {
+class NivaApp extends ConsumerWidget {
   const NivaApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final prefs = ref.watch(experienceProvider);
     return MaterialApp(
       title: 'Niva',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
-      home: const AppShell(),
+      themeMode: ThemeMode.light,
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+            disableAnimations:
+                MediaQuery.disableAnimationsOf(context) || prefs.reduceMotion),
+        child: HapticPreferences(enabled: prefs.haptics, child: child!),
+      ),
+      home: const ExperienceEntry(),
     );
   }
 }

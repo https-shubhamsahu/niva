@@ -21,25 +21,35 @@ class RoundedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final card = AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      padding: padding,
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child: child,
-    );
-
-    if (onTap == null) return card;
-
-    return Material(
-      color: Colors.transparent,
+    final decoration = BoxDecoration(
+      color: theme.cardColor,
       borderRadius: BorderRadius.circular(radius),
+    );
+    if (onTap == null) {
+      return AnimatedContainer(
+        duration: MediaQuery.disableAnimationsOf(context)
+            ? Duration.zero
+            : const Duration(milliseconds: 200),
+        padding: padding,
+        decoration: decoration,
+        child: child,
+      );
+    }
+
+    // Paint on the Material so its pressed and keyboard-focus ink remains
+    // visible above the card background.
+    return Material(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(radius),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(radius),
         onTap: onTap,
-        child: card,
+        child: Ink(
+          decoration: decoration,
+          padding: padding,
+          child: child,
+        ),
       ),
     );
   }

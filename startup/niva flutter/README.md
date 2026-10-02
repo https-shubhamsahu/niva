@@ -10,6 +10,14 @@ There is no simulator, no score, no risk flag and no diagnosis. Timing values st
 
 It is not a WebView wrapper. It speaks the same ESP32 telemetry contract over Wi-Fi WebSocket or direct BLE.
 
+## Redesign checkpoint — 1 October 2026
+
+The app now opens in a light Niva theme with an original animated sneaker mascot. First launch lets you choose participant or trainer; the choice survives restart and can be changed from the profile button. The trainer home leads into the existing Flamingo and Vrikshasana assessments and shows actual recent trials on this phone. Live insole readings remain available from home, with trend and device tabs retained.
+
+Participant home is a preview: local/internet trainer pairing is planned but not connected yet. Voice and chime preferences are saved for the upcoming feedback service; they do not play audio yet. Vibration preferences control existing haptic calls on supported platforms. Reduce motion stops decorative animation and simplifies transitions, alongside the device accessibility setting.
+
+The complete roadmap, task acceptance criteria and successor prompt are in the repository's `tasks/plan.md`, `tasks/todo.md` and `tasks/HANDOFF.md`. Current verification: 47 tests pass, analyzer reports no issues, web release build succeeds. Physical Android/insole/audio checks remain pending.
+
 ## Removed in the October 2026 cleanup
 
 These were removed so that nothing on screen can pass for a measurement when it is not one:
@@ -27,7 +35,7 @@ Rows recorded by older builds still load. Their `mode` column still says `simula
 - Riverpod
 - Hive + `shared_preferences`
 - `web_socket_channel`, `flutter_blue_plus`
-- `fl_chart`, `google_fonts`, `share_plus`, `http`
+- `fl_chart`, `share_plus`, `http`; bundled Inter font (offline)
 
 Platform folders already in this project: `android/`, `ios/`, `windows/`, `web/`.
 
@@ -42,9 +50,11 @@ lib/
     time/              Monotonic clock and insole-to-phone clock mapping
     connectivity/      Wi-Fi WebSocket and BLE telemetry services
     data/              Hive dataset store, settings, optional CSV upload
+    experience/        Persisted roles, feedback and reduced-motion preferences
     providers/         TelemetryController is the source of truth
   features/
-    dashboard/         Today: validity, contact timing, relative-load view
+    experience/        Role choice, assessment-first home, preferences
+    dashboard/         Live readings: validity, contact timing, relative-load view
     tests/             Tests: setup sheet, full-screen test runner, saved trials
     trends/            One point per stride (cadence) or contact (contact time)
     device/            Connection, tare, session metadata, export/upload
@@ -57,6 +67,10 @@ test/
   test_mode_widget_test.dart     full trials, small phone at 200% text, landscape
 assets/
   images/feet.png
+  brand/               Existing Niva identity
+  mascot/              Original transparent sneaker illustration
+  fonts/               Inter variable font and SIL OFL license
+  PROVENANCE.md        Sources and mascot generation prompt
   icon/
 ```
 
@@ -97,6 +111,11 @@ When the insole flags something, the test stops for the tester to count it or di
 Without a connected, tared insole the tests still run, with the tester timing and counting alone. The trial record says so.
 
 Neither test has a published Fit India benchmark, so no level or rating is shown.
+
+The setup sheet explains the standing leg and raised-foot placement before
+opening the keyboard. Saved trials can be searched by participant ID and
+filtered by test. The list shows up to 30 matching results; **Export all**
+includes every saved trial, regardless of the current filters.
 
 Trials are stored on the phone and exported from the Tests tab as `niva-fitness-trials-*.csv`. The `losses` column lists each Flamingo event as `source@balanceMs`:
 - `C`: insole flagged, tester counted;

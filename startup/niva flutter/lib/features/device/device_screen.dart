@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../../shared/widgets/app_haptics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -26,8 +26,9 @@ String? _validateWsUrl(String value, {required bool required}) {
   }
   final uri = Uri.tryParse(trimmed);
   if (uri == null || !uri.hasScheme) return 'Enter a valid URL';
-  if (uri.scheme != 'ws' && uri.scheme != 'wss')
+  if (uri.scheme != 'ws' && uri.scheme != 'wss') {
     return 'Must start with ws:// or wss://';
+  }
   return null;
 }
 
@@ -139,7 +140,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                         onPressed: state.isConnecting
                             ? null
                             : () {
-                                HapticFeedback.selectionClick();
+                                AppHaptics.selectionClick(context);
                                 if (state.isConnected) {
                                   controller.disconnectLive();
                                   return;
@@ -154,8 +155,9 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                                   _wsUrlError = wsError;
                                   _relayUrlError = relayError;
                                 });
-                                if (wsError != null || relayError != null)
+                                if (wsError != null || relayError != null) {
                                   return;
+                                }
                                 settings.setWsUrl(_wsUrlController.text);
                                 settings.setRelayUrl(_relayUrlController.text);
                                 controller.connectLive();
@@ -205,7 +207,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                   const SizedBox(height: 8),
                   OutlinedButton.icon(
                     onPressed: () async {
-                      HapticFeedback.selectionClick();
+                      AppHaptics.selectionClick(context);
                       try {
                         await controller.tareLive();
                       } on StateError {
@@ -263,7 +265,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          HapticFeedback.selectionClick();
+                          AppHaptics.selectionClick(context);
                           controller.connectLive();
                         },
                         child: const Text('Retry now'),
@@ -291,7 +293,7 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                   onPressed: state.isConnecting
                       ? null
                       : () {
-                          HapticFeedback.selectionClick();
+                          AppHaptics.selectionClick(context);
                           if (state.isConnected) {
                             controller.disconnectLive();
                           } else {
@@ -528,7 +530,7 @@ class _OrientationCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  HapticFeedback.selectionClick();
+                  AppHaptics.selectionClick(context);
                   onDismiss();
                 },
                 child: Icon(Icons.close_rounded,

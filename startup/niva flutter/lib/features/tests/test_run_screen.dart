@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import '../../shared/widgets/app_haptics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/fitness/fit_india_protocol.dart';
@@ -35,6 +35,7 @@ class _TestRunScreenState extends ConsumerState<TestRunScreen> {
       clock: ref.read(monotonicClockProvider),
       store: ref.read(trialStoreProvider),
       readInsole: () => ref.read(insoleStatusProvider),
+      hapticsEnabled: () => AppHaptics.enabled(context),
       events: ref.read(insoleEventsProvider),
     );
   }
@@ -544,7 +545,7 @@ class _BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.icon(
       onPressed: () {
-        HapticFeedback.mediumImpact();
+        AppHaptics.mediumImpact(context);
         onPressed();
       },
       style: FilledButton.styleFrom(
@@ -583,7 +584,7 @@ class _DecisionButtons extends StatelessWidget {
       children: [
         FilledButton(
           onPressed: () {
-            HapticFeedback.mediumImpact();
+            AppHaptics.mediumImpact(context);
             onConfirm();
           },
           style: FilledButton.styleFrom(
@@ -598,7 +599,7 @@ class _DecisionButtons extends StatelessWidget {
         const SizedBox(height: 12),
         OutlinedButton(
           onPressed: () {
-            HapticFeedback.selectionClick();
+            AppHaptics.selectionClick(context);
             onDismiss();
           },
           style: OutlinedButton.styleFrom(

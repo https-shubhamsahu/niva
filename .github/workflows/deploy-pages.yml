@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Auto-deploy paused 2 Oct 2026: the old GaitGuard dashboard (disease simulator, risk flags)
+# must not be reachable from the SIH26213 deck. Manual runs only.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-/// Apple Health-inspired design tokens.
-///
-/// This intentionally does NOT reuse the web app's indigo/slate palette.
-/// Apple Health's visual language is built from three ideas this file
-/// captures directly:
-///   1. Grouped, layered backgrounds (systemGroupedBackground + white/near
-///      black cards) instead of one flat page background.
-///   2. A small set of vivid, saturated "ring" colors reserved for the
-///      three headline metrics, kept out of everything else so they stay
-///      meaningful at a glance.
-///   3. Confident, heavy display type for hero numbers, dropping to quiet
-///      uppercase micro-labels for context - never mid-weight in between.
+/// Shared colors for grouped surfaces and measured signals.
 class AppColors {
   AppColors._();
 
@@ -25,10 +13,13 @@ class AppColors {
   static const warning = Color(0xFFFF9F0A);
   static const danger = Color(0xFFFF453A);
   static const success = Color(0xFF32D74B);
-  static const brand =
-      Color(0xFF415AEE); // carried over from GaitGuard Nexus branding
+  static const brand = Color(0xFF007F79);
+  static const ink = Color(0xFF183733);
+  static const coral = Color(0xFFF47B65);
+  static const lime = Color(0xFFD1EF72);
+  static const mint = Color(0xFFE2F3EE);
 
-  static const lightBackground = Color(0xFFF2F2F7); // systemGroupedBackground
+  static const lightBackground = Color(0xFFF5F8F6);
   static const lightCard = Color(0xFFFFFFFF);
   static const darkBackground = Color(0xFF000000);
   static const darkCard = Color(0xFF1C1C1E);
@@ -43,54 +34,63 @@ class AppTheme {
   AppTheme._();
 
   static TextTheme _textTheme(Brightness brightness) {
-    final base = brightness == Brightness.light ? Colors.black : Colors.white;
+    final base = brightness == Brightness.light ? AppColors.ink : Colors.white;
     // Start from the typography for this brightness. Without it every style
     // not overridden below (bodySmall, labelLarge, ...) stays black and is
     // invisible on dark cards.
     final platform = brightness == Brightness.light
         ? ThemeData.light().textTheme
         : ThemeData.dark().textTheme;
-    return GoogleFonts.interTextTheme(platform).copyWith(
-      // "Today" hero numbers - the 92, the step count, the big ring value.
-      displayLarge: GoogleFonts.inter(
-        fontSize: 40,
-        fontWeight: FontWeight.w800,
-        letterSpacing: -0.5,
-        color: base,
-      ),
-      headlineMedium: GoogleFonts.inter(
-        fontSize: 22,
-        fontWeight: FontWeight.w800,
-        letterSpacing: -0.3,
-        color: base,
-      ),
-      titleMedium: GoogleFonts.inter(
-        fontSize: 15,
-        fontWeight: FontWeight.w700,
-        color: base,
-      ),
-      bodyMedium: GoogleFonts.inter(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: base,
-      ),
-      // Captions and helper text: quieter than body text, still well above
-      // 4.5:1 in both themes.
-      bodySmall: GoogleFonts.inter(
-        fontSize: 13,
-        fontWeight: FontWeight.w500,
-        height: 1.35,
-        color: base.withValues(alpha: 0.75),
-      ),
-      labelSmall: GoogleFonts.inter(
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 0.6,
-        color: brightness == Brightness.light
-            ? AppColors.lightLabelSecondary
-            : AppColors.darkLabelSecondary,
-      ),
-    );
+    return platform
+        .apply(fontFamily: 'NivaSans', bodyColor: base, displayColor: base)
+        .copyWith(
+          // Measured values and test clocks.
+          displayLarge: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 40,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.5,
+            color: base,
+          ),
+          headlineMedium: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 26,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.3,
+            color: base,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
+            color: base,
+          ),
+          bodyMedium: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            height: 1.45,
+            color: base,
+          ),
+          // Captions and helper text: quieter than body text, still well above
+          // 4.5:1 in both themes.
+          bodySmall: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            height: 1.45,
+            color: base.withValues(alpha: 0.75),
+          ),
+          labelSmall: TextStyle(
+            fontFamily: 'NivaSans',
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.6,
+            color: brightness == Brightness.light
+                ? AppColors.lightLabelSecondary
+                : AppColors.darkLabelSecondary,
+          ),
+        );
   }
 
   static ThemeData get light => _build(Brightness.light);
@@ -108,14 +108,43 @@ class AppTheme {
         seedColor: AppColors.brand,
         brightness: brightness,
         surface: isLight ? AppColors.lightCard : AppColors.darkCard,
+      ).copyWith(
+          primary: AppColors.brand,
+          onPrimary: Colors.white,
+          secondary: AppColors.coral,
+          onSecondary: AppColors.ink),
+      navigationBarTheme: NavigationBarThemeData(
+        indicatorColor: AppColors.mint,
+        labelTextStyle:
+            WidgetStatePropertyAll(_textTheme(brightness).labelSmall),
       ),
       textTheme: _textTheme(brightness),
-      splashFactory: NoSplash.splashFactory,
-      highlightColor: Colors.transparent,
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          minimumSize: const Size(48, 52),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size(48, 52),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: isLight ? AppColors.lightCard : AppColors.darkCard,
+        contentPadding: const EdgeInsets.all(16),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+      ),
       appBarTheme: AppBarTheme(
         backgroundColor:
             (isLight ? AppColors.lightBackground : AppColors.darkBackground)
-                .withOpacity(0.9),
+                .withValues(alpha: 0.9),
         elevation: 0,
         scrolledUnderElevation: 0,
         surfaceTintColor: Colors.transparent,

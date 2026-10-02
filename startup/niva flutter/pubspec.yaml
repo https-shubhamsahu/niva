@@ -1,5 +1,5 @@
 name: niva
-description: "GaitGuard Nexus - explainable biomechanics dashboard for ESP32 smart insole telemetry."
+description: "Niva - guided fitness assessments with smart insole support."
 publish_to: "none"
 version: 0.1.0
 
@@ -44,7 +44,6 @@ dependencies:
   # CSV export + share sheet, mirrors the "Export CSV" button in the web app.
   share_plus: ^10.0.2
 
-  google_fonts: ^6.2.1
   http: ^1.2.2
 
 dev_dependencies:
@@ -57,6 +56,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/feet.png
+    - assets/brand/niva-lockup.png
+    - assets/mascot/sneaker-wave.png
+  fonts:
+    - family: NivaSans
+      fonts:
+        - asset: assets/fonts/Inter-Variable.ttf
 
 # Generates android + ios launcher icons. Run: dart run flutter_launcher_icons
 #

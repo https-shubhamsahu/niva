@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:niva/core/data/settings_repository.dart';
+import 'package:niva/core/data/telemetry_repository.dart';
 import 'package:niva/core/fitness/fit_india_protocol.dart';
 import 'package:niva/core/fitness/fitness_trial.dart';
 import 'package:niva/core/fitness/flamingo_session.dart';
@@ -13,6 +14,9 @@ import 'package:niva/features/tests/test_run_controller.dart';
 import 'package:niva/features/tests/test_run_screen.dart';
 import 'package:niva/features/tests/tests_screen.dart';
 import 'package:niva/features/tests/widgets/trial_summary.dart';
+import 'package:niva/features/experience/home_screen.dart';
+import 'package:niva/theme/app_theme.dart';
+import 'package:niva/features/shell/app_shell.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support/fakes.dart';
@@ -43,8 +47,12 @@ void main() {
         insoleEventsProvider.overrideWithValue(events.stream),
         ...extra,
       ],
-      // A plain theme: the app theme fetches its font over the network.
-      child: MaterialApp(theme: ThemeData(useMaterial3: true), home: home),
+      child: MaterialApp(
+          theme: AppTheme.light,
+          builder: (context, child) => MediaQuery(
+              data: MediaQuery.of(context).copyWith(disableAnimations: true),
+              child: child!),
+          home: home),
     );
   }
 
@@ -253,11 +261,19 @@ void main() {
         extra: [settingsRepositoryProvider.overrideWithValue(settings)],
       ));
       expect(tester.takeException(), isNull);
-      await tester.scrollUntilVisible(find.textContaining('8.2 s hold'), 200);
+      await tester.scrollUntilVisible(find.textContaining('8.2 s hold'), 200,
+          scrollable: find
+              .descendant(
+                  of: find.byType(ListView), matching: find.byType(Scrollable))
+              .first);
       expect(find.textContaining('8.2 s hold'), findsOneWidget);
       expect(tester.takeException(), isNull);
 
-      await tester.scrollUntilVisible(find.text('Flamingo balance'), -200);
+      await tester.scrollUntilVisible(find.text('Flamingo balance'), -200,
+          scrollable: find
+              .descendant(
+                  of: find.byType(ListView), matching: find.byType(Scrollable))
+              .first);
       await tester.ensureVisible(find.text('Flamingo balance'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Flamingo balance'));
@@ -268,12 +284,112 @@ void main() {
       await tester.pump();
       expect(find.textContaining('Enter an ID'), findsOneWidget);
 
-      await tester.enterText(find.byType(TextField), 'R-21');
+      await tester.enterText(
+          find.byKey(const ValueKey('participant-id')), 'R-21');
       await tester.ensureVisible(find.text('Open the test'));
       await tester.tap(find.text('Open the test'));
       await tester.pumpAndSettle();
       expect(find.text('Start clock'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
+  });
+
+  testWidgets('saved trial search finds older trials and combines test filters',
+      (tester) async {
+    for (var i = 0; i < 32; i++) {
+      await store.add(FitnessTrial(
+        id: 'trial-$i',
+        test: i == 0 ? FitnessTest.flamingo : FitnessTest.vrikshasana,
+        participantId: i == 0 ? 'OLDER-01' : 'RECENT-$i',
+        sessionId: 's',
+        standingLeg: StandingLeg.left,
+        startedAt: DateTime(2026, 10, 1, 10, i),
+        insoleMode: InsoleMode.notConnected,
+        balanceMs: i == 0 ? 60000 : null,
+        holdMs: i == 0 ? null : 12000,
+      ));
+    }
+    await tester.pumpWidget(app(const Scaffold(body: TestsScreen())));
+    await tester.scrollUntilVisible(
+        find.byKey(const ValueKey('trial-search')), 200,
+        scrollable: find
+            .descendant(
+                of: find.byType(ListView), matching: find.byType(Scrollable))
+            .first);
+    await tester.enterText(
+        find.byKey(const ValueKey('trial-search')), ' older-01 ');
+    await tester.pump();
+    await tester.scrollUntilVisible(find.text('OLDER-01'), 100,
+        scrollable: find
+            .descendant(
+                of: find.byType(ListView), matching: find.byType(Scrollable))
+            .first);
+    expect(find.text('OLDER-01'), findsOneWidget);
+
+    await tester.ensureVisible(find.widgetWithText(FilterChip, 'Tree pose'));
+    await tester.tap(find.widgetWithText(FilterChip, 'Tree pose'));
+    await tester.pump();
+    expect(find.text('OLDER-01'), findsNothing);
+    await tester.scrollUntilVisible(find.text('No matching trials'), 100,
+        scrollable: find
+            .descendant(
+                of: find.byType(ListView), matching: find.byType(Scrollable))
+            .first);
+    await tester.ensureVisible(find.text('Reset filters'));
+    await tester.tap(find.text('Reset filters'));
+    await tester.pump();
+    expect(
+        tester
+            .widget<TextField>(find.byKey(const ValueKey('trial-search')))
+            .controller!
+            .text,
+        isEmpty);
+    expect(find.textContaining('latest 30 of 32'), findsOneWidget);
+  });
+
+  testWidgets('setup does not open the keyboard until input is needed',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final settings = SettingsRepository();
+    await settings.init();
+    await tester.pumpWidget(app(
+      const Scaffold(body: TestsScreen()),
+      extra: [settingsRepositoryProvider.overrideWithValue(settings)],
+    ));
+    await tester.tap(find.text('Flamingo balance'));
+    await tester.pumpAndSettle();
+    final input = find.byKey(const ValueKey('participant-id'));
+    expect(tester.widget<TextField>(input).focusNode!.hasFocus, isFalse);
+    await tester.tap(find.text('Open the test'));
+    await tester.pump();
+    expect(tester.widget<TextField>(input).focusNode!.hasFocus, isTrue);
+    expect(find.textContaining('Enter an ID'), findsOneWidget);
+    await tester.tap(find.byTooltip('Close setup'));
+    await tester.pumpAndSettle();
+    expect(input, findsNothing);
+  });
+
+  testWidgets(
+      'switching tabs finishes the outgoing fade and hides its semantics',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    final settings = SettingsRepository();
+    await settings.init();
+    final semantics = tester.ensureSemantics();
+    await tester.pumpWidget(app(const AppShell(), extra: [
+      settingsRepositoryProvider.overrideWithValue(settings),
+      telemetryRepositoryProvider.overrideWithValue(TelemetryRepository()),
+    ]));
+    await tester.tap(find.widgetWithText(NavigationDestination, 'Tests'));
+    await tester.pumpAndSettle();
+    final dashboardFade = find.ancestor(
+        of: find.byType(HomeScreen), matching: find.byType(FadeTransition));
+    expect(tester.widget<FadeTransition>(dashboardFade.first).opacity.value, 0);
+    expect(find.bySemanticsLabel('Niva NOT CONNECTED'), findsNothing);
+    expect(find.text('Balance tests'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
+    await tester.pump();
+    semantics.dispose();
   });
 }

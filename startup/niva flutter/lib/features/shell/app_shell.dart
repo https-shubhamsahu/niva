@@ -1,35 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/experience/experience_provider.dart';
 
 import '../../theme/app_theme.dart';
-import '../dashboard/dashboard_screen.dart';
+import '../experience/home_screen.dart';
 import '../device/device_screen.dart';
 import '../tests/tests_screen.dart';
 import '../trends/trends_screen.dart';
 
-/// Root tab shell. All four screens stay permanently mounted (rather than
-/// named routes) so every tab keeps its scroll position and the telemetry
-/// stream underneath never gets torn down when switching tabs - direct
-/// analog of the always-mounted `<BottomNav />` in `App.tsx`, minus the
-/// router. Cross-fades between tabs (via stacked + opacity-animated
-/// `Positioned.fill`s, not `IndexedStack`) so a tab switch reads as a
-/// transition instead of an instant cut, while keeping the exact same
-/// "nothing ever unmounts" guarantee `IndexedStack` gave.
-class AppShell extends StatefulWidget {
+/// Keeps each tab mounted and preserves its scroll position. Hidden tabs
+/// cannot receive keyboard focus or appear in the accessibility tree.
+class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
 
   @override
-  State<AppShell> createState() => _AppShellState();
+  ConsumerState<AppShell> createState() => _AppShellState();
 }
 
-class _AppShellState extends State<AppShell> {
+class _AppShellState extends ConsumerState<AppShell> {
   int _index = 0;
 
   static const _tabs = [
     _TabSpec(
-        label: 'Today',
-        icon: Icons.grid_view_rounded,
-        screen: DashboardScreen()),
+        label: 'Home', icon: Icons.grid_view_rounded, screen: HomeScreen()),
     _TabSpec(label: 'Tests', icon: Icons.timer_rounded, screen: TestsScreen()),
     _TabSpec(
         label: 'Trends',
@@ -42,19 +36,33 @@ class _AppShellState extends State<AppShell> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final reduceMotion = MediaQuery.disableAnimationsOf(context);
+    final labelHeight = MediaQuery.textScalerOf(context).scale(12);
 
     return Scaffold(
       body: Stack(
         children: [
           for (var i = 0; i < _tabs.length; i++)
             Positioned.fill(
-              child: IgnorePointer(
-                ignoring: _index != i,
-                child: AnimatedOpacity(
-                  opacity: _index == i ? 1 : 0,
-                  duration: AppMotion.fast,
-                  curve: AppMotion.springCurve,
-                  child: _tabs[i].screen,
+              child: ExcludeFocus(
+                excluding: _index != i,
+                child: ExcludeSemantics(
+                  excluding: _index != i,
+                  child: IgnorePointer(
+                    ignoring: _index != i,
+                    child: AnimatedOpacity(
+                      opacity: _index == i ? 1 : 0,
+                      duration: reduceMotion ? Duration.zero : AppMotion.fast,
+                      curve: AppMotion.springCurve,
+                      child: TickerMode(
+                        enabled: _index == i,
+                        child: i == 0
+                            ? HomeScreen(
+                                onAssessments: () => setState(() => _index = 1))
+                            : _tabs[i].screen,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -62,32 +70,31 @@ class _AppShellState extends State<AppShell> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: theme.cardColor.withOpacity(0.92),
+          color: theme.cardColor,
           border:
               Border(top: BorderSide(color: theme.dividerColor, width: 0.6)),
         ),
-        child: SafeArea(
-          top: false,
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              children: [
-                for (var i = 0; i < _tabs.length; i++)
-                  Expanded(
-                    child: _NavButton(
-                      spec: _tabs[i],
-                      isActive: _index == i,
-                      onTap: () {
-                        if (_index != i) {
-                          HapticFeedback.selectionClick();
-                          setState(() => _index = i);
-                        }
-                      },
-                    ),
-                  ),
-              ],
-            ),
-          ),
+        child: NavigationBar(
+          backgroundColor: theme.cardColor,
+          surfaceTintColor: Colors.transparent,
+          elevation: 0,
+          height: 56 + labelHeight * 2,
+          selectedIndex: _index,
+          animationDuration: reduceMotion ? Duration.zero : AppMotion.fast,
+          onDestinationSelected: (index) {
+            if (_index == index) return;
+            if (ref.read(experienceProvider).haptics) {
+              HapticFeedback.selectionClick();
+            }
+            setState(() => _index = index);
+          },
+          destinations: [
+            for (var i = 0; i < _tabs.length; i++)
+              NavigationDestination(
+                icon: Icon(_tabs[i].icon),
+                label: _tabs[i].label,
+              ),
+          ],
         ),
       ),
     );
@@ -101,43 +108,4 @@ class _TabSpec {
 
   const _TabSpec(
       {required this.label, required this.icon, required this.screen});
-}
-
-class _NavButton extends StatelessWidget {
-  final _TabSpec spec;
-  final bool isActive;
-  final VoidCallback onTap;
-
-  const _NavButton(
-      {required this.spec, required this.isActive, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final color =
-        isActive ? AppColors.brand : theme.textTheme.labelSmall?.color;
-
-    return Semantics(
-      button: true,
-      selected: isActive,
-      label: '${spec.label} tab',
-      excludeSemantics: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(spec.icon, size: 22, color: color),
-            const SizedBox(height: 2),
-            Text(
-              spec.label,
-              style: theme.textTheme.labelSmall
-                  ?.copyWith(color: color, fontSize: 10),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

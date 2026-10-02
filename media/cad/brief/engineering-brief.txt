@@ -1,0 +1,369 @@
+Niva · engineering blueprint · response to the Astra brief
+
+# Niva prototype blueprint: from bench insole to health-camp kit
+
+Draft v0.1 · 28 September 2026Scope: first buildable prototype and the experiments that gate it
+
+This turns the Niva knee-screening concept into a prototype a small team can start building now. It recommends one architecture and says which parts rest on datasheets, which are our choices, and which need experiments. The headline: build the simplest bilateral kit that can test the sensing hypothesis, using parts we can buy in India this month. Custom PCBs and moulded housings wait until the bench and gait-lab experiments justify them.
+
+FACTfrom a cited datasheet or paper CHOICEour engineering decision ASSUMPTIONreasonable, not yet checked EXPERIMENTmust be measured before we rely on it
+
+1. [Recommended design and feasibility limits](#s1)
+2. [Chappal, sandal, shoe and beyond](#s2)
+3. [Insole layer stack and sensor placement](#s3)
+4. [Electronics and component selection](#s4)
+5. [Connections and pin allocation](#s5)
+6. [Power, timing and data budgets](#s6)
+7. [Firmware and phone workflow](#s7)
+8. [Calibration and signal processing](#s8)
+9. [Safety, charging exclusion, left/right](#s9)
+10. [Prototype BOM in INR](#s10)
+11. [Assembly, repair and cleaning](#s11)
+12. [Bench, footwear and human testing](#s12)
+13. [Staged roadmap with gates](#s13)
+14. [Highest-risk assumptions, first experiments](#s14)
+
+## 1 · Recommended design and major feasibility limits
+
+### The recommendation in one paragraph
+
+CHOICE A **passive insole** (five force sensors plus one heel vibration film, no electronics under the foot) connects through a **flat shielded strip** to a **shin pod** built around an ESP32-C3 module, an external 12-bit ADC, a 6-axis IMU and a **removable battery cartridge** that is only ever charged in a dock. One insole and one pod per leg. The phone collects results over Bluetooth, and everything works offline.
+
+### What the sensors measure, estimate, and cannot see
+
+| Quantity | What it is | Niva’s relationship to it |
+| --- | --- | --- |
+| **Plantar pressure** | Force per unit area at each point of the sole (kPa) | Not measured. Five discs sample five small areas. In our own StepUP-P150 analysis, a 4-position layout observed about 3.55 % of the loaded area during barefoot walking (assumed positions, walkway data). |
+| **Force at a sensor** | Force over one sensor’s active area (N) | FACT Measured directly after per-sensor calibration, within each sensor’s rated range |
+| **Total foot force** | The whole ground reaction force under the foot | Not measured. Unloaded regions are invisible, so any total is a model estimate |
+| **Centre of pressure (CoP)** | The force-weighted average position of load under the foot | An approximation from five points. In our R2 analysis, side-to-side error (8.94 mm) was smaller than front-to-back error (16.49 mm) for a 4-position layout. The published literature advises caution at nine sensors or fewer (Fuchs et al. 2024). |
+| **External knee adduction moment (KAM)** | The turning moment of the ground reaction force about the knee in the frontal plane, from inverse dynamics | EXPERIMENT Potentially estimable with a validated model. Published insoles reached r = 0.96 on their own hardware (Snyder et al. 2023). Ours is unproven. |
+| **Medial knee contact force** | The actual compressive force inside the medial joint | Cannot be inferred reliably. It needs musculoskeletal models or instrumented implants. We make no claim. |
+| **Screening-risk score** | A statistical output linking features to a clinical outcome | Only after reference data with X-ray or clinical labels exist, and only with external validation |
+
+**Two modelling problems, not one.** Walking and chair-rise load the knee differently. In the 2025 insole study, knee-load prediction was strong for walking but only moderate for sit-to-stand KAM (r = 0.50; Snyder et al. 2025). We therefore use the chair-rise for repetition count, timing and left–right symmetry only, and do not report a chair-rise KAM.
+
+### Major feasibility limits
+
+- FACT The FSR402 in the current prototype is specified for 0.1–10 N (Interlink datasheet), far below plantar loads. A sensor rated for 445 N exists in the same form factor (FlexiForce A201, 100 lb version). Choosing between them is the first bench experiment.
+- EXPERIMENT Whether a shin-only IMU plus five plantar points carries enough information for KAM is unknown. Knee frontal angle needs the thigh as well, which we do not instrument.
+- EXPERIMENT Running high-impedance heel-vibration signals about 30 cm up a moving leg may pick up cable-motion noise.
+
+## 2 · Physical architecture for chappal, sandal and shoe
+
+One sensing insert, one strip and one shin pod serve every footwear type. Only the retention parts change.
+
+### A · Chappal
+
+- Insert sits on the existing footbed. A soft slot between the big-toe and second-toe regions takes the toe post.
+- No trace or sensor within the toe-post zone. The big-toe sensor sits medial to the slot.
+- A removable soft silicone heel keeper hooks over the chappal’s rear edge to stop the insert sliding forward.
+
+### B · Sandal
+
+- Insert rests on the footbed under the sandal’s own straps. No extra straps are added.
+- The strip exits at the lateral heel, below the heel strap and clear of any buckle, then runs up to the pod.
+- The same heel keeper is used if the sandal has no heel strap.
+
+### C · Shoe
+
+- CHOICE Replace the removable sockliner where possible. Sitting on top raises the foot and may make the shoe too tight.
+- ASSUMPTION Not every shoe has a removable liner or enough volume. Those get the barefoot oversole instead.
+- The flat strip passes the lateral heel and exits at the collar through a soft sleeve. Nothing rigid sits at the heel.
+
+### Gumboots
+
+A gumboot shaft covers the lower shin where the pod sits. CHOICE For testing, gumboot wearers use the barefoot oversole. This also removes a footwear type that varies a lot.
+
+### Barefoot
+
+A washable rubber traction oversole with a shallow pocket holds the same insert. The patient walks in it like a thin slipper. It doubles as the standard condition for anyone whose footwear does not fit the insert.
+
+### Shin pod
+
+Rounded pod in a shaped cradle on a broad, smooth silicone ladder strap, above the ankle bones on the lateral shin. Starting envelope 48 × 34 × 13 mm CHOICE, revised once the battery cartridge is sized. One button and one status light. Small NIVA wordmark only.
+
+**Footwear changes the measurement.** The sole, cushioning and fit between foot and insert all differ. Our own data shows how much: barefoot and shod walkway conditions gave different coverage for the same layout (3.55 % vs 2.18 % of area, R2). CHOICE Footwear type is recorded for every test and treated as a model covariate. Any knee-load model is validated separately per footwear group before its outputs are pooled.
+
+**Bilateral first.** A unilateral kit halves the sensor and pod cost, but it loses left–right comparisons: step-timing asymmetry, chair-rise loading symmetry, and any knee-load estimate for the other leg. CHOICE Unilateral stays a later low-cost option, to be decided on pilot data.
+
+## 3 · Insole layer stack and sensor placement
+
+| Layer (top to bottom) | Material | Thickness | Status |
+| --- | --- | --- | --- |
+| Top cover | TPU-laminated knit, wipeable | ≈ 0.4 mm | CHOICE |
+| Comfort / load-spreading | Closed-cell PU foam | ≈ 1.0 mm | EXPERIMENT changes sensor response; calibrate as built |
+| Sensor layer | FlexiForce A201 sensors | 0.203 mm | FACT Tekscan A201 datasheet |
+| Heel vibration film | PVDF film on polyester, e.g. TE LDT0-028K class | 28 µm + 0.125 mm | FACT TE LDT datasheet; crimp-free variant to select |
+| Base with routing channels | EVA or TPU sheet, sensor pockets and tail channels cut in | ≈ 1.0 mm | CHOICE |
+| Edge seal | Heat-welded TPU perimeter | — | CHOICE |
+| **Total** |  | ≈ 2.6 mm + adhesive | EXPERIMENT measure on the built part |
+
+### Placement and routing
+
+- Five sensing regions: big toe, medial forefoot (1st metatarsal head), lateral forefoot (5th metatarsal head), lateral midfoot, heel centre. The PVDF film sits under the heel beside the heel force sensor.
+- CHOICE Positions come from anatomical landmarks scaled to each size template, then get checked against footprints of pilot participants. They are not drawn by eye.
+- FACT The A201 comes with a 191 mm tail (trim options down to 51 mm) ending in 3 rigid square pins. The long tail lets every rigid pin and joint sit **outside** the insole outline, at the strip junction above the heel.
+- Tails run in recessed channels along the lightly loaded margin of the insole, so they do not make a ridge. Nothing is soldered under the foot.
+- **Sizes:** a small set of size templates, each built as its own part. Trimming is allowed only in a sensor-free toe margin, marked with printed trim lines. The number of sizes will be set from measured foot lengths.
+
+**Workshop method (now):** laser- or knife-cut foam and EVA, sensors placed in pockets, contact adhesive, TPU top film heat-sealed with an iron and a PTFE sheet. **Production method (later):** a custom printed flexible circuit with integrated sensing areas, RF-welded TPU envelope, die-cut foams.
+
+## 4 · Electronics block diagram and component selection
+
+### Signal flow, sensor to processor
+
+```
+FSR1..5 ─ divider (VEXC switched) ─ RC low-pass ─ MCP3208 CH0..CH4 ─┐
+PVDF heel ─ clamp + bias to mid-rail ─ MCP6001 buffer ─ RC ─ CH5 ───┤ SPI ─ ESP32-C3 ─ flash log
+VEXC sense ───────────────────────────────────────────── CH6 ────────┤        │
+Insole ID resistor ──────────────────────────────────── CH7 ────────┘        ├─ ESP-NOW beacons ⇄ other pod
+LSM6DSO32 (acc + gyro, FIFO, data-ready IRQ) ─ SPI ─────────────────────────┤
+MAX17048 fuel gauge ─ I²C ──────────────────────────────────────────────────┘─ BLE ⇄ phone
+```
+
+| Function | Part | Key verified figures | Why, and its limits |
+| --- | --- | --- | --- |
+| MCU + radio | Espressif ESP32-C3-MINI-1-N4X | 13.2 × 16.6 × 2.4 mm; 4 MB flash; 3.0–3.6 V; modem-sleep 17–22 mA at 80 MHz CPU running; deep-sleep 5 µA | Team already works in ESP32/Arduino. ESP-NOW lets two pods sync without the phone. BLE current is not in the chip datasheet: measure |
+| ADC | Microchip MCP3208-B/C | 12-bit, 8 channels, SPI; 50 ksps at 2.7 V; standby 0.5 µA typical | Avoids the ESP32 internal ADC. Our need is about 3,000 conversions/s, well within range |
+| IMU | ST LSM6DSO32 | Accel up to ±32 g; gyro up to ±2000 dps; 0.55 mA in high-performance mode | Replaces the prototype’s MPU6050. Figures from ST’s product summary; full datasheet review pending |
+| Force sensors | Tekscan FlexiForce A201-100 (primary) vs Interlink FSR402 (comparison) | A201: 445 N range, 0.203 mm, drift \<5 % per log time, 0.36 %/°C. FSR402: 0.1–10 N, hysteresis +10 %, part-to-part ±6 % | A201 range suits plantar loads on paper. Its 0.36 %/°C temperature sensitivity matters in a warm shoe. bench test both |
+| Heel vibration | TE piezo film (LDT0-028K class, crimp-free variant) | 28 µm PVDF on 0.125 mm polyester | Flexible, unlike the current brass disc. The standard LDT0 has crimped contacts (hard lumps), so a lead-attach variant is needed: verify part |
+| Piezo buffer | Microchip MCP6001 | Rail-to-rail; 1.8–6.0 V; 100 µA typical; 1 MHz GBW | Enough bandwidth for kHz-range sampling |
+| Regulator | TI TLV75533 (TLV755P family) | 500 mA; Iq 25 µA; dropout 238 mV max at 500 mA | Our load is far below 500 mA, so dropout will be lower |
+| Fuel gauge | ADI MAX17048 | 23 µA active; hibernate 3–4 µA (sources differ); I²C | State of charge without a sense resistor |
+| Cell protection (in cartridge) | TI BQ2970 | OVP, UVP, over-current, short-circuit; 4 µA normal; 1.5 × 1.5 mm | Second safety layer independent of the charger |
+| Charger (dock only) | Microchip MCP73831 | Charge current 15–500 mA, programmable; 4.20 V option; thermal regulation | No NTC input, so the dock MCU reads the cartridge NTC and gates charging |
+
+## 5 · Preliminary connections and pin allocation
+
+### Analog or digital down the strip?
+
+CHOICE **Analog for v0.** A passive insole keeps every chip off the foot, which is the hardest safety rule. Force signals are slow and low-impedance, so they tolerate ≈ 30 cm of cable well. The piezo signal is the risk: it is high-impedance, and cable flexing can generate charge (triboelectric noise). EXPERIMENT E3 measures this. If it fails, v1 moves a tiny buffer and ADC onto the strip above the shoe collar, outside the foot, and the strip turns digital.
+
+| Strip pin | Signal | Pod ADC channel | Note |
+| --- | --- | --- | --- |
+| 1 | VEXC | CH6 (sense) | Switched excitation; measured every block (ratiometric check) |
+| 2–6 | FSR1–FSR5 | CH0–CH4 | Big toe, medial forefoot, lateral forefoot, lateral midfoot, heel |
+| 7 | PZ+ | CH5 via buffer | Twisted with pin 8 where the strip allows |
+| 8 | PZ− / AGND | — | Piezo return |
+| 9 | ID | CH7 | Resistor in the insole encodes side and size |
+| 10 | GND / shield drain | — | Shield bonded at the pod end only |
+
+- **Strip build (v0):** 10-way flat flexible cable laminated in TPU, with copper-foil shielding over the piezo pair, in a teal silicone sleeve. Strain relief at both ends. Bend radius and retention clips follow the cable maker’s minimum (part to select).
+- **Connector:** a keyed, gasketed connector at the pod. Left and right use different keys. The insole, strip and pod-side connector are one replaceable assembly.
+- **Cable-motion artifacts:** the strip is clipped to the strap so it cannot swing. A fixed test motion is run during quality control.
+
+| ESP32-C3 GPIO | Function | Reason |
+| --- | --- | --- |
+| GPIO4 / 5 / 6 | SPI SCK / MISO / MOSI | Shared by ADC and IMU |
+| GPIO7 | CS_ADC |  |
+| GPIO10 | CS_IMU |  |
+| GPIO1 | IMU_INT1 (FIFO / data-ready) |  |
+| GPIO0 | EXC_EN (MOSFET gate for VEXC) |  |
+| GPIO8 / GPIO9 | I²C SDA / SCL (fuel gauge) | FACT Strapping pins. SPI boot needs GPIO9 high; the I²C pull-ups hold it there (ESP32-C3 datasheet, Table 3-3) |
+| GPIO2 | BUTTON (to ground, with pull-up) | Strapping pin that Espressif recommends pulling high to avoid glitches; the button pull-up does this. The fuel gauge is polled over I²C, so its alert pin is not used |
+| GPIO3 / 20 / 21 | LED red / green / blue | One light pipe, three colours |
+| GPIO18 / 19 | USB D− / D+ | Programming jig only, through pogo pads inside the battery bay |
+| — | No spare pins | This uses all 15 exposed GPIOs (IO0–IO10, IO18–IO21). Any added function needs an I/O expander or the ESP32-C3’s larger siblings |
+
+## 6 · Power, timing and data budgets (per pod)
+
+| Load while recording | Current | Source |
+| --- | --- | --- |
+| ESP32-C3, 80 MHz, CPU running, peripherals on | 22 mA | ESP32-C3 datasheet, Table 5-8 |
+| Flash writes (upper bound) | +10 mA | Same table, note 3 |
+| LSM6DSO32, high-performance | 0.55 mA | ST product summary |
+| MCP3208 active | 0.32 mA | MCP3208 datasheet (typical, at 5 V; lower at 3.3 V) |
+| MCP6001 | 0.10 mA | MCP6001 datasheet |
+| FSR excitation, 5 × 10 kΩ dividers, worst case | 1.65 mA | Calculated: 3.3 V ÷ 10 kΩ × 5; divider value is our choice |
+| MAX17048 + TLV755P quiescent | 0.05 mA | Datasheets: 23 µA + 25 µA |
+| **Recording, radio off (upper bound)** | **≈ 35 mA** | Sum |
+| BLE transfer | to be measured | Not in the chip datasheet table |
+| Deep sleep: MCU + LDO + gauge + ADC standby | ≈ 34 µA + IMU | Datasheets; IMU power-down current to confirm |
+
+**Runtime.** ASSUMPTION The cartridge cell is 300 mAh, as a planning figure. Recording alone at 35 mA then gives about 8.6 h. A camp day needs recording, BLE transfer and idle time between patients. The real figure is measured in Stage 2, with a spare cartridge per pod as the fallback.
+
+| Stream | Rate | Bytes/s | Why this rate |
+| --- | --- | --- | --- |
+| 5 force channels | 200 Hz each | 2,000 | CHOICE Twice the 100 Hz used by StepUP-P150 and our plan, giving margin for heel-strike rise times |
+| IMU, 6 axes | ≈ 200 Hz | 2,400 | CHOICE Nearest supported IMU output rate; orientation filtering |
+| Heel PVDF | 2,000 Hz | 4,000 | EXPERIMENT Deliberately high for v0 so the pilot data’s spectrum can set the final rate. Later, store only a window around each heel strike |
+| **Total** |  | **≈ 8,400** | A 120 s recording is about 1.0 MB. A 2 MB flash partition holds about 4 min, so data transfers after each patient |
+
+**ADC load:** about 3,000 conversions/s against the MCP3208’s 50 ksps at 2.7 V. **Sync:** the right pod broadcasts an ESP-NOW beacon with its timestamp. The left pod records each beacon’s arrival time and fits offset and drift by linear regression. A double-stomp at the start and end of each test gives an independent alignment check. EXPERIMENT E7 measures the residual.
+
+## 7 · Firmware and phone workflow
+
+```
+SLEEP ──button──▶ WAKE_SELFTEST ──ok──▶ PAIRING ──▶ SIDE_ATTACH_CHECK ──▶ CALIBRATION
+  ▲                   │fail                               │mismatch        │quiet stand
+  │                   ▼                                   ▼                ▼
+  └──timeout──── FAULT (red) ◀────────────────────── FAULT (red)         READY
+                                                                          │start (phone)
+                     QUALITY_ASSESS ◀──stop── RECORDING ◀─────────────────┘
+                       │green / amber / red
+                       ▼
+                   RESULT_TRANSFER ──done──▶ READY ──idle timeout──▶ SLEEP
+```
+
+```
+// acquisition + quality control, per pod (sketch)
+on IMU_FIFO_WATERMARK: read IMU block, stamp with local µs clock
+every 5 ms:  EXC_EN=1; read CH0..CH4, CH6; EXC_EN=0        // force + excitation sense
+every 0.5 ms: read CH5                                     // heel PVDF
+on ESPNOW_BEACON(t_right): store (t_right, t_local)        // sync pairs
+every 1 s: read CH7 (ID), fuel gauge
+append blocks to flash ring; on flash write error → FAULT
+
+QUALITY_ASSESS(recording):
+  flags = []
+  if any sample gap or FIFO overflow            → flags += REPEAT
+  if CH6 outside calibrated band                → flags += RECAL      // excitation or moisture fault
+  if FSR zero-load offset drifted beyond calibration band → flags += RECAL
+  if fraction of FSR samples at ADC ceiling > pre-set limit → flags += REPEAT (saturation)
+  if quiet-stand shank inclination before vs after differs > pre-set limit → flags += REPEAT (strap slip)
+  if ID resistor ≠ side/size set at pairing     → flags += RECAL
+  if left/right step counts disagree            → flags += REPEAT
+  if sync fit residual > pre-set limit          → flags += REPEAT
+  status = RED if RECAL in flags, AMBER if REPEAT in flags, else GREEN
+  // limits are set from Stage 1 bench data and declared before any patient testing
+```
+
+### Phone workflow (offline)
+
+1. **Patient**: study ID only, no name. Consent is recorded on the phone. Nothing uploads without a separate, explicit consent.
+2. **Fit**: pictures show the L/R insole and the pod on the outer shin. The app confirms side from each pod’s ID resistor.
+3. **Calibrate**: sit with feet unloaded (zero), then quiet stand (reference inclination).
+4. **Walk test** → quality result: ✓ “Good recording”, ↻ “Repeat this test”, ⚠ “Recalibrate the sensor”. Every colour comes with a symbol and text.
+5. **Chair-rise test** → the same quality screen.
+6. **Save**: results are stored encrypted on the phone and exported later.
+
+Calibration coefficients carry a version number and date, and are stored on both the pod and the phone. Every recording references the calibration version it used.
+
+## 8 · Calibration and signal-processing approach
+
+1. **Raw-signal inspection**: plot every channel from the first recordings before any processing.
+2. **Calibration**: per sensor, conditioned first, then a multi-point load/unload curve through a puck matched to the sensing area (the team’s SOP-01). Repeated at in-shoe temperature, because the A201 datasheet specifies 0.36 %/°C.
+3. **Events**: heel strike and toe-off from the force channels, cross-checked against the PVDF heel transient; chair-rise phases from shank inclination.
+4. **Features**: stance and swing times, cadence, side-to-side CoP proxy, heel-to-forefoot loading ratios, left–right symmetry, shank angular velocity.
+5. **Quality checks**: as in section 7. Any flagged segment is excluded from analysis.
+6. **Exploratory biomechanics**: KAM regression trained against gait-lab reference data.
+7. **Screening model**: only once reference data with clinical labels exist.
+
+**Limits of sparse sensing.** Five points cannot know the contact area or the load between sensors, and each sensor is nonlinear and hysteretic (FSR402 hysteresis +10 %, datasheet). Any total force or CoP from five points is therefore a model output with its own error. That error must be reported, never presented as a measurement.
+
+| Reference measurement | Validates | Still model-dependent |
+| --- | --- | --- |
+| Calibrated weights / loading fixture | Each sensor’s force response, drift, temperature effect | Behaviour inside the shoe |
+| Force plate | Event timing, total vertical force, CoP estimate | Knee moments |
+| Force plate + 3D motion capture (gait lab) | KAM estimate via inverse dynamics | Medial contact force |
+| Instrumented knee implant data (published) | Only the modelling chain, on other people | Anything about our users |
+| X-ray grade and clinical exam | Association between features and OA status | Progression, which needs follow-up |
+
+No clinical threshold, sensitivity, specificity or accuracy figure is stated anywhere in this plan. They can only come from a pre-registered study with an independent reference standard, followed by validation at a different site.
+
+## 9 · Mechanical safety, charging exclusion and left/right controls
+
+### Nothing rigid under the sole
+
+- All pins and joints sit outside the insole outline (A201 tail length makes this possible).
+- **Hard-spot test:** stand on the insole over pressure-indicating film. Any local mark fails the part. Repeated after cyclic ageing (SOP-02).
+- Thickness mapped with a micrometer on a grid, new and aged.
+- Pilot protocol: skin check after first wear; participants with an existing foot ulcer are excluded.
+
+### Charging requires removal
+
+- The pod has no charging socket, no coil and no charger.
+- The cartridge release sits on the pod’s back face and is covered by the cradle while the pod is worn.
+- The dock slot fits the bare cartridge only; the assembled pod is physically too large to mate.
+- Cartridge contacts are recessed. BQ2970 protection plus the dock’s NTC check form two independent layers.
+- **Test:** 10 attempts to charge an assembled or worn pod must all fail.
+
+### Left and right
+
+- Mirrored insole outlines, moulded L/R letters and tactile dots.
+- Different connector keys, so a left insole cannot plug into a right pod.
+- Each insole carries an ID resistor, and each pod stores its side. A mismatch means RED.
+- **Not prevented:** a complete matched left kit worn on the right leg. The fitting check covers this: “pod on the outer side of the leg, wordmark facing out”.
+
+**Foreseeable misuse and failure modes:** cartridge crushed or punctured (hard shell, protection IC, no charging on the body); strip pulled hard (strain relief and a breakaway connector at the pod); pod worn on bare skin in heat (smooth rounded shell, no charging heat source); a user cleaning it with solvents (cleaning card, material testing in section 11).
+
+## 10 · Prototype BOM in INR
+
+Prices are online retail listings seen on 28 September 2026. They are indicative, not quotes. “Quote needed” means we have not yet checked a price and are not guessing one.
+
+| Item (per leg) | Qty | Listed price | Listing |
+| --- | --- | --- | --- |
+| FlexiForce A201-100 lb | 5 | ₹1,175–1,199 each | [IndiaMART](https://www.indiamart.com/proddetail/flexiforce-sensor-a201-100lbs-19222936773.html), [ExportersIndia](https://www.exportersindia.com/product-detail/flexiforce-a201-100-force-sensor-6136313.htm) |
+| FSR402 (comparison set) | 5 | ₹175 each | [Robokits](https://robokits.co.in/sensors/force-flex-and-pressure/fsr402-force-sensor-12.7mm) |
+| ESP32-C3 SuperMini dev board (v0 stand-in for the module) | 1 | ₹242 incl. GST | [Probots](https://probots.co.in/esp32-c3-supermini-development-board-risc-v-wifi-bt-type-c.html) |
+| MCP3208, LSM6DSO32 breakout, MCP6001, TLV75533, MAX17048 breakout | 1 each | quote needed | — |
+| PVDF film (crimp-free), LiPo cell + BQ2970, NTC | 1 each | quote needed | — |
+| FFC, sleeve, TPU film, foams, EVA, silicone strap, 3D-printed pod | — | quote needed | — |
+| Dock: MCP73831 + small MCU + case | 1 per kit | quote needed | — |
+
+**Already known:** the five A201 sensors dominate the per-leg sensor cost at listed prices (about ₹5,900–6,000 per insole). That is why the FSR402-vs-A201 bench test comes first.
+
+**One-off vs small batch.** One-off prototypes pay retail for everything, plus 3D printing and hand lamination. Small-batch production adds one-time tooling (pod injection mould, insole lamination and cutting dies, test fixtures) and PCBA setup. In exchange, the per-unit cost falls. Every tooling line is “quote needed” until we contact suppliers.
+
+## 11 · Assembly, repair and cleaning
+
+- **Replaceable parts:** insole + strip assembly, silicone strap, cradle, battery cartridge, heel keeper, oversole. The pod is screw-assembled with a gasket. No glue-sealed electronics.
+- **Materials:** TPU and silicone on every surface the patient touches. Nothing absorbent, and no fabric strap that holds sweat. The strap is a smooth silicone ladder design with no trapped seams.
+- **Cleaning between patients:** wipe the insole top, strap and pod with a hospital wipe. The oversole is washed.
+- **Cleaning validation plan:** repeated wipe cycles with each candidate disinfectant (for example 70 % isopropyl alcohol) on material coupons and on built insoles. Check swelling, delamination, adhesive failure and sensor calibration shift. No disinfectant compatibility or IP rating is claimed until tested.
+
+## 12 · Bench, footwear and supervised human-testing plan
+
+| Phase | Who | What |
+| --- | --- | --- |
+| Bench | No participants | Sensor range and drift (A201 vs FSR402), cyclic ageing to 10,000 cycles (SOP-02), cable-motion artifact, hard-spot film test, induced-fault tests of every quality flag |
+| Footwear | Team members, then healthy volunteers with ethics approval | Insert migration in chappal, sandal, shoe and oversole; fitting time by non-engineers against the 60 s target; comfort and skin checks |
+| Gait lab | Healthy adults, through an institutional collaboration | Force plate + motion capture alongside Niva. KAM-estimation feasibility per footwear group |
+| Supervised clinic pilot | Adults with and without knee complaints, supervised by physiotherapists, with ethics approval | Usability, quality-flag rates, feature distributions. Explicitly not an accuracy study |
+
+## 13 · Staged prototype roadmap
+
+| Stage | Build | Pass/fail gate |
+| --- | --- | --- |
+| 0 · Now | Existing Niva hardware plus an A201 sample set | Sensor chosen on bench data; cable artifact characterised; hard-spot test passes on a hand-built insole |
+| 1 · v0 single leg | SuperMini + breakout ADC/IMU in a 3D-printed pod; hand-laminated insole | Zero sample gaps across repeated walking trials; every induced fault produces the intended amber or red state |
+| 2 · v0 bilateral + app | Two pods, ESP-NOW sync, offline app, cartridge + dock | Sync residual, fitting time and insert migration measured and within limits declared before testing; charging-exclusion test 10/10 |
+| 3 · Gait-lab validation | Stage 2 kit | KAM error against inverse dynamics, per footwear, meets a pre-registered criterion. If not, the knee-load claim is dropped |
+| 4 · v1 engineered | Custom PCB, moulded pod, printed flex insole | Stage 0–2 tests repeated on production-intent parts; cleaning validation passes |
+| 5 · Clinic pilot | v1 kits | Pilot endpoints met; reference-labelled data collected for any future screening model |
+
+## 14 · Highest-risk assumptions and the first experiments
+
+| # | Assumption at risk | First experiment |
+| --- | --- | --- |
+| E1 | A thin sensor survives plantar loads and holds calibration | A201 vs FSR402 in the SOP-01 fixture, then SOP-02 cyclic loading; compare drift and saturation |
+| E2 | Five plantar points + shank IMU carry enough information for KAM | One gait-lab session; fit the model on some participants and test it on held-out participants |
+| E3 | Analog piezo survives ≈ 30 cm of moving cable | Shake and flex the strip with the heel unloaded; record CH5 noise versus a heel-strike signal |
+| E4 | The insert stays in place in a chappal | Mark the insert position, walk a fixed route, measure displacement for each footwear type |
+| E5 | No hidden hard spots | Pressure-film standing test, new and after ageing |
+| E6 | A health worker can fit it in under a minute | Timed fitting by people who did not build it, with only the picture card |
+| E7 | Two pods stay in sync | Simultaneous double-stomp across repeated sessions; measure alignment residual |
+
+Start with E1, E3 and E5. They need no participants and no new hardware beyond an A201 sample set, and each one can change the design before money goes into anything else.
+
+## Sources
+
+1. Espressif. ESP32-C3 Series Datasheet v2.4 (Tables 3-1, 3-3, 5-7, 5-8, 5-9). [documentation.espressif.com](https://documentation.espressif.com/esp32-c3_datasheet_en.pdf)
+2. Espressif. ESP32-C3-MINI-1 & MINI-1U Datasheet v2.2. [documentation.espressif.com](https://documentation.espressif.com/esp32-c3-mini-1_datasheet_en.pdf)
+3. Microchip. MCP3204/3208 datasheet DS21298E. [microchip.com](https://ww1.microchip.com/downloads/en/DeviceDoc/21298e.pdf)
+4. Tekscan. FlexiForce Standard Model A201, RevA. [tekscan.com](https://www.tekscan.com/sites/default/files/FLX-A201-A.pdf)
+5. Interlink Electronics. FSR 402 Data Sheet (SparkFun mirror). [sparkfun.com](https://cdn.sparkfun.com/assets/8/a/1/2/0/2010-10-26-DataSheet-FSR402-Layout2.pdf)
+6. STMicroelectronics. LSM6DSO32 product page. [st.com](https://www.st.com/en/mems-and-sensors/lsm6dso32.html)
+7. TE Connectivity. LDT series piezo film datasheet (SparkFun mirror). [sparkfun.com](https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/LDT_Series.pdf)
+8. Microchip. MCP6001/1R/1U/2/4 datasheet DS20001733L. [microchip.com](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP6001-1R-1U-2-4-1-MHz-Low-Power-Op-Amp-DS20001733L.pdf)
+9. Texas Instruments. TLV755P datasheet. [ti.com](https://www.ti.com/lit/ds/symlink/tlv755p.pdf)
+10. Analog Devices. MAX17048/MAX17049 datasheet. [analog.com](https://www.analog.com/media/en/technical-documentation/data-sheets/max17048-max17049.pdf)
+11. Texas Instruments. BQ297xx datasheet SLUSBU9I. [ti.com](https://www.ti.com/lit/ds/symlink/bq2970.pdf)
+12. Microchip. MCP73831/2 datasheet DS20001984H. [microchip.com](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP73831-Family-Data-Sheet-DS20001984H.pdf)
+13. Snyder S et al. 2023. KAM prediction with an instrumented insole. The Knee. · Snyder SJ et al. 2025. J Biomech. [pubmed 40885049](https://pubmed.ncbi.nlm.nih.gov/40885049/)
+14. Fuchs, Chen & Shiang 2024. CoP accuracy with reduced sensor number. Sensors 24(15):4918. [doi.org/10.3390/s24154918](https://doi.org/10.3390/s24154918)
+15. Team Niva. R2 observability study, run 2026-09-12, docs/r2 in the repository.
+
+Every figure here is from a cited datasheet, a cited paper, the team’s R2 run, or a calculation shown in the same row. Planning assumptions are labelled. Prices are listings seen on 28 September 2026.

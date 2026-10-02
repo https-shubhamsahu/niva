@@ -4,6 +4,10 @@
 
 This is one of three Niva projects. See [../PROJECTS.md](../PROJECTS.md).
 
+## Direction as of 2 October 2026: Niva Sakshi
+
+The pitch narrowed to one named test. **Niva Sakshi** ("witness") is a Flamingo balance-test station: sensors timestamp each loss of balance and pause the clock, the teacher confirms or dismisses every flag, and the record keeps both. It will not score until zeroed, and it uses no camera. Blueprint, portal text and the evidence plan are in [sakshi/](sakshi/). The earlier three-item idea below stays as background; its 2 km and Vrikshasana items are now secondary.
+
 ## The idea
 
 Niva instruments the balance items of the Fit India fitness protocol for ages 18 to 65: the Flamingo test (p. 24) and Vrikshasana (p. 23). Today a tester scores both with a stopwatch and by eye.
@@ -25,14 +29,13 @@ Niva instruments the balance items of the Fit India fitness protocol for ages 18
 
 ## Folders
 
-- `deck-kit/`: the 6-slide SIH deck pipeline and its method ([deck-kit/GUIDE.md](deck-kit/GUIDE.md)).
+- The final SIH26213 deck, portal text and research: [../niva sakshi/docs/](../niva%20sakshi/docs/). The deck-building kit was removed on 3 Oct 2026.
 - Shared photos, renders, CAD and video scripts: [../media/](../media/).
 
 ## Previous problem statement, SIH26004
 
 The previous problem statement was SIH26004: knee osteoarthritis screening in the North Eastern Region. It was replaced by 26213 on 1 October 2026.
 - **Still useful:**
-  - the deck kit and its method;
   - the real prototype and Automation Expo photos;
   - the outside-validation wording;
   - the CAD renders, labelled as renders.
@@ -40,4 +43,4 @@ The previous problem statement was SIH26004: knee osteoarthritis screening in th
   - the knee-load and osteoarthritis story;
   - the health-camp setting;
   - the shin-pod hardware concept;
-  - the 26004 slides, PDF and work notes, which stay in `deck-kit/` for reference only.
+  - the 26004 slides, PDF and work notes (removed 3 Oct 2026).

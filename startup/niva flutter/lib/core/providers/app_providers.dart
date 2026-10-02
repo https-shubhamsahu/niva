@@ -40,12 +40,14 @@ final esp32BleServiceProvider = Provider<Esp32BleService>((ref) {
 });
 
 final trialStoreProvider = Provider<TrialStore>((ref) {
-  throw UnimplementedError('trialStoreProvider must be overridden in main.dart');
+  throw UnimplementedError(
+      'trialStoreProvider must be overridden in main.dart');
 });
 
 /// One monotonic clock shared by the telemetry link and the fitness tests,
 /// so insole events and the test clock are placed on the same timeline.
-final monotonicClockProvider = Provider<MonotonicClock>((ref) => MonotonicClock());
+final monotonicClockProvider =
+    Provider<MonotonicClock>((ref) => MonotonicClock());
 
 final gaitTimingEngineProvider =
     Provider<GaitTimingEngine>((ref) => GaitTimingEngine());
@@ -64,7 +66,7 @@ final telemetryControllerProvider =
     settings: ref.watch(settingsRepositoryProvider),
     clock: ref.watch(monotonicClockProvider),
   );
-  ref.onDispose(controller.dispose);
+  // StateNotifierProvider owns and disposes its notifier automatically.
   return controller;
 });
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ splash icon. The system crops it to a circle two thirds of its
+     size (192dp of 288dp), so the 128-unit mark is scaled to 0.75 about its
+     centre and placed in the middle of a 192-unit canvas: 144dp on screen,
+     the size LaunchExperience.markSize continues from. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp" android:height="288dp"
+    android:viewportWidth="192" android:viewportHeight="192">
+    <group android:pivotX="64" android:pivotY="64" android:scaleX="0.75"
+        android:scaleY="0.75" android:translateX="32" android:translateY="32">
+        <path android:name="eye"
+            android:pathData="M16 56 C40 22 88 22 112 56 C88 90 40 90 16 56 Z"
+            android:fillColor="@android:color/transparent" android:strokeColor="#A9D4FF"
+            android:strokeWidth="12" android:strokeLineJoin="round"
+            android:strokeLineCap="round" />
+        <group android:name="dot" android:pivotX="64" android:pivotY="56">
+            <path android:pathData="M52,56 a12,12 0,1 0,24 0 a12,12 0,1 0,-24 0"
+                android:fillColor="#FF9577" />
+        </group>
+        <group android:name="beam" android:pivotX="64" android:pivotY="106">
+            <path android:pathData="M36,106 L92,106" android:strokeColor="#EAF3FF"
+                android:strokeWidth="12" android:strokeLineCap="round" />
+        </group>
+    </group>
+</vector>

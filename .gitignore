@@ -50,5 +50,19 @@ app.*.map.json
 
 # Large, reproducible research data downloaded from public repositories.
 data/
+# Flutter repositories are source code, not downloaded research datasets.
+!startup/niva flutter/lib/core/data/
+!startup/niva flutter/lib/core/data/**
 __pycache__/
 *.pyc
+
+# Editor settings
+.cursor/
+
+# CAD: keep finished renders, skip raw duplicates and Blender sources
+media/cad/**/renders/raw/
+*.blend
+*.blend1
+
+# Python caches
+__pycache__/
