@@ -1,0 +1,25 @@
+/* SIH 2026 deck kit - shared tokens. Minimum text size 14px; body 16-17px; no letter-spacing (clean text extraction). */
+:root{--navy:#1B3A6B;--blue:#0070C0;--sky:#EAF1FB;--orange:#ED861C;--orange-dk:#B85F16;--peach:#FDEBD9;
+--green:#2E9E6A;--green-dk:#1E7B4F;--mint:#E6F4EC;--red:#D64541;--red-dk:#B3261E;--rose:#FBE7E6;--amber:#F2A93B;--sand:#FFF4E0;
+--purple:#5E35B1;--lilac:#EDE7F6;--ink:#1F2937;--muted:#4B5563;--line:#D6DEEA;--wash:#F5F8FC;
+--f:"Segoe UI",Arial,sans-serif;--num:Bahnschrift,"Barlow Semi Condensed","Segoe UI",sans-serif}
+@page{size:1920px 1080px;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;font-family:var(--f);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.slide{position:relative;width:1920px;height:1080px;overflow:hidden;background:#fff;break-after:page;page-break-after:always}
+.slide:last-of-type{break-after:auto;page-break-after:auto}
+h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0;padding:0}
+a{color:inherit;text-decoration:none}
+.p{position:absolute;background:#fff;border:1.5px solid var(--line);border-radius:14px;overflow:hidden;padding:12px 14px}
+.p.wash{background:var(--wash)}
+.ptr{position:absolute;font:700 26px/1.2 Arial,sans-serif;color:var(--navy);white-space:nowrap}
+.ptr.l2{font-size:22px}
+.tag{display:inline-block;background:var(--navy);color:#fff;font:700 15px/1 var(--f);text-transform:uppercase;border-radius:6px;padding:6px 10px}
+.tag.orange{background:var(--orange)} .tag.green{background:var(--green)} .tag.red{background:var(--red)} .tag.purple{background:var(--purple)} .tag.blue{background:var(--blue)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font:700 14px/1 var(--f);white-space:nowrap}
+.chip.ok{background:var(--mint);color:var(--green-dk)} .chip.p2{background:var(--lilac);color:var(--purple)} .chip.road{background:var(--sand);color:#8A4B00}
+.badge{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:#fff;font:700 15px/1 var(--f);flex:none}
+.ico{display:inline-block;width:28px;height:28px;vertical-align:middle;flex:none;line-height:0} .ico svg{width:100%;height:100%}
+.art{display:inline-block;line-height:0} .art svg{width:100%;height:100%;display:block}
+.cap{position:absolute;font:italic 400 14px/1 var(--f);color:var(--muted)}
+.big{font:700 48px/1 var(--num)}

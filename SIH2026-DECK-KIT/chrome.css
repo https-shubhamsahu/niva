@@ -1,0 +1,9 @@
+/* SIH 2026 template frame; positions taken from the team's Canva design (1920 x 1080) */
+.tpl-t1{position:absolute;left:61.17px;top:22.7px;width:1632px;text-align:center;font:700 80px/96px Garamond,"Times New Roman",serif;color:#1f497d;white-space:nowrap}
+.tpl-title{position:absolute;left:28.8px;top:99.8px;width:1728px;text-align:center;font:700 72px/86.4px "Times New Roman",serif;color:#000;white-space:nowrap}
+.tpl-logo{position:absolute;left:1540.17px;top:0.24px;width:354.31px;height:167.3px}
+.tpl-oval{position:absolute;left:52px;top:40px;width:197px;height:136px;border:3px solid #8064a2;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 22px;font:400 36px/1.2 Calibri,sans-serif;color:#000}
+.tpl-bulb{position:absolute;left:1322.94px;top:307.31px;width:504.49px;height:539.57px;object-fit:contain}
+.tpl-foot{position:absolute;left:0;top:1000.75px;width:1920px;height:79.25px;background:#0070c0}
+.tpl-foot .ft{position:absolute;left:718px;top:0.25px;width:504.57px;height:57.5px;display:flex;align-items:center;justify-content:center;font:400 24px/1.2 Calibri,sans-serif;color:#fff}
+.tpl-foot .pn{position:absolute;left:1760px;top:0.25px;width:98.5px;height:74px;display:flex;align-items:center;justify-content:flex-end;font:700 37.33px/1.2 Calibri,sans-serif;color:#fff}
