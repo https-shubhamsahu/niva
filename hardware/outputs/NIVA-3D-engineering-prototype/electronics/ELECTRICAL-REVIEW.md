@@ -89,7 +89,7 @@ All 15 exposed GPIOs are assigned (IO8 as a strap-only spare). Any new function 
 
 `NIVA-pod.kicad_pcb`: 4 layers (F.Cu signal, **In1.Cu solid GND plane**, In2.Cu signal, B.Cu signal), 34 × 48 × 1.0 mm, generated from the netlist by `work/build_niva_pcb.py`. Placement comes from `work/niva_layout.py`, which also drives the FreeCAD enclosure.
 
-- **Rules:** 0.15 mm tracks with 0.127 mm clearance (0.3 mm for +3V3, VBAT and VEXC), and 0.5 / 0.25 mm through vias. These are inside common small-batch 4-layer capability, but they are not a specific fab's rules: confirm them with the chosen fab.
+- **Rules:** 0.15 mm tracks with 0.127 mm clearance (0.3 mm for +3V3, VBAT and VEXC), and 0.5 / 0.2 mm through vias. The via drill was 0.25 mm until 25 Oct 2026; it was reduced so the 0.15 mm annular ring meets PCBWay's standard process (copper unchanged). Confirm the rest with PCBWay's DFM reply.
 - **How it was routed:**
   1. Every GND pad (81, including the module's split thermal pad and the Tag-Connect pad) gets its own via to the In1 plane *before* routing, at the nearest spot that clears all other copper, holes, the board edge and the antenna keep-out.
   2. Freerouting 2.1.0 then routes the signal nets. It counts the plane-connected GND pads as unrouted because it does not credit the plane, so its log ends at "8 unrouted"; KiCad's connectivity check is the authority here.

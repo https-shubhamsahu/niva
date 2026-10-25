@@ -1,8 +1,11 @@
 ** Drc report for NIVA-pod.kicad_pcb **
-** Created on 2026-09-28T04:16:23+0000 **
+** Created on 2026-10-25T12:11:16 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 3 DRC violations **
+** Found 4 DRC violations **
+[lib_footprint_mismatch]: Footprint 'LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y' does not match copy in library 'Package_LGA'
+    Local override; warning
+    @(133.5000 mm, 57.5000 mm): Footprint U3
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
     @(104.3141 mm, 46.0000 mm): Segment on Edge.Cuts
@@ -18,6 +21,38 @@
 
 ** Found 0 unconnected pads **
 
-** Found 0 Footprint errors **
+** Found 9 Footprint errors **
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(121.0000 mm, 91.0000 mm): Footprint J1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Placeholder - part to select', Schematic: '')
+    Local override; warning
+    @(129.0000 mm, 78.5000 mm): Footprint J2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(121.0000 mm, 54.5500 mm): Footprint U1
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(111.0000 mm, 74.0000 mm): Footprint U2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(133.5000 mm, 57.5000 mm): Footprint U3
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(130.5000 mm, 65.2000 mm): Footprint U5
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(131.5000 mm, 70.5000 mm): Footprint U6
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(131.5000 mm, 82.1000 mm): Footprint D2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(133.0000 mm, 77.8000 mm): Footprint U4
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
 
 ** End of Report **
