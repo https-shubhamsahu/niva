@@ -14,6 +14,8 @@ Checks at export (KiCad 10.0.7, default global libraries, schematic parity on):
 
 Changed from the Rev C.1 review-only export (KiCad 9.0.9): via drill 0.25 -> 0.2 mm
 so the annular ring meets PCBWay's 0.15 mm standard. Copper is unchanged.
+Added 25 Oct: "PCBWay" text on B.Silkscreen under "NIVA REV C" (1 mm, 0.15 mm
+stroke), required by PCBWay's Future Innovators Program. No new DRC items.
 
 Passing KiCad ERC/DRC is not a design review. Still open before populating:
   - J2 cartridge spring contacts: NIVA land pattern and 3D envelope, part not
