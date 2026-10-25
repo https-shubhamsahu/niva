@@ -11794,6 +11794,18 @@
 			(justify mirror)
 		)
 	)
+	(gr_text "PCBWay"
+		(at 121 62.5 0)
+		(layer "B.SilkS")
+		(uuid "32fc2afa-22a1-4dc6-9137-25e9cc6a3c90")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
 	(gr_text "SERVICE"
 		(at 121 68.6 0)
 		(layer "B.SilkS")
