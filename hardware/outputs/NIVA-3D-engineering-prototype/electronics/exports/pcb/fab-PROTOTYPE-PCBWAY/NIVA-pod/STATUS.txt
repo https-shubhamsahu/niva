@@ -1,0 +1,26 @@
+NIVA-pod - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
+
+Upload NIVA-pod-PCBWay-gerbers.zip. Order settings:
+  4 layers, 34 x 48 mm, 1.0 mm FR-4, 1 oz outer copper, HASL or ENIG,
+  green mask, white silk. Stack-up: F.Cu / In1 (GND plane) / In2 / B.Cu.
+  Min track 0.15 mm, min clearance 0.127 mm, vias 0.5 mm pad / 0.2 mm drill
+  (0.15 mm annular ring), 126 vias. NPTH: 0.99 mm and 2.2 mm.
+
+Checks at export (KiCad 10.0.7, default global libraries, schematic parity on):
+  DRC errors 0, unconnected 0. Warnings: 3 silk-at-edge (module outline at the
+  antenna edge), 1 LGA-14 library copy differs (pads checked identical),
+  9 MPN/description fields not copied to footprints (no copper effect).
+  ERC errors 0, 1 reviewed warning (U3 SDx to the power flag).
+
+Changed from the Rev C.1 review-only export (KiCad 9.0.9): via drill 0.25 -> 0.2 mm
+so the annular ring meets PCBWay's 0.15 mm standard. Copper is unchanged.
+
+Passing KiCad ERC/DRC is not a design review. Still open before populating:
+  - J2 cartridge spring contacts: NIVA land pattern and 3D envelope, part not
+    selected - replace with supplier data before ordering J2.
+  - U6 MAX17048 TDFN: stock KiCad land pattern, simplified 3D envelope - confirm
+    against the purchased package.
+  - Antenna keep-out and ESP32-C3-MINI-1 placement need a radiated check in the
+    closed enclosure.
+  - No independent schematic/layout review and no fabricator DFM report yet;
+    read PCBWay's DFM reply before paying.

@@ -9,7 +9,7 @@ Bilateral gait-sensing research/screening kit with four parts:
 
 > **Status: engineering prototype for fit, handling and bench work. Not a released medical device. Not released for fabrication.**
 > - Every KiCad board is routed and passes KiCad ERC and DRC. That is an automated check, **not a design review**.
-> - Gerbers exist only in `fab-REVIEW-ONLY-NOT-RELEASED/` folders, each with a list of open blockers.
+> - Gerbers exist only in `fab-REVIEW-ONLY-NOT-RELEASED/` folders, each with a list of open blockers. The pod's set moved to `fab-PROTOTYPE-PCBWAY/` on 25 Oct: a bare-PCB first article for bench bring-up, with its blockers in `STATUS.txt`.
 > - Nothing has been built, powered or measured. Nothing here establishes clinical performance.
 > - The sensing concept does **not** measure medial knee contact force.
 > - Sealing, skin contact and cleaning are **unverified**: see `VERIFICATION-PLAN.md`.
@@ -70,7 +70,7 @@ NIVA-3D-engineering-prototype/
 
 | Board | Size / layers | Routing | KiCad ERC / DRC (schematic parity on) |
 |---|---|---|---|
-| Pod | 34 × 48 × 1.0 mm, 4 layers (In1 = GND plane) | GND fan-out, then Freerouting signals, then pours; 547 segments, 126 vias | 0 errors, 1 reviewed warning / **0 errors, 0 unconnected**, 3 silk warnings (module outline at the antenna edge) |
+| Pod | 34 × 48 × 1.0 mm, 4 layers (In1 = GND plane) | GND fan-out, then Freerouting signals, then pours; 547 segments, 126 vias (0.5 / 0.2 mm since 25 Oct) | 0 errors, 1 reviewed warning / **0 errors, 0 unconnected**, 3 silk warnings (module outline at the antenna edge); rechecked in KiCad 10.0.7 on 25 Oct |
 | Cartridge strip | 3.4 × 30 × 0.8 mm, 2 layers | hand-routed | 0 / 0, 0 unconnected |
 | Dock | 58 × 56 × 1.6 mm, 2 layers | Freerouting + GND pours | 0 / 0, 0 unconnected |
 | Insole flex R, L | 0.12 mm polyimide; F.Cu only underfoot | generated paired lanes; B.Cu only at the above-collar transition | 0 / 0, 0 unconnected |
@@ -119,6 +119,7 @@ PYTHONPATH=/opt/freecad/lib /opt/freecad/bin/python build_niva_dock_cad.py    # 
 
 - **UUIDs:** the schematic generators use deterministic UUIDs, so re-running them keeps each schematic and PCB linked.
 - **Autorouting:** Freerouting is not deterministic. The committed `.ses` files are the ones that were imported and DRC-checked; a new routing run must be re-checked.
+- **Pod via drills:** on 25 Oct 2026 the pod's 126 vias were edited in the board file from 0.25 to 0.2 mm drill (pad still 0.5 mm) for PCBWay's 0.15 mm annular-ring rule. `build_niva_pcb.py` still writes 0.25 mm, so re-apply the change after any regeneration. The cartridge and dock boards still use 0.25 mm drills.
 
 ## Sources and third-party assets
 

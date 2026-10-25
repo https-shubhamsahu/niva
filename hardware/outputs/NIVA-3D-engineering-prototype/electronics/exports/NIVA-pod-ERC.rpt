@@ -1,4 +1,4 @@
-ERC report (2026-09-28T04:16:19+0000, Encoding UTF8)
+ERC report (2026-10-25T12:09:39, Encoding UTF8)
 Report includes: Errors, Warnings, Exclusions
 
 ***** Sheet /
@@ -12,3 +12,7 @@ Report includes: Errors, Warnings, Exclusions
 ***** Sheet /Heel and indicator/
 
  ** ERC messages: 1  Errors 0  Warnings 1
+
+ ** Ignored checks:
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters
