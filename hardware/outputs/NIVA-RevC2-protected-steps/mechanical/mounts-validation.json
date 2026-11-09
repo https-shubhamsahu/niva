@@ -21,15 +21,15 @@
       "print_orientation": "back (leg side) on bed, as Rev C cradle 05; no supports",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 10787.8,
+      "volume_mm3": 10646.0,
       "print_bbox_mm": [
         69.0,
         63.0,
         6.6
       ],
       "step_reread_solids": 1,
-      "step_reread_volume_mm3": 10787.8,
-      "stl_reread_facets": 1236,
+      "step_reread_volume_mm3": 10646.0,
+      "stl_reread_facets": 1948,
       "closed_mesh": true,
       "mesh_non_manifolds": false
     },
@@ -39,15 +39,15 @@
       "print_orientation": "back (leg side) on bed, as Rev C cradle 05; no supports",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 10787.8,
+      "volume_mm3": 10647.4,
       "print_bbox_mm": [
         69.0,
         63.0,
         6.6
       ],
       "step_reread_solids": 1,
-      "step_reread_volume_mm3": 10787.8,
-      "stl_reread_facets": 1236,
+      "step_reread_volume_mm3": 10647.4,
+      "stl_reread_facets": 1480,
       "closed_mesh": true,
       "mesh_non_manifolds": false
     },
@@ -57,15 +57,15 @@
       "print_orientation": "on its -x rail wall (hook profile in the layer plane); brim; no supports expected - check in the slicer",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 10685.4,
+      "volume_mm3": 10612.5,
       "print_bbox_mm": [
         14.6,
         65.4,
         48.1
       ],
       "step_reread_solids": 1,
-      "step_reread_volume_mm3": 10685.4,
-      "stl_reread_facets": 888,
+      "step_reread_volume_mm3": 10612.5,
+      "stl_reread_facets": 2574,
       "closed_mesh": true,
       "mesh_non_manifolds": false
     },
@@ -75,15 +75,15 @@
       "print_orientation": "on its -x rail wall (hook profile in the layer plane); brim; no supports expected - check in the slicer",
       "valid": true,
       "solids": 1,
-      "volume_mm3": 10685.4,
+      "volume_mm3": 10621.5,
       "print_bbox_mm": [
         14.6,
         65.4,
         48.1
       ],
       "step_reread_solids": 1,
-      "step_reread_volume_mm3": 10685.4,
-      "stl_reread_facets": 888,
+      "step_reread_volume_mm3": 10621.5,
+      "stl_reread_facets": 1664,
       "closed_mesh": true,
       "mesh_non_manifolds": false
     },

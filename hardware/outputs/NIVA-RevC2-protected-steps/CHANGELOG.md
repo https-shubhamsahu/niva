@@ -1,5 +1,17 @@
 # CHANGELOG: Rev C.1 → Rev C.2 working copy (Niva: Protected Steps)
 
+## 2026-11-09 (evening): design review fixes
+
+Five independent reviews (pod schematic, pod layout and DFM, cartridge/dock/battery, mechanics and insole, software) are in `../verification-2026-11-09/`, summarised in `../VERIFICATION-2026-11-09.md`.
+
+Fixed here:
+- **J2 regrouped:** footprint `NIVA:SpringContact_2x2pairs_MillMax0900_SMD`. Pads 1-2 VBAT stay at pod y 21.5; pads 3-4 GND move to y 13.0 and tie to adjacent GND vias. The cartridge lid plates are now 5.5 mm apart (were 0.94 mm).
+- **In-pad vias:** the via that sat in old J2 pad 3 is clear of all pads, and the stub via inside U4 pad 2 is deleted.
+- **U1:** EPAD paste reduced to about half (margin ratio -0.15). U1 is now the ESP32-C3-MINI-1-N4X, since the N4 is NRND.
+- **Parts and silk:** C4 is 1 µF. The bottom silk reads NIVA REV C.2.
+- **Checks:** DRC 0 errors, 0 unconnected; ERC 0 errors. Gerbers, drills, placement and PCBA STEP re-exported.
+- **Mounts:** `build_ps_mounts.py` audits against the C.2 board. `ankle_cradle()` no longer refills the screw-head relief or the latch arm slots with its wings.
+
 ## 2026-11-09: PCBWay order set
 
 **Status:** fab outputs made; still not built, powered or measured. Order sheet: `../PCBWAY-ORDER-2026-11.md`.

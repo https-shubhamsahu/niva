@@ -8216,7 +8216,7 @@
 				)
 			)
 		)
-		(property "Value" "ESP32-C3-MINI-1-N4"
+		(property "Value" "ESP32-C3-MINI-1-N4X"
 			(at 0 9.85 0)
 			(layer "F.Fab")
 			(uuid "bdac09e0-0a54-4673-a942-c144fea8ea14")
@@ -8861,6 +8861,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "b1f2480c-c5b8-4af6-ab34-374550a53ea3")
 		)
@@ -8869,6 +8870,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "29c628d0-8ec4-411e-9924-875ecda94fa3")
 		)
@@ -8877,6 +8879,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "5424700e-29b6-43c5-94a3-f6cd75d0e9c9")
 		)
@@ -8885,6 +8888,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "f3eb3aac-a058-41c4-8e25-1bc2b8fca703")
 		)
@@ -8893,6 +8897,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "5b441216-6a03-4942-a924-75d9c3c2da57")
 		)
@@ -8901,6 +8906,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "689e0e7d-8897-402c-a43f-2eafc2727b46")
 		)
@@ -8909,6 +8915,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "4b3e0cb8-8b7e-44c8-9c88-46bb5ee6f773")
 		)
@@ -8917,6 +8924,7 @@
 			(size 1.45 1.45)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "GND")
+			(solder_paste_margin_ratio -0.15)
 			(zone_connect 2)
 			(uuid "92e439be-9571-4e30-aecc-3b0570303888")
 		)
@@ -9426,7 +9434,7 @@
 				)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "1u"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "864ab3bd-fb56-4011-be85-458580839b94")
@@ -11279,6 +11287,228 @@
 		)
 		(embedded_fonts no)
 	)
+	(footprint "NIVA:SpringContact_2x2pairs_MillMax0900_SMD"
+		(layer "B.Cu")
+		(uuid "2149085b-7b65-4a76-9db2-12f68d6d0828")
+		(at 126.865 82.75 180)
+		(descr "Pod J2, Rev C.2 (regrouped 9 Nov 2026): 4 x Mill-Max 0900-0-15-20-76-14-11-0 SMT spring-loaded pins on 2.08 mm round pads (datasheet .082 in min. pad; 3.48 mm free, 2.97 mm at the 0.508 mm rated travel). Pads 1-2 battery P+ and 3-4 battery P-, as two 2.54 mm pairs 8.5 mm apart, so the cartridge lid plates are 5.5 mm apart.")
+		(tags "spring contact pogo battery cartridge mill-max 0900")
+		(property "Reference" "J2"
+			(at 0.405 1.6 0)
+			(layer "B.SilkS")
+			(uuid "87ae44a1-c71b-4ba8-bbf6-2038ecad3cbc")
+			(effects
+				(font
+					(size 0.8 0.8)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Value" "4 x Mill-Max 0900-0-15-20-76-14-11-0 (1-2 P+, 3-4 P-)"
+			(at 0 -6.4 0)
+			(layer "B.Fab")
+			(uuid "046a325c-3f47-41ec-9d97-523c48d79080")
+			(effects
+				(font
+					(size 0.8 0.8)
+					(thickness 0.12)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Datasheet" "https://www.mill-max.com/products/datasheet/0900-0-15-20-76-14-11-0"
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "c477dba4-97e5-4a07-90f3-6bec4d238abb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.12)
+				)
+				(justify mirror)
+			)
+		)
+		(property "Description" "4 x Mill-Max 0900-0-15-20-76-14-11-0, battery contacts in two pairs"
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5fa403c8-bfc4-44d5-8a4a-9aa4cc7a9dab")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.12)
+				)
+				(justify mirror)
+			)
+		)
+		(path "/2e42cba0-034b-5dd8-9cef-dae769e393ff/3c3d381c-0ff3-573d-8291-f4fc31d3a4db")
+		(sheetname "Controller")
+		(sheetfile "NIVA-controller.kicad_sch")
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -2.215 5.65)
+			(end 3.025 5.65)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "733a511d-f5bf-4d46-9595-d47378dc2aa3")
+		)
+		(fp_line
+			(start -2.215 2.85)
+			(end 3.025 2.85)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "950c2190-3b38-468a-ac5c-cdcd79cc478b")
+		)
+		(fp_line
+			(start -3.025 -2.85)
+			(end 2.215 -2.85)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "67bd1d64-2700-447c-b05e-4f842ef3fc5a")
+		)
+		(fp_line
+			(start -3.025 -5.65)
+			(end 2.215 -5.65)
+			(stroke
+				(width 0.15)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "016e0197-c989-41fa-a0c1-e5e4d4e3bec4")
+		)
+		(fp_rect
+			(start -2.365 5.75)
+			(end 3.175 2.75)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "0f0dd988-2f97-427f-ab80-0da843df3a7e")
+		)
+		(fp_rect
+			(start -3.175 -2.75)
+			(end 2.365 -5.75)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "B.CrtYd")
+			(uuid "6fafb6c2-9b4b-4cb6-8c20-8f2f5ee4d684")
+		)
+		(fp_rect
+			(start -2.115 5.5)
+			(end 2.925 3)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "e29d10a1-f9e2-4c40-8fa3-c4b36cd79e64")
+		)
+		(fp_rect
+			(start -2.925 -3)
+			(end 2.115 -5.5)
+			(stroke
+				(width 0.1)
+				(type default)
+			)
+			(fill no)
+			(layer "B.Fab")
+			(uuid "427fb0c7-b564-4ba1-bc14-201e9ec790c2")
+		)
+		(fp_text user "+"
+			(at 3.6 4.25 0)
+			(layer "B.SilkS")
+			(uuid "d7b9b572-4fd1-4c54-8bcc-39e9ea6af4e0")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(fp_text user "-"
+			(at 3.6 -4.25 0)
+			(layer "B.SilkS")
+			(uuid "a59330be-1e2d-479f-9bb2-0b9af3c58691")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+				(justify mirror)
+			)
+		)
+		(fp_text user "MILL-MAX 0900-0 x4"
+			(at 0 0 0)
+			(layer "B.Fab")
+			(uuid "4a1bff00-8e1e-4271-850a-ba6c280ffc07")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.1)
+				)
+				(justify mirror)
+			)
+		)
+		(pad "1" smd circle
+			(at 1.675 4.25 180)
+			(size 2.08 2.08)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net "VBAT")
+			(uuid "a0b8da61-694b-4fb5-8b8e-612a091cf2cd")
+		)
+		(pad "2" smd circle
+			(at -0.865 4.25 180)
+			(size 2.08 2.08)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net "VBAT")
+			(uuid "e7d4d9b0-f06a-4f00-8d46-722c2fd113de")
+		)
+		(pad "3" smd circle
+			(at 0.865 -4.25 180)
+			(size 2.08 2.08)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net "GND")
+			(uuid "6538dee9-c4ba-4c15-8727-a21db443c004")
+		)
+		(pad "4" smd circle
+			(at -1.675 -4.25 180)
+			(size 2.08 2.08)
+			(layers "B.Cu" "B.Mask" "B.Paste")
+			(net "GND")
+			(uuid "943472f5-ed5c-4914-ae62-3d5f374c1692")
+		)
+		(embedded_fonts no)
+		(model "${KIPRJMOD}/3dmodels/NIVA_SpringContact_2x2pairs_ENVELOPE.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Connector:Tag-Connect_TC2030-IDC-NL_2x03_P1.27mm_Vertical"
 		(layer "B.Cu")
 		(uuid "6441279f-238d-4742-90b5-c50058c0f466")
@@ -11520,173 +11750,6 @@
 		)
 		(embedded_fonts no)
 	)
-	(footprint "NIVA:SpringContact_1x04_P2.54mm_Vertical_SMD"
-		(layer "B.Cu")
-		(uuid "de97f8f8-6a77-42d4-931a-6efe9fc152f6")
-		(at 129 78.5)
-		(descr "Pod J2, Rev C.2: 4 x Mill-Max 0900-0-15-20-76-14-11-0 SMT spring-loaded pins at 2.54 mm pitch on 2.08 mm round pads (datasheet: surface mount on .082 dia. min. solder pad; 3.48 mm initial height, 0.991 mm max stroke, 0.508 mm rated mid-stroke). Needs a 2.97 mm board-to-plate gap (Rev C.1 gap is 2.6 mm).")
-		(tags "spring contact pogo battery cartridge placeholder")
-		(property "Reference" "J2"
-			(at 0 2.6 180)
-			(layer "B.SilkS")
-			(uuid "53595bc3-9ef7-4db1-ba34-4b4deab07b90")
-			(effects
-				(font
-					(size 0.8 0.8)
-					(thickness 0.12)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Value" "CARTRIDGE SPRING CONTACTS (part to select)"
-			(at 0 -2.6 180)
-			(layer "B.Fab")
-			(uuid "e72e0043-3986-4e27-9c70-918350925755")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.08)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 180)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "b0015b85-8f11-4dc2-9ced-fc596b86cfc8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.12)
-				)
-				(justify mirror)
-			)
-		)
-		(property "Description" "Placeholder - part to select"
-			(at 0 0 180)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "c43f68b0-7d39-4bee-974f-67215afc8bf9")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.12)
-				)
-				(justify mirror)
-			)
-		)
-		(path "/2e42cba0-034b-5dd8-9cef-dae769e393ff/3c3d381c-0ff3-573d-8291-f4fc31d3a4db")
-		(sheetname "Controller")
-		(sheetfile "NIVA-controller.kicad_sch")
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -5.75 -1.75)
-			(end 5.75 -1.75)
-			(stroke
-				(width 0.12)
-				(type default)
-			)
-			(layer "B.SilkS")
-			(uuid "2eca4104-f847-40b2-85fe-4f3489008de3")
-		)
-		(fp_line
-			(start -5.75 1.75)
-			(end 5.75 1.75)
-			(stroke
-				(width 0.12)
-				(type default)
-			)
-			(layer "B.SilkS")
-			(uuid "60a9659c-234c-4fae-85c9-23f1708a1022")
-		)
-		(fp_circle
-			(center -5.3 2.2)
-			(end -5.1 2.2)
-			(stroke
-				(width 0.12)
-				(type default)
-			)
-			(fill yes)
-			(layer "B.SilkS")
-			(uuid "d2f64a5e-f0f4-42a0-b118-ed83c8fcd449")
-		)
-		(fp_rect
-			(start -6 2)
-			(end 6 -2)
-			(stroke
-				(width 0.05)
-				(type default)
-			)
-			(fill no)
-			(layer "B.CrtYd")
-			(uuid "ad1ccd50-a6e7-44a8-aec0-3aeea2682230")
-		)
-		(fp_rect
-			(start -5.6 1.6)
-			(end 5.6 -1.6)
-			(stroke
-				(width 0.1)
-				(type default)
-			)
-			(fill no)
-			(layer "B.Fab")
-			(uuid "9c7825e6-decb-40a5-b231-34b8139eddd8")
-		)
-		(fp_text user "PART TO SELECT"
-			(at 0 0 180)
-			(layer "B.Fab")
-			(uuid "d0a58491-ab51-41ae-b720-4a3a9b02725e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.12)
-				)
-				(justify mirror)
-			)
-		)
-		(pad "1" smd circle
-			(at -3.81 0)
-			(size 2.08 2.08)
-			(layers "B.Cu" "B.Mask" "B.Paste")
-			(net "VBAT")
-			(uuid "9aa3f372-12d9-4616-9120-07fb6bd51276")
-		)
-		(pad "2" smd circle
-			(at -1.27 0)
-			(size 2.08 2.08)
-			(layers "B.Cu" "B.Mask" "B.Paste")
-			(net "VBAT")
-			(uuid "89f6dc26-13db-4903-b960-66ce031aacd7")
-		)
-		(pad "3" smd circle
-			(at 1.27 0)
-			(size 2.08 2.08)
-			(layers "B.Cu" "B.Mask" "B.Paste")
-			(net "GND")
-			(uuid "ed5758ac-756e-4308-9d7a-ec0c03471c0c")
-		)
-		(pad "4" smd circle
-			(at 3.81 0)
-			(size 2.08 2.08)
-			(layers "B.Cu" "B.Mask" "B.Paste")
-			(net "GND")
-			(uuid "7125c085-3acf-4a5b-af2b-ea49b3e4cca1")
-		)
-		(embedded_fonts no)
-		(model "${KIPRJMOD}/3dmodels/NIVA_SpringContact_1x04_ENVELOPE.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(gr_line
 		(start 104 88.930953)
 		(end 104 51.069046)
@@ -11833,7 +11896,7 @@
 			)
 		)
 	)
-	(gr_text "NIVA REV C"
+	(gr_text "NIVA REV C.2"
 		(at 121 60 0)
 		(layer "B.SilkS")
 		(uuid "7e7bb0a1-809f-4d19-8775-4d3a282d2252")
@@ -14447,24 +14510,6 @@
 		(uuid "9b305618-7bd6-42cb-8a9b-2f65eb2135e1")
 	)
 	(via
-		(at 131.699 77.675)
-		(size 0.5)
-		(drill 0.2)
-		(layers "F.Cu" "B.Cu")
-		(capping no)
-		(covering
-			(front no)
-			(back no)
-		)
-		(plugging
-			(front no)
-			(back no)
-		)
-		(filling no)
-		(net "GND")
-		(uuid "a0069153-6853-4e9a-a67a-5b9c867579f5")
-	)
-	(via
 		(at 125.047 52.2832)
 		(size 0.5)
 		(drill 0.2)
@@ -15031,20 +15076,20 @@
 		(uuid "16f7e1b0-27df-420d-8aea-41b46f8b8e20")
 	)
 	(segment
-		(start 132.81 78.5)
-		(end 134.239 77.675)
-		(width 0.2)
+		(start 128.539999 87)
+		(end 127.86 88.744)
+		(width 0.3)
 		(layer "B.Cu")
 		(net "GND")
-		(uuid "c303ea4b-4bcf-48ed-b628-b00d4d81469b")
+		(uuid "97d10e77-07f6-4612-b73d-71cfcd901106")
 	)
 	(segment
-		(start 130.27 78.5)
-		(end 131.699 77.675)
-		(width 0.2)
+		(start 126 87)
+		(end 124.763 88.017)
+		(width 0.3)
 		(layer "B.Cu")
 		(net "GND")
-		(uuid "f27da97f-bf7a-4cc9-980d-a2c1ab1288c7")
+		(uuid "e07fad96-63ff-4233-8ac7-a4fd3b1e4e56")
 	)
 	(segment
 		(start 114.175 76.9827)

@@ -2,12 +2,14 @@ NIVA-cartridge Rev C.2 - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FO
 
 Upload NIVA-cartridge-PCBWay-gerbers.zip. Order settings:
   2 layers, 3.4 x 30 mm, quantity 5, 0.8 mm FR-4, 1 oz copper, ENIG (the three
-  underside pads are the dock contacts), green mask, white silk.
+  underside pads are the dock contacts), green mask, white silk, min track/spacing 5/5 mil.
   Min track 0.2 mm, min clearance 0.15 mm, vias 0.6 mm pad / 0.3 mm drill
   (0.15 mm annular ring), 3 vias. No NPTH.
   The strip is 3.4 mm wide. PCBWay's help centre gives 3 x 3 mm as the smallest
   single board; if their review asks for a panel, accept their panelisation.
   "PCBWay" on B.Silkscreen along the strip (1 mm, 0.15 mm stroke).
+  Polarity silk (9 Nov review, finding C6): "+ T -" beside J1 (cell +, NTC, cell -) and
+  "- - + +" beside J2 (pads 1-2 to the lid's P- plate, 3-4 to its P+ plate).
 
 Blockers closed from datasheets (9 Nov 2026):
   - F1 = Bourns MF-PSMF035X-2 (0805 PTC: I_hold 0.35 A, I_trip 0.75 A at 23 C,
@@ -21,12 +23,16 @@ Blockers closed from datasheets (9 Nov 2026):
     1.0 x 1.5 mm with a 1.2 mm gap. Both cover the terminals; copper left as is.
   - Lead gauge: the same EEMB spec gives UL1571 AWG28 leads, tinned 3.0 +- 0.5 mm,
     20 +- 2 mm long. The 1.5 x 1.1 mm wire pads at 1.8 mm pitch take AWG26-30, so the
-    copper suits it (the footprint text still says 30 AWG).
+    copper suits it (footprint text corrected 9 Nov: pad 1 cell +, pad 2 NTC, pad 3 cell -).
 
 Checks at export, 9 Nov 2026 (KiCad 10.0.7, stock global libraries, schematic parity on):
   ERC errors 0, warnings 0. DRC errors 0, unconnected 0, 4 field-mismatch warnings
   (F1 MPN not on the footprint; J1-J3 descriptions). Reports: ../../NIVA-cartridge-DRC.rpt,
   ../../../NIVA-cartridge-ERC.rpt. Same Gerber/drill flags as the pod.
+
+Mechanics that locate this board (9 Nov review, findings D2/C15): end stops in the cup
+(03_BatteryCartridgeCup) hold it to 0.15 mm in y, and two posts on the lid hold it down
+(0.05 mm gap) against the three dock pins; bond it to the cup floor with epoxy.
 
 Passing KiCad ERC/DRC is not a design review. Still open:
   - F1 series resistance: 0.25 ohm new, up to 1.2 ohm after a trip or reflow, so 88-420 mV
@@ -35,5 +41,8 @@ Passing KiCad ERC/DRC is not a design review. Still open:
     land but trips above the PCM's 0.8 A peak rating.
   - The EEMB spec read is for LP502030-PCM-LD (two leads, no NTC). The NTC variant the
     design names (-PCM-NTC-LD) needs its own spec: NTC value and third lead gauge.
-  - ENIG wear of the dock pads under the Mill-Max plungers: cycle test on the first article.
+  - ENIG wear of the dock pads under the Mill-Max plungers: cycle test on the first article
+    (consider hard gold or ENEPIG for production, review C16).
+  - A tripped F1 dissipates about 0.5 W about 1 mm from the pouch (C5): thermocouple test.
+  - No IEC 62133-2 report, UN 38.3 summary or PCM over-current threshold for the cell (C8).
   - No independent review; read PCBWay's DFM reply before paying.

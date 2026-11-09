@@ -9,8 +9,10 @@ Safety architecture (no firmware in the safety path):
      over-current, short circuit) and NTC lead.
   2. Cartridge: series polyfuse between the cell and every external contact (pod plates and dock pads).
   3. Dock: MCP73831 linear charger, 4.20 V, I_REG = 1000 V / R_PROG = 100 mA (~0.43 C of 230 mAh min).
-     PROG is grounded only through Q1; an LM393 window on the pack NTC turns Q1 off outside ~0-45 C,
+     PROG is grounded only through Q1; an LM393 window on the pack NTC turns Q1 off outside ~4-41 C,
      with the NTC open (no cartridge) or shorted. A floating PROG disables the MCP73831 (datasheet).
+     USB input: F1 polyfuse then D2 SMAJ5.0A TVS to GND (datasheet 6.1.1.2). No charge timer and no input OVP
+     in this charger: both wait for the Rev C.3 charger IC.
   4. Mechanics: the pod has no charge input; only a bare cartridge fits the dock well; the cartridge
      screw is hidden by the cradle while worn.
 """
@@ -45,7 +47,7 @@ def footprints(folder):
         if model: txt += f'(model "${{KIPRJMOD}}/3dmodels/{model}" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))\n'
         (folder / f'{name}.kicad_mod').write_text(txt + ')\n')
     CU = '"F.Cu" "F.Mask"'; CUP = '"F.Cu" "F.Paste" "F.Mask"'
-    fp('WirePads_1x03_P1.8mm', 'Solder pads for three 30 AWG leads (cell +, -, NTC)',
+    fp('WirePads_1x03_P1.8mm', 'Solder pads for the three cell leads: pad 1 cell +, pad 2 NTC, pad 3 cell - (AWG26-30; EEMB LP502030 leads are AWG28)',
        [(str(i + 1), 0, (i - 1) * 1.8, 'rect', 1.5, 1.1, CU) for i in range(3)], (1.7, 4.9))
     fp('WirePads_1x04_P1.7mm', 'Solder pads for four leads to the lid contact plates',
        [(str(i + 1), 0, (i - 1.5) * 1.7, 'rect', 1.5, 1.0, CU) for i in range(4)], (1.7, 6.1))
@@ -105,20 +107,30 @@ ddir = BASE / 'dock'; footprints(ddir / 'NIVA_power.pretty')
 dock = single_sheet(ddir, 'NIVA-dock', 'NIVA cartridge charging dock | USB-C, MCP73831, hardware NTC window | Rev C.1', 'A3')
 dock.text(20, 16, 'NIVA CHARGING DOCK - ENGINEERING PROTOTYPE - NOT FOR FABRICATION', 2.5)
 sch = dock
-def R(ref, v, x, y, a, b): dock.place('Device:R', ref, v, x, y, {'1': a, '2': b}, RFP)
-def Cc(ref, v, x, y, a, b, fp=CFP): dock.place('Device:C', ref, v, x, y, {'1': a, '2': b}, fp)
+def R(ref, v, x, y, a, b, mpn=None): dock.place('Device:R', ref, v, x, y, {'1': a, '2': b}, RFP, extra={'MPN': mpn} if mpn else None)
+def Cc(ref, v, x, y, a, b, fp=CFP, mpn=None): dock.place('Device:C', ref, v, x, y, {'1': a, '2': b}, fp, extra={'MPN': mpn} if mpn else None)
 dock.text(20, 30, '01  USB-C SINK (5 V ONLY)', 1.8)
+# J1: GCT USB4125 drawing Rev A6 ordering grid: shell stake "S" blank = 1.00 mm, 0190 = 1.90 mm. The dock PCB is 1.6 mm,
+# so only -0190 reaches through for the plated-slot fillet. KiCad's ..._USB4125-xx-x-0190_6P footprint has the same
+# copper as the one used here (pads, four 0.6 x 1.2 mm slots); only its 3D model differs.
 dock.place('Connector:USB_C_Receptacle_PowerOnly_6P', 'J1', 'USB-C 6P power-only', 45, 70,
            {'A5': 'CC1', 'B5': 'CC2', 'A9': 'VBUS_IN', 'B9': 'VBUS_IN', 'A12': 'GND', 'B12': 'GND', 'S1': 'GND'},
-           'Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal', extra={'MPN': 'GCT USB4125 class'})
+           'Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal', extra={'MPN': 'GCT USB4125-GF-A-0190'})
 R('R1', '5.1k', 85, 60, 'CC1', 'GND'); R('R2', '5.1k', 100, 60, 'CC2', 'GND')
-dock.place('Device:Polyfuse', 'F1', 'PTC 1206 hold 0.5 A', 85, 95, {'1': 'VBUS_IN', '2': 'VBUS'}, 'Fuse:Fuse_1206_3216Metric')
+# F1 (Rev C.2 fix): Bourns MF-NSMF050/24X-2, 1206: I_hold 0.50 A at 23 C (0.26 A at 85 C) against ~0.11 A of charger, LED
+# and comparator; I_trip 1.00 A; 0.10 s max at 8 A; R 0.15-0.75 ohm. 24 V rated so it holds off a faulty 20 V source
+# once D2 has made it trip (MF-NSMF050 is 13.2 V). Bourns land 1.0 x 1.6 mm, 2.0 mm gap: fits the KiCad 1206 land.
+dock.place('Device:Polyfuse', 'F1', 'PTC 0.5 A hold, 24 V', 85, 95, {'1': 'VBUS_IN', '2': 'VBUS'}, 'Fuse:Fuse_1206_3216Metric',
+           extra={'MPN': 'Bourns MF-NSMF050/24X-2'})
 dock.flag(110, 110, 'VBUS'); dock.flag(125, 110, 'GND')
 dock.text(150, 30, '02  LINEAR CHARGER  4.20 V / 100 mA', 1.8)
 dock.place('Battery_Management:MCP73831-2-OT', 'U1', 'MCP73831T-2ACI/OT', 190, 70,
            {'1': 'STAT', '2': 'GND', '3': 'BAT', '4': 'VBUS', '5': 'PROG'}, 'Package_TO_SOT_SMD:SOT-23-5',
            extra={'MPN': 'MCP73831T-2ACI/OT'})
-Cc('C1', '4.7u 10V', 160, 100, 'VBUS', 'GND'); Cc('C2', '4.7u 10V', 225, 100, 'BAT', 'GND')
+# C1/C2 (Rev C.2 fix): MCP73831 needs >= 4.7 uF on VDD and VBAT after DC bias; 10 uF 0805 X5R 16 V should keep that at
+# 4-5 V (typical DC-bias curve, not measured). The 4.7 uF 10 V 0603 parts did not.
+Cc('C1', '10u 16V X5R', 160, 100, 'VBUS', 'GND', C0805, 'Murata GRM21BR61C106KE15L')
+Cc('C2', '10u 16V X5R', 225, 100, 'BAT', 'GND', C0805, 'Murata GRM21BR61C106KE15L')
 R('R3', '10k 1%', 245, 70, 'PROG', 'PROG_SW')
 dock.place('Transistor_FET:2N7002', 'Q1', '2N7002', 265, 90, {'1': 'TEMP_OK', '2': 'GND', '3': 'PROG_SW'},
            'Package_TO_SOT_SMD:SOT-23')
@@ -129,7 +141,11 @@ dock.text_block(150, 150, ['R_PROG 10k -> I_REG = 1000 V / 10 kOhm = 100 mA (MCP
                            'D1 lights while STAT is low (charging). Charge complete or inhibited = off.'], 1.2)
 dock.text(20, 170, '03  PACK NTC WINDOW (HARDWARE, NO FIRMWARE)', 1.8)
 R('R5', '22k 1%', 40, 200, 'VBUS', 'NTC_S'); Cc('C3', '100n', 60, 230, 'NTC_S', 'GND')
-R('R6', '43k 1%', 90, 195, 'VBUS', 'VTH_HI'); R('R7', '39k 1%', 90, 225, 'VTH_HI', 'VTH_LO'); R('R8', '18k 1%', 90, 255, 'VTH_LO', 'GND')
+# R6/R7/R8 (Rev C.2 retune): thresholds 0.525 / 0.201 of VBUS. 10k B3435: 3.7..41.2 C nominal; worst case with 1 % R5-R8,
+# NTC R25 and B at 1 %, LM393 +-9 mV and 0..400 nA per input, VBUS 4.6-5.25 V: 2.2..43.0 C (B3380 1.8..43.3, B3950 4.9..40.5).
+R('R6', '46.4k 1%', 90, 195, 'VBUS', 'VTH_HI', 'Yageo RC0603FR-0746K4L')
+R('R7', '31.6k 1%', 90, 225, 'VTH_HI', 'VTH_LO', 'Yageo RC0603FR-0731K6L')
+R('R8', '19.6k 1%', 90, 255, 'VTH_LO', 'GND', 'Yageo RC0603FR-0719K6L')
 dock.place('Comparator:LM393', 'U2', 'LM393', 150, 205, {'1': 'TEMP_OK', '2': 'NTC_S', '3': 'VTH_HI'},
            'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', unit=1)
 dock.place('Comparator:LM393', 'U2', 'LM393', 150, 245, {'5': 'NTC_S', '6': 'VTH_LO', '7': 'TEMP_OK'},
@@ -137,16 +153,29 @@ dock.place('Comparator:LM393', 'U2', 'LM393', 150, 245, {'5': 'NTC_S', '6': 'VTH
 dock.place('Comparator:LM393', 'U2', 'LM393', 200, 225, {'8': 'VBUS', '4': 'GND'}, 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm', unit=3)
 Cc('C4', '100n', 225, 225, 'VBUS', 'GND'); R('R9', '100k', 245, 200, 'VBUS', 'TEMP_OK')
 dock.text_block(20, 275, [
-    'NTC_S = VBUS x R_NTC / (22k + R_NTC). Window (ratio of VBUS): cold/open trip 0.57 (VTH_HI), hot/short trip 0.18 (VTH_LO).',
-    '10k B3435 NTC: 0 C -> 28.7k -> 0.566; 45 C -> 4.85k -> 0.181.  B3950: trips at ~2.5 C / ~43 C (conservative).',
-    'No cartridge: NTC_S = VBUS (5 V) -> unit A pulls TEMP_OK low -> no charge. Only VTH_HI (2.85 V) must be inside the',
+    'NTC_S = VBUS x R_NTC / (22k + R_NTC). Window (ratio of VBUS): cold/open trip 0.525 (VTH_HI), hot/short trip 0.201 (VTH_LO).',
+    '10k B3435 NTC: charges 3.7..41.2 C nominal, 2.2..43.0 C worst case (1 % R and NTC, LM393 9 mV / 400 nA). B3950: 6.3..39.0 C.',
+    'No cartridge: NTC_S = VBUS (5 V) -> unit A pulls TEMP_OK low -> no charge. Only VTH_HI (2.62 V) must be inside the',
     'LM393 common-mode range (VCC - 1.5 V at 25 C, VCC - 2 V over temperature): an input outside it still gives a correct output.',
-    'No hysteresis: charge may toggle at a threshold, which is benign (charging is inhibited outside the window).'], 1.2)
+    # A resistor TEMP_OK -> VTH_HI (review C10, 4.7M) gives +0.46 C at the cold edge, but it also pulls VTH_LO down when
+    # TEMP_OK goes low, i.e. -0.35 C (negative feedback) at the hot edge: TEMP_OK would oscillate in a band
+    # at ~41 C. Hysteresis on both edges needs VTH_LO from its own divider; the Rev C.3 TS-pin charger makes this moot.
+    'No hysteresis. TEMP_OK->VTH_HI feedback would fix the cold edge but makes the hot edge unstable (shared divider): Rev C.3.'], 1.2)
 dock.place('Connector_Generic:Conn_01x03', 'J2', 'SPRING PINS TO CARTRIDGE (P+, NTC, P-)', 300, 205,
            {'1': 'BAT', '2': 'NTC_S', '3': 'GND'}, 'NIVA_power:SpringPins_1x03_P6.0mm_Vertical',
            extra={'MPN': 'Mill-Max 0900-0-15-20-76-14-11-0 (3 pcs)'})
 for ref, x in (('H1', 300), ('H2', 315), ('H3', 330), ('H4', 345)):
     dock.place('Mechanical:MountingHole', ref, 'M2', x, 250, {}, 'MountingHole:MountingHole_2.2mm_M2', bom=False)
+# D2 (Rev C.2 fix, review C1): TVS after F1, VBUS to GND, as MCP73831 DS20001984H 6.1.1.2 / Fig. 6-1 show for hot-pluggable
+# USB. Bourns SMAJ5.0A: VRWM 5.0 V, VBR 6.40-7.00 V at 10 mA (VDD abs. max 7.0 V), VC 9.2 V at 43.5 A, 400 W, 1.0 W steady.
+# Placed last so the UUID sequence of every earlier symbol is unchanged. Board: D_SMA at (157.1, 59.2), beside C1/U1.
+dock.place('Diode:SMAJ5.0A', 'D2', 'SMAJ5.0A', 100, 95, {'1': 'VBUS', '2': 'GND'}, 'Diode_SMD:D_SMA', rotation=270,
+           extra={'MPN': 'Bourns SMAJ5.0A'})
+_i = next(i for i, s in enumerate(dock.items) if '(property "Reference" "D2"' in s)    # place() writes field angle 0,
+dock.items[_i] = (dock.items[_i].replace('(at 102.87 94.61 0)', '(at 102.87 94.61 90)')  # drawn vertical on a 270-degree
+                  .replace('(at 102.87 97.16 0)', '(at 102.87 97.16 90)'))              # symbol: turn D2's fields upright
+dock.text_block(20, 125, ['D2 TVS (Bourns SMAJ5.0A) after F1, VBUS to GND, as in MCP73831 DS20001984H 6.1.1.2: clamps hot-plug ringing',
+                          '(VBR 6.40-7.00 V at 10 mA vs the 7.0 V VDD abs. max). A sustained overvoltage makes D2 conduct and trips F1 (24 V PTC).'], 1.2)
 dock.save('(sheet_instances (path "/" (page "1")))')
 project(ddir, 'NIVA-dock', dock, ['VBUS', 'VBUS_IN', 'GND', 'BAT'])
 for d in (cdir, ddir):

@@ -4,39 +4,99 @@ Upload NIVA-dock-PCBWay-gerbers.zip. Order settings:
   2 layers, 58 x 56 mm, quantity 5, 1.6 mm FR-4, 1 oz copper, ENIG (flat pads for
   the SMT spring pins), green mask, white silk. GND pour on both layers.
   Min track 0.2 mm, min clearance 0.15 mm, vias 0.6 mm pad / 0.3 mm drill
-  (0.15 mm annular ring), 10 vias. Two plated slots 0.6 x 1.2 mm for the USB-C shell tabs
-  (G85 slots in the PTH file; confirm in PCBWay's DFM). NPTH: 4 x 2.2 mm (M2 mounting holes).
-  "PCBWay" on B.Silkscreen (1 mm, 0.15 mm stroke). Front silk now reads NIVA DOCK REV C.2.
+  (0.15 mm annular ring), 11 vias. Four plated slots 0.6 x 1.2 mm for the USB-C shell tabs
+  (G85 slots in the PTH file at x 154.2-154.8 and 158.0-158.6, y 45.68 and 54.32;
+  length/width 2.0, PCBWay's minimum; confirm in PCBWay's DFM). Earlier versions of this
+  file said two slots; the drill file has always had four. NPTH: 4 x 2.2 mm (M2 mounting holes).
+  "PCBWay" on B.Silkscreen (1 mm, 0.15 mm stroke). Front silk reads NIVA DOCK REV C.2.
 
-Blockers closed (9 Nov 2026):
-  - J2 = 3 x Mill-Max 0900-0-15-20-76-14-11-0 (same pin as the pod J2), on 2.08 mm round
-    pads at 6.0 mm pitch: the datasheet's .082 in minimum pad, as on the C.2 pod.
-    Mechanics: the pin is 3.48 mm free, but the Rev C.1 dock put the cartridge pads 3.8 mm
-    above the PCB, so it would not have touched. The well floor is now 0.83 mm lower
-    (niva_layout DOCK['floor_z'] = PCB top + 2.972 - 1.0 mm cup floor), and
-    10_DockBase / 11_DockTop / 12_DockLightPipe_Clear were regenerated. FreeCAD audit
-    (mechanical/dock-interference-report.json): 0.50 mm compression seated, 0.40 mm with the
-    cartridge lifted onto the latch hook; the only intersection is pins on pads; pins clear
-    the well-floor holes by 0.25 mm. Only J2 sits under the well floor (0.77 mm headroom).
-  - NTC assumption for R6/R7/R8 (R5 22k pull-up, thresholds 0.570 / 0.180 of VBUS):
-    the pack NTC is 10 k at 25 C with B25/50 = 3435 K. Then charging is allowed from
-    -0.3 C to 45.1 C nominal. With B 3380 K: -0.7 to 45.5 C. With B 3950 K: 2.7 to 42.3 C.
-    A 100 k NTC reads as cold at room temperature and the dock never charges, so a wrong
-    NTC shows up on the first test. The cell spec in hand (EEMB LP502030-PCM-LD) has no NTC;
-    the NTC value of the -PCM-NTC-LD variant is still unconfirmed.
+Changes, 9 Nov 2026 (review C items C1, C9, C12, C17, C18; charger IC swap deferred to Rev C.3):
+  - D2 added: Bourns SMAJ5.0A TVS (SMA / DO-214AC), cathode on VBUS after F1, anode to GND,
+    as MCP73831 DS20001984H 6.1.1.2 and Fig. 6-1 ask for a hot-pluggable USB input.
+    Bourns SMAJ datasheet: VRWM 5.0 V, VBR 6.40-7.00 V at 10 mA, IR 800 uA max at 5.0 V,
+    VC 9.2 V at 43.5 A (10/1000 us), 400 W, 1.0 W steady state, body height 2.29 mm max.
+    Placed at (157.1, 59.2) between J1, C1 and U1, 5 mm from U1 VDD. 0.8 mm copper from the
+    cathode to the VBUS run that feeds U1 VDD (that run widened to 0.8 mm), 0.8 mm from the
+    anode to the J1 GND run, plus one GND stitching via to the B.Cu pour. No enclosure wall
+    sits over this spot (the well walls end at x 148).
+    What it does and does not do: its VBR maximum equals the MCP73831 7.0 V VDD absolute
+    maximum, so D2 takes the hot-plug overshoot off but cannot hold VDD under 7.0 V in a large
+    surge (9.2 V at 43.5 A). Series-RLC model of a hot plug (cable 0.5-1 uH, 0.25-0.6 ohm):
+    the old C1 (about 2.2 uF effective) peaked at 7.76 V; with D2 alone that becomes
+    6.57-7.12 V; with the new C1 (5-7 uF effective) the peaks are 5.1-7.0 V before D2 needs
+    to conduct. A sustained overvoltage makes D2 conduct until F1 trips.
+  - F1 = Bourns MF-NSMF050/24X-2 (1206). I_hold 0.50 A at 23 C, 0.44 A at 40 C, 0.26 A at
+    85 C, against about 0.11 A drawn (100 mA charge, LED, comparator). I_trip 1.00 A,
+    0.10 s max at 8 A, R 0.15-0.75 ohm (about 80 mV at 0.11 A). The 24 V rating lets it hold
+    off a faulty 20 V source after D2 has made it trip; the review's MF-NSMF050-2 has the same
+    land and current ratings but is 13.2 V. Bourns land 1.0 x 1.6 mm with a 2.0 mm gap sits
+    inside the KiCad 1206 land (1.25 x 1.75 mm, 1.55 mm gap): no copper change.
+  - C1, C2 = 10 uF 16 V X5R 0805, Murata GRM21BR61C106KE15L (were 4.7 uF 10 V 0603, below
+    the datasheet's 4.7 uF minimum once DC bias is counted). Re-landed to 0805 on the same
+    centres; no other part moved. Local copper only: C1's VBUS and GND tracks end on the new
+    pads, the STAT via under C1 moved 0.6 mm down, C2's GND entry shortened. Effective
+    capacitance at 4-5 V should stay above 4.7 uF (typical 0805 X5R DC-bias curve; not
+    measured).
+  - NTC window retuned (C9): R6 / R7 / R8 = 46.4k / 31.6k / 19.6k 1 %, Yageo
+    RC0603FR-0746K4L / -0731K6L / -0719K6L. R5 stays 22k. Thresholds 0.525 / 0.201 of VBUS
+    (were 0.570 / 0.180). The review proposed R7 = 33.2k (3.0-41.8 C); 31.6k gives up 1.2 C
+    of window for about 0.6 C more margin at each edge once the LM393 full-temperature limits
+    and B3380 NTCs are counted. Charge allowed (pack NTC temperature):
+        NTC           nominal          worst case
+        10k B3435     3.7 .. 41.2 C    2.2 .. 43.0 C
+        10k B3380     3.4 .. 41.4 C    1.8 .. 43.3 C
+        10k B3950     6.3 .. 39.0 C    4.9 .. 40.5 C
+    Worst case: R5-R8 1 %, NTC R25 1 % and B 1 %, LM393 offset +-9 mV and bias 0-400 nA per
+    input (full temperature range), VBUS 4.6-5.25 V. With the NTC at +-3 % the B3435 window
+    is 1.7 .. 43.6 C. The old values gave -1.9 .. 47.1 C on the same basis. VTH_HI at
+    VBUS 4.6 V is now 2.41 V, inside the LM393 full-range common-mode limit (VCC - 2 V =
+    2.6 V); it was 2.62 V (C11).
+  - MPN fields: J1 = GCT USB4125-GF-A-0190. GCT drawing Rev A6 ordering grid: shell stake
+    "S" blank = 1.00 mm, 0190 = 1.90 mm; only the 1.90 mm stake reaches through this 1.6 mm
+    board for the slot fillet. The footprint stays KiCad's USB4125-xx-x: its copper (6 pads,
+    four 0.6 x 1.2 mm slots in 1.1 x 1.7 mm pads) is identical to KiCad's
+    ..._USB4125-xx-x-0190_6P footprint, checked pad by pad. J2 = Mill-Max
+    0900-0-15-20-76-14-11-0 (3 pcs), unchanged. MPN fields are now on the footprints too.
+
+Wrong pack NTC: what a room-temperature first test does and does not show. This corrects the
+earlier claim that a wrong NTC always shows up on the first test.
+  With these values the dock charges in a 25 C room for any NTC from about 5.6 k to 24 k
+  (at 25 C), but keeps its window inside the cell's 0-45 C only from about 8.5 k to 11.4 k
+  (B3435; 7.3 k to 12.7 k for B3950). So:
+    - Shows up (no charge in a 25 C room): 33 k, 47 k and 100 k NTCs, and anything below
+      about 5.5 k. Even then a 47 k (B4050) part charges a pack at 40-81 C and a 100 k
+      (B4250) part at 58-101 C, and a 4.7 k part still charges in a room below 21 C.
+    - Does NOT show up (charges normally at room temperature): 6.8 k (charges down to
+      -4.7 C), 12 k B3435 (up to 46.5 C), 15 k B3950 (14.5-49.3 C), 22 k B3950 (22.8-59.7 C).
+  So incoming inspection is the check: measure every pack's NTC between the NTC and P- leads
+  at 25 C before soldering, accept 10 k +- 3 %, record the lot.
 
 Checks at export, 9 Nov 2026 (KiCad 10.0.7, stock global libraries, schematic parity on,
-zones refilled and saved): DRC errors 0, unconnected 0. Warnings: 1 USB-C footprint differs
-from the KiCad 10 library copy, 3 MPN fields not on footprints. ERC errors 0, 1 warning
-(USB-C symbol differs from the KiCad 10 library copy). Reports: ../../NIVA-dock-DRC.rpt,
-../../../NIVA-dock-ERC.rpt. Same Gerber/drill flags as the pod.
+zones refilled and saved): DRC errors 0, unconnected 0, footprint errors 0. 1 warning: J1
+footprint differs from the KiCad 10 library copy (shield pads named S1 to match the symbol,
+library says SH; copper identical). The three "MPN field not on footprint" warnings are gone,
+and J2's footprint Description field was cleared to match its symbol. ERC errors 0,
+1 warning (USB-C symbol differs from the KiCad 10 library copy, shield pin S1 vs SH).
+Reports: ../../NIVA-dock-DRC.rpt, ../../../NIVA-dock-ERC.rpt. Renders:
+../../NIVA-dock-render-top.png and -bottom.png. Same Gerber/drill flags as the pod.
 
 Passing KiCad ERC/DRC is not a design review. Still open:
-  - NTC window margin: with 1 % resistors (10 k B3435) the trips spread to -1.0..+0.3 C
-    and 44.2..46.0 C, so a window edge can sit just outside the cell's 0-45 C charge
-    range (NTC tolerance adds to this). Once the purchased cell's NTC is known, retune
-    R6/R7/R8 for about 3-42 C. That is a BOM change; the copper does not change.
-  - J2 3D model is a datasheet envelope; pin verticality after reflow (bench).
-  - Thresholds, charge termination (4.20 V +- 1 %) and fault behaviour unmeasured
-    (VERIFICATION-PLAN F4).
-  - No independent review; read PCBWay's DFM reply before paying.
+  - Rev C.3: replace the MCP73831 with a charger that has a charge safety timer (C2; the
+    EEMB cell spec asks for one) and a 30 V-tolerant input with OVP (C1), for example TI
+    BQ25170 with its TS pin. Until then charge attended only, and stop by 5 h (F4).
+  - No hysteresis on the NTC window (C10). The review's 4.7 Mohm from TEMP_OK to VTH_HI was
+    not fitted: it gives +0.46 C at the cold edge, but VTH_LO hangs off the same divider, so
+    it moves the hot threshold the wrong way (-0.35 C) and TEMP_OK would oscillate in a band
+    near 41 C. Hysteresis on both edges needs VTH_LO on its own divider (one more resistor,
+    R7 to GND); the C.3 TS-pin charger makes it moot. Cold-edge on/off cycling from the P-
+    return drop stays a bench item.
+  - No ESD part on J2 NTC_S / BAT; a half-seated cartridge can pull the LM393 inputs below
+    -0.3 V (C13).
+  - One LED cannot tell "full" from "not charging" (C14).
+  - The NTC value, B and wiring of the -PCM-NTC-LD cell are still unconfirmed (C3, C8, C20).
+  - U2, Q1, D1, C3, C4, R1-R5 and R9 still have no MPN (C18).
+  - D2 3D model is an envelope from the Bourns SMA maxima (dock/3dmodels/D_SMA_ENVELOPE.step);
+    J2 3D model is a datasheet envelope; pin verticality after reflow (bench).
+  - Hot-plug VDD on a scope (20 plugs, 1 m and 2 m cables), thresholds, charge termination
+    (4.20 V +- 1 %) and fault behaviour are unmeasured (VERIFICATION-PLAN F4).
+  - No independent review of these changes; read PCBWay's DFM reply before paying.

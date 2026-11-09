@@ -72,6 +72,12 @@ def ankle_cradle(side):
     s = interface_core(side)
     wh = P['STRAP_W'] + 4.0; yc = 30.5                                  # Rev C wing: 39 mm for a 35 mm strap, centred y 30.5
     span = P['WING_SPAN']; wings = rr(span, wh, 4, ZB, 3.0, 21 - span / 2, yc - wh / 2)
+    # keep the core's cuts that the wings overlap (9 Nov 2026 review): the cartridge screw-head relief and slot, and the
+    # latch arm's side slots and thinning, so the arm keeps the Rev C length and the head can slide in
+    tx, ty = L.CART_TAB['screw']
+    for c in (cyl(tx, ty, -2.0, 2.4, 1.7), box(tx - 2.4, ty, -2.0, 4.8, 59.6 - ty, 1.7), box(16.2, 45, -3.6, 0.8, 16, 3.4),
+              box(25.0, 45, -3.6, 0.8, 16, 3.4), box(17, 46.5, -1.8, 8, 14, 1.5)):
+        wings = wings.cut(c)
     s = s.fuse(wings)
     for x in (-7.8, 45.8):
         s = s.cut(rr(4, P['STRAP_W'] + 0.5, 1, ZB - 0.2, 3.4, x, yc - (P['STRAP_W'] + 0.5) / 2))
@@ -181,7 +187,7 @@ for name, (shp, mat, orient, note) in new.items():
 
 # assemblies (right side) with the unchanged Rev C pod parts
 pod = {'01_RearHousing_R': NS['rear_housing']('R'), '02_FrontCover_R': NS['front_cover']('R')}
-kicad_step = HW / 'outputs/NIVA-3D-engineering-prototype/electronics/exports/pcb/NIVA-pod-PCBA.step'
+kicad_step = PKG / 'electronics-C2-working/exports/pcb/NIVA-pod-PCBA.step'          # Rev C.2 board (regrouped J2, antenna notch)
 pcba = Part.Shape(); pcba.read(str(kicad_step)); pcba.translate(V(0, 0, NS['PCB_Z']))
 sol = sorted(pcba.Solids, key=lambda x: -x.Volume)
 pod['PCB_Substrate_R'] = Part.makeCompound(sol[:1]); pod['PCB_Components_KiCad_R'] = Part.makeCompound(sol[1:])

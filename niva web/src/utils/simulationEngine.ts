@@ -11,15 +11,17 @@ export interface GaitFrame {
   explanation: string;
 }
 
+// The mode names only label made-up waveforms: nothing here models or detects a condition,
+// and none of it comes from patient data. Each line describes the generated signal only.
 export const getDiseaseExplanation = (mode: GaitMode): string => {
   switch (mode) {
-    case 'Parkinson': return "Low heel impact combined with increased stance duration suggests Parkinsonian shuffling gait.";
-    case 'Stroke': return "Medial-lateral pressure asymmetry detected indicating hemiplegic gait imbalance.";
-    case 'Neuropathy': return "Sustained forefoot pressure may increase risk of diabetic plantar ulceration.";
-    case 'Foot Drop': return "Absent heel strike and forefoot slap characteristic of dorsiflexion weakness.";
-    case 'Ataxia': return "Unstable gait and high IMU roll variance indicative of cerebellar ataxia.";
+    case 'Parkinson': return "Synthetic pattern: low heel load and impact, longer stance.";
+    case 'Stroke': return "Synthetic pattern: inner forefoot load much higher than outer.";
+    case 'Neuropathy': return "Synthetic pattern: high forefoot load, light heel load.";
+    case 'Foot Drop': return "Synthetic pattern: almost no heel load, forefoot loads first.";
+    case 'Ataxia': return "Synthetic pattern: random load levels and large random tilt.";
     case 'Normal':
-    default: return "Balanced pressure progression and stable temporal parameters detected.";
+    default: return "Synthetic pattern: even heel-to-toe load progression.";
   }
 }
 

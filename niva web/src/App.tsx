@@ -1,18 +1,9 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import ClinicalInsightsUpdated from './pages/ClinicalInsightsUpdated';
-import ClinicalInsights3D from './pages/ClinicalInsights3D';
-import TrendAnalytics from './pages/TrendAnalytics';
 import DeviceSettings from './pages/DeviceSettings';
-import ClinicianPDFDark from './pages/ClinicianPDFDark';
-import ClinicianPDF from './pages/ClinicianPDF';
 import MainDashboard from './pages/MainDashboard';
-import SymmetryDetailedReport from './pages/SymmetryDetailedReport';
-import ClinicalInsightsHeatmapLegend from './pages/ClinicalInsightsHeatmapLegend';
-import ClinicalInsights3DHeatmap from './pages/ClinicalInsights3DHeatmap';
-import ClinicalInsightsAnatomyLegend from './pages/ClinicalInsightsAnatomyLegend';
-import ClinicalInsights from './pages/ClinicalInsights';
+import NoDeviceData from './pages/NoDeviceData';
 
 import BottomNav from './components/BottomNav';
 
@@ -52,21 +43,22 @@ function App() {
           
           {/* Primary Nav Hub Routes */}
           <Route path="/main" element={<MainDashboard />} />
-          <Route path="/insights" element={<ClinicalInsightsUpdated />} />
-          <Route path="/trends" element={<TrendAnalytics />} />
+          <Route path="/insights" element={<NoDeviceData title="Details" />} />
+          <Route path="/trends" element={<NoDeviceData title="Trends" />} />
           <Route path="/settings" element={<DeviceSettings />} />
           
-          {/* Deep Links / Drill Downs */}
-          <Route path="/insights/3d" element={<ClinicalInsights3D />} />
-          <Route path="/insights/heatmap" element={<ClinicalInsightsHeatmapLegend />} />
-          <Route path="/insights/3d-heatmap" element={<ClinicalInsights3DHeatmap />} />
-          <Route path="/insights/anatomy" element={<ClinicalInsightsAnatomyLegend />} />
-          <Route path="/insights/simple" element={<ClinicalInsights />} />
+          {/* Deep links kept so old URLs still resolve. These pages only ever showed
+              invented values, so each now shows an honest empty state. */}
+          <Route path="/insights/3d" element={<NoDeviceData title="Details" />} />
+          <Route path="/insights/heatmap" element={<NoDeviceData title="Details" />} />
+          <Route path="/insights/3d-heatmap" element={<NoDeviceData title="Details" />} />
+          <Route path="/insights/anatomy" element={<NoDeviceData title="Details" />} />
+          <Route path="/insights/simple" element={<NoDeviceData title="Details" />} />
           
-          <Route path="/symmetry" element={<SymmetryDetailedReport />} />
+          <Route path="/symmetry" element={<NoDeviceData title="Symmetry" />} />
           
-          <Route path="/pdf" element={<ClinicianPDF />} />
-          <Route path="/pdf-dark" element={<ClinicianPDFDark />} />
+          <Route path="/pdf" element={<NoDeviceData title="Report" />} />
+          <Route path="/pdf-dark" element={<NoDeviceData title="Report" />} />
         </Route>
       </Routes>
     </BrowserRouter>

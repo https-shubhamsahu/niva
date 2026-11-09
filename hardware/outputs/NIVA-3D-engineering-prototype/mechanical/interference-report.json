@@ -14,6 +14,8 @@
     "PCB_Components_KiCad_R to 01_RearHousing_R": 0.966,
     "03_BatteryCartridgeCup_R to 01_RearHousing_R": 0.0,
     "04_BatteryCartridgeLid_R to 01_RearHousing_R": 0.6,
+    "05_Cradle_R to 03_BatteryCartridgeCup_R": 0.1,
+    "04_BatteryCartridgeLid_R to CartridgeStripPCB_R": 0.05,
     "04_BatteryCartridgeLid_R to PCB_Components_KiCad_R": 0.0,
     "05_Cradle_R to 01_RearHousing_R": 0.2,
     "TailBoot_R to 01_RearHousing_R": 0.2,

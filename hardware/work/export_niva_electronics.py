@@ -33,8 +33,10 @@ BLOCKERS = {
                  'Insole outline is the 1:1 medium fit template only - other sizes need their own layouts (no scaling).',
                  'Skin contact, cleaning and sealing: see VERIFICATION-PLAN.md - no claims made.',
                  'No independent review, no DFM report from a flex fabricator.'],
-    'dock': ['R6/R7/R8 assume a 10 k B3435 pack NTC; with 1 % parts the window is -1.0..46.0 C, edges just outside '
-             'the cell\'s 0-45 C charge range - confirm the purchased cell NTC and trim.',
+    'dock': ['MCP73831 has no charge safety timer and no input OVP (the SMAJ5.0A TVS only clips hot-plug spikes): '
+             'Rev C.3 charger with a timer and TS pin; charge attended until then.',
+             'R6/R7/R8 = 46.4k/31.6k/19.6k assume a 10 k B3435 pack NTC (window 3.7-41.2 C nominal, 2.2-43.0 C worst '
+             'case); measure every pack NTC at incoming inspection (10 k +-3 %).',
              'No independent review, no DFM report from the chosen fabricator.'],
 }
 

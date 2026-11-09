@@ -11,7 +11,8 @@ import '../models/biomechanics_metrics.dart';
 import '../models/telemetry_sample.dart';
 import 'telemetry_state.dart';
 
-const _simulationTickHz = 10; // matches simulationEngine.ts's 100ms/10Hz driver interval
+const _simulationTickHz =
+    10; // matches simulationEngine.ts's 100ms/10Hz driver interval
 const _copTrailLength = 12;
 
 /// The single controller every screen reads from. It owns:
@@ -32,8 +33,10 @@ class TelemetryController extends StateNotifier<TelemetryState> {
   final SettingsRepository settings;
 
   StreamSubscription<Esp32ConnectionState>? _socketSub;
+  StreamSubscription<Esp32Packet>? _packetSub;
   Timer? _simulationTimer;
   Timer? _flushTimer;
+  Timer? _staleTimer;
   DateTime _simulationClock = DateTime.now();
 
   final List<TelemetrySample> _pendingSamples = [];
@@ -46,7 +49,12 @@ class TelemetryController extends StateNotifier<TelemetryState> {
     required this.settings,
   }) : super(TelemetryState.initial()) {
     _socketSub = socket.stateStream.listen(_onSocketState);
+    _packetSub = socket.packets.listen(_onPacket);
     _flushTimer = Timer.periodic(const Duration(seconds: 1), (_) => _flush());
+    _staleTimer = Timer.periodic(
+      const Duration(milliseconds: 500),
+      (_) => _updateStale(),
+    );
     state = state.copyWith(datasetCount: repository.sampleCount);
   }
 
@@ -102,15 +110,21 @@ class TelemetryController extends StateNotifier<TelemetryState> {
       // demoTimer, so a clinician can watch the ring/heatmap react to each
       // condition hands-free.
       final modes = GaitMode.values;
-      final index = (DateTime.now().millisecondsSinceEpoch ~/ 8000) % modes.length;
+      final index =
+          (DateTime.now().millisecondsSinceEpoch ~/ 8000) % modes.length;
       if (modes[index] != state.simMode) {
         state = state.copyWith(simMode: modes[index]);
       }
     }
 
-    final elapsedMs = DateTime.now().difference(_simulationClock).inMilliseconds;
+    final elapsedMs = DateTime.now()
+        .difference(_simulationClock)
+        .inMilliseconds;
     final frame = simulation.generateFrame(state.simMode, elapsedMs);
-    final packet = simulation.frameToPacket(frame, DateTime.now().millisecondsSinceEpoch);
+    final packet = simulation.frameToPacket(
+      frame,
+      DateTime.now().millisecondsSinceEpoch,
+    );
     final metrics = engine.process(packet);
 
     _pushMetrics(metrics);
@@ -126,20 +140,41 @@ class TelemetryController extends StateNotifier<TelemetryState> {
       activeUrl: socketState.activeUrl,
       lastMessageAt: socketState.lastMessageAt,
     );
+    _updateStale();
+  }
 
-    final packetMap = socketState.latestPacket;
-    if (packetMap == null || state.isSimulating) return;
+  /// Marks the stream stale when the link is open but silent (e.g. the pod
+  /// lost power and the TCP socket has not noticed yet).
+  void _updateStale() {
+    final last = state.lastMessageAt;
+    final isStale =
+        state.isConnected &&
+        (last == null || DateTime.now().difference(last) > telemetryStaleAfter);
+    if (isStale != state.isStale) state = state.copyWith(isStale: isStale);
+  }
+
+  /// Runs once per received frame. Connection state changes never reach
+  /// here, so an old packet is never re-processed or stored as a new sample.
+  void _onPacket(Esp32Packet received) {
+    if (state.isSimulating) return;
+    final packetMap = received.data;
+    // Firmware frames always carry the FSR channels. Anything else (e.g. the
+    // relay's {"relay":"connected"} hello) is not a sensor sample.
+    if (packetMap['heel'] is! num) return;
 
     final packet = RawSensorPacket(
       heel: (packetMap['heel'] as num?)?.toDouble() ?? 0,
       inner: (packetMap['inner'] as num?)?.toDouble() ?? 0,
       outer: (packetMap['outer'] as num?)?.toDouble() ?? 0,
       toe: (packetMap['toe'] as num?)?.toDouble() ?? 0,
-      impact: (packetMap['impact'] as num?)?.toDouble() ?? (packetMap['piezo'] as num?)?.toDouble() ?? 0,
+      impact:
+          (packetMap['impact'] as num?)?.toDouble() ??
+          (packetMap['piezo'] as num?)?.toDouble() ??
+          0,
       pitch: (packetMap['pitch'] as num?)?.toDouble() ?? 0,
       roll: (packetMap['roll'] as num?)?.toDouble() ?? 0,
       accZ: (packetMap['accZ'] as num?)?.toDouble() ?? 9.8,
-      timestampMs: DateTime.now().millisecondsSinceEpoch,
+      timestampMs: received.receivedAt.millisecondsSinceEpoch,
     );
 
     final metrics = engine.process(packet);
@@ -155,23 +190,29 @@ class TelemetryController extends StateNotifier<TelemetryState> {
     state = state.copyWith(metrics: metrics, copTrail: nextTrail);
   }
 
-  void _enqueueSample(RawSensorPacket packet, TelemetrySource source, TelemetryMode mode) {
-    _pendingSamples.add(TelemetrySample(
-      timestampMs: packet.timestampMs,
-      source: source,
-      sessionId: settings.sessionId,
-      trialId: settings.trialId,
-      diseaseLabel: _diseaseLabelFor(mode),
-      mode: mode,
-      heel: packet.heel,
-      inner: packet.inner,
-      outer: packet.outer,
-      toe: packet.toe,
-      impact: packet.impact,
-      pitch: packet.pitch,
-      roll: packet.roll,
-      accZ: packet.accZ,
-    ));
+  void _enqueueSample(
+    RawSensorPacket packet,
+    TelemetrySource source,
+    TelemetryMode mode,
+  ) {
+    _pendingSamples.add(
+      TelemetrySample(
+        timestampMs: packet.timestampMs,
+        source: source,
+        sessionId: settings.sessionId,
+        trialId: settings.trialId,
+        diseaseLabel: _diseaseLabelFor(mode),
+        mode: mode,
+        heel: packet.heel,
+        inner: packet.inner,
+        outer: packet.outer,
+        toe: packet.toe,
+        impact: packet.impact,
+        pitch: packet.pitch,
+        roll: packet.roll,
+        accZ: packet.accZ,
+      ),
+    );
   }
 
   DiseaseLabel _diseaseLabelFor(TelemetryMode mode) {
@@ -193,7 +234,9 @@ class TelemetryController extends StateNotifier<TelemetryState> {
         datasetStatus: 'Saved ${batch.length} samples',
       );
     } catch (_) {
-      state = state.copyWith(datasetStatus: 'Dataset write failed - will retry');
+      state = state.copyWith(
+        datasetStatus: 'Dataset write failed - will retry',
+      );
       _pendingSamples.insertAll(0, batch);
     }
   }
@@ -209,8 +252,10 @@ class TelemetryController extends StateNotifier<TelemetryState> {
     // `ref.onDispose`, not here - it is a separately-provided singleton this
     // controller merely listens to.
     _socketSub?.cancel();
+    _packetSub?.cancel();
     _simulationTimer?.cancel();
     _flushTimer?.cancel();
+    _staleTimer?.cancel();
     super.dispose();
   }
 }

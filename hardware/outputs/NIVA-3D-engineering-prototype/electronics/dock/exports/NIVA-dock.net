@@ -2,7 +2,7 @@
 	(version "E")
 	(design
 		(source "/home/shubh/_Active_Projects/niva-pcbway/hardware/outputs/NIVA-3D-engineering-prototype/electronics/dock/NIVA-dock.kicad_sch")
-		(date "2026-11-09T16:56:33")
+		(date "2026-11-09T19:20:53")
 		(tool "Eeschema 10.0.7")
 		(sheet
 			(number "1")
@@ -56,11 +56,13 @@
 	(components
 		(comp
 			(ref "C1")
-			(value "4.7u 10V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "10u 16V X5R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "Murata GRM21BR61C106KE15L")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -72,6 +74,10 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "Murata GRM21BR61C106KE15L")
 			)
 			(property
 				(name "Sheetname")
@@ -110,11 +116,13 @@
 		)
 		(comp
 			(ref "C2")
-			(value "4.7u 10V")
-			(footprint "Capacitor_SMD:C_0603_1608Metric")
+			(value "10u 16V X5R")
+			(footprint "Capacitor_SMD:C_0805_2012Metric")
 			(fields
 				(field
-					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
+					(name "MPN") "Murata GRM21BR61C106KE15L")
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0805_2012Metric")
 				(field
 					(name "Datasheet")
 				)
@@ -126,6 +134,10 @@
 				(lib "Device")
 				(part "C")
 				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "MPN")
+				(value "Murata GRM21BR61C106KE15L")
 			)
 			(property
 				(name "Sheetname")
@@ -325,10 +337,72 @@
 			)
 		)
 		(comp
+			(ref "D2")
+			(value "SMAJ5.0A")
+			(footprint "Diode_SMD:D_SMA")
+			(fields
+				(field
+					(name "MPN") "Bourns SMAJ5.0A")
+				(field
+					(name "Footprint") "Diode_SMD:D_SMA")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Diode")
+				(part "SMAJ5.0A")
+				(description "400W unidirectional Transient Voltage Suppressor, 5.0Vr, SMA(DO-214AC)")
+			)
+			(property
+				(name "MPN")
+				(value "Bourns SMAJ5.0A")
+			)
+			(property
+				(name "Sheetname")
+				(value "NIVA-dock")
+			)
+			(property
+				(name "Sheetfile")
+				(value "NIVA-dock.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "unidirectional diode TVS voltage suppressor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "D*SMA*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "ec58184d-b330-512b-ad70-bb6263cdbf38")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
 			(ref "F1")
-			(value "PTC 1206 hold 0.5 A")
+			(value "PTC 0.5 A hold, 24 V")
 			(footprint "Fuse:Fuse_1206_3216Metric")
 			(fields
+				(field
+					(name "MPN") "Bourns MF-NSMF050/24X-2")
 				(field
 					(name "Footprint") "Fuse:Fuse_1206_3216Metric")
 				(field
@@ -342,6 +416,10 @@
 				(lib "Device")
 				(part "Polyfuse")
 				(description "Resettable fuse, polymeric positive temperature coefficient")
+			)
+			(property
+				(name "MPN")
+				(value "Bourns MF-NSMF050/24X-2")
 			)
 			(property
 				(name "Sheetname")
@@ -584,7 +662,7 @@
 			(footprint "Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal")
 			(fields
 				(field
-					(name "MPN") "GCT USB4125 class")
+					(name "MPN") "GCT USB4125-GF-A-0190")
 				(field
 					(name "Footprint") "Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal")
 				(field
@@ -601,7 +679,7 @@
 			)
 			(property
 				(name "MPN")
-				(value "GCT USB4125 class")
+				(value "GCT USB4125-GF-A-0190")
 			)
 			(property
 				(name "Sheetname")
@@ -1045,9 +1123,11 @@
 		)
 		(comp
 			(ref "R6")
-			(value "43k 1%")
+			(value "46.4k 1%")
 			(footprint "Resistor_SMD:R_0603_1608Metric")
 			(fields
+				(field
+					(name "MPN") "Yageo RC0603FR-0746K4L")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0603_1608Metric")
 				(field
@@ -1061,6 +1141,10 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "Yageo RC0603FR-0746K4L")
 			)
 			(property
 				(name "Sheetname")
@@ -1099,9 +1183,11 @@
 		)
 		(comp
 			(ref "R7")
-			(value "39k 1%")
+			(value "31.6k 1%")
 			(footprint "Resistor_SMD:R_0603_1608Metric")
 			(fields
+				(field
+					(name "MPN") "Yageo RC0603FR-0731K6L")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0603_1608Metric")
 				(field
@@ -1115,6 +1201,10 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "Yageo RC0603FR-0731K6L")
 			)
 			(property
 				(name "Sheetname")
@@ -1153,9 +1243,11 @@
 		)
 		(comp
 			(ref "R8")
-			(value "18k 1%")
+			(value "19.6k 1%")
 			(footprint "Resistor_SMD:R_0603_1608Metric")
 			(fields
+				(field
+					(name "MPN") "Yageo RC0603FR-0719K6L")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0603_1608Metric")
 				(field
@@ -1169,6 +1261,10 @@
 				(lib "Device")
 				(part "R")
 				(description "Resistor")
+			)
+			(property
+				(name "MPN")
+				(value "Yageo RC0603FR-0719K6L")
 			)
 			(property
 				(name "Sheetname")
@@ -1772,6 +1868,39 @@
 			)
 		)
 		(libpart
+			(lib "Diode")
+			(part "SMAJ5.0A")
+			(description "400W unidirectional Transient Voltage Suppressor, 5.0Vr, SMA(DO-214AC)")
+			(docs "https://www.littelfuse.com/media?resourcetype=datasheets&itemid=75e32973-b177-4ee3-a0ff-cedaf1abdb93&filename=smaj-datasheet")
+			(footprints
+				(fp "D*SMA*")
+			)
+			(fields
+				(field
+					(name "Reference") "D")
+				(field
+					(name "Value") "SMAJ5.0A")
+				(field
+					(name "Footprint") "Diode_SMD:D_SMA")
+				(field
+					(name "Datasheet") "https://www.littelfuse.com/media?resourcetype=datasheets&itemid=75e32973-b177-4ee3-a0ff-cedaf1abdb93&filename=smaj-datasheet")
+				(field
+					(name "Description") "400W unidirectional Transient Voltage Suppressor, 5.0Vr, SMA(DO-214AC)")
+			)
+			(pins
+				(pin
+					(num "1")
+					(name "A1")
+					(type "passive")
+				)
+				(pin
+					(num "2")
+					(name "A2")
+					(type "passive")
+				)
+			)
+		)
+		(libpart
 			(lib "Mechanical")
 			(part "MountingHole")
 			(description "Mounting Hole without connection")
@@ -1852,6 +1981,10 @@
 		(library
 			(logical "Device")
 			(uri "${KICAD10_SYMBOL_DIR}/Device.kicad_sym")
+		)
+		(library
+			(logical "Diode")
+			(uri "${KICAD10_SYMBOL_DIR}/Diode.kicad_sym")
 		)
 		(library
 			(logical "Mechanical")
@@ -2130,6 +2263,12 @@
 				(pintype "passive")
 			)
 			(node
+				(ref "D2")
+				(pin "2")
+				(pinfunction "A2_2")
+				(pintype "passive")
+			)
+			(node
 				(ref "J1")
 				(pin "A12")
 				(pinfunction "GND_A12")
@@ -2199,6 +2338,12 @@
 			(node
 				(ref "C4")
 				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "D2")
+				(pin "1")
+				(pinfunction "A1_1")
 				(pintype "passive")
 			)
 			(node

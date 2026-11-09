@@ -1,5 +1,5 @@
 ** Drc report for NIVA-dock.kicad_pcb **
-** Created on 2026-11-09T16:56:46 **
+** Created on 2026-11-09T19:20:56 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 1 DRC violations **
@@ -9,16 +9,7 @@
 
 ** Found 0 unconnected pads **
 
-** Found 3 Footprint errors **
-[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
-    Local override; warning
-    @(157.5000 mm, 50.0000 mm): Footprint J1
-[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
-    Local override; warning
-    @(142.5500 mm, 77.0000 mm): Footprint J2
-[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
-    Local override; warning
-    @(153.0000 mm, 64.5000 mm): Footprint U1
+** Found 0 Footprint errors **
 
 ** Ignored checks **
     - Track endpoint not centered on via

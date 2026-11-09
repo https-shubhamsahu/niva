@@ -4,7 +4,8 @@ These are NOT supplier models. Since Rev C.2 both boards use Mill-Max 0900-0-15-
 pins, drawn from the datasheet key dimensions (mill-max.com, read 9 Nov 2026): flange 1.829 x 0.406, body 1.499
 to 2.083, plunger 1.067 to 3.480 (initial height), max stroke 0.991, rated travel 0.508 -> working height 2.972.
 The domed tip radius is not on the datasheet; a full hemisphere is drawn. Replace with Mill-Max's STEP when fetched.
-    NIVA_SpringContact_1x04_ENVELOPE.step - pod J2, four pins along x at 2.54 mm pitch.
+    NIVA_SpringContact_1x04_ENVELOPE.step - Rev C.1 pod J2, four pins along x at 2.54 mm pitch.
+    NIVA_SpringContact_2x2pairs_ENVELOPE.step - Rev C.2 pod J2, a P+ pair and a P- pair 8.5 mm apart.
     NIVA_SpringPin_1x03_ENVELOPE.step     - dock J2, three pins along y at 6.0 mm pitch.
 Run: freecadcmd build_niva_envelopes.py
 """
@@ -22,7 +23,9 @@ def spring_pin(x, y):
     tip = Part.makeSphere(r, V(x, y, FREE_H - r))
     return flange.fuse(body).fuse(plunger).fuse(tip).removeSplitter()
 
+# Model y is up, footprint y is down: pin (x, y) here sits on pad (x, -y) of NIVA:SpringContact_2x2pairs_MillMax0900_SMD.
 for name, xy in (('NIVA_SpringContact_1x04_ENVELOPE.step', [((i - 1.5) * 2.54, 0) for i in range(4)]),
+                 ('NIVA_SpringContact_2x2pairs_ENVELOPE.step', [(1.675, 4.25), (-0.865, 4.25), (0.865, -4.25), (-1.675, -4.25)]),
                  ('NIVA_SpringPin_1x03_ENVELOPE.step', [(0, (i - 1) * 6.0) for i in range(3)])):
     pins = Part.makeCompound([spring_pin(x, y) for x, y in xy])
     assert abs(pins.BoundBox.ZMax - FREE_H) < 1e-6 and pins.isValid() and len(pins.Solids) == len(xy)

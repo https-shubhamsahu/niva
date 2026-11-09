@@ -1,5 +1,5 @@
 ** Drc report for NIVA-cartridge.kicad_pcb **
-** Created on 2026-11-09T16:56:28 **
+** Created on 2026-11-09T19:25:52 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 0 DRC violations **
@@ -10,7 +10,7 @@
 [footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
     Local override; warning
     @(130.9500 mm, 87.9000 mm): Footprint F1
-[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Solder pads for three 30 AWG leads (cell +, -, NTC)', Schematic: '')
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Solder pads for the three cell leads: pad 1 cell +, pad 2 NTC, pad 3 cell - (AWG26-30; EEMB LP502030 leads are AWG28)', Schematic: '')
     Local override; warning
     @(130.9500 mm, 65.0000 mm): Footprint J1
 [footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Solder pads for four leads to the lid contact plates', Schematic: '')

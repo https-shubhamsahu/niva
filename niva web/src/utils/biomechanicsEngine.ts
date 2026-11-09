@@ -2,6 +2,14 @@ export type ContactState = 'STANCE' | 'SWING';
 export type GaitPhase = 'HEEL_STRIKE' | 'MID_STANCE' | 'TOE_OFF' | 'SWING';
 export type StabilityBand = 'stable' | 'moderate' | 'unstable';
 
+/**
+ * Full scale of the ESP32's 12-bit ADC. The firmware (`niva_hardware.ino`) sends
+ * each FSR channel as ADC counts above its boot tare, 0-4095, and the simulator
+ * packets use the same unit, so every pressure input is divided by this one constant.
+ */
+export const ADC_FULL_SCALE_COUNTS = 4095;
+
+/** Pressure fields are ADC counts above tare; `impact` is raw piezo counts; `timestampMs` is receive time. */
 export interface RawSensorPacket {
   heel: number;
   inner: number;
@@ -22,6 +30,9 @@ export interface CopPoint {
 export interface ProcessedBiomechanicsMetrics {
   timestampMs: number;
   isCalibrated: boolean;
+  /** True only when the app captured a clean no-load baseline; false means the device's own zero is used. */
+  tareApplied: boolean;
+  /** Per channel, percent of ADC full scale after tare and smoothing. Uncalibrated: not force or pressure units. */
   filteredPressure: {
     heel: number;
     inner: number;
@@ -40,7 +51,9 @@ export interface ProcessedBiomechanicsMetrics {
   gaitPhase: GaitPhase;
   cop: CopPoint;
   mlpi: number;
+  /** Estimate: 2 x detected heel strikes (one insole sees one per stride). */
   stepCount: number;
+  /** Estimate in steps/min: 120 / time between heel strikes of this foot. */
   cadenceSpm: number;
   stancePct: number;
   swingPct: number;
@@ -48,7 +61,6 @@ export interface ProcessedBiomechanicsMetrics {
   stabilityBand: StabilityBand;
   stabilityScore: number;
   impactLevel: number;
-  ischemicIntegralPct: number;
   anomalyFlags: string[];
   bufferLength: number;
 }
@@ -60,7 +72,6 @@ interface BiomechanicsEngineOptions {
   heelThreshold: number;
   maxImpact: number;
   bufferSize: number;
-  staticSwayThreshold: number;
   pressureDeadband: number;
   angleDeadband: number;
   calibrationSamples: number;
@@ -80,13 +91,11 @@ const SENSOR_COORDS = {
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+// ADC counts above tare -> percent of ADC full scale. One linear mapping for every
+// input: units are never guessed from the magnitude of the value.
 const normalizeRawPressureInput = (value: number) => {
   if (!Number.isFinite(value)) return 0;
-  const clamped = Math.max(0, value);
-  if (clamped > 100) {
-    return clamp((clamped / 4095) * 100, 0, 100);
-  }
-  return clamp(clamped, 0, 100);
+  return clamp((value / ADC_FULL_SCALE_COUNTS) * 100, 0, 100);
 };
 
 const ema = (current: number, previous: number, alpha: number) => {
@@ -104,6 +113,7 @@ export class BiomechanicsEngine {
   private baselinePitch = 0;
   private baselineRoll = 0;
   private isCalibrated = false;
+  private tareApplied = false;
   private calibrationCount = 0;
   private calibrationAccum = { heel: 0, inner: 0, outer: 0, toe: 0, total: 0, impact: 0, pitch: 0, roll: 0 };
   private calibrationTotalMin = Number.POSITIVE_INFINITY;
@@ -112,14 +122,13 @@ export class BiomechanicsEngine {
   private lastContact = false;
   private lastHeel = 0;
   private lastHeelStrikeAt: number | null = null;
-  private stepCount = 0;
+  private strideCount = 0;
   private cadenceSpm = 0;
   private stanceStartMs = 0;
   private swingStartMs = 0;
   private lastStanceMs = 600;
   private lastSwingMs = 400;
   private heelDominantStreak = 0;
-  private ischemicIntegralPct = 0;
   private history: ProcessedBiomechanicsMetrics[] = [];
 
   constructor(overrides?: Partial<BiomechanicsEngineOptions>) {
@@ -130,13 +139,15 @@ export class BiomechanicsEngine {
       heelThreshold: 80,
       maxImpact: 800,
       bufferSize: 50,
-      staticSwayThreshold: 6,
       pressureDeadband: 2.5,
       angleDeadband: 0.8,
       calibrationSamples: 30,
       calibrationMaxSamples: 60,
       calibrationRange: 8,
-      calibrationTotalCeiling: 55,
+      // Sum of the four channels in % of full scale. The firmware already subtracted its
+      // own boot tare, so an unloaded insole reads close to 0; 8 allows ADC noise but
+      // rejects a foot standing on it.
+      calibrationTotalCeiling: 8,
       calibrationMotionCeiling: 7,
       calibrationImpactCeiling: 60,
       ...overrides,
@@ -149,6 +160,7 @@ export class BiomechanicsEngine {
     this.baselinePitch = 0;
     this.baselineRoll = 0;
     this.isCalibrated = false;
+    this.tareApplied = false;
     this.calibrationCount = 0;
     this.calibrationAccum = { heel: 0, inner: 0, outer: 0, toe: 0, total: 0, impact: 0, pitch: 0, roll: 0 };
     this.calibrationTotalMin = Number.POSITIVE_INFINITY;
@@ -157,14 +169,13 @@ export class BiomechanicsEngine {
     this.lastContact = false;
     this.lastHeel = 0;
     this.lastHeelStrikeAt = null;
-    this.stepCount = 0;
+    this.strideCount = 0;
     this.cadenceSpm = 0;
     this.stanceStartMs = 0;
     this.swingStartMs = 0;
     this.lastStanceMs = 600;
     this.lastSwingMs = 400;
     this.heelDominantStreak = 0;
-    this.ischemicIntegralPct = 0;
     this.history = [];
   }
 
@@ -245,8 +256,10 @@ export class BiomechanicsEngine {
           this.baselinePitch = this.calibrationAccum.pitch / this.calibrationCount;
           this.baselineRoll = this.calibrationAccum.roll / this.calibrationCount;
           this.isCalibrated = true;
+          this.tareApplied = true;
         } else if (this.calibrationCount >= this.options.calibrationMaxSamples) {
-          // Fallback: continue processing without baseline subtraction if no-load criteria never appear.
+          // No clean no-load window (insole loaded or moving): do not tare a loaded foot to
+          // zero. Keep the device's own zero and report `tareApplied: false`.
           this.isCalibrated = true;
         }
       }
@@ -289,19 +302,24 @@ export class BiomechanicsEngine {
 
     const contactState: ContactState = totalPressure > this.options.contactThreshold ? 'STANCE' : 'SWING';
 
-    const heelRise = this.filtered.heel - this.lastHeel;
+    // Heel strike is an impact transient, so it is gated on the unsmoothed (deadbanded)
+    // reading, as in biomechanics_engine.dart. Gating on the EMA-filtered heel could never
+    // fire: the filter only passes the threshold after contact has already flipped.
+    const heelRise = input.heel - this.lastHeel;
     const heelStrikeDetected =
       packet.impact > this.options.impactThreshold &&
-      this.filtered.heel > this.options.heelThreshold &&
+      input.heel > this.options.heelThreshold &&
       heelRise > 8 &&
       !this.lastContact;
 
+    // One insole sees one heel strike per stride, i.e. per two steps. Steps and cadence
+    // are therefore estimates: 2 steps per detected stride.
     if (heelStrikeDetected) {
-      this.stepCount += 1;
-      if (this.lastHeelStrikeAt) {
-        const stepIntervalSec = (packet.timestampMs - this.lastHeelStrikeAt) / 1000;
-        if (stepIntervalSec > 0.2 && stepIntervalSec < 3) {
-          this.cadenceSpm = 60 / stepIntervalSec;
+      this.strideCount += 1;
+      if (this.lastHeelStrikeAt !== null) {
+        const strideIntervalSec = (packet.timestampMs - this.lastHeelStrikeAt) / 1000;
+        if (strideIntervalSec > 0.4 && strideIntervalSec < 3) {
+          this.cadenceSpm = 120 / strideIntervalSec;
         }
       }
       this.lastHeelStrikeAt = packet.timestampMs;
@@ -339,38 +357,21 @@ export class BiomechanicsEngine {
       this.heelDominantStreak = 0;
     }
 
-    const staticMode = Math.abs(correctedRoll) < this.options.staticSwayThreshold && Math.abs(correctedPitch) < this.options.staticSwayThreshold;
-    const highMedialLateral = Math.max(this.filtered.inner, this.filtered.outer) > 50;
-
-    if (highMedialLateral && staticMode) {
-      this.ischemicIntegralPct = clamp(this.ischemicIntegralPct + 0.35, 0, 100);
-    } else {
-      this.ischemicIntegralPct = clamp(this.ischemicIntegralPct - 0.08, 0, 100);
-    }
-
+    // Plain description of the raw distribution, not a clinical finding. The former sway
+    // "instability", supination and ischemic rules were removed: nothing validates them,
+    // and normal walking pitch tripped them.
     const anomalyFlags: string[] = [];
 
-    if (Math.abs(correctedRoll) > 8 && this.filtered.outer > this.filtered.inner) {
-      anomalyFlags.push('Ankle instability / supination risk');
-    }
-
     if (this.heelDominantStreak >= 5) {
-      anomalyFlags.push('Heel-dominant gait trend');
+      anomalyFlags.push('Heel sensor carrying over 70% of measured load');
     }
 
-    if (stabilityBand === 'unstable') {
-      anomalyFlags.push('High sway instability');
-    }
-
-    if (this.ischemicIntegralPct > 50) {
-      anomalyFlags.push('Ischemic pressure risk');
-    }
-
-    this.lastHeel = this.filtered.heel;
+    this.lastHeel = input.heel;
 
     const metrics: ProcessedBiomechanicsMetrics = {
       timestampMs: packet.timestampMs,
       isCalibrated: this.isCalibrated,
+      tareApplied: this.tareApplied,
       filteredPressure: { ...this.filtered },
       normalizedPressure,
       totalPressure,
@@ -379,7 +380,7 @@ export class BiomechanicsEngine {
       gaitPhase,
       cop,
       mlpi,
-      stepCount: this.stepCount,
+      stepCount: this.strideCount * 2,
       cadenceSpm: this.cadenceSpm,
       stancePct,
       swingPct,
@@ -387,7 +388,6 @@ export class BiomechanicsEngine {
       stabilityBand,
       stabilityScore,
       impactLevel,
-      ischemicIntegralPct: this.ischemicIntegralPct,
       anomalyFlags,
       bufferLength: 0,
     };

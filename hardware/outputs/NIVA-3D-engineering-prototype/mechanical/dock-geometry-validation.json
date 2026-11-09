@@ -5,7 +5,7 @@
     "print_orientation": "bottom on bed; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 12236.6,
+    "volume_mm3": 12210.6,
     "print_bbox_mm": [
       64.0,
       62.0,
@@ -20,7 +20,7 @@
     "print_orientation": "top face on bed (flipped); well floor is a 29 mm bridge - enable bridging, no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 15183.1,
+    "volume_mm3": 15214.7,
     "print_bbox_mm": [
       64.0,
       62.0,

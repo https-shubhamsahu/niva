@@ -58,24 +58,41 @@ def cartridge_cup():
     s = s.fuse(tab.cut(cyl(*T['screw'], -0.1, 1.1, 2)))
     s = s.cut(box(12, C['cup_y0'] + 0.5, -0.1, 12, 2.0, 0.6))     # finger pull groove on the rear face
     for name, x, y in L.DOCK_PADS: s = s.cut(cyl(x, y, -0.1, 1.2, C['floor'] + 0.2))   # dock contact windows
+    S = L.STRIP                                                    # Rev C.2: end stops locate the strip PCB in y (0.15 mm)
+    for y0, y1 in ((cy, S['y0'] - 0.15), (S['y0'] + S['l'] + 0.15, S['y0'] + S['l'] + 1.65)):
+        s = s.fuse(box(S['x0'], y0, C['floor'] - 0.01, cx + cw - S['x0'] + 0.01, y1 - y0, S['t'] + 0.01))
     return clean(s)
 
 def contact_xy():
-    jx, jy = L.SPRING_CONTACTS_XY
-    return [(jx + (i - 1.5) * 2.54, jy) for i in range(4)]
+    return [xy for pins in L.J2_PINS.values() for xy in pins]
+
+PLATE_MARGIN = 1.45     # Rev C.2: pocket edge to pin centre; the 1.067 mm plunger stays on the plate for a 0.9 mm shift
+def plate_boxes(clear=0.0):
+    """One pocket (clear=0) or plate (clear=0.1) per polarity, covering both pins of the pair."""
+    out = {}
+    for pol, pins in L.J2_PINS.items():
+        xs = [x for x, y in pins]; y = pins[0][1]; m = PLATE_MARGIN - clear
+        out[pol] = (min(xs) - m, y - 1.6 + clear, max(xs) - min(xs) + 2 * m, 3.2 - 2 * clear)
+    return out
 
 def cartridge_lid():
     C = L.CART; cx, cy, cw, cl = C['cav']
     s = rr(C['cup_w'] - 0.4, C['cup_l'] - 0.4, 1.8, C['lid_z'], C['lid_t'], C['cup_x0'] + 0.2, C['cup_y0'] + 0.2)
     s = s.fuse(rr(cw - 0.4, cl - 0.4, 0.8, C['lid_z'] - C['plug_t'], C['plug_t'], cx + 0.2, cy + 0.2))
     r = C['plate_recess']
-    for x, y in contact_xy():
-        s = s.cut(box(x - 0.9, y - 1.6, 8.8 - r, 1.8, 3.2, 0.5 + r)); s = s.cut(cyl(x, y, 7.0, 0.4, 2))
+    for pol, (x0, y0, w, h) in plate_boxes().items():
+        s = s.cut(box(x0, y0, 8.8 - r, w, h, 0.5 + r))
+        t = text_solid('+' if pol == 'P+' else '-', 2.4, x0 - 1.8, y0 + h / 2, C['lid_z'] + C['lid_t'] - 0.3, 0.4)
+        if t: s = s.cut(t)                                         # polarity mark beside each plate
+    for x, y in contact_xy(): s = s.cut(cyl(x, y, 7.0, 0.4, 2))    # lead hole under each pin
+    S = L.STRIP                                                    # Rev C.2: posts hold the strip PCB down against the dock pins
+    for y in (18.0, 23.5):
+        s = s.fuse(cyl(S['x0'] + S['w'] - 0.85, y, C['floor'] + S['t'] + 0.05, 0.8, C['lid_z'] - C['plug_t'] - C['floor'] - S['t'] - 0.04))
     return clean(s)
 
 def contact_plates():
     z = 8.8 - L.CART['plate_recess']
-    return Part.makeCompound([box(x - 0.8, y - 1.5, z, 1.6, 3.0, 0.4) for x, y in contact_xy()])
+    return Part.makeCompound([box(x0, y0, z, w, h, 0.4) for x0, y0, w, h in plate_boxes(0.1).values()])
 
 cell = lambda: rr(L.CELL['w'], L.CELL['l'], 1, L.CART['floor'], L.CELL['t'], *L.CELL_XY)     # max published size
 def strip_pcb():

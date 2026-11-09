@@ -6,7 +6,11 @@ class SegmentedOption<T> {
   final String label;
   final IconData icon;
 
-  const SegmentedOption({required this.value, required this.label, required this.icon});
+  const SegmentedOption({
+    required this.value,
+    required this.label,
+    required this.icon,
+  });
 }
 
 /// Pill-shaped, animated segmented control - the Live Sensor / Simulation
@@ -43,7 +47,10 @@ class SegmentedToggle<T> extends StatelessWidget {
           return Expanded(
             child: GestureDetector(
               onTap: () {
-                if (!isActive) HapticFeedback.selectionClick();
+                // Re-selecting the active option is a no-op: re-running its
+                // action (e.g. connectLive) would reset the engine and re-tare.
+                if (isActive) return;
+                HapticFeedback.selectionClick();
                 onChanged(option.value);
               },
               child: AnimatedContainer(
@@ -56,7 +63,9 @@ class SegmentedToggle<T> extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: isActive
                       ? activeColor
-                      : (isDark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7)),
+                      : (isDark
+                            ? const Color(0xFF2C2C2E)
+                            : const Color(0xFFF2F2F7)),
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: Row(
@@ -65,13 +74,17 @@ class SegmentedToggle<T> extends StatelessWidget {
                     Icon(
                       option.icon,
                       size: 16,
-                      color: isActive ? Colors.white : theme.textTheme.labelSmall?.color,
+                      color: isActive
+                          ? Colors.white
+                          : theme.textTheme.labelSmall?.color,
                     ),
                     const SizedBox(width: 6),
                     Text(
                       option.label,
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: isActive ? Colors.white : theme.textTheme.labelSmall?.color,
+                        color: isActive
+                            ? Colors.white
+                            : theme.textTheme.labelSmall?.color,
                       ),
                     ),
                   ],

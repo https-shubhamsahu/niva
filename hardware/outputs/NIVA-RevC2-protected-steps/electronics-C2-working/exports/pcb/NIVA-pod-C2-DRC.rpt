@@ -1,5 +1,5 @@
 ** Drc report for NIVA-pod.kicad_pcb **
-** Created on 2026-11-09T16:52:38 **
+** Created on 2026-11-09T18:59:41 **
 ** Report includes: Errors, Warnings, Exclusions **
 
 ** Found 3 DRC violations **
@@ -21,9 +21,9 @@
 [footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
     Local override; warning
     @(121.0000 mm, 91.0000 mm): Footprint J1
-[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'Placeholder - part to select', Schematic: '')
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: 'https://www.mill-max.com/products/datasheet/0900-0-15-20-76-14-11-0', Schematic: '')
     Local override; warning
-    @(129.0000 mm, 78.5000 mm): Footprint J2
+    @(126.8650 mm, 82.7500 mm): Footprint J2
 [footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
     Local override; warning
     @(121.0000 mm, 54.5500 mm): Footprint U1

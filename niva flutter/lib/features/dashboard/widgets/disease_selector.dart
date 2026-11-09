@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import '../../../core/engine/simulation_engine.dart';
 import '../../../theme/app_theme.dart';
 
-/// Chip row for picking which condition the on-device simulator plays back,
-/// plus the "Run Clinical Demo" auto-cycle toggle. Direct port of
-/// `DiseaseSelector.tsx`.
+/// Chip row for picking which synthetic pattern the on-device simulator plays
+/// back, plus the auto-cycle demo toggle. Direct port of `DiseaseSelector.tsx`.
+/// The chip names label made-up waveforms only (see [GaitModeLabel]).
 class DiseaseSelector extends StatelessWidget {
   final GaitMode selected;
   final ValueChanged<GaitMode> onSelect;
@@ -32,7 +32,7 @@ class DiseaseSelector extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'DISEASE SIMULATION ENGINE',
+                'SIMULATED GAIT PATTERNS (NOT PATIENT DATA)',
                 style: theme.textTheme.labelSmall,
               ),
             ),
@@ -43,24 +43,35 @@ class DiseaseSelector extends StatelessWidget {
               },
               child: AnimatedContainer(
                 duration: AppMotion.fast,
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 7,
+                ),
                 decoration: BoxDecoration(
-                  color: isDemoMode ? AppColors.danger : theme.dividerColor.withOpacity(0.4),
+                  color: isDemoMode
+                      ? AppColors.danger
+                      : theme.dividerColor.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                      isDemoMode ? Icons.stop_circle_rounded : Icons.play_circle_fill_rounded,
+                      isDemoMode
+                          ? Icons.stop_circle_rounded
+                          : Icons.play_circle_fill_rounded,
                       size: 14,
-                      color: isDemoMode ? Colors.white : theme.textTheme.labelSmall?.color,
+                      color: isDemoMode
+                          ? Colors.white
+                          : theme.textTheme.labelSmall?.color,
                     ),
                     const SizedBox(width: 4),
                     Text(
                       isDemoMode ? 'STOP DEMO' : 'RUN DEMO',
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: isDemoMode ? Colors.white : theme.textTheme.labelSmall?.color,
+                        color: isDemoMode
+                            ? Colors.white
+                            : theme.textTheme.labelSmall?.color,
                       ),
                     ),
                   ],
@@ -87,13 +98,16 @@ class DiseaseSelector extends StatelessWidget {
                 duration: AppMotion.fast,
                 // Vertical padding tuned to clear the 44pt minimum touch
                 // target (labelSmall line height + 2×14 padding).
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
                 decoration: BoxDecoration(
                   color: isActive
                       ? AppColors.brand
                       : (theme.brightness == Brightness.dark
-                          ? const Color(0xFF2C2C2E)
-                          : const Color(0xFFE8EBFD)),
+                            ? const Color(0xFF2C2C2E)
+                            : const Color(0xFFE8EBFD)),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Opacity(

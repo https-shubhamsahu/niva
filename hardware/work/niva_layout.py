@@ -76,6 +76,9 @@ EMITTERS = [PLACE['D4'][:2], PLACE['D5'][:2]]
 CONNECTOR_XY = PLACE['J1'][:2]
 SPRING_CONTACTS_XY = PLACE['J2'][:2]
 SERVICE_PADS_XY = PLACE['J3'][:2]
+# Rev C.2 (9 Nov 2026): J2 regrouped. The battery P+ pins stay where Rev C.1 had pads 1-2; the P- pair moves 8.5 mm toward
+# the cable end, so the cartridge lid's P+ and P- plates are 5.5 mm apart instead of 0.94 mm. Board underside, pod frame.
+J2_PINS = {'P+': [(25.19, 21.5), (27.73, 21.5)], 'P-': [(26.0, 13.0), (28.54, 13.0)]}
 
 # Antenna copper keepout extension beyond the module's own zone (pod frame).
 ANTENNA_KEEPOUT = dict(x0=11.0, y0=48.4, x1=31.0, y1=54.0)
@@ -103,7 +106,8 @@ CART['cav'] = (CART['cup_x0'] + CART['wall'], CART['cup_y0'] + CART['wall'],
 CELL_XY = (8.8, 6.8)                                                                    # cell corner
 STRIP = dict(x0=29.85, y0=8.0, w=3.4, l=30.0, t=0.8)                                    # cartridge PCB
 DOCK_PADS = [('P+', 31.55, 12.0), ('NTC', 31.55, 18.0), ('P-', 31.55, 24.0)]            # strip underside
-CART_TAB = dict(x0=27.0, y0=41.5, w=8.0, l=4.5, t=1.6, screw=(31.0, 44.3))             # retention tab
+# Rev C.2: screw 0.5 mm further from the bay (pilot wall 0.6 -> 1.1 mm) and the tab 0.8 mm longer to keep material past the hole
+CART_TAB = dict(x0=27.0, y0=41.5, w=8.0, l=5.3, t=1.6, screw=(31.0, 44.8))             # retention tab
 BAY_CLEAR = 0.4
 
 # Cartridge interconnect strip placement (pod frame). J3's gold pads face the cartridge floor windows.
