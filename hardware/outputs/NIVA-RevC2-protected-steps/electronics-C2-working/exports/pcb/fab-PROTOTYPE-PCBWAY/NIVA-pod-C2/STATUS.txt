@@ -1,0 +1,51 @@
+NIVA-pod Rev C.2 - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
+
+Replaces the Rev C.1 set (NIVA-3D-engineering-prototype/electronics/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-pod,
+PCBWay quote W1032027AS1M1). Do not order C.1: its J2 pads are below the Mill-Max minimum.
+
+Upload NIVA-pod-C2-PCBWay-gerbers.zip. Order settings:
+  4 layers, 34 x 48 mm, quantity 5, 1.0 mm FR-4, 1 oz outer copper, ENIG,
+  green mask, white silk. Stack-up: F.Cu / In1 (GND plane) / In2 / B.Cu.
+  Min track 0.15 mm, min clearance 0.127 mm, vias 0.5 mm pad / 0.2 mm drill
+  (0.15 mm annular ring), 126 vias. NPTH: 0.99 mm and 2.2 mm.
+  Outline: 17 x 5.5 mm notch at the top edge under the ESP32-C3 antenna; its two
+  inner corners take PCBWay's router radius (the module body is 1.9 mm clear of each side).
+  "PCBWay" on B.Silkscreen under "NIVA REV C" (1 mm, 0.15 mm stroke), for the
+  Future Innovators Program.
+
+Changed from Rev C.1 (details: ../../../../../STATUS-CLOSURE.md, ../../../../../CHANGELOG.md):
+  - J2: four 2.08 mm round pads for 4 x Mill-Max 0900-0-15-20-76-14-11-0 (datasheet
+    minimum pad .082 in); one GND via moved 0.04 mm.
+  - U6 MAX17048: ADI land pattern 90-0065 (signal pads 0.30 x 0.70 mm, EP 0.80 x 1.38 mm).
+  - Board cut away under the module antenna (Espressif layout guide, section 1.4.7).
+  - Zones refilled. Vias, rules and the rest of the copper as Rev C.1.
+
+Checks at export, 9 Nov 2026 (KiCad 10.0.7, stock global libraries, schematic parity on):
+  DRC errors 0, unconnected 0. Warnings: 2 silk-at-edge (U1 outline at the notch),
+  1 LGA-14 library copy differs (pads checked identical), 9 field mismatches (8 MPN
+  fields not on footprints, J2 description). ERC errors 0, 1 reviewed warning
+  (U3 SDx to the power flag). Reports: ../../NIVA-pod-C2-DRC.rpt, ../../../NIVA-pod-C2-ERC.rpt.
+  Export flags reproduce the committed C.1 PCBWay Gerbers byte for byte (dates aside):
+  Protel names, --no-x2 --no-netlist --subtract-soldermask, separate PTH/NPTH Excellon.
+
+Mechanics that go with this board (FreeCAD audit,
+NIVA-3D-engineering-prototype/mechanical/interference-report.json):
+  Cartridge lid 04_BatteryCartridgeLid is Rev C.2: plates recessed 0.37 mm, board-to-plate
+  gap 2.97 mm = the 0900's working height (3.480 free - 0.508 rated travel). The only
+  intersection left is J2 on the plates (the 0.51 mm preload); J2 no longer touches the lid.
+  A C.1 lid (flush plates, 2.6 mm gap) drives the pins to 89 % of their 0.991 mm stroke.
+
+Passing KiCad ERC/DRC is not a design review. Still open:
+  - J2 lateral capture: the 1.067 mm plunger has 0.37 mm side clearance in the 1.8 mm
+    plate pocket, and the cartridge can shift about 0.27 mm at the contacts (estimate from
+    the 0.4 mm bay clearance and +-0.1 mm at the tab screw). FDM prints pockets undersize:
+    measure the first printed lid; a plunger that lands on the pocket rim misses the plate.
+  - J2 3D model is a datasheet envelope, not Mill-Max's STEP; check paste volume on the
+    2.08 mm pads and pin verticality after reflow (bench).
+  - U6: re-read ADI 90-0065 (its code box lists T822-3C, the datasheet T822-3), review
+    the EP paste on the stencil, get a supplier 3D model.
+  - Antenna: Espressif's 15 mm clearances cannot be met in a 42 mm pod. Range and
+    throughput test in the closed pod, on the body, in both roles.
+  - The web between the H1 hole and the notch is about 2.4 mm; ask PCBWay to confirm.
+  - No independent schematic/layout review and no fabricator DFM report yet;
+    read PCBWay's DFM reply before paying.

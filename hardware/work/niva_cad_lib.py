@@ -7,7 +7,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 import niva_layout as L
 
 V = A.Vector
-FONT = next((f for f in ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 'C:/Windows/Fonts/arialbd.ttf',
+FONT = next((f for f in ['/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', '/usr/share/fonts/TTF/DejaVuSans-Bold.ttf',
+                         'C:/Windows/Fonts/arialbd.ttf',
                          '/Library/Fonts/Arial Bold.ttf'] if Path(f).exists()), None)
 
 # ------------------------------------------------------------------ geometry helpers
@@ -67,12 +68,14 @@ def cartridge_lid():
     C = L.CART; cx, cy, cw, cl = C['cav']
     s = rr(C['cup_w'] - 0.4, C['cup_l'] - 0.4, 1.8, C['lid_z'], C['lid_t'], C['cup_x0'] + 0.2, C['cup_y0'] + 0.2)
     s = s.fuse(rr(cw - 0.4, cl - 0.4, 0.8, C['lid_z'] - C['plug_t'], C['plug_t'], cx + 0.2, cy + 0.2))
+    r = C['plate_recess']
     for x, y in contact_xy():
-        s = s.cut(box(x - 0.9, y - 1.6, 8.8, 1.8, 3.2, 0.5)); s = s.cut(cyl(x, y, 7.0, 0.4, 2))
+        s = s.cut(box(x - 0.9, y - 1.6, 8.8 - r, 1.8, 3.2, 0.5 + r)); s = s.cut(cyl(x, y, 7.0, 0.4, 2))
     return clean(s)
 
 def contact_plates():
-    return Part.makeCompound([box(x - 0.8, y - 1.5, 8.8, 1.6, 3.0, 0.4) for x, y in contact_xy()])
+    z = 8.8 - L.CART['plate_recess']
+    return Part.makeCompound([box(x - 0.8, y - 1.5, z, 1.6, 3.0, 0.4) for x, y in contact_xy()])
 
 cell = lambda: rr(L.CELL['w'], L.CELL['l'], 1, L.CART['floor'], L.CELL['t'], *L.CELL_XY)     # max published size
 def strip_pcb():

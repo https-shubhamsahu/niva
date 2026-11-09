@@ -1,0 +1,19 @@
+** Drc report for NIVA-insole-L.kicad_pcb **
+** Created on 2026-11-03T01:58:39 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 0 DRC violations **
+
+** Found 0 unconnected pads **
+
+** Found 1 Footprint errors **
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(-22.0000 mm, 88.0000 mm): Footprint R1
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+
+** End of Report **

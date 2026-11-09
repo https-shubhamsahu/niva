@@ -54,7 +54,7 @@
     "print_orientation": "contact face on bed (flipped); no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 1883.6,
+    "volume_mm3": 1875.8,
     "print_bbox_mm": [
       27.6,
       37.1,

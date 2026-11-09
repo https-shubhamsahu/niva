@@ -1,0 +1,42 @@
+NIVA-dock Rev C.2 - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
+
+Upload NIVA-dock-PCBWay-gerbers.zip. Order settings:
+  2 layers, 58 x 56 mm, quantity 5, 1.6 mm FR-4, 1 oz copper, ENIG (flat pads for
+  the SMT spring pins), green mask, white silk. GND pour on both layers.
+  Min track 0.2 mm, min clearance 0.15 mm, vias 0.6 mm pad / 0.3 mm drill
+  (0.15 mm annular ring), 10 vias. Two plated slots 0.6 x 1.2 mm for the USB-C shell tabs
+  (G85 slots in the PTH file; confirm in PCBWay's DFM). NPTH: 4 x 2.2 mm (M2 mounting holes).
+  "PCBWay" on B.Silkscreen (1 mm, 0.15 mm stroke). Front silk now reads NIVA DOCK REV C.2.
+
+Blockers closed (9 Nov 2026):
+  - J2 = 3 x Mill-Max 0900-0-15-20-76-14-11-0 (same pin as the pod J2), on 2.08 mm round
+    pads at 6.0 mm pitch: the datasheet's .082 in minimum pad, as on the C.2 pod.
+    Mechanics: the pin is 3.48 mm free, but the Rev C.1 dock put the cartridge pads 3.8 mm
+    above the PCB, so it would not have touched. The well floor is now 0.83 mm lower
+    (niva_layout DOCK['floor_z'] = PCB top + 2.972 - 1.0 mm cup floor), and
+    10_DockBase / 11_DockTop / 12_DockLightPipe_Clear were regenerated. FreeCAD audit
+    (mechanical/dock-interference-report.json): 0.50 mm compression seated, 0.40 mm with the
+    cartridge lifted onto the latch hook; the only intersection is pins on pads; pins clear
+    the well-floor holes by 0.25 mm. Only J2 sits under the well floor (0.77 mm headroom).
+  - NTC assumption for R6/R7/R8 (R5 22k pull-up, thresholds 0.570 / 0.180 of VBUS):
+    the pack NTC is 10 k at 25 C with B25/50 = 3435 K. Then charging is allowed from
+    -0.3 C to 45.1 C nominal. With B 3380 K: -0.7 to 45.5 C. With B 3950 K: 2.7 to 42.3 C.
+    A 100 k NTC reads as cold at room temperature and the dock never charges, so a wrong
+    NTC shows up on the first test. The cell spec in hand (EEMB LP502030-PCM-LD) has no NTC;
+    the NTC value of the -PCM-NTC-LD variant is still unconfirmed.
+
+Checks at export, 9 Nov 2026 (KiCad 10.0.7, stock global libraries, schematic parity on,
+zones refilled and saved): DRC errors 0, unconnected 0. Warnings: 1 USB-C footprint differs
+from the KiCad 10 library copy, 3 MPN fields not on footprints. ERC errors 0, 1 warning
+(USB-C symbol differs from the KiCad 10 library copy). Reports: ../../NIVA-dock-DRC.rpt,
+../../../NIVA-dock-ERC.rpt. Same Gerber/drill flags as the pod.
+
+Passing KiCad ERC/DRC is not a design review. Still open:
+  - NTC window margin: with 1 % resistors (10 k B3435) the trips spread to -1.0..+0.3 C
+    and 44.2..46.0 C, so a window edge can sit just outside the cell's 0-45 C charge
+    range (NTC tolerance adds to this). Once the purchased cell's NTC is known, retune
+    R6/R7/R8 for about 3-42 C. That is a BOM change; the copper does not change.
+  - J2 3D model is a datasheet envelope; pin verticality after reflow (bench).
+  - Thresholds, charge termination (4.20 V +- 1 %) and fault behaviour unmeasured
+    (VERIFICATION-PLAN F4).
+  - No independent review; read PCBWay's DFM reply before paying.

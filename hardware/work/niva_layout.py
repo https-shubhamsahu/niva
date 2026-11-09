@@ -94,6 +94,10 @@ CELL = dict(model='EEMB LP502030-PCM-NTC-LD (class)', w=20.5, l=32.0, t=5.3, swe
 # beside it on the cup floor. Lead room of 2 mm at the PCM (+y) end.
 CART = dict(cup_x0=7.0, cup_y0=5.0, cup_w=28.0, cup_l=37.5, cup_h=8.0, wall=1.5, floor=1.0,
             lid_z=8.0, lid_t=1.2, plug_t=0.8)
+# Rev C.2: the four lid contact plates sit 0.37 mm below the lid face, so the board-to-plate gap is
+# 11.8 - 8.83 = 2.97 mm, the working height of the Mill-Max 0900-0 J2 pins (3.480 free - 0.508 rated travel).
+# Rev C.1 had the plates flush (2.6 mm gap, 89 % of the pin's 0.991 mm max stroke).
+CART['plate_recess'] = 0.37
 CART['cav'] = (CART['cup_x0'] + CART['wall'], CART['cup_y0'] + CART['wall'],
                CART['cup_w'] - 2 * CART['wall'], CART['cup_l'] - 2 * CART['wall'])       # x0, y0, w, l
 CELL_XY = (8.8, 6.8)                                                                    # cell corner
@@ -114,7 +118,11 @@ CART_PLACE = {'J1': (30.95, 35.0, 0, 'F'),        # cell leads (+, -, NTC) at th
 DOCK = dict(w=64.0, d=62.0, r=6.0, dxy=(11.0, 5.0), pcb_x0=3.0, pcb_y0=3.0, pcb_w=58.0, pcb_h=56.0, pcb_t=1.6,
             base_t=2.5, pcb_z=6.4, floor_t=1.2, well_depth=10.4, well_clear=0.5)
 DOCK['pads'] = [(x + DOCK['dxy'][0], y + DOCK['dxy'][1]) for n, x, y in DOCK_PADS]
-DOCK['floor_z'] = DOCK['pcb_z'] + DOCK['pcb_t'] + 2.8          # 2.8 mm component headroom under the well floor
+# Rev C.2: the J2 pin sets the well floor. Mill-Max 0900-0 works at 3.480 - 0.508 = 2.972 mm, so the cartridge pad
+# face (well floor + 1.0 mm cup floor) sits 2.972 mm above the dock PCB. That leaves 0.77 mm under the well floor,
+# where only J2 is placed. (Rev C.1: 2.8 mm headroom, pads 3.8 mm up, for a 4.5 mm placeholder pin.)
+DOCK['pin_work_h'] = 3.480 - 0.508
+DOCK['floor_z'] = DOCK['pcb_z'] + DOCK['pcb_t'] + DOCK['pin_work_h'] - CART['floor']
 DOCK['top_z'] = DOCK['floor_z'] + DOCK['well_depth']           # cartridge (9.2 mm tall) sits 1.2 mm below the top face
 _px = DOCK['pads'][1][0]; _py = DOCK['pads'][1][1]
 DOCK_PLACE = {

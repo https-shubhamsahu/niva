@@ -1,0 +1,227 @@
+{
+    "$schema": "https://schemas.kicad.org/drc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-03T02:30:55",
+    "ignored_checks": [
+        {
+            "description": "Track endpoint not centered on via",
+            "key": "track_not_centered_on_via"
+        },
+        {
+            "description": "Tuning profile track geometries",
+            "key": "tuning_profile_track_geometries"
+        },
+        {
+            "description": "Footprint doesn't match symbol's footprint filters",
+            "key": "footprint_filters_mismatch"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.7",
+    "schematic_parity": [
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint J1",
+                    "pos": {
+                        "x": 121.0,
+                        "y": 91.0
+                    },
+                    "uuid": "04ca95e6-59e7-4789-a02c-6b53367797f7"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Field 'Description' differs (PCB: 'Placeholder - part to select', Schematic: '')",
+            "items": [
+                {
+                    "description": "Footprint J2",
+                    "pos": {
+                        "x": 129.0,
+                        "y": 78.5
+                    },
+                    "uuid": "de97f8f8-6a77-42d4-931a-6efe9fc152f6"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U1",
+                    "pos": {
+                        "x": 121.0,
+                        "y": 54.55
+                    },
+                    "uuid": "c9616e18-ad8b-4d7b-a2ea-c20273c68f1c"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U2",
+                    "pos": {
+                        "x": 111.0,
+                        "y": 74.0
+                    },
+                    "uuid": "07bf5d5f-16b0-47bc-903f-1cc7b24ab561"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U3",
+                    "pos": {
+                        "x": 133.5,
+                        "y": 57.5
+                    },
+                    "uuid": "60b22f69-03af-418c-a3f1-2482402c6e3d"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U5",
+                    "pos": {
+                        "x": 130.5,
+                        "y": 65.2
+                    },
+                    "uuid": "a6fa971f-e318-4555-afd1-25ff1db6f752"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U6",
+                    "pos": {
+                        "x": 131.5,
+                        "y": 70.5
+                    },
+                    "uuid": "3913347d-9d08-480a-8ff0-6759037ec6f2"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint D2",
+                    "pos": {
+                        "x": 131.5,
+                        "y": 82.1
+                    },
+                    "uuid": "a163ab8b-47a8-405a-8d92-e378556980dc"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        },
+        {
+            "description": "Missing symbol field 'MPN' in footprint",
+            "items": [
+                {
+                    "description": "Footprint U4",
+                    "pos": {
+                        "x": 133.0,
+                        "y": 77.8
+                    },
+                    "uuid": "3039a02b-d981-4c21-92c2-47158403a413"
+                }
+            ],
+            "severity": "warning",
+            "type": "footprint_symbol_field_mismatch"
+        }
+    ],
+    "source": "NIVA-pod.kicad_pcb",
+    "unconnected_items": [],
+    "violations": [
+        {
+            "description": "Footprint 'LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y' does not match copy in library 'Package_LGA'",
+            "items": [
+                {
+                    "description": "Footprint U3",
+                    "pos": {
+                        "x": 133.5,
+                        "y": 57.5
+                    },
+                    "uuid": "60b22f69-03af-418c-a3f1-2482402c6e3d"
+                }
+            ],
+            "severity": "warning",
+            "type": "lib_footprint_mismatch"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 112.5,
+                        "y": 51.5
+                    },
+                    "uuid": "7c45abba-5f05-5382-877e-6cfbadf11479"
+                },
+                {
+                    "description": "Segment of U1 on F.Silkscreen",
+                    "pos": {
+                        "x": 114.4,
+                        "y": 62.85
+                    },
+                    "uuid": "826bab59-f8a4-498b-b9c6-3ffec91ce02c"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        },
+        {
+            "description": "Silkscreen clipped by board edge",
+            "items": [
+                {
+                    "description": "Segment on Edge.Cuts",
+                    "pos": {
+                        "x": 112.5,
+                        "y": 51.5
+                    },
+                    "uuid": "7c45abba-5f05-5382-877e-6cfbadf11479"
+                },
+                {
+                    "description": "Segment of U1 on F.Silkscreen",
+                    "pos": {
+                        "x": 127.6,
+                        "y": 46.25
+                    },
+                    "uuid": "cf33c1af-8602-4ae0-8806-df317d635259"
+                }
+            ],
+            "severity": "warning",
+            "type": "silk_edge_clearance"
+        }
+    ]
+}

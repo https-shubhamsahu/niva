@@ -16,6 +16,9 @@ Rev B -> Rev C mechanical changes (details in the package README):
   M6 cartridge contacts: board spring contacts -> flush plates in the bonded cartridge lid
   M7 cradle: undercut rails, bottom stop, printable cantilever latch, L/R key post + slot
   M8 bay ceiling with contact/service windows keeps fingers off the board when the bay is empty
+
+Rev C.2 (Nov 2026): lid plates recessed 0.37 mm (niva_layout CART['plate_recess']) for the Mill-Max 0900-0 J2 pins,
+and the audit imports the C.2 board STEP (antenna notch, 0900 envelopes) from the C.2 working copy.
 """
 from pathlib import Path
 import json, math, sys, itertools
@@ -192,8 +195,8 @@ def export_print(name, shape, orient, material, finish, note):
                                 print_bbox_mm=[round(bb.XLength, 2), round(bb.YLength, 2), round(bb.ZLength, 2)],
                                 closed_mesh=m.isSolid(), mesh_non_manifolds=m.hasNonManifolds()))
 
-# Kicad component bodies (real library/supplier models) placed in the pod frame
-kicad_step = OUT / 'electronics/exports/pcb/NIVA-pod-PCBA.step'
+# Kicad component bodies (real library/supplier models) placed in the pod frame; Rev C.2 board
+kicad_step = ROOT / 'outputs/NIVA-RevC2-protected-steps/electronics-C2-working/exports/pcb/NIVA-pod-PCBA.step'
 components = kicad_board = None
 if kicad_step.exists():
     pcba = Part.Shape(); pcba.read(str(kicad_step)); pcba.translate(V(0, 0, PCB_Z))   # KiCad z = 0 at board underside
@@ -231,8 +234,7 @@ Part.export([o for o in doc.Objects if o.TypeId == 'Part::Feature'], str(CAD / '
 
 # ------------------------------------------------------------------ interference + fit audit (right pod)
 objs = [o for o in groups['R'].Group]
-EXPECTED = {frozenset({'PCB_Components_KiCad_R', 'ContactPlates_R'}): 'J2 spring plungers drawn uncompressed: 0.4 mm design preload on the lid plates',
-            frozenset({'PCB_Components_KiCad_R', '04_BatteryCartridgeLid_R'}): 'J2 plunger tips enter the plate pockets (preload)'}
+EXPECTED = {frozenset({'PCB_Components_KiCad_R', 'ContactPlates_R'}): 'J2 Mill-Max 0900 plungers drawn at free height: 0.51 mm design preload (rated travel) on the recessed lid plates'}
 for a, b in itertools.combinations(objs, 2):
     if not a.Shape.BoundBox.intersect(b.Shape.BoundBox): continue
     v = a.Shape.common(b.Shape).Volume
@@ -246,6 +248,7 @@ for a, b in [('PCB_Substrate_R', '01_RearHousing_R'), ('PCB_Substrate_R', '02_Fr
              ('07_Button_TPU_R', 'PCB_Components_KiCad_R'), ('08_LightWindow_Clear_R', 'PCB_Components_KiCad_R'),
              ('PCB_Components_KiCad_R', '02_FrontCover_R'), ('PCB_Components_KiCad_R', '01_RearHousing_R'),
              ('03_BatteryCartridgeCup_R', '01_RearHousing_R'), ('04_BatteryCartridgeLid_R', '01_RearHousing_R'),
+             ('04_BatteryCartridgeLid_R', 'PCB_Components_KiCad_R'),
              ('05_Cradle_R', '01_RearHousing_R'), ('TailBoot_R', '01_RearHousing_R'), ('TailBoot_R', '02_FrontCover_R'),
              ('TailBoot_R', 'PCB_Components_KiCad_R'), ('TailBoot_R', 'PCB_Substrate_R'),
              ('Cell_LP502030_MAXSIZE_R', '04_BatteryCartridgeLid_R'), ('Cell_LP502030_MAXSIZE_R', '03_BatteryCartridgeCup_R'),

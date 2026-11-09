@@ -306,7 +306,7 @@
 				)
 			)
 		)
-		(property "Value" "PTC 0805 hold>=0.5 A, >=6 V"
+		(property "Value" "PTC 0805 0.35 A hold / 0.75 A trip, 6 V"
 			(at 0 1.65 90)
 			(layer "F.Fab")
 			(uuid "74053b87-29f5-45ad-b3c2-72fc2fcb3f5b")
@@ -570,6 +570,18 @@
 		)
 		(layer "Edge.Cuts")
 		(uuid "ad75cb2b-a61a-4d9e-8c0a-9f0c1bc140e3")
+	)
+	(gr_text "PCBWay"
+		(at 131 70 90)
+		(layer "B.SilkS")
+		(uuid "a265fc08-fb81-4953-808b-3bc0edebaa21")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
 	)
 	(gr_text "HAND-ROUTED - DRC CHECKED - PROTOTYPE, NOT RELEASED"
 		(at 131.55 61.4 90)

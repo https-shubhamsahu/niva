@@ -1,0 +1,183 @@
+{
+  "parameters": {
+    "PLATE_BACK_Z": -3.4,
+    "STRAP_W": 35.0,
+    "WING_SPAN": 69.0,
+    "SHIN_R": 60.0,
+    "PAD_MIN": 2.0,
+    "COLLAR_T": 5.0,
+    "TAIL_T": 1.2,
+    "TAIL_SLOT_W": 9.0,
+    "HOOK_W": 30.0,
+    "BRIDGE_T": 2.4,
+    "TONGUE_T": 1.8,
+    "TONGUE_L": 14.0,
+    "GRIP": 0.8
+  },
+  "parts": [
+    {
+      "part": "13_AnkleCradle_R",
+      "material": "PETG",
+      "print_orientation": "back (leg side) on bed, as Rev C cradle 05; no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10787.8,
+      "print_bbox_mm": [
+        69.0,
+        63.0,
+        6.6
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 10787.8,
+      "stl_reread_facets": 1236,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "13_AnkleCradle_L",
+      "material": "PETG",
+      "print_orientation": "back (leg side) on bed, as Rev C cradle 05; no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10787.8,
+      "print_bbox_mm": [
+        69.0,
+        63.0,
+        6.6
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 10787.8,
+      "stl_reread_facets": 1236,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "14_CollarClip_R",
+      "material": "PETG",
+      "print_orientation": "on its -x rail wall (hook profile in the layer plane); brim; no supports expected - check in the slicer",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10685.4,
+      "print_bbox_mm": [
+        14.6,
+        65.4,
+        48.1
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 10685.4,
+      "stl_reread_facets": 888,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "14_CollarClip_L",
+      "material": "PETG",
+      "print_orientation": "on its -x rail wall (hook profile in the layer plane); brim; no supports expected - check in the slicer",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10685.4,
+      "print_bbox_mm": [
+        14.6,
+        65.4,
+        48.1
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 10685.4,
+      "stl_reread_facets": 888,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "15_TailBlank_TPU_R",
+      "material": "TPU 95A",
+      "print_orientation": "flange (outer) face on bed; no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 459.0,
+      "print_bbox_mm": [
+        19.6,
+        7.4,
+        4.2
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 459.0,
+      "stl_reread_facets": 36,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "15_TailBlank_TPU_L",
+      "material": "TPU 95A",
+      "print_orientation": "flange (outer) face on bed; no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 459.0,
+      "print_bbox_mm": [
+        19.6,
+        7.4,
+        4.2
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 459.0,
+      "stl_reread_facets": 36,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "16_AnkleSaddlePad_TPU",
+      "material": "TPU 85A-95A",
+      "print_orientation": "flat (cradle) face on bed, concave leg face up; no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 10809.6,
+      "print_bbox_mm": [
+        50.0,
+        60.0,
+        7.46
+      ],
+      "step_reread_solids": 1,
+      "step_reread_volume_mm3": 10809.6,
+      "stl_reread_facets": 364,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    }
+  ],
+  "interference": {
+    "ShoeNode_R: 14_CollarClip_R x REF_TailBand": {
+      "volume_mm3": 55.632,
+      "expected": "intended: tongue-tip preload (GRIP) on the tail band"
+    }
+  },
+  "gaps": {
+    "AnkleHub_R: 13_AnkleCradle_R to 01_RearHousing_R": 0.2,
+    "AnkleHub_R: 13_AnkleCradle_R to 02_FrontCover_R": 10.239,
+    "AnkleHub_R: 16_AnkleSaddlePad_TPU to 13_AnkleCradle_R": 0.0,
+    "AnkleHub_R: 16_AnkleSaddlePad_TPU to 01_RearHousing_R": 3.4,
+    "AnkleHub_R: 15_TailBlank_TPU_R to 01_RearHousing_R": 0.2,
+    "AnkleHub_R: 15_TailBlank_TPU_R to 02_FrontCover_R": 0.2,
+    "AnkleHub_R: 15_TailBlank_TPU_R to PCB_Components_KiCad_R": 3.9,
+    "AnkleHub_R: 15_TailBlank_TPU_R to PCB_Substrate_R": 3.6,
+    "ShoeNode_R: 14_CollarClip_R to 01_RearHousing_R": 0.2,
+    "ShoeNode_R: 14_CollarClip_R to 02_FrontCover_R": 10.239,
+    "ShoeNode_R: 14_CollarClip_R to TailBoot_R": 11.6,
+    "ShoeNode_R: 14_CollarClip_R to REF_CollarSlab": 0.0,
+    "ShoeNode_R: REF_CollarSlab to 01_RearHousing_R": 3.4,
+    "ShoeNode_R: TailBoot_R to 01_RearHousing_R": 0.2,
+    "collar clip: z-intersections at x=8, y=2.0": [
+      -11.234,
+      -9.434,
+      -3.4,
+      -0.4
+    ],
+    "collar clip: z-intersections at x=8, y=14.0": [
+      -10.649,
+      -8.849,
+      -3.4,
+      -0.4
+    ]
+  },
+  "notes": [
+    "Saddle pad sagitta over its 50 mm width at SHIN_R = 60.0 mm: 5.46 mm (calculated).",
+    "interface core minus Rev C cradle 05 = 0.0000 mm3 (0 means the mating features are the Rev C ones, unchanged)"
+  ]
+}

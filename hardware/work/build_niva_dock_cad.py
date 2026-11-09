@@ -9,6 +9,9 @@ well floor and the cup's contact windows. Dock frame = pod frame shifted by L.DO
 
 Parts: 10_DockBase (PETG), 11_DockTop (PETG), 12_DockLightPipe_Clear. The PCBA comes from the KiCad STEP
 (electronics/dock/exports/pcb/NIVA-dock-PCBA.step); J2 spring pins in that STEP are a NIVA ENVELOPE.
+
+Rev C.2 (Nov 2026): J2 is 3 x Mill-Max 0900-0 (3.48 mm free height). The well floor drops 0.83 mm
+(niva_layout DOCK['floor_z']) so the pins reach the cartridge pads at their 0.508 mm rated travel.
 """
 from pathlib import Path
 import json, sys, itertools
@@ -43,7 +46,7 @@ def dock_base():
         s = s.cut(cyl(x, y, -0.1, 1.2, PCB_TOP)).cut(cyl(x, y, -0.1, 2.1, 1.9))           # M2 clearance + head counterbore
     s = s.cut(box(D['w'] - 2.5, USB['y'] - USB['w'] / 2, USB['z'] - USB['h'] / 2, 3, USB['w'], PCB_TOP))   # plug overmould relief
     for x, y in FEET: s = s.cut(cyl(x, y, -0.1, 4.2, 0.9))                                  # 8 mm bumper recesses
-    for txt, size, y in (('NIVA DOCK REV C.1', 3.6, 36), ('5 V USB-C - CARTRIDGE ONLY', 2.6, 29), ('NOT A MEDICAL DEVICE', 2.2, 24)):
+    for txt, size, y in (('NIVA DOCK REV C.2', 3.6, 36), ('5 V USB-C - CARTRIDGE ONLY', 2.6, 29), ('NOT A MEDICAL DEVICE', 2.2, 24)):
         t = text_solid(txt, size, D['w'] / 2, y, -0.1, 0.5)
         if t: t.mirror(V(D['w'] / 2, 0, 0), V(1, 0, 0)); s = s.cut(t)                     # reads correctly from below
     return clean(s)

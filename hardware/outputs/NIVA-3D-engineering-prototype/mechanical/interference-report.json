@@ -1,12 +1,8 @@
 {
   "interference": {
-    "04_BatteryCartridgeLid_R x PCB_Components_KiCad_R": {
-      "volume_mm3": 0.096,
-      "expected": "J2 plunger tips enter the plate pockets (preload)"
-    },
     "ContactPlates_R x PCB_Components_KiCad_R": {
-      "volume_mm3": 1.257,
-      "expected": "J2 spring plungers drawn uncompressed: 0.4 mm design preload on the lid plates"
+      "volume_mm3": 1.268,
+      "expected": "J2 Mill-Max 0900 plungers drawn at free height: 0.51 mm design preload (rated travel) on the recessed lid plates"
     }
   },
   "gaps": {
@@ -15,9 +11,10 @@
     "07_Button_TPU_R to PCB_Components_KiCad_R": 0.205,
     "08_LightWindow_Clear_R to PCB_Components_KiCad_R": 0.305,
     "PCB_Components_KiCad_R to 02_FrontCover_R": 1.16,
-    "PCB_Components_KiCad_R to 01_RearHousing_R": 0.6,
+    "PCB_Components_KiCad_R to 01_RearHousing_R": 0.966,
     "03_BatteryCartridgeCup_R to 01_RearHousing_R": 0.0,
     "04_BatteryCartridgeLid_R to 01_RearHousing_R": 0.6,
+    "04_BatteryCartridgeLid_R to PCB_Components_KiCad_R": 0.0,
     "05_Cradle_R to 01_RearHousing_R": 0.2,
     "TailBoot_R to 01_RearHousing_R": 0.2,
     "TailBoot_R to 02_FrontCover_R": 0.2,
@@ -29,6 +26,6 @@
     "CartridgeStripPCB_R to 03_BatteryCartridgeCup_R": 0.0
   },
   "notes": [
-    "KiCad PCBA STEP imported: 656 component/pad solids, z 8.71..17.04; KiCad board body 1445 mm3 vs enclosure board solid 1590 mm3 (difference 9.1 %, KiCad dielectric body excludes outer copper/mask)"
+    "KiCad PCBA STEP imported: 659 component/pad solids, z 8.23..17.04; KiCad board body 1360 mm3 vs enclosure board solid 1590 mm3 (difference 14.5 %, KiCad dielectric body excludes outer copper/mask)"
   ]
 }

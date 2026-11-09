@@ -5,7 +5,7 @@
     "print_orientation": "bottom on bed; no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 12236.9,
+    "volume_mm3": 12236.6,
     "print_bbox_mm": [
       64.0,
       62.0,
@@ -20,11 +20,11 @@
     "print_orientation": "top face on bed (flipped); well floor is a 29 mm bridge - enable bridging, no supports",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 15668.1,
+    "volume_mm3": 15183.1,
     "print_bbox_mm": [
       64.0,
       62.0,
-      13.2
+      12.37
     ],
     "closed_mesh": true,
     "mesh_non_manifolds": false
@@ -35,11 +35,11 @@
     "print_orientation": "flange on bed (flipped)",
     "valid": true,
     "solids": 1,
-    "volume_mm3": 52.2,
+    "volume_mm3": 48.7,
     "print_bbox_mm": [
       3.4,
       3.4,
-      11.85
+      11.02
     ],
     "closed_mesh": true,
     "mesh_non_manifolds": false

@@ -51,8 +51,9 @@ def footprints(folder):
        [(str(i + 1), 0, (i - 1.5) * 1.7, 'rect', 1.5, 1.0, CU) for i in range(4)], (1.7, 6.1))
     fp('ContactPads_1x03_P6.0mm', 'Gold (ENIG) dock contact pads, reached through the cartridge floor; place on B.Cu',
        [(str(i + 1), 0, (i - 1) * 6.0, 'circle', 2.0, 2.0, CU) for i in range(3)], (2.4, 14.4))
-    fp('SpringPins_1x03_P6.0mm_Vertical', 'PLACEHOLDER: three single spring-loaded contacts, ~4.5 mm free height, '
-       'part to select; replace pads with the supplier land pattern', [(str(i + 1), 0, (i - 1) * 6.0, 'rect', 1.8, 1.8, CUP) for i in range(3)],
+    fp('SpringPins_1x03_P6.0mm_Vertical', 'Dock J2, Rev C.2: 3 x Mill-Max 0900-0-15-20-76-14-11-0 SMT spring-loaded pins '
+       'at 6.0 mm pitch on 2.08 mm round pads (datasheet: .082 in min. solder pad; 3.48 mm free height, 2.97 mm at the '
+       '0.508 mm rated travel)', [(str(i + 1), 0, (i - 1) * 6.0, 'circle', 2.08, 2.08, CUP) for i in range(3)],
        (2.4, 14.4), 'NIVA_SpringPin_1x03_ENVELOPE.step')
 
 def project(folder, name, sheet, parts_note):
@@ -81,8 +82,10 @@ cart = single_sheet(cdir, 'NIVA-cartridge', 'NIVA battery cartridge | interconne
 cart.text(20, 18, 'NIVA CARTRIDGE INTERCONNECT - ENGINEERING PROTOTYPE - NOT FOR FABRICATION', 2.2)
 cart.place('Connector_Generic:Conn_01x03', 'J1', 'CELL LEADS (+, NTC, -)', 40, 70,
            {'1': 'CELL_P', '2': 'NTC', '3': 'PACK_N'}, 'NIVA_power:WirePads_1x03_P1.8mm')
-cart.place('Device:Polyfuse', 'F1', 'PTC 0805 hold>=0.5 A, >=6 V', 90, 60, {'1': 'CELL_P', '2': 'PACK_P'},
-           'Fuse:Fuse_0805_2012Metric', extra={'MPN': 'to select (e.g. 0805 resettable, I_hold 0.5 A, V_max >= 6 V)'})
+# F1 (Rev C.2): EEMB LP502030-PCM-LD spec ZJQM-RD-SPC-A03249 §6.1 rates the PCM for 0.3 A constant, 0.8 A peak for 3 s.
+# MF-PSMF035X holds 0.30 A at 40 C and trips by 0.75 A (Bourns data), so it sits inside the PCM envelope as layer 2.
+cart.place('Device:Polyfuse', 'F1', 'PTC 0805 0.35 A hold / 0.75 A trip, 6 V', 90, 60, {'1': 'CELL_P', '2': 'PACK_P'},
+           'Fuse:Fuse_0805_2012Metric', extra={'MPN': 'Bourns MF-PSMF035X-2'})
 cart.place('Connector_Generic:Conn_01x04', 'J2', 'TO LID PLATES (P-, P-, P+, P+) -> pod J2', 150, 70,
            {'1': 'PACK_N', '2': 'PACK_N', '3': 'PACK_P', '4': 'PACK_P'}, 'NIVA_power:WirePads_1x04_P1.7mm')
 cart.place('Connector_Generic:Conn_01x03', 'J3', 'DOCK PADS (P+, NTC, P-), underside', 150, 110,
@@ -140,7 +143,8 @@ dock.text_block(20, 275, [
     'LM393 common-mode range (VCC - 1.5 V at 25 C, VCC - 2 V over temperature): an input outside it still gives a correct output.',
     'No hysteresis: charge may toggle at a threshold, which is benign (charging is inhibited outside the window).'], 1.2)
 dock.place('Connector_Generic:Conn_01x03', 'J2', 'SPRING PINS TO CARTRIDGE (P+, NTC, P-)', 300, 205,
-           {'1': 'BAT', '2': 'NTC_S', '3': 'GND'}, 'NIVA_power:SpringPins_1x03_P6.0mm_Vertical')
+           {'1': 'BAT', '2': 'NTC_S', '3': 'GND'}, 'NIVA_power:SpringPins_1x03_P6.0mm_Vertical',
+           extra={'MPN': 'Mill-Max 0900-0-15-20-76-14-11-0 (3 pcs)'})
 for ref, x in (('H1', 300), ('H2', 315), ('H3', 330), ('H4', 345)):
     dock.place('Mechanical:MountingHole', ref, 'M2', x, 250, {}, 'MountingHole:MountingHole_2.2mm_M2', bom=False)
 dock.save('(sheet_instances (path "/" (page "1")))')
