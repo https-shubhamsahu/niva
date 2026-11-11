@@ -40,8 +40,13 @@ parts" below), following Bob Bao's reply of 10 Nov ("importing it and replacing 
    Supplier/Supplier Part plus Manufacturer/Manufacturer Part on the schematic and PCB.
 
 ## Library parts
-Swapped with Device Standardization / Device Manager, "Merge properties (current first)", so
-designators and Value text ("10u 16V X5R", "31.6k 1%", ...) are unchanged.
+Swapped with Device Standardization / Device Manager, keeping designators. A second pass ("Use
+Recommended Device", "Merge properties (target first)", "Keep current symbol") then took the
+library's properties, so Value, Manufacturer and Name now follow the library: C1/C2 "10uF", C3/C4
+"100nF", resistors "5.1kΩ", "31.6kΩ" and so on. Parts whose library device has no Value (D1, D2,
+F1, J1, Q1, U1, U2) keep the KiCad text. The full KiCad values ("10u 16V X5R", "PTC 0.5 A hold,
+24 V", ...) stay in LCSC-parts.csv. Positions, rotations and connectivity were checked unchanged
+after this pass.
 
 | Ref | LCSC | Library footprint (was KiCad) | Pad change vs KiCad land |
 |---|---|---|---|
@@ -95,16 +100,19 @@ Tracks re-routed for the library pads (all on F.Cu):
 
 ## DRC in EasyEDA (after the part swap)
 - PCB: 0 errors of any kind. The earlier property-only "Netlist Error" is gone: Import Changes was
-  applied (20 footprint swaps plus H1-H4/J2 Name and Channel ID updates, 0 net changes).
-- Schematic: 0 fatal, 0 errors, 1 warning, 4 info (the M2 holes have no pins). The warning is
-  "Component attributes does not match the Supplier Part ... Device Standardization" on all 21
-  parts. It is caused by the kept Value text: R1/R2 drop off the warning when their Value is the
-  library's "5.1kOhm" and come back when it is "5.1k". Clearing it means replacing every Value with
-  the library text (10uF, 100nF, 5.1kOhm, ...), which drops "16V X5R", "AMBER 0805 (charging)",
-  "PTC 0.5 A hold, 24 V" and the like.
+  applied (20 footprint swaps plus H1-H4/J2 Name and Channel ID updates, 0 net changes), and again
+  after the library-values pass (214 added properties plus Value, Manufacturer, Name and Description
+  updates; no footprint or net changes). Re-checked after: 58/58 pad nets match KiCad, no part moved.
+- Schematic: 0 fatal, 0 errors, 1 warning, 4 info (the M2 holes have no pins). The warning
+  "Component attributes does not match the Supplier Part ... Device Standardization" now lists J2
+  only (it listed all 21 parts while they kept KiCad Value and Manufacturer text). J2 stays
+  flagged with Manufacturer set to LCSC's "Mill-Max Mfg. Corp." and even with its Supplier Part
+  cleared, so it appears to fire for any part without an EasyEDA library device. J2 keeps
+  C21211881 and "Mill-Max".
 
 ## Not done
-- U2 keeps the KiCad 3-unit symbol; J2 and H1-H4 keep their KiCad footprints (see above).
+- U2 keeps the KiCad 3-unit symbol; J2 and H1-H4 keep their KiCad footprints (see above). J2's
+  Device Standardization warning stays for the same reason.
 - The project is not yet published to OSHWLab, and the Spark "Apply Coupon" form is not filled in.
 - NIVA-dock-RevC2 was deleted on 11 Nov 2026. It is in EasyEDA's Recycle Bin, so it can be restored.
 
