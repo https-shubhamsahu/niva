@@ -4,10 +4,12 @@
 
 <p align="center">
   <a href="https://https-shubhamsahu.github.io/niva/"><b>Live dashboard</b></a> ·
-  <a href="./niva%20arduino/README.md">Firmware</a> ·
+  <a href="./startup/niva%20arduino/README.md">Firmware</a> ·
   <a href="./hardware/outputs/NIVA-3D-engineering-prototype/README.md">Rev C.1 hardware</a> ·
-  <a href="./niva%20web/src/utils/biomechanicsEngine.ts">Scoring rules</a>
+  <a href="./startup/niva%20web/src/utils/biomechanicsEngine.ts">Scoring rules</a>
 </p>
+
+> Three projects share this insole: the Niva startup, the Aavishkar 2026–27 research entry, and the SIH 2026 problem statement 26213. See [PROJECTS.md](PROJECTS.md) for what belongs to which.
 
 Niva is a smart insole for gait screening. An ESP32 reads four force pads, a piezo disc under the heel and an MPU6050, then streams 20 frames a second to a React dashboard and a Flutter app. Each gait phase, score and alert comes from a threshold in one TypeScript file, so you can point at the exact reading that set off an alert. Niva was shown at Automation Expo in July 2026.
 
@@ -19,7 +21,7 @@ Niva is a smart insole for gait screening. An ESP32 reads four force pads, a pie
   <img src="./assets/readme/bench-signal-path.svg" width="100%" alt="Bench signal path: four FSRs on GPIO 32 to 35 and a piezo on GPIO 36 into the ESP32 ADC, MPU6050 and SH1106 OLED on I2C pins 21 and 22, one frame every 50 ms out over WebSocket port 81 and USB Serial at 115200 baud to niva web and niva flutter.">
 </p>
 
-The active sketch is [`niva arduino/niva_hardware/niva_hardware.ino`](./niva%20arduino/niva_hardware/niva_hardware.ino).
+The active sketch is [`startup/niva arduino/niva_hardware/niva_hardware.ino`](./startup/niva%20arduino/niva_hardware/niva_hardware.ino).
 
 | Signal | ESP32 pin | Notes |
 |---|---|---|
@@ -58,7 +60,7 @@ The simpler sketch, `esp32_gaitguard_wifi_manager`, uses hardcoded Wi-Fi credent
 
 ## How a step gets scored
 
-Both apps run the same engine on every frame: [`biomechanicsEngine.ts`](./niva%20web/src/utils/biomechanicsEngine.ts) in the web app and [`biomechanics_engine.dart`](./niva%20flutter/lib/core/engine/biomechanics_engine.dart) in Flutter, and there's no trained model in it. Here are the rules, with the default values from the code, so you can check any number on the dashboard by hand:
+The web app runs these rules on every frame in [`biomechanicsEngine.ts`](./startup/niva%20web/src/utils/biomechanicsEngine.ts), and there's no trained model in it. The Flutter app times strides from the firmware's contact edges instead, in [`gait_timing_engine.dart`](./startup/niva%20flutter/lib/core/engine/gait_timing_engine.dart). Here are the web rules, with the default values from the code, so you can check any number on the dashboard by hand:
 
 | Output | Rule |
 |---|---|
@@ -115,7 +117,7 @@ Install only what you need for the part you're running:
 ### Web dashboard (`niva web`)
 
 ```bash
-cd "niva web"
+cd "startup/niva web"
 npm install
 # if peer dependency conflicts appear:
 npm install --legacy-peer-deps
@@ -130,7 +132,7 @@ npm run preview
 npm run lint
 ```
 
-Optional environment file, `niva web/.env.local`:
+Optional environment file, `startup/niva web/.env.local`:
 
 ```bash
 VITE_ESP32_WS_URL=ws://<esp32-ip>:81
@@ -143,7 +145,7 @@ VITE_DATASET_UPLOAD_TOKEN=your_optional_bearer_token
 Optional WebSocket relay, needed when an HTTPS dashboard has to reach a `ws://` ESP32:
 
 ```bash
-cd "niva web/relay"
+cd "startup/niva web/relay"
 npm install
 npm start
 ```
@@ -151,7 +153,7 @@ npm start
 ### Flutter app (`niva flutter`)
 
 ```bash
-cd "niva flutter"
+cd "startup/niva flutter"
 flutter pub get
 flutter analyze
 flutter test
@@ -162,10 +164,10 @@ The ESP32 endpoint, relay URL and upload URL are runtime settings on the Device 
 
 ### Firmware (`niva arduino`)
 
-Open a sketch in Arduino IDE, install the libraries listed in [`niva arduino/README.md`](./niva%20arduino/README.md) (WiFiManager, WebSockets, U8g2), select an ESP32 board and upload:
+Open a sketch in Arduino IDE, install the libraries listed in [`startup/niva arduino/README.md`](./startup/niva%20arduino/README.md) (WiFiManager, WebSockets, U8g2), select an ESP32 board and upload:
 
-- **Active hardware sketch:** `niva arduino/niva_hardware/niva_hardware.ino`
-- **Simpler hardcoded Wi-Fi sketch:** `niva arduino/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino`
+- **Active hardware sketch:** `startup/niva arduino/niva_hardware/niva_hardware.ino`
+- **Simpler hardcoded Wi-Fi sketch:** `startup/niva arduino/esp32_gaitguard_wifi_manager/esp32_gaitguard_wifi_manager.ino`
 
 Open Serial Monitor at **115200** baud, note the printed IP, and point the Flutter Device tab or the web Settings page at `ws://<ESP32_IP>:81`.
 
@@ -182,11 +184,14 @@ There's no application server or database. Your datasets stay in your browser (I
 
 | Directory | Contents |
 |---|---|
-| `niva arduino/` | ESP32 firmware: ADC acquisition, tare, IMU, OLED, Wi-Fi and WebSocket |
-| `niva web/` | Clinician dashboard, biomechanics views, dataset export and upload, WebSocket relay |
-| `niva flutter/` | Patient-facing app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
+| `startup/niva arduino/` | ESP32 firmware: ADC acquisition, tare, IMU, OLED, Wi-Fi and WebSocket |
+| `startup/niva web/` | Clinician dashboard, biomechanics views, dataset export and upload, WebSocket relay |
+| `startup/niva flutter/` | Patient-facing app: dashboard, device pairing over WebSocket, insights, trends, CSV export |
 | `hardware/` | Rev C.1 prototype: FreeCAD pod and dock, KiCad 9 pod, cartridge, dock and insole flex, verification plan, Blender scenes. Not reviewed or released for fabrication. |
-| `docs/brand/` | Logo source files |
+| `aavishkar/` | Aavishkar 2026–27 research entry |
+| `sih-26213/`, `niva sakshi/` | SIH 2026, problem statement 26213 (Fit India balance tests) |
+| `media/` | Shared photos, logos (`media/brand/`), 3D CAD and renders, video scripts |
+| `PROJECTS.md` | Which project owns what |
 | `SIH2026-DECK-KIT/` | Smart India Hackathon 2026 deck pipeline (HTML slides rendered to PDF) |
 | `assets/readme/`, `scripts/` | README diagrams and the script that builds them from the insole template |
 
@@ -194,12 +199,12 @@ There's no application server or database. Your datasets stay in your browser (I
 
 | File | Contents |
 |---|---|
-| [`niva arduino/README.md`](./niva%20arduino/README.md) | Sketches, pin map, libraries |
-| [`niva web/README.md`](./niva%20web/README.md) | Dashboard setup, telemetry formats, Pages deploy |
-| [`niva web/JUDGES_WALKTHROUGH.md`](./niva%20web/JUDGES_WALKTHROUGH.md) | Algorithm and data walkthrough |
-| [`niva flutter/README.md`](./niva%20flutter/README.md) | Flutter setup, architecture, run commands |
-| [`niva flutter/DESIGN.md`](./niva%20flutter/DESIGN.md) | Flutter design notes |
-| [`niva flutter/BACKEND_LOGIC.md`](./niva%20flutter/BACKEND_LOGIC.md) | Data contract and storage |
+| [`startup/niva arduino/README.md`](./startup/niva%20arduino/README.md) | Sketches, pin map, libraries |
+| [`startup/niva web/README.md`](./startup/niva%20web/README.md) | Dashboard setup, telemetry formats, Pages deploy |
+| [`startup/niva web/JUDGES_WALKTHROUGH.md`](./startup/niva%20web/JUDGES_WALKTHROUGH.md) | Algorithm and data walkthrough |
+| [`startup/niva flutter/README.md`](./startup/niva%20flutter/README.md) | Flutter setup, architecture, run commands |
+| [`startup/niva flutter/DESIGN.md`](./startup/niva%20flutter/DESIGN.md) | Flutter design notes |
+| [`startup/niva flutter/BACKEND_LOGIC.md`](./startup/niva%20flutter/BACKEND_LOGIC.md) | Data contract and storage |
 | [`hardware/outputs/NIVA-3D-engineering-prototype/README.md`](./hardware/outputs/NIVA-3D-engineering-prototype/README.md) | Rev C.1 boards, CAD, renders, open items |
 
 Niva is an engineering and research screening tool. It is not a medical diagnosis device.

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    `--base-href` from `flutter build web` replaces this placeholder.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Niva Sakshi is a Flamingo balance-test station: sensors flag each loss of balance, the teacher confirms or dismisses it, and the record keeps both.">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2F2F7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000">
+
+  <!-- Link previews (WhatsApp, Slack, LinkedIn, X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Niva Sakshi · Balance. Witnessed.">
+  <meta property="og:description" content="A Flamingo balance-test station. Sensors flag, the teacher decides, the record keeps both.">
+  <meta property="og:url" content="https://niva-sakshi.vercel.app/">
+  <meta property="og:image" content="https://niva-sakshi.vercel.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Niva Sakshi">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+
+  <title>Niva Sakshi · Balance. Witnessed.</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Shown while the app downloads. The mark draws itself like the Android
+       splash and sits at the same 144px centre the Flutter launch continues
+       from, then fades once Flutter paints its first frame. */
+    html, body { margin: 0; height: 100%; background: #F2F2F7; }
+    #sakshi-loading {
+      position: fixed; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; background: #F2F2F7;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      transition: opacity .35s ease; z-index: 10;
+    }
+    #sakshi-loading.done { opacity: 0; pointer-events: none; }
+    #sakshi-loading svg { width: 144px; height: 144px; overflow: visible; }
+    #sakshi-loading .eye { stroke: #0066CC; stroke-dasharray: 260; stroke-dashoffset: 260;
+      animation: draw .6s .1s cubic-bezier(.4,0,.2,1) forwards; }
+    #sakshi-loading .dot { fill: #F47758; transform-origin: 64px 56px; transform: scale(0);
+      animation: pop .4s .55s cubic-bezier(.34,1.56,.64,1) forwards; }
+    #sakshi-loading .beam { stroke: #173B59; transform-origin: 64px 106px; transform: scaleX(0);
+      animation: grow .35s cubic-bezier(.4,0,.2,1) forwards; }
+    #sakshi-loading p { position: absolute; bottom: 48px; margin: 0; font-size: 13px;
+      letter-spacing: .02em; color: #6C6C70; opacity: 0; animation: fade .4s 1.2s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes pop { to { transform: scale(1); } }
+    @keyframes grow { to { transform: scaleX(1); } }
+    @keyframes fade { to { opacity: 1; } }
+    @media (prefers-color-scheme: dark) {
+      html, body, #sakshi-loading { background: #000; }
+      #sakshi-loading .eye { stroke: #A9D4FF; }
+      #sakshi-loading .dot { fill: #FF9577; }
+      #sakshi-loading .beam { stroke: #EAF3FF; }
+      #sakshi-loading p { color: #98989F; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #sakshi-loading * { animation: none !important; stroke-dashoffset: 0 !important;
+        transform: none !important; opacity: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="sakshi-loading" role="status" aria-label="Niva Sakshi is loading">
+    <svg viewBox="0 0 128 128" aria-hidden="true">
+      <path class="eye" d="M16 56 C40 22 88 22 112 56 C88 90 40 90 16 56 Z" fill="none"
+        stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle class="dot" cx="64" cy="56" r="12"/>
+      <path class="beam" d="M36 106H92" stroke-width="12" stroke-linecap="round"/>
+    </svg>
+    <p>Loading Niva Sakshi…</p>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('sakshi-loading');
+      if (!el) return;
+      el.classList.add('done');
+      setTimeout(function () { el.remove(); }, 400);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
