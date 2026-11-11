@@ -1,0 +1,10 @@
+# NIVA hardware: keep CAD/EDA exchange files byte-exact across Windows/Linux checkouts
+*.step binary
+*.STEP binary
+*.stl binary
+*.FCStd binary
+*.FCBak binary
+*.pdf binary
+*.glb binary
+*.blend binary
+*.wrl binary

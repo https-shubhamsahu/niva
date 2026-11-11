@@ -1,0 +1,8 @@
+NIVA-cartridge - FABRICATION DATA FOR REVIEW ONLY - NOT RELEASED - DO NOT ORDER
+
+Automated checks at export: ERC errors 0, DRC errors 0, unconnected 0, footprint errors 0 (KiCad 9.0.9, schematic parity on).
+Passing KiCad ERC/DRC is not a design review. Open blockers:
+  - F1 polyfuse part number not selected (hold/trip current must be set against the cell PCM limits).
+  - Wire pad sizes assume 30 AWG leads - confirm with the cell lot lead gauge.
+  - ENIG finish and contact-pad wear under the dock spring pins untested.
+  - No independent review, no DFM report from the chosen fabricator.

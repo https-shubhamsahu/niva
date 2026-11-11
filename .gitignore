@@ -53,6 +53,8 @@ data/
 # Flutter repositories are source code, not downloaded research datasets.
 !startup/niva flutter/lib/core/data/
 !startup/niva flutter/lib/core/data/**
+
+# Python bytecode
 __pycache__/
 *.pyc
 
@@ -63,6 +65,8 @@ __pycache__/
 media/cad/**/renders/raw/
 *.blend
 *.blend1
-
-# Python caches
-__pycache__/
+# The Rev C hardware scenes are tracked on purpose.
+!hardware/**/*.blend
+*.FCBak
+*.kicad_prl
+hardware/outputs/NIVA-3D-engineering-prototype/renders/preview/

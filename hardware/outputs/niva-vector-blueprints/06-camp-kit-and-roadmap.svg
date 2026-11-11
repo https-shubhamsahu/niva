@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
+<rect x="0" y="0" width="420" height="297" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="12" y="16" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#14314B" font-weight="bold" text-anchor="start">NIVA</text>
+<text x="42" y="16" font-family="Helvetica, Arial, sans-serif" font-size="6" fill="#14314B" font-weight="bold" text-anchor="start">Camp kit / service and development gates</text>
+<text x="12" y="25" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#637887" font-weight="normal" text-anchor="start">A washable, modular field kit. The drawings define design intent while preserving the brief's bench-first development sequence.</text>
+<text x="408" y="15" font-family="Helvetica, Arial, sans-serif" font-size="4" fill="#0B6F79" font-weight="bold" text-anchor="end">ID / 06</text>
+<line x1="12" y1="32" x2="408" y2="32" stroke="#14314B" stroke-width="0.5"/>
+<line x1="12" y1="280" x2="408" y2="280" stroke="#14314B" stroke-width="0.4"/>
+<text x="12" y="286" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#0B6F79" font-weight="bold" text-anchor="start">DESIGN DEVELOPMENT  /  NOT FOR FABRICATION OR CLINICAL USE</text>
+<text x="12" y="292" font-family="Helvetica, Arial, sans-serif" font-size="2.5" fill="#637887" font-weight="normal" text-anchor="start">All dimensions in mm. P = proposed target; V = verified component dimension. No general tolerances assigned.</text>
+<text x="408" y="286" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="end">NV-ID-06  |  REV A  |  28 SEP 2026</text>
+<text x="408" y="292" font-family="Helvetica, Arial, sans-serif" font-size="2.5" fill="#637887" font-weight="normal" text-anchor="end">A3 LANDSCAPE  |  SCALE 1:2 CASE PLAN / NTS DETAILS  |  06 / 06</text>
+<text x="16" y="45" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">01  CASE + REMOVABLE TRAY</text>
+<rect x="22" y="54" width="200" height="165" rx="9" fill="#EAF0F2" stroke="#14314B" stroke-width="0.65"/>
+<rect x="26" y="58" width="192" height="157" rx="7" fill="#FFFFFF" stroke="#14314B" stroke-width="0.3"/>
+<line x1="22" y1="54" x2="22" y2="51" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="222" y1="54" x2="222" y2="51" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="22" y1="49" x2="222" y2="49" stroke="#0B6F79" stroke-width="0.25"/>
+<line x1="21" y1="50" x2="23" y2="48" stroke="#0B6F79" stroke-width="0.35"/>
+<line x1="221" y1="50" x2="223" y2="48" stroke="#0B6F79" stroke-width="0.35"/>
+<text x="122.0" y="47" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#0B6F79" font-weight="normal" text-anchor="middle">400 P</text>
+<line x1="22" y1="54" x2="18" y2="54" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="22" y1="219" x2="18" y2="219" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="16" y1="54" x2="16" y2="219" stroke="#0B6F79" stroke-width="0.25"/>
+<line x1="15" y1="55" x2="17" y2="53" stroke="#0B6F79" stroke-width="0.35"/>
+<line x1="15" y1="220" x2="17" y2="218" stroke="#0B6F79" stroke-width="0.35"/>
+<text x="19" y="136.5" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#0B6F79" font-weight="normal" text-anchor="start">330 P</text>
+<rect x="28" y="62" width="73" height="147" rx="5" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.35"/>
+<text x="33" y="69" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#0B6F79" font-weight="bold" text-anchor="start">S / M / L INSERT SETS</text>
+<g transform="translate(34 73) scale(0.5)">
+<path d="M 26 0 C 10 0 2 12 1 31 C 0 54 6 84 13 111 C 21 141 15 168 17 196 C 13 225 14 252 33 259 C 52 263  70 252 72 235 C 79 215 77 190 74 172 C 76 145 86 119 94 88 C 101 64 89 42 72 26 C 55 10 42 0 26 0 Z" fill="#EAF0F2" stroke="#14314B" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 44 5 L 39 35 Q 38 40 42 40 Q 45 40 45 35 L 50 9" fill="#FFFFFF" stroke="#0B6F79" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 73 226 L 93 233 L 93 247 L 72 240" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="43" y="198" font-family="Helvetica, Arial, sans-serif" font-size="6" fill="#14314B" font-weight="bold" text-anchor="middle">R / M</text>
+</g>
+<g transform="translate(50 74) scale(0.5)">
+<g transform="translate(96 0) scale(-1 1)">
+<path d="M 26 0 C 10 0 2 12 1 31 C 0 54 6 84 13 111 C 21 141 15 168 17 196 C 13 225 14 252 33 259 C 52 263  70 252 72 235 C 79 215 77 190 74 172 C 76 145 86 119 94 88 C 101 64 89 42 72 26 C 55 10 42 0 26 0 Z" fill="#EAF0F2" stroke="#14314B" stroke-width="0.65" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 44 5 L 39 35 Q 38 40 42 40 Q 45 40 45 35 L 50 9" fill="#FFFFFF" stroke="#0B6F79" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 73 226 L 93 233 L 93 247 L 72 240" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<rect x="104" y="72" width="97" height="39" rx="3" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.35"/>
+<g transform="translate(111 77) scale(0.38)">
+<rect x="0" y="0" width="42" height="60" rx="8" fill="#EAF0F2" stroke="#14314B" stroke-width="0.55"/>
+<rect x="1.8" y="1.8" width="38.4" height="56.4" rx="6.4" fill="none" stroke="#BDCBD2" stroke-width="0.3"/>
+<text x="21" y="15" font-family="Helvetica, Arial, sans-serif" font-size="4.3" fill="#14314B" font-weight="bold" text-anchor="middle">NIVA</text>
+<rect x="17" y="24" width="8" height="2" rx="1" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.2"/>
+<circle cx="21" cy="38" r="5" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="21" y="52" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#14314B" font-weight="bold" text-anchor="middle">R</text>
+<rect x="14" y="60" width="14" height="6" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+</g>
+<g transform="translate(135 77) scale(0.38)">
+<rect x="0" y="0" width="42" height="60" rx="8" fill="#EAF0F2" stroke="#14314B" stroke-width="0.55"/>
+<rect x="1.8" y="1.8" width="38.4" height="56.4" rx="6.4" fill="none" stroke="#BDCBD2" stroke-width="0.3"/>
+<text x="21" y="15" font-family="Helvetica, Arial, sans-serif" font-size="4.3" fill="#14314B" font-weight="bold" text-anchor="middle">NIVA</text>
+<rect x="17" y="24" width="8" height="2" rx="1" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.2"/>
+<circle cx="21" cy="38" r="5" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="21" y="52" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#14314B" font-weight="bold" text-anchor="middle">R</text>
+<rect x="14" y="60" width="14" height="6" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+</g>
+<text x="161" y="84" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#0B6F79" font-weight="bold" text-anchor="start">PODS</text>
+<text x="161" y="91" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="start">Straps tucked</text>
+<text x="161" y="96" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="start">in open recess</text>
+<rect x="104" y="117" width="97" height="30" rx="3" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.35"/>
+<rect x="109" y="123" width="14" height="17" rx="2" fill="#FFFFFF" stroke="#14314B" stroke-width="0.35"/>
+<rect x="128" y="123" width="14" height="17" rx="2" fill="#FFFFFF" stroke="#14314B" stroke-width="0.35"/>
+<rect x="147" y="123" width="14" height="17" rx="2" fill="#FFFFFF" stroke="#14314B" stroke-width="0.35"/>
+<rect x="166" y="123" width="14" height="17" rx="2" fill="#FFFFFF" stroke="#14314B" stroke-width="0.35"/>
+<text x="108" y="145" font-family="Helvetica, Arial, sans-serif" font-size="2.5" fill="#0B6F79" font-weight="normal" text-anchor="start">FOUR CARTRIDGES / TWO DOCK WELLS</text>
+<rect x="104" y="153" width="97" height="30" rx="3" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.35"/>
+<rect x="110" y="158" width="52" height="20" rx="2" fill="#FFFFFF" stroke="#14314B" stroke-width="0.3"/>
+<text x="114" y="170" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#14314B" font-weight="normal" text-anchor="start">USB POWER BANK</text>
+<path d="M 172 159 C 191 156 193 175 176 176 C 164 172 171 163 184 165" fill="none" stroke="#0B6F79" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="92" y="218" width="59" height="6" rx="2" fill="#EAF0F2" stroke="#14314B" stroke-width="0.5"/>
+<text x="105" y="195" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#0B6F79" font-weight="bold" text-anchor="start">DEPTH 115 P</text>
+<text x="105" y="201" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Insert bay: 294 P usable length.</text>
+<text x="105" y="207" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Fit largest size before tray tooling.</text>
+<text x="234" y="45" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">TRAY + HYGIENE</text>
+<text x="234" y="51.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">Smooth removable polypropylene tray, open radiused recesses and no absorbent</text>
+<text x="234" y="55.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">foam. Separate clean and used items during camp turnaround. Gasket and</text>
+<text x="234" y="60.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">cleaning compatibility require tests.</text>
+<text x="234" y="85" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">CONTENTS</text>
+<text x="234" y="91.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">Two pods; size-matched insert pairs; two spare cartridges; dock; USB supply</text>
+<text x="234" y="95.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">cable; power bank; replacement straps; heel keepers. Oversoles travel in a</text>
+<text x="234" y="100.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">removable wipeable lid pouch.</text>
+<text x="234" y="125" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">SERVICE PARTS</text>
+<rect x="232" y="131" width="174" height="49" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="234" y="139" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">01 Pod assembly    02 Cradle + pad    03 Strap</text>
+<text x="234" y="147" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">04 Battery cartridge    05 Insole + protected tail</text>
+<text x="234" y="155" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">06 Heel keeper    07 Traction oversole</text>
+<text x="234" y="163" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">08 Dock + removable case tray</text>
+<text x="234" y="179" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">BASE KIT ONLY</text>
+<text x="234" y="185.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">Optional knee acoustic module is not included. No disease score or medial</text>
+<text x="234" y="189.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">contact-force claim is embodied in the hardware drawings.</text>
+<rect x="12" y="227" width="396" height="44" rx="2" fill="none" stroke="#BDCBD2" stroke-width="0.25"/>
+<text x="17" y="235" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">BUILD SEQUENCE / KEEP HIGH-RISK DECISIONS VISIBLE</text>
+<text x="18" y="243" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#0B6F79" font-weight="bold" text-anchor="start">01 BENCH</text>
+<text x="18" y="251" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">Sensor range, soft stack,</text>
+<text x="18" y="256" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">tail noise and analog drive.</text>
+<text x="117" y="243" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#0B6F79" font-weight="bold" text-anchor="start">02 FIT STUDY</text>
+<text x="117" y="251" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">Print outline; measure feet;</text>
+<text x="117" y="256" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">check footwear and migration.</text>
+<text x="216" y="243" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#0B6F79" font-weight="bold" text-anchor="start">03 WORKING V0</text>
+<text x="216" y="251" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">Measured breakout enclosure;</text>
+<text x="216" y="256" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">log raw data and test faults.</text>
+<text x="315" y="243" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#0B6F79" font-weight="bold" text-anchor="start">04 ENGINEERED V1</text>
+<text x="315" y="251" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">Resolve H1 and component fit;</text>
+<text x="315" y="256" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">then PCB, seals and tooling.</text>
+</svg>

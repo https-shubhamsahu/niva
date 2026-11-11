@@ -1,0 +1,10 @@
+NIVA-insole-L - FABRICATION DATA FOR REVIEW ONLY - NOT RELEASED - DO NOT ORDER
+
+Automated checks at export: ERC errors 0, DRC errors 0, unconnected 0, footprint errors 0 (KiCad 9.0.9, schematic parity on).
+Passing KiCad ERC/DRC is not a design review. Open blockers:
+  - FSR ink film, spacer adhesive and lamination not selected; force-resistance curve, drift and hysteresis uncharacterised.
+  - PVDF film and its bond process (conductive adhesive or crimp) not selected; charge output untested.
+  - Flex stack-up (polyimide, rolled-annealed copper, coverlay) needs the fabricator's flex rules; heel-strike and tail-fold fatigue, bend radius at the heel tab and sweat ingress untested.
+  - Insole outline is the 1:1 medium fit template only - other sizes need their own layouts (no scaling).
+  - Skin contact, cleaning and sealing: see VERIFICATION-PLAN.md - no claims made.
+  - No independent review, no DFM report from a flex fabricator.

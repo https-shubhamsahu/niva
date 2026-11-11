@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="t d">
+<title id="t">niva: ESP32 smart insole with explainable gait analytics</title>
+<desc id="d">A right insole outline from the 1:1 fit template with four pressure pads: heel, inner, outer and toe. Pressure moves from heel to toe through one gait cycle while the matching phase rule lights up: HEEL_STRIKE when heel is above 80 and toe below 40, MID_STANCE when heel, inner and outer are all above 50, TOE_OFF when toe is above 80 and heel below 30, SWING when the total load is below 20.</desc>
+<style>
+@keyframes ring{0%{transform:scale(.4);opacity:.9}6%{transform:scale(1.7);opacity:0}100%{transform:scale(1.7);opacity:0}}
+@keyframes p0{0%,23%{opacity:1}26%,96%{opacity:0}100%{opacity:1}}
+@keyframes p1{0%,24%{opacity:0}27%,48%{opacity:1}51%,100%{opacity:0}}
+@keyframes p2{0%,49%{opacity:0}52%,73%{opacity:1}76%,100%{opacity:0}}
+@keyframes p3{0%,74%{opacity:0}77%,96%{opacity:1}99%,100%{opacity:0}}
+@keyframes b_heel{0%,23%{transform:scale(0.903)}27%,48%{transform:scale(0.708)}52%,73%{transform:scale(0.388)}77%,96%{transform:scale(0.318)}100%{transform:scale(0.903)}}
+@keyframes b_inner{0%,23%{transform:scale(0.430)}27%,48%{transform:scale(0.736)}52%,73%{transform:scale(0.583)}77%,96%{transform:scale(0.311)}100%{transform:scale(0.430)}}
+@keyframes b_outer{0%,23%{transform:scale(0.402)}27%,48%{transform:scale(0.687)}52%,73%{transform:scale(0.513)}77%,96%{transform:scale(0.311)}100%{transform:scale(0.402)}}
+@keyframes b_toe{0%,23%{transform:scale(0.346)}27%,48%{transform:scale(0.513)}52%,73%{transform:scale(0.917)}77%,96%{transform:scale(0.311)}100%{transform:scale(0.346)}}
+@keyframes cop{0%,23%{transform:translateX(132.3px)}27%,48%{transform:translateX(242.4px)}52%,73%{transform:translateX(324.7px)}77%,96%{transform:translateX(324.7px)}100%{transform:translateX(132.3px)}}
+@keyframes copfade{0%,73%{opacity:1}76%,96%{opacity:0}100%{opacity:1}}
+.b_heel{transform-box:fill-box;transform-origin:center;transform:scale(0.708);animation:b_heel 6s infinite}
+.b_inner{transform-box:fill-box;transform-origin:center;transform:scale(0.736);animation:b_inner 6s infinite}
+.b_outer{transform-box:fill-box;transform-origin:center;transform:scale(0.687);animation:b_outer 6s infinite}
+.b_toe{transform-box:fill-box;transform-origin:center;transform:scale(0.513);animation:b_toe 6s infinite}
+.p0{opacity:0;animation:p0 6s infinite}
+.p1{opacity:1;animation:p1 6s infinite}
+.p2{opacity:0;animation:p2 6s infinite}
+.p3{opacity:0;animation:p3 6s infinite}
+.cop{transform:translateX(242.4px);animation:cop 6s infinite,copfade 6s infinite}
+.ring{transform-box:fill-box;transform-origin:center;opacity:0;animation:ring 6s infinite}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+<rect x="1" y="1" width="1198" height="478" rx="24" fill="#f3f5f1" stroke="#d6ddd8" stroke-width="2"/>
+<text x="60" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="600" fill="#0b7478" text-anchor="start">ESP32 smart insole · explainable gait analytics</text>
+<text x="54" y="208" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="132" font-weight="800" fill="#1d2a30" text-anchor="start" letter-spacing="-4">niva</text>
+<text x="60" y="258" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="27" font-weight="500" fill="#1d2a30" text-anchor="start">Pressure, heel impact and tilt at 20 Hz,</text>
+<text x="60" y="294" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="27" font-weight="500" fill="#1d2a30" text-anchor="start">scored by thresholds you can read.</text>
+<path d="M1109.9 134.0 L1109.7 138.8 L1109.2 143.5 L1108.2 148.1 L1107.0 152.6 L1105.4 157.1 L1103.4 161.6 L1101.2 166.1 L1098.6 170.5 L1095.7 175.0 L1092.6 179.5 L1089.1 184.1 L1085.4 188.7 L1081.4 193.4 L1077.1 198.3 L1072.6 203.2 L1067.9 208.3 L1063.0 213.3 L1057.8 218.2 L1052.4 222.7 L1046.8 227.0 L1041.0 231.0 L1035.1 234.6 L1029.0 237.8 L1022.7 240.6 L1016.3 242.9 L1009.7 244.8 L1003.0 246.1 L996.1 246.9 L989.2 247.1 L982.2 246.7 L975.0 245.6 L967.8 243.8 L958.5 241.4 L949.4 238.8 L940.4 236.3 L931.6 233.8 L922.9 231.2 L914.4 228.8 L905.9 226.4 L897.5 224.0 L889.2 221.8 L881.0 219.7 L872.8 217.8 L864.7 216.1 L856.5 214.6 L848.4 213.3 L840.3 212.3 L832.1 211.5 L826.5 212.4 L820.7 213.2 L814.7 214.0 L808.5 214.6 L802.1 215.2 L795.7 215.6 L789.1 215.9 L782.5 216.0 L775.8 215.9 L769.1 215.5 L762.4 215.0 L755.8 214.2 L749.3 213.2 L742.8 211.9 L736.5 210.2 L730.4 208.3 L725.3 207.4 L720.6 205.9 L716.0 203.9 L711.8 201.4 L707.9 198.4 L704.3 195.0 L701.1 191.2 L698.3 187.1 L695.8 182.6 L693.8 177.9 L692.2 172.8 L691.1 167.6 L690.4 162.2 L690.3 156.7 L690.7 151.0 L691.6 145.3 L694.1 139.9 L697.3 135.1 L701.2 131.0 L705.7 127.4 L710.8 124.4 L716.4 121.9 L722.6 120.0 L729.2 118.4 L736.2 117.4 L743.6 116.7 L751.3 116.4 L759.3 116.5 L767.5 116.8 L776.0 117.5 L784.6 118.3 L793.4 119.5 L801.8 119.0 L810.3 118.8 L818.7 118.8 L827.1 118.9 L835.5 119.1 L843.9 119.4 L852.3 119.7 L860.8 119.9 L869.3 119.9 L877.8 119.9 L886.4 119.6 L895.1 119.0 L903.9 118.1 L912.7 116.8 L921.6 115.2 L930.6 113.0 L938.9 110.9 L947.2 108.9 L955.6 106.9 L964.0 105.0 L972.4 103.2 L980.9 101.5 L989.3 99.9 L997.7 98.5 L1005.9 97.2 L1014.1 96.1 L1022.2 95.1 L1030.1 94.4 L1037.9 93.8 L1045.4 93.5 L1052.7 93.4 L1059.8 93.6 L1065.5 94.1 L1070.8 94.8 L1075.8 95.7 L1080.6 97.0 L1085.0 98.5 L1089.2 100.3 L1092.9 102.4 L1096.4 104.7 L1099.4 107.4 L1102.1 110.3 L1104.5 113.5 L1106.4 117.0 L1107.9 120.8 L1109.0 124.9 L1109.7 129.3 Z" fill="#ffffff" stroke="#1d2a30" stroke-width="2.5" stroke-linejoin="round"/>
+<circle class="ring" cx="741.7" cy="161.4" r="40" fill="none" stroke="#e8553a" stroke-width="3"/>
+<defs><clipPath id="foot"><path d="M1109.9 134.0 L1109.7 138.8 L1109.2 143.5 L1108.2 148.1 L1107.0 152.6 L1105.4 157.1 L1103.4 161.6 L1101.2 166.1 L1098.6 170.5 L1095.7 175.0 L1092.6 179.5 L1089.1 184.1 L1085.4 188.7 L1081.4 193.4 L1077.1 198.3 L1072.6 203.2 L1067.9 208.3 L1063.0 213.3 L1057.8 218.2 L1052.4 222.7 L1046.8 227.0 L1041.0 231.0 L1035.1 234.6 L1029.0 237.8 L1022.7 240.6 L1016.3 242.9 L1009.7 244.8 L1003.0 246.1 L996.1 246.9 L989.2 247.1 L982.2 246.7 L975.0 245.6 L967.8 243.8 L958.5 241.4 L949.4 238.8 L940.4 236.3 L931.6 233.8 L922.9 231.2 L914.4 228.8 L905.9 226.4 L897.5 224.0 L889.2 221.8 L881.0 219.7 L872.8 217.8 L864.7 216.1 L856.5 214.6 L848.4 213.3 L840.3 212.3 L832.1 211.5 L826.5 212.4 L820.7 213.2 L814.7 214.0 L808.5 214.6 L802.1 215.2 L795.7 215.6 L789.1 215.9 L782.5 216.0 L775.8 215.9 L769.1 215.5 L762.4 215.0 L755.8 214.2 L749.3 213.2 L742.8 211.9 L736.5 210.2 L730.4 208.3 L725.3 207.4 L720.6 205.9 L716.0 203.9 L711.8 201.4 L707.9 198.4 L704.3 195.0 L701.1 191.2 L698.3 187.1 L695.8 182.6 L693.8 177.9 L692.2 172.8 L691.1 167.6 L690.4 162.2 L690.3 156.7 L690.7 151.0 L691.6 145.3 L694.1 139.9 L697.3 135.1 L701.2 131.0 L705.7 127.4 L710.8 124.4 L716.4 121.9 L722.6 120.0 L729.2 118.4 L736.2 117.4 L743.6 116.7 L751.3 116.4 L759.3 116.5 L767.5 116.8 L776.0 117.5 L784.6 118.3 L793.4 119.5 L801.8 119.0 L810.3 118.8 L818.7 118.8 L827.1 118.9 L835.5 119.1 L843.9 119.4 L852.3 119.7 L860.8 119.9 L869.3 119.9 L877.8 119.9 L886.4 119.6 L895.1 119.0 L903.9 118.1 L912.7 116.8 L921.6 115.2 L930.6 113.0 L938.9 110.9 L947.2 108.9 L955.6 106.9 L964.0 105.0 L972.4 103.2 L980.9 101.5 L989.3 99.9 L997.7 98.5 L1005.9 97.2 L1014.1 96.1 L1022.2 95.1 L1030.1 94.4 L1037.9 93.8 L1045.4 93.5 L1052.7 93.4 L1059.8 93.6 L1065.5 94.1 L1070.8 94.8 L1075.8 95.7 L1080.6 97.0 L1085.0 98.5 L1089.2 100.3 L1092.9 102.4 L1096.4 104.7 L1099.4 107.4 L1102.1 110.3 L1104.5 113.5 L1106.4 117.0 L1107.9 120.8 L1109.0 124.9 L1109.7 129.3 Z"/></clipPath></defs>
+<g clip-path="url(#foot)">
+<circle class="b_heel" cx="741.7" cy="161.4" r="46.0" fill="#e8553a" fill-opacity=".82"/>
+<circle class="b_inner" cx="1001.7" cy="130.8" r="46.0" fill="#e8553a" fill-opacity=".82"/>
+<circle class="b_outer" cx="980.7" cy="221.2" r="46.0" fill="#e8553a" fill-opacity=".82"/>
+<circle class="b_toe" cx="1069.5" cy="130.8" r="46.0" fill="#e8553a" fill-opacity=".82"/>
+</g>
+<circle cx="741.7" cy="161.4" r="19" fill="#ffffff" stroke="#1d2a30" stroke-width="2"/>
+<circle cx="1001.7" cy="130.8" r="19" fill="#ffffff" stroke="#1d2a30" stroke-width="2"/>
+<circle cx="980.7" cy="221.2" r="19" fill="#ffffff" stroke="#1d2a30" stroke-width="2"/>
+<circle cx="1069.5" cy="130.8" r="19" fill="#ffffff" stroke="#1d2a30" stroke-width="2"/>
+<g class="p0">
+<text x="741.7" y="168.4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">86</text>
+<text x="1001.7" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">18</text>
+<text x="980.7" y="228.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">14</text>
+<text x="1069.5" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">6</text>
+</g>
+<g class="p1">
+<text x="741.7" y="168.4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">58</text>
+<text x="1001.7" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">62</text>
+<text x="980.7" y="228.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">55</text>
+<text x="1069.5" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">30</text>
+</g>
+<g class="p2">
+<text x="741.7" y="168.4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">12</text>
+<text x="1001.7" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">40</text>
+<text x="980.7" y="228.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">30</text>
+<text x="1069.5" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">88</text>
+</g>
+<g class="p3">
+<text x="741.7" y="168.4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">2</text>
+<text x="1001.7" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">1</text>
+<text x="980.7" y="228.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">1</text>
+<text x="1069.5" y="137.8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="700" fill="#1d2a30" text-anchor="middle">1</text>
+</g>
+<text x="741.7" y="245.4" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="600" fill="#4f5d63" text-anchor="middle">heel</text>
+<text x="1001.7" y="66.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="600" fill="#4f5d63" text-anchor="middle">inner</text>
+<text x="1069.5" y="66.0" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="600" fill="#4f5d63" text-anchor="middle">toe</text>
+<text x="1038.7" y="261.2" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="600" fill="#4f5d63" text-anchor="start">outer</text>
+<line x1="690" y1="282" x2="1109.9" y2="282" stroke="#d6ddd8" stroke-width="6" stroke-linecap="round"/>
+<text x="676" y="289" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="600" fill="#4f5d63" text-anchor="end">CoP</text>
+<g class="cop"><circle cx="690" cy="282" r="11" fill="#14a8ab" stroke="#ffffff" stroke-width="3"/></g>
+<rect x="60" y="336" width="262" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<g class="p0"><rect x="60" y="336" width="262" height="112" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/><rect x="61" y="352" width="6" height="80" rx="3" fill="#14a8ab"/></g>
+<text x="82" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="21" font-weight="700" fill="#1d2a30" text-anchor="start">HEEL_STRIKE</text>
+<text x="82" y="408" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">heel &gt; 80</text>
+<text x="82" y="434" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">toe &lt; 40</text>
+<rect x="334" y="336" width="262" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<g class="p1"><rect x="334" y="336" width="262" height="112" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/><rect x="335" y="352" width="6" height="80" rx="3" fill="#14a8ab"/></g>
+<text x="356" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="21" font-weight="700" fill="#1d2a30" text-anchor="start">MID_STANCE</text>
+<text x="356" y="408" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">heel, inner, outer</text>
+<text x="356" y="434" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">all &gt; 50</text>
+<rect x="608" y="336" width="262" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<g class="p2"><rect x="608" y="336" width="262" height="112" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/><rect x="609" y="352" width="6" height="80" rx="3" fill="#14a8ab"/></g>
+<text x="630" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="21" font-weight="700" fill="#1d2a30" text-anchor="start">TOE_OFF</text>
+<text x="630" y="408" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">toe &gt; 80</text>
+<text x="630" y="434" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">heel &lt; 30</text>
+<rect x="882" y="336" width="262" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<g class="p3"><rect x="882" y="336" width="262" height="112" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/><rect x="883" y="352" width="6" height="80" rx="3" fill="#14a8ab"/></g>
+<text x="904" y="376" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="21" font-weight="700" fill="#1d2a30" text-anchor="start">SWING</text>
+<text x="904" y="408" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">total load &lt; 20</text>
+<text x="904" y="434" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">sum of four pads</text>
+</svg>

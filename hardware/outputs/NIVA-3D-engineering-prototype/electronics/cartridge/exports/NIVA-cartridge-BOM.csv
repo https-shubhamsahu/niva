@@ -1,0 +1,5 @@
+"Reference","Value","Footprint","MPN","QUANTITY"
+"F1","PTC 0805 hold>=0.5 A, >=6 V","Fuse:Fuse_0805_2012Metric","to select (e.g. 0805 resettable, I_hold 0.5 A, V_max >= 6 V)","1"
+"J1","CELL LEADS (+, NTC, -)","NIVA_power:WirePads_1x03_P1.8mm","","1"
+"J2","TO LID PLATES (P-, P-, P+, P+) -> pod J2","NIVA_power:WirePads_1x04_P1.7mm","","1"
+"J3","DOCK PADS (P+, NTC, P-), underside","NIVA_power:ContactPads_1x03_P6.0mm","","1"

@@ -1,0 +1,28 @@
+NIVA-pod - PROTOTYPE FABRICATION DATA FOR JLCPCB - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
+
+Upload NIVA-pod-JLCPCB-gerbers.zip at jlcpcb.com/quote. Order settings:
+  Base material FR-4, 4 layers, 34 x 48 mm, quantity 5, thickness 1.0 mm,
+  green mask, white silk, outer copper 1 oz, inner copper default.
+  Surface finish: HASL lead-free (cheapest) or ENIG (better for the LGA-14 IMU,
+  TDFN gauge and ESP32-C3 module pads).
+  Via covering: tented. Min via hole size/diameter: 0.3mm/(0.4/0.45mm).
+    The vias are 0.2 mm drill in a 0.5 mm pad. JLCPCB's capability page
+    charges extra for "0.2mm or 0.25mm hole size with via diameter less
+    than 0.45mm", so 0.2/0.5 should be standard price. If their review
+    flags it, quote that rule.
+  Shipping: a postal option (e.g. Global Standard Direct / E-POST) keeps the
+  India duty under the Rs 1,000 postal waiver for a small parcel.
+
+Same copper, mask, drill and front silk as fab-PROTOTYPE-PCBWAY (diffed layer by
+layer on 4 Nov 2026). Only change: the "PCBWay" text on B.Silkscreen is removed.
+
+Checks at export (KiCad 10.0.7, default global libraries, schematic parity on):
+  DRC errors 0, unconnected 0. Warnings: 3 silk-at-edge (module outline at the
+  antenna edge), 1 LGA-14 library copy differs, 9 MPN/description fields not
+  copied to footprints. Measured against JLCPCB 4-layer rules: min track 0.15 mm
+  (rule 0.09), min clearance 0.127 mm (rule 0.09), min hole-to-hole edge gap
+  0.457 mm (rule 0.2 via / 0.45 pad), outline 34.0 x 48.0 mm.
+
+Still open before populating (same as the PCBWay export): J2 cartridge contacts
+not selected (do not order J2), U6 MAX17048 land pattern to confirm, antenna
+check in the closed enclosure, no independent review yet.

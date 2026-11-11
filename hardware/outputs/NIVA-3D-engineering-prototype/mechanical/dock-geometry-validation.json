@@ -1,0 +1,47 @@
+[
+  {
+    "part": "10_DockBase",
+    "material": "PETG, navy",
+    "print_orientation": "bottom on bed; no supports",
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 12236.9,
+    "print_bbox_mm": [
+      64.0,
+      62.0,
+      8.0
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
+  },
+  {
+    "part": "11_DockTop",
+    "material": "PETG, pale grey-blue",
+    "print_orientation": "top face on bed (flipped); well floor is a 29 mm bridge - enable bridging, no supports",
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 15668.1,
+    "print_bbox_mm": [
+      64.0,
+      62.0,
+      13.2
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
+  },
+  {
+    "part": "12_DockLightPipe_Clear",
+    "material": "clear SLA resin or clear PETG",
+    "print_orientation": "flange on bed (flipped)",
+    "valid": true,
+    "solids": 1,
+    "volume_mm3": 52.2,
+    "print_bbox_mm": [
+      3.4,
+      3.4,
+      11.85
+    ],
+    "closed_mesh": true,
+    "mesh_non_manifolds": false
+  }
+]

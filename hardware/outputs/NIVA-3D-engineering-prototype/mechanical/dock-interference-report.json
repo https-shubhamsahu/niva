@@ -1,0 +1,23 @@
+{
+  "interference": {
+    "DockSpringPins_ENVELOPE x Cartridge_StripPCB": {
+      "volume_mm3": 1.245,
+      "expected": "spring pins drawn at free height: design compression on the gold pads"
+    }
+  },
+  "gaps": {
+    "DockPCB_Components_KiCad to 11_DockTop": 0.53,
+    "DockPCB_Components_KiCad to 10_DockBase": 1.735,
+    "DockPCB_Substrate to 10_DockBase": 0.06,
+    "Cartridge_Cup to 11_DockTop": 0.0,
+    "Cartridge_Lid to 11_DockTop": 0.1,
+    "DockSpringPins_ENVELOPE to 11_DockTop": 0.25,
+    "12_DockLightPipe_Clear to DockPCB_Components_KiCad": 0.255,
+    "12_DockLightPipe_Clear to 11_DockTop": 0.0
+  },
+  "notes": [
+    "spring pin free top z 12.50; cartridge pad face z 11.80; compression 0.70 mm seated, 0.60 mm when lifted onto the latch hook (0.1 mm free play)",
+    "dock 64.0 x 62.0 x 21.2 mm; cartridge top 20.0 mm, 1.2 mm below the top face",
+    "latch arm 8 x 1.0 x 10.4 mm PETG; hook reach 1.2 mm, overlap on the lid edge 0.5 mm; peak bending strain at full deflection ~1.7 % (cantilever estimate 1.5*t*y/L^2 - verify on a print)"
+  ]
+}

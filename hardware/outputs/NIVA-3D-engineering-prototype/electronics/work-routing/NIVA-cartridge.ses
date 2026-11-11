@@ -1,0 +1,231 @@
+(session "NIVA-cartridge"
+  (base_design "NIVA-cartridge")
+  (placement
+    (resolution um 10)
+    (component Fuse:Fuse_0805_2012Metric
+      (place F1 1309500 -879000 front 90)
+    )
+    (component NIVA_power:WirePads_1x04_P1.7mm
+      (place J2 1309500 -725000 front 0)
+    )
+    (component NIVA_power:WirePads_1x03_P1.8mm
+      (place J1 1309500 -650000 front 0)
+    )
+    (component NIVA_power:ContactPads_1x03_P6.0mm
+      (place J3 1315500 -820000 back 180)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 9.0.9)
+    )
+    (library_out 
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /NTC
+        (wire
+          (path B.Cu 2000
+            1315500 -820000
+            1329517 -805983
+            1329517 -695861
+            1311772 -678116
+          )
+        )
+        (wire
+          (path F.Cu 2000
+            1309500 -668000
+            1309500 -676017
+          )
+        )
+        (via "Via[0-1]_600:300_um" 1311772 -678116
+        )
+        (wire
+          (path F.Cu 2000
+            1309500 -676017
+            1309673 -676017
+            1311772 -678116
+          )
+        )
+      )
+      (net /PACK_N
+        (wire
+          (path F.Cu 3000
+            1314361 -776223
+            1313222 -777362
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1314361 -776223
+            1313222 -777362
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1313222 -777362
+            1314361 -776223
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1313222 -777362
+            1314361 -776223
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1306248 -686560
+            1315500 -695812
+            1315500 -760000
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1306248 -686560
+            1312544 -686560
+            1320526 -678578
+            1320526 -661026
+            1309500 -650000
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1308914 -686560
+            1306248 -686560
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1306248 -686560
+            1308914 -686560
+          )
+        )
+        (via "Via[0-1]_600:300_um" 1306248 -686560
+        )
+        (wire
+          (path F.Cu 3000
+            1313222 -777362
+            1320517 -770067
+            1320517 -750500
+          )
+        )
+        (via "Via[0-1]_600:300_um" 1313222 -777362
+        )
+        (wire
+          (path B.Cu 3000
+            1315500 -760000
+            1315500 -775084
+            1313222 -777362
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1309500 -733500
+            1320517 -733500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1309500 -750500
+            1320517 -750500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1320517 -750500
+            1320517 -733500
+          )
+        )
+      )
+      (net /PACK_P
+        (wire
+          (path F.Cu 3000
+            1320517 -699500
+            1320517 -699501
+            1320502 -699516
+            1320502 -705803
+            1318700 -707605
+            1318700 -707606
+            1320517 -709423
+            1320517 -716500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1307050 -851688
+          )
+        )
+        (wire
+          (path B.Cu 3000
+            1307050 -851688
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1309500 -716500
+            1320517 -716500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1309500 -716500
+            1320517 -716500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1309500 -699500
+            1320517 -699500
+          )
+        )
+        (wire
+          (path F.Cu 3000
+            1307050 -851688
+            1309500 -854138
+            1309500 -869625
+          )
+        )
+        (via "Via[0-1]_600:300_um" 1307050 -851688
+        )
+        (wire
+          (path B.Cu 3000
+            1315500 -880000
+            1307050 -871550
+            1307050 -851688
+          )
+        )
+      )
+    )
+  )
+)

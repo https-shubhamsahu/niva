@@ -1,0 +1,5 @@
+Ref,Val,Package,PosX,PosY,Rot,Side
+"J3","DOCK PADS (P+, NTC, P-), underside","ContactPads_1x03_P6.0mm",131.550000,-82.000000,0.000000,bottom
+"F1","PTC 0805 hold>=0.5 A, >=6 V","Fuse_0805_2012Metric",130.949999,-87.900000,90.000000,top
+"J1","CELL LEADS (+, NTC, -)","WirePads_1x03_P1.8mm",130.949999,-65.000000,0.000000,top
+"J2","TO LID PLATES (P-, P-, P+, P+) -> pod J2","WirePads_1x04_P1.7mm",130.949999,-72.500000,0.000000,top

@@ -1,0 +1,72 @@
+<style>
+#rd{left:40px;top:236px;width:1840px;height:452px;padding:0}
+#rd > .tag{position:absolute;left:14px;top:12px}
+.sub{position:absolute;left:250px;top:14px;font:600 16px/1.2 var(--f);color:var(--muted)}
+.grid{position:absolute;left:14px;top:46px;width:1812px;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(2,194px);gap:12px;list-style:none}
+.rc{position:relative;background:var(--wash);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.rc .src{display:inline-block;font:700 14px/1.1 var(--f);color:var(--navy);background:var(--sky);border-radius:6px;padding:5px 7px;max-width:290px}
+.rc .ic{position:absolute;right:10px;top:8px}
+.rc .ic .ico{width:30px;height:30px}
+.rc h4{font:700 17px/1.25 var(--f);color:var(--ink);margin-top:9px}
+.rc h4 em{font-style:normal;color:var(--orange-dk)}
+.rc .use{font:400 15px/1.3 var(--f);color:var(--muted);margin-top:6px}
+.rc .ds{position:absolute;left:12px;right:12px;bottom:10px;height:30px;border-radius:8px;background:var(--orange);color:#fff;font:700 14px/30px var(--f);text-align:center;text-transform:uppercase}
+.reflab{position:absolute;left:60px;top:702px;font:700 15px/1 var(--f);color:var(--muted)}
+.refs{position:absolute;left:60px;top:728px;width:1820px;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:29px;gap:0 24px;list-style:none}
+.refs a{font:700 16px/29px Arial,sans-serif;color:#0B5CAD;text-decoration:underline;white-space:nowrap}
+.demo{position:absolute;left:60px;top:890px;font:700 21px/1.3 Arial,sans-serif;color:#0B5CAD}
+.demo a{text-decoration:underline}
+.demo span{color:var(--ink)}
+.note{position:absolute;left:60px;top:930px;width:1800px;font:400 17px/1.35 var(--f);color:var(--ink)}
+</style>
+<main>
+<h2 class="ptr" style="left:60px;top:196px">Details / Links of the reference and research work</h2>
+
+<div class="p" id="rd">
+  <h3 class="tag">Research → our design</h3><p class="sub">every innovation is anchored in published work</p>
+  <ul class="grid">
+    <li class="rc"><span class="src">HyTAQ · ICRA 2013 [1]</span><span class="ic"><i data-icon="rotate-cw" data-color="#ED861C"></i></span>
+      <h4>A rolling cage gives <em>4× range, ~6× operating time</em> vs flying</h4><p class="use">→ SURANG rolls by default, flies only over obstacles</p><p class="ds">Roll-fly</p></li>
+    <li class="rc"><span class="src">Appl. Sci. 2026 · mine tunnels [2]</span><span class="ic"><i data-icon="wifi-off" data-color="#ED861C"></i></span>
+      <h4><em>≈ 24 dB lost</em> at a single bend in a mine tunnel</h4><p class="use">→ a SUTRA relay is dropped at each bend apex</p><p class="ds">Relay at every bend</p></li>
+    <li class="rc"><span class="src">CERBERUS · DARPA SubT [3]</span><span class="ic"><i data-icon="radio-tower" data-color="#ED861C"></i></span>
+      <h4>Winning robots <em>dropped Wi-Fi breadcrumbs</em> underground</h4><p class="use">→ our drop brain adds LiDAR bend prediction</p><p class="ds">AI relay-drop brain</p></li>
+    <li class="rc"><span class="src">Sci. Rep. 2025 · coal-mine SLAM [4]</span><span class="ic"><i data-icon="locate-fixed" data-color="#ED861C"></i></span>
+      <h4><em>Dropped tagged targets</em> cancel map drift in long roadways</h4><p class="use">→ every relay carries an AprilTag + radio ID</p><p class="ds">Breadcrumb GPS</p></li>
+    <li class="rc"><span class="src">Espressif ESP32-C3</span><span class="ic"><i data-icon="cpu" data-color="#ED861C"></i></span>
+      <h4>Built-in <em>Wi-Fi ranging (1–2 m)</em> + <em>Long-Range mode</em></h4><p class="use">→ relays range each other with no extra parts</p><p class="ds">₹0 upgrade per relay</p></li>
+    <li class="rc"><span class="src">Fraunhofer 2023 · NIOSH [5]</span><span class="ic"><i data-icon="ear" data-color="#ED861C"></i></span>
+      <h4>Drones <em>hear cries for help</em>; geophones <em>hear tapping</em></h4><p class="use">→ rotors idle while perched for clean audio</p><p class="ds">Perch &amp; listen</p></li>
+    <li class="rc"><span class="src">Anal. Chem. 2018 · YOLO 2025 [6][7]</span><span class="ic"><i data-icon="heart-pulse" data-color="#ED861C"></i></span>
+      <h4><em>Thermal AI finds people</em>; sensors smell entrapped victims</h4><p class="use">→ fused cues, confirmed by a human</p><p class="ds">Multi-sense search</p></li>
+    <li class="rc"><span class="src">Bioengineering 2023 · drone rPPG [8]</span><span class="ic"><i data-icon="activity" data-color="#ED861C"></i></span>
+      <h4>Pulse from drone video at 5 m: <em>good enough for triage</em></h4><p class="use">→ contactless triage colour; a doctor confirms</p><p class="ds">Remote triage</p></li>
+    <li class="rc"><span class="src">Codec2 · Bhashini (MeitY) [9]</span><span class="ic"><i data-icon="languages" data-color="#ED861C"></i></span>
+      <h4>Voice in <em>3.2 kbps</em>; speech AI in <em>22 Indian languages</em></h4><p class="use">→ doctor ↔ victim voice rides the relays</p><p class="ds">Talk-through</p></li>
+    <li class="rc"><span class="src">Flyability price list 2023 [11]</span><span class="ic"><i data-icon="indian-rupee" data-color="#ED861C"></i></span>
+      <h4>Elios 3: <em>US$51.6k–74.5k</em> + $5.7k range extender</h4><p class="use">→ our field unit targets 1/16–1/24 of that</p><p class="ds">≈ ₹3 L field unit</p></li>
+  </ul>
+</div>
+
+<p class="reflab">REFERENCES · CLICK ANY LINE</p>
+<ol class="refs">
+  <li><a href="https://ieeexplore.ieee.org/document/6631208/">[1] HyTAQ hybrid rolling–flying robot · ICRA 2013</a></li>
+  <li><a href="https://doi.org/10.3390/app16125861">[2] Bend loss in mine tunnels (LoRa) · Appl. Sci. 2026</a></li>
+  <li><a href="https://arxiv.org/abs/2207.04914">[3] CERBERUS, DARPA SubT winner · 2022</a></li>
+  <li><a href="https://www.nature.com/articles/s41598-025-21053-y">[4] Multimodal SLAM in coal mines · Sci. Rep. 2025</a></li>
+  <li><a href="https://www.fraunhofer.de/en/press/research-news/2023/december-2023/a-drone-with-ears.html">[5] Fraunhofer "drone with ears" · 2023</a></li>
+  <li><a href="https://pubs.acs.org/ancham/article/90/8/4940/818048/Sniffing-Entrapped-Humans-with-Sensor-Arrays">[6] Sniffing entrapped humans · Anal. Chem. 2018</a></li>
+  <li><a href="https://link.springer.com/article/10.1007/s42461-025-01249-6">[7] YOLO miner detection, thermal · MME 2025</a></li>
+  <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10045207/">[8] Heart rate from drone footage in disasters · 2023</a></li>
+  <li><a href="https://bhashini.gov.in">[9] Bhashini Indian-language speech AI · MeitY</a></li>
+  <li><a href="https://aninews.in/news/national/general-news/endoscopic-camera-facilitates-first-interaction-with-trapped-workers-in-uttarkashi-tunnel20231121095530/">[10] Silkyara: endoscope makes first contact · ANI 2023</a></li>
+  <li><a href="https://s3.amazonaws.com/gresco/gresco/content/website/Elios%203%20-%20Product%20Offering%20-%20v3.6%20-%20USD.pdf">[11] Flyability Elios 3 price list · 2023</a></li>
+  <li><a href="https://factly.in/four-states-account-for-half-of-indias-building-collapse-deaths/">[12] Structure-collapse deaths, NCRB ADSI · Factly</a></li>
+  <li><a href="https://www.business-standard.com/india-news/sanitation-workers-sewer-septic-tank-cleaning-deaths-since-2019-126080500881_1.html">[13] 498 sewer &amp; septic deaths since 2019 · BS 2026</a></li>
+  <li><a href="https://www.dgms.net/Coal%20Mines%20Regulation%202017.pdf">[14] Coal Mines Regulations 2017 · Reg. 153 (DGMS)</a></li>
+  <li><a href="https://sih.gov.in/sih2026PS">[15] SIH 2026 problem statements · PS 26218</a></li>
+</ol>
+
+<p class="demo"><span>Live software prototype (simulation): </span><a href="https://surang-sutra-simulation.vercel.app/simulation/mission-control-replay/">Mission replay</a> · <a href="https://surang-sutra-simulation.vercel.app/simulation/visual-scene/">3D tunnel scene</a> · <a href="https://surang-sutra-simulation.vercel.app/simulation/product-explorer/">Product explorer</a></p>
+<p class="note">Concept renders and simulations are labelled as such; hardware performance figures are design targets to be measured in the Oct–Nov 2026 bench tests.</p>
+</main>

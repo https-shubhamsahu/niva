@@ -1,0 +1,4 @@
+render/
+*.pdf
+!reference/*.pdf
+__pycache__/

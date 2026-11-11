@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="t d">
+<title id="t">Niva bench build: sensor pins to apps</title>
+<desc id="d">Four FSRs on GPIO 32 to 35 and a piezo heel disc on GPIO 36 feed the ESP32 ADC. An MPU6050 at 0x68 and an SH1106 OLED at 0x3C share I2C on SDA 21 and SCL 22. The niva_hardware sketch oversamples each channel 16 times, subtracts a zero-load tare saved in NVS, and sends one frame every 50 ms as JSON over WebSocket port 81 and as CSV over USB Serial at 115200 baud. niva web and niva flutter run the same biomechanics engine.</desc>
+<rect x="1" y="1" width="1198" height="638" rx="24" fill="#f3f5f1" stroke="#d6ddd8" stroke-width="2"/>
+<text x="60" y="70" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="600" fill="#4f5d63" text-anchor="start">niva arduino/niva_hardware/niva_hardware.ino on an ESP32 dev board</text>
+<rect x="60" y="110" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="110" width="8" height="56" rx="4" fill="#e8553a"/>
+<text x="84" y="146" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">FSR heel</text>
+<text x="362" y="146" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#b23a20" text-anchor="end">GPIO 32</text>
+<rect x="60" y="174" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="174" width="8" height="56" rx="4" fill="#e8553a"/>
+<text x="84" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">FSR inner</text>
+<text x="362" y="210" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#b23a20" text-anchor="end">GPIO 33</text>
+<rect x="60" y="238" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="238" width="8" height="56" rx="4" fill="#e8553a"/>
+<text x="84" y="274" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">FSR outer</text>
+<text x="362" y="274" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#b23a20" text-anchor="end">GPIO 34</text>
+<rect x="60" y="302" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="302" width="8" height="56" rx="4" fill="#e8553a"/>
+<text x="84" y="338" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">FSR toe</text>
+<text x="362" y="338" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#b23a20" text-anchor="end">GPIO 35</text>
+<rect x="60" y="366" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="366" width="8" height="56" rx="4" fill="#e8553a"/>
+<text x="84" y="402" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">Piezo heel disc</text>
+<text x="362" y="402" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#b23a20" text-anchor="end">GPIO 36</text>
+<rect x="60" y="430" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="430" width="8" height="56" rx="4" fill="#0b7478"/>
+<text x="84" y="466" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">MPU6050 0x68</text>
+<text x="362" y="466" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#0b7478" text-anchor="end">SDA 21</text>
+<rect x="60" y="494" width="320" height="56" rx="12" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<rect x="60" y="494" width="8" height="56" rx="4" fill="#0b7478"/>
+<text x="84" y="530" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="600" fill="#1d2a30" text-anchor="start">SH1106 OLED 0x3C</text>
+<text x="362" y="530" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="20" font-weight="700" fill="#0b7478" text-anchor="end">SCL 22</text>
+<rect x="470" y="110" width="330" height="440" rx="18" fill="#1d2a30" stroke="#1d2a30" stroke-width="2"/>
+<text x="496" y="160" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="start">ESP32</text>
+<text x="496" y="190" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">Arduino core, 12-bit ADC</text>
+<rect x="496" y="216" width="6" height="46" rx="3" fill="#14a8ab"/>
+<text x="516" y="238" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff" text-anchor="start">16× oversample</text>
+<text x="516" y="262" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">per channel, every frame</text>
+<rect x="496" y="280" width="6" height="46" rx="3" fill="#14a8ab"/>
+<text x="516" y="302" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff" text-anchor="start">Zero-load tare</text>
+<text x="516" y="326" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">60 samples, kept in NVS</text>
+<rect x="496" y="344" width="6" height="46" rx="3" fill="#14a8ab"/>
+<text x="516" y="366" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff" text-anchor="start">Tilt from MPU6050</text>
+<text x="516" y="390" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">pitch, roll, accZ</text>
+<rect x="496" y="408" width="6" height="46" rx="3" fill="#14a8ab"/>
+<text x="516" y="430" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff" text-anchor="start">One frame / 50 ms</text>
+<text x="516" y="454" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">20 Hz to every client</text>
+<rect x="496" y="472" width="6" height="46" rx="3" fill="#14a8ab"/>
+<text x="516" y="494" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" font-weight="700" fill="#ffffff" text-anchor="start">WiFiManager portal</text>
+<text x="516" y="518" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#c9d6d9" text-anchor="start">NIVA-GaitGuard-AP</text>
+<path d="M380 138.0 C425.0 138.0 425.0 200 470 200" fill="none" stroke="#e8553a" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 202.0 C425.0 202.0 425.0 250 470 250" fill="none" stroke="#e8553a" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 266.0 C425.0 266.0 425.0 300 470 300" fill="none" stroke="#e8553a" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 330.0 C425.0 330.0 425.0 350 470 350" fill="none" stroke="#e8553a" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 394.0 C425.0 394.0 425.0 400 470 400" fill="none" stroke="#e8553a" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 458.0 C425.0 458.0 425.0 450 470 450" fill="none" stroke="#0b7478" stroke-width="3" stroke-linecap="round"/>
+<path d="M380 522.0 C425.0 522.0 425.0 500 470 500" fill="none" stroke="#0b7478" stroke-width="3" stroke-linecap="round"/>
+<rect x="880" y="110" width="260" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<text x="900" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="23" font-weight="800" fill="#1d2a30" text-anchor="start">WebSocket</text>
+<text x="900" y="176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">JSON on :81</text>
+<text x="900" y="204" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="18" font-weight="600" fill="#0b7478" text-anchor="start">ws://niva.local:81</text>
+<path d="M800 270 C840.0 270 840.0 166 880 166" fill="none" stroke="#1d2a30" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round"/>
+<rect x="880" y="242" width="260" height="112" rx="14" fill="#ffffff" stroke="#d6ddd8" stroke-width="2"/>
+<text x="900" y="280" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="23" font-weight="800" fill="#1d2a30" text-anchor="start">USB Serial</text>
+<text x="900" y="308" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" font-weight="400" fill="#4f5d63" text-anchor="start">CSV, 115200 baud</text>
+<text x="900" y="336" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace" font-size="18" font-weight="600" fill="#0b7478" text-anchor="start">H,I,O,T,Piezo,…</text>
+<path d="M800 390 C840.0 390 840.0 298 880 298" fill="none" stroke="#1d2a30" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round"/>
+<path d="M1010.0 354 L1010.0 384" stroke="#0b7478" stroke-width="3"/>
+<path d="M1002.0 376 L1010.0 388 L1018.0 376" fill="none" stroke="#0b7478" stroke-width="3" stroke-linejoin="round"/>
+<rect x="880" y="396" width="260" height="70" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/>
+<text x="900" y="428" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="800" fill="#1d2a30" text-anchor="start">niva web</text>
+<text x="900" y="452" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#4f5d63" text-anchor="start">USB or Wi-Fi, IndexedDB</text>
+<rect x="880" y="480" width="260" height="70" rx="14" fill="#dcefed" stroke="#14a8ab" stroke-width="2"/>
+<text x="900" y="512" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" font-weight="800" fill="#1d2a30" text-anchor="start">niva flutter</text>
+<text x="900" y="536" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="400" fill="#4f5d63" text-anchor="start">Wi-Fi only, Hive</text>
+<rect x="60" y="572" width="1080" height="44" rx="12" fill="#ffffff" stroke="#14a8ab" stroke-width="2"/>
+<text x="80" y="601" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" font-weight="600" fill="#1d2a30" text-anchor="start">Both apps run BiomechanicsEngine: tare check, EMA α 0.1, phase rules, CoP, step count, flags</text>
+</svg>

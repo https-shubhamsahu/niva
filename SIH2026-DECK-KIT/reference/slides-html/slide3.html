@@ -1,0 +1,154 @@
+<style>
+#in{left:40px;top:226px;width:720px;height:352px;padding:0}
+#in > .tag{position:absolute;left:12px;top:12px}
+#in .axle{position:absolute;left:14px;top:290px;width:400px;font:400 15px/1.3 var(--f);color:var(--ink)}
+#in .axle b{color:var(--orange-dk)}
+.cl{position:absolute;left:428px;width:282px;display:flex;gap:9px;align-items:flex-start;list-style:none}
+.cl .badge{width:26px;height:26px;font-size:14px}
+.cl h4{font:700 15.5px/1.15 var(--f);color:var(--navy)}
+.cl p{font:400 15px/1.22 var(--f);color:var(--ink)}
+
+#stack{left:772px;top:226px;width:1108px;height:352px;padding:10px}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;height:100%}
+.col{border-radius:10px;overflow:hidden;background:var(--wash);display:flex;flex-direction:column}
+.col h3{height:38px;display:flex;align-items:center;gap:8px;padding:0 10px;color:#fff;font:700 16px/1 var(--f)}
+.col ul{margin:0;padding:8px 10px 0 24px;font:400 15.5px/1.24 var(--f);color:var(--ink)}
+.col li{margin-bottom:6px}
+.col li b{color:var(--navy)}
+.built{display:inline-block;background:var(--mint);color:var(--green-dk);font:700 14px/1 var(--f);border-radius:999px;padding:3px 7px;margin-left:2px}
+.addon{display:inline-block;background:var(--lilac);color:var(--purple);font:700 14px/1 var(--f);border-radius:999px;padding:3px 7px;margin-left:2px}
+.relaybox{margin:auto 10px 10px;display:flex;gap:10px;align-items:center;background:#fff;border-radius:8px;padding:6px 8px}
+.relaybox p{font:700 15px/1.25 var(--f);color:var(--orange-dk)}
+
+#flow{left:40px;top:626px;width:1060px;height:364px;padding:0}
+#flow > .tag{position:absolute;left:14px;top:12px}
+.stages{position:absolute;left:14px;top:48px;display:flex;gap:18px;list-style:none}
+.st{width:190px;height:236px;border-radius:12px;background:#fff;border:1.5px solid var(--line);overflow:hidden}
+.st h4{height:44px;color:#fff;display:flex;align-items:center;gap:8px;padding:0 10px;font:700 16px/1.05 var(--f)}
+.st h4 small{display:block;font:600 14px/1 var(--f);opacity:.95}
+.st ul{margin:0;padding:10px 8px 0 22px;font:400 16.5px/1.25 var(--f)}
+.st li{margin-bottom:8px}
+.arrowgap{position:absolute;top:150px;width:18px;text-align:center}
+.safety{position:absolute;left:14px;top:292px;width:1030px;height:62px;background:var(--wash);border:1.5px solid var(--line);border-radius:10px;display:flex;align-items:center;gap:12px;padding:0 14px;font:400 15.5px/1.3 var(--f);color:var(--ink)}
+.safety b{color:var(--navy)}
+
+#drop{left:1112px;top:626px;width:768px;height:262px;padding:0}
+#drop > .tag{position:absolute;left:14px;top:12px}
+.chev{position:absolute;top:46px;left:14px;display:flex;gap:4px;list-style:none}
+.chev li{height:52px;width:145px;background:var(--peach);color:var(--orange-dk);font:700 15px/1.12 var(--f);display:flex;align-items:center;padding:0 14px 0 24px;clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%,12% 50%)}
+.chev li:first-child{clip-path:polygon(0 0,88% 0,100% 50%,88% 100%,0 100%);padding-left:12px}
+.chev li:last-child{background:var(--mint);color:var(--green-dk)}
+.fail{position:absolute;left:14px;top:106px;font:600 15px/1 var(--f);color:var(--red-dk);display:flex;align-items:center;gap:6px}
+.esc{position:absolute;left:14px;top:128px;width:740px;height:96px}
+.esccap{position:absolute;left:14px;top:226px;width:740px;font:400 15px/1.25 var(--f);color:var(--ink)}
+
+#proto{left:1112px;top:898px;width:768px;height:92px;padding:0;background:var(--navy);border-color:var(--navy)}
+#proto > .tag{position:absolute;left:12px;top:10px;background:var(--orange)}
+.thumbs{position:absolute;left:12px;top:38px;display:flex;gap:8px}
+.thumbs img{width:88px;height:49.5px;object-fit:cover;border-radius:5px;border:1.5px solid rgba(255,255,255,.4)}
+.etext{position:absolute;left:304px;top:40px;width:392px;color:#fff;font:600 15px/1.3 var(--f)}
+.etext b{color:#FFD29A}
+.qr{position:absolute;right:8px;top:6px;width:80px;height:80px}
+</style>
+<main>
+<h2 class="ptr" style="left:60px;top:188px">Technologies to be used (e.g. programming languages, frameworks, hardware)</h2>
+
+<figure class="p" id="in" aria-label="SURANG side cutaway">
+  <h3 class="tag">Inside SURANG · side cutaway</h3>
+  <i data-svg="cutaway" style="position:absolute;left:10px;top:48px;width:410px;height:234px"></i>
+  <p class="axle"><b>⊙ Roll axle</b> crosses the direction of travel: the cage turns on a roller race while the sensor core stays level.</p>
+  <ol>
+  <li class="cl" style="top:14px"><span class="badge">1</span><div><h4>GEODESIC ROLL-CAGE</h4><p>GFRP ribs, TPU joints, one axle</p></div></li>
+  <li class="cl" style="top:70px"><span class="badge">2</span><div><h4>4 × 7-INCH ROTORS</h4><p>same thrust flies and rolls it</p></div></li>
+  <li class="cl" style="top:126px"><span class="badge">3</span><div><h4>SENSOR SPINE</h4><p>LiDAR · thermal · IR · radar · gas</p></div></li>
+  <li class="cl" style="top:182px"><span class="badge">4</span><div><h4>DUAL BRAIN</h4><p>Pixhawk safety + Pi 5 &amp; Hailo AI</p></div></li>
+  <li class="cl" style="top:238px"><span class="badge">5</span><div><h4>6S BATTERY</h4><p>≈ 2 kg all-up, T/W ≥ 3 (target)</p></div></li>
+  <li class="cl" style="top:294px"><span class="badge">6</span><div><h4>SUTRA CASSETTE</h4><p>5 relays · 1 servo · 1 per drop</p></div></li>
+  </ol>
+</figure>
+
+<div class="p" id="stack"><div class="cols">
+  <div class="col"><h3 style="background:var(--navy)"><i data-icon="cpu" data-color="#fff" data-size="20"></i>HARDWARE</h3><ul>
+    <li><b>Pixhawk 6C Mini</b> flight controller</li>
+    <li><b>Raspberry Pi 5 + AI HAT+ 2</b> (Hailo-10H, 40 TOPS)</li>
+    <li><b>Unitree L2</b> 3D LiDAR</li>
+    <li><b>FLIR Lepton 3.5</b> thermal + <b>IMX327</b> IR night vision</li>
+    <li><b>60 GHz radar</b> (breathing) + <b>gas:</b> CO, O₂, H₂S, CH₄, CO₂</li>
+  </ul></div>
+  <div class="col"><h3 style="background:var(--orange)"><i data-icon="radio-tower" data-color="#fff" data-size="20"></i>FIRMWARE &amp; RADIO</h3><ul>
+    <li><b>ArduPilot</b> (C++): roll/fly modes, failsafes</li>
+    <li><b>ESP-IDF</b> (C) on every relay</li>
+    <li><b>Wi-Fi mesh</b> fast lane + <b>ESP-NOW Long-Range</b> slow lane</li>
+    <li><b>Wi-Fi FTM</b> ranging → Breadcrumb GPS</li>
+  </ul>
+  <div class="relaybox"><svg width="54" height="46" viewBox="0 0 54 46" aria-hidden="true"><ellipse cx="27" cy="36" rx="24" ry="8" fill="#ED861C" stroke="#B85F16" stroke-width="2"/><ellipse cx="27" cy="33" rx="15" ry="4.5" fill="#F6B06A"/><line x1="27" y1="30" x2="27" y2="6" stroke="#B85F16" stroke-width="3"/><circle cx="27" cy="5" r="3.5" fill="#B85F16"/></svg>
+    <p>SUTRA relay: ESP32-C3, ≈ ₹900;<br>the last = victim's lifeline</p></div>
+  </div>
+  <div class="col"><h3 style="background:var(--green)"><i data-icon="brain" data-color="#fff" data-size="20"></i>AI &amp; SOFTWARE</h3><ul>
+    <li><b>ROS 2</b> (Python / C++)</li>
+    <li><b>FAST-LIO2</b> 3D LiDAR SLAM</li>
+    <li><b>YOLO11</b> on thermal + IR, pre-trained on <b>synthetic data from our own 3D sim</b></li>
+    <li><b>Triage AI:</b> camera pulse (rPPG) + radar/thermal breathing → <b>START colour</b></li>
+    <li><b>Air check:</b> safe-to-enter CO · O₂ · CH₄</li>
+  </ul></div>
+  <div class="col"><h3 style="background:var(--blue)"><i data-icon="monitor-smartphone" data-color="#fff" data-size="20"></i>COMMAND CENTRE</h3><ul>
+    <li><b>Three.js</b> 3D mission workspace <span class="built">BUILT ✓</span></li>
+    <li><b>Mission replay</b> + product explorer <span class="built">BUILT ✓</span></li>
+    <li><b>MQTT</b> telemetry + black-box logs</li>
+    <li><b>Bhashini</b> speech AI, 22 Indian languages <span class="addon">add-on</span></li>
+  </ul></div>
+</div></div>
+
+<h2 class="ptr" style="left:60px;top:588px">Methodology and process for implementation (Flow Charts/Images/ working prototype)</h2>
+
+<figure class="p wash" id="flow" aria-label="How it works: sense, think, act, connect, command">
+  <h3 class="tag">How it works · Sense → Think → Act → Connect → Command</h3>
+  <ol class="stages">
+    <li class="st"><h4 style="background:var(--navy)"><i data-icon="scan-search" data-color="#fff" data-size="22"></i>SENSE</h4><ul>
+      <li>3D LiDAR</li><li>Thermal + IR night vision</li><li>Breathing radar</li><li>CO, O₂, CH₄, H₂S</li></ul></li>
+    <li class="st"><h4 style="background:var(--green)"><i data-icon="brain" data-color="#fff" data-size="22"></i><span>THINK<small>edge AI on SURANG</small></span></h4><ul>
+      <li>Live 3D map</li><li>Survivor fusion</li><li>Triage AI</li><li>Air check</li></ul></li>
+    <li class="st"><h4 style="background:var(--orange)"><i data-icon="cog" data-color="#fff" data-size="22"></i>ACT</h4><ul>
+      <li>Roll ⇄ fly switch</li><li>Drop relay at a bend</li><li>Perch, props idle</li></ul></li>
+    <li class="st"><h4 style="background:var(--orange-dk)"><i data-icon="radio-tower" data-color="#fff" data-size="22"></i>CONNECT</h4><ul>
+      <li>Relay chain, hop by hop</li><li>Alerts first, video last</li><li>Voice on the slow lane</li></ul></li>
+    <li class="st"><h4 style="background:var(--blue)"><i data-icon="monitor-smartphone" data-color="#fff" data-size="22"></i>COMMAND</h4><ul>
+      <li>Map + hazard zones</li><li>Triage colour + doctor talk</li><li><b style="color:var(--blue)">Commander decides</b></li></ul></li>
+  </ol>
+  <div class="arrowgap" style="left:204px"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="20"></i></div>
+  <div class="arrowgap" style="left:412px"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="20"></i></div>
+  <div class="arrowgap" style="left:620px"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="20"></i></div>
+  <div class="arrowgap" style="left:828px"><i data-icon="arrow-right" data-color="#1B3A6B" data-size="20"></i></div>
+  <p class="safety"><i data-icon="shield-check" data-color="#2E9E6A" data-size="26"></i><span><b>Independent Pixhawk safety loop:</b> if the AI stalls, SURANG holds, lands or returns. <b>Doctor-in-the-loop:</b> AI only suggests a triage colour. <b>Mine mode:</b> CH₄ ≥ 0.75 % turn back, ≥ 1.25 % land (CMR 2017, Reg. 153).</span></p>
+</figure>
+
+<figure class="p" id="drop" aria-label="AI relay-drop logic and one-servo release">
+  <h3 class="tag orange">AI relay-drop brain · one-servo release</h3>
+  <ol class="chev">
+    <li>① Link fades at a bend</li>
+    <li>② HOLD at the apex</li>
+    <li>③ ARM next relay</li>
+    <li>④ RELEASE one</li>
+    <li>⑤ VERIFY new hop ✓</li>
+  </ol>
+  <p class="fail"><i data-icon="circle-x" data-color="#D64541" data-size="16"></i>No new hop? Fall back to the Long-Range lane and step back to the last good link.</p>
+  <svg class="esc" width="740" height="96" viewBox="0 0 740 96">
+    <g transform="translate(6,2)"><rect x="12" y="4" width="36" height="80" rx="6" fill="#F5F8FC" stroke="#1B3A6B" stroke-width="2"/><rect x="16" y="12" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="25" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="38" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="57" width="28" height="11" rx="5" fill="#FDEBD9" stroke="#ED861C" stroke-width="1.6"/><rect x="-6" y="51" width="14" height="4" rx="2" fill="#AAB4C2"/><rect x="0" y="70" width="30" height="4" rx="2" fill="#C0501F"/><text x="58" y="30" font-family="Segoe UI" font-weight="700" font-size="15" fill="#1B3A6B">1 REST</text><text x="58" y="52" font-family="Segoe UI" font-size="14" fill="#1F2937">lower pin holds</text><text x="58" y="70" font-family="Segoe UI" font-size="14" fill="#1F2937">the stack</text><path d="M168,44 L178,44 M173,39 L179,44 L173,49" stroke="#1B3A6B" stroke-width="2" fill="none"/></g>
+    <g transform="translate(190,2)"><rect x="12" y="4" width="36" height="80" rx="6" fill="#F5F8FC" stroke="#1B3A6B" stroke-width="2"/><rect x="16" y="12" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="25" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="38" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="57" width="28" height="11" rx="5" fill="#FDEBD9" stroke="#ED861C" stroke-width="1.6"/><rect x="0" y="51" width="30" height="4" rx="2" fill="#C0501F"/><rect x="0" y="70" width="30" height="4" rx="2" fill="#C0501F"/><text x="58" y="30" font-family="Segoe UI" font-weight="700" font-size="15" fill="#1B3A6B">2 CAPTURE</text><text x="58" y="52" font-family="Segoe UI" font-size="14" fill="#1F2937">upper pin grips</text><text x="58" y="70" font-family="Segoe UI" font-size="14" fill="#1F2937">the rest</text><path d="M168,44 L178,44 M173,39 L179,44 L173,49" stroke="#1B3A6B" stroke-width="2" fill="none"/></g>
+    <g transform="translate(374,2)"><rect x="12" y="4" width="36" height="80" rx="6" fill="#F5F8FC" stroke="#1B3A6B" stroke-width="2"/><rect x="16" y="12" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="25" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="38" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="82" width="28" height="11" rx="5" fill="#FDEBD9" stroke="#ED861C" stroke-width="1.6"/><rect x="0" y="51" width="30" height="4" rx="2" fill="#C0501F"/><rect x="-6" y="70" width="14" height="4" rx="2" fill="#AAB4C2"/><path d="M30,72 L30,80" stroke="#ED861C" stroke-width="2"/><text x="58" y="30" font-family="Segoe UI" font-weight="700" font-size="15" fill="#1B3A6B">3 RELEASE</text><text x="58" y="52" font-family="Segoe UI" font-size="14" fill="#1F2937">only the bottom</text><text x="58" y="70" font-family="Segoe UI" font-size="14" fill="#1F2937">relay drops</text><path d="M168,44 L178,44 M173,39 L179,44 L173,49" stroke="#1B3A6B" stroke-width="2" fill="none"/></g>
+    <g transform="translate(558,2)"><rect x="12" y="4" width="36" height="80" rx="6" fill="#F5F8FC" stroke="#1B3A6B" stroke-width="2"/><rect x="16" y="20" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="33" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="46" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.4"/><rect x="16" y="59" width="28" height="11" rx="5" fill="#DCE9F8" stroke="#5B87C5" stroke-width="1.6"/><rect x="-6" y="51" width="14" height="4" rx="2" fill="#AAB4C2"/><rect x="0" y="70" width="30" height="4" rx="2" fill="#C0501F"/><path d="M30,6 L30,16 M26,12 L30,17 L34,12" stroke="#1B3A6B" stroke-width="2" fill="none"/><text x="58" y="30" font-family="Segoe UI" font-weight="700" font-size="15" fill="#1B3A6B">4 INDEX</text><text x="58" y="52" font-family="Segoe UI" font-size="14" fill="#1F2937">next relay</text><text x="58" y="70" font-family="Segoe UI" font-size="14" fill="#1F2937">moves down</text></g>
+  </svg>
+  <p class="esccap">One servo, one cam, both pins: exactly one relay per drop; it lands upright and pops up its antenna.</p>
+</figure>
+
+<div class="p" id="proto">
+  <h3 class="tag">Working prototype · software · live now</h3>
+  <div class="thumbs">
+    <img src="../assets/thumb-visual-scene.jpg" alt="3D tunnel scene">
+    <img src="../assets/thumb-mission-control-replay.jpg" alt="Mission replay">
+    <img src="../assets/thumb-product-explorer.jpg" alt="Product explorer">
+  </div>
+  <p class="etext">3D tunnel · mission replay · product explorer. <b>116 automated checks passing.</b></p>
+  <a class="qr" href="https://surang-sutra-simulation.vercel.app/"><i data-svg="qr" style="width:80px;height:80px"></i></a>
+</div>
+</main>
