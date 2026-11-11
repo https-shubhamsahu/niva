@@ -113,7 +113,12 @@ Tracks re-routed for the library pads (all on F.Cu):
 ## Not done
 - U2 keeps the KiCad 3-unit symbol; J2 and H1-H4 keep their KiCad footprints (see above). J2's
   Device Standardization warning stays for the same reason.
-- The project is not yet published to OSHWLab, and the Spark "Apply Coupon" form is not filled in.
+- OSHWLab: submitted for publishing on 11 Nov 2026 as "NIVA-dock: USB-C charging dock for a
+  wearable battery cartridge" (CC BY-SA 4.0, status Ongoing, tags USB / Power_Conversion /
+  Wearable, cover from exports/pcb/NIVA-dock-render-top.png). URL:
+  https://oshwlab.com/shubhamsahu6393/project_aefgmioe. It shows "unpublished" to signed-out
+  visitors until OSHWLab's backend review passes.
+- The Spark "Apply Coupon" form is not filled in.
 - NIVA-dock-RevC2 was deleted on 11 Nov 2026. It is in EasyEDA's Recycle Bin, so it can be restored.
 
 ## Draft to Bob (Discord easyeda_bob or bob@easyeda.com), for Shubham to send
