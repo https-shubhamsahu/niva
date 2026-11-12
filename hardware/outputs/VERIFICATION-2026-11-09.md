@@ -6,7 +6,7 @@ What was checked, what was wrong, what is fixed on this branch, and what is stil
 
 **Niva is not production ready, and no desk review can make it so.** For a wearable that protects diabetic feet, production needs four things this repo does not have yet:
 - built and measured first articles;
-- firmware for the Rev C.2 pod;
+- firmware proven on a Rev C.2 pod (written on 12 Nov, not yet run on hardware);
 - battery and EMC test reports (IEC 62133-2 / UN 38.3 for the cell, IEC 60601-1-2 style EMC);
 - biocompatibility evidence and a medical-device risk file (ISO 14971, IEC 62304, CDSCO).
 
@@ -141,14 +141,21 @@ Each fix was re-checked with the tool named.
 - **C19.** The verification-plan F4 acceptance band is looser than the cell spec.
 
 ### Firmware and software
-- **E1 (BLOCKER).** No firmware exists for the Rev C.2 pod. It needs, at least:
-  - MCP3208 over SPI;
-  - LSM6DSO32, with `I2C_disable` set first (A17, E17);
-  - the MAX17048 with VRESET lowered (A12);
-  - the CH6 tail-fault check with the window from A15;
-  - CS lines held high in sleep (A2);
-  - USB-CDC only, since UART0 drives the LEDs;
-  - ESP-NOW/BLE roles, OTA with rollback, and factory provisioning through the TC2030 jig.
+- **E1 (BLOCKER, partly done 12 Nov 2026).** Rev C.2 firmware now exists: Protected Steps ported to the pod, in [`niva arduino/niva_protected_steps/`](../../niva%20arduino/niva_protected_steps/README.md). It compiles and its host tests pass. It has not run on a board.
+  - **Done:**
+    - MCP3208 over SPI;
+    - LSM6DSO32, with `I2C_disable` sent first (A17, E17);
+    - the MAX17048 with VRESET at 2.68 V (A12);
+    - the CH6 tail-fault check with the A15 window, plus the CH7 insert ID;
+    - CS lines held high in sleep (A2);
+    - USB-CDC only, since UART0 drives the LEDs;
+    - the ESP-NOW and BLE roles;
+    - a low-battery deep sleep (A7, C7).
+  - **Still open:**
+    - OTA with rollback, which needs a custom partition table;
+    - factory provisioning through the TC2030 jig;
+    - BLE pairing (E6);
+    - bring-up on a built pod.
 - **E6 (BLOCKER).** The current Wi-Fi sketch has no authentication on the health stream or the re-tare command, and its setup portal accepts firmware uploads. The C.2 firmware must not copy this.
 - **E7 (BLOCKER).** No IEC 62304 / ISO 14971 process exists. Write the intended use first. A wellness claim and a medical claim lead to very different work.
 - **E10-E16, E19-E29.** IMU timing and ranges, data contract and timestamps, BLE permissions, health data unencrypted at rest and in transit, the relay as an open proxy, and the hardcoded credentials in a public repo (E23). Details are in the E file.
