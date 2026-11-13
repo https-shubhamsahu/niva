@@ -29,11 +29,14 @@ One firmware, two roles (`ankle` hub, `insole` node) and two boards. The device 
 - **Chip selects in sleep.** Both chip selects are held high through deep sleep (review A2).
 - **Single core.** Tasks run on core 0, because the ESP32-C3 has one core. On the classic ESP32 they stay pinned to core 1.
 - **Serial must be USB-CDC.** UART0's pins drive the LEDs, so a pod build without `CDCOnBoot=cdc` stops with an `#error`.
-- **Low battery.** Every 10 s the gauge's cell voltage goes to `NivaPowerPolicy` (`niva_board_logic.h`). The pod goes into deep sleep in two cases, and the button wakes it:
-  - three readings in a row below 3.50 V;
-  - after a brown-out reset, one reading below 3.80 V. A pod that browns out during radio bursts reboots before it can collect three low readings.
+- **Low battery.** Two checks in `niva_board_logic.h` decide when the pod goes into deep sleep; the button wakes it.
+  - **At boot**, before any radio starts, one gauge reading near rest (`nivaPowerSleepAtBoot`). Sleep below 3.50 V; below 3.80 V after a brown-out reset, because a cell that low browns out while the radios start and never reaches the running check; below 3.60 V after a low-battery sleep, so a button press on a flat cell does not start the radios again.
+  - **While running**, every 10 s with the radios on: three readings in a row below 3.50 V (`NivaPowerPolicy`).
+  - Before sleeping, the IMU is powered down. The analog front end cannot be (no switch on Rev C.2), so sleep draws roughly 0.3-0.5 mA and delays the PCM's 3.0 V cut-off by about a day rather than preventing it (review A9, Rev C.3).
+  - A press already held at boot is ignored until release, so the wake press never tares an insole or opens pairing.
+  - On the pod, a gauge that does not answer is retried every 10 s and reported once on serial. Until it answers, nothing guards the cell but its PCM.
   
-  Both thresholds are design choices, not measurements.
+  All thresholds are design choices, not measurements.
 - **Register sources.** Read on 9 Nov 2026:
   - LSM6DSO32: ST's `lsm6dso32-pid` driver;
   - MAX17048: the SparkFun MAX1704x library;
@@ -49,19 +52,19 @@ bash "niva arduino/tests/run_host_tests.sh"
 
 Libraries: NimBLE-Arduino 2.5.2, WiFiManager 2.0.17, WebSockets 2.7.2, ESP32 core 3.3.12.
 
-Results on 12 Nov 2026:
+Results on 13 Nov 2026:
 
 | Build | Size | RAM | Warnings in this sketch |
 |---|---|---|---|
-| Pod | 1,525,951 bytes (48 % of 3 MB) | 59,680 bytes | 0 |
-| DevKit | 1,442,347 bytes (45 %) | 73,036 bytes | 0 |
+| Pod | 1,526,251 bytes (48 % of 3 MB) | 59,688 bytes | 0 |
+| DevKit | 1,442,627 bytes (45 %) | 73,036 bytes | 0 |
 
 The 21 warnings in each build are in WiFiManager.
 
 The host tests cover:
 - `ps_logic_test`: 259 checks;
 - the contact detector and frame tests;
-- `board_logic_test`: MCP3208 frames, LSM6DSO32 settings and byte order, MAX17048 conversions, the tail classifier, the low-battery policy.
+- `board_logic_test`: MCP3208 frames, LSM6DSO32 settings and byte order, MAX17048 conversions, the tail classifier, the low-battery boot and running checks (51 checks).
 
 **Flashing the pod:**
 - Use the TC2030 service jig on J3 (USB D+/D-, GPIO9, EN, 3V3, GND).
@@ -78,8 +81,10 @@ The host tests cover:
 - **Hub stride axis.** The default `axis` is +z, chosen for the DevKit mounting. On the pod, find the axis of shank rotation on a wearer and set it over serial (`axis`).
 - **Tail check limits** (CH6 1950-2450, insert IDs ±80 counts) against real inserts and a deliberately shorted tail.
 - **Low-battery shutdown.**
-  - Measure the cell voltage at which the rail browns out during a burst, with a fresh F1 and with a tripped and recovered F1 (review A7, C7). Then set `NIVA_POWER_LOW_MV` and `NIVA_POWER_LOW_MV_AFTER_BROWNOUT` from those measurements.
-  - Check that a brown-out really reports `ESP_RST_BROWNOUT` on the ESP32-C3, rather than a plain power-on reset.
+  - Measure the cell voltage at which the rail browns out during a burst, with a fresh F1 and with a tripped and recovered F1 (review A7, C7). Then set `NIVA_POWER_LOW_MV`, `NIVA_POWER_LOW_MV_AFTER_BROWNOUT` and `NIVA_POWER_RESUME_MV` from those measurements. Review A7 says the cut-off may have to sit near 3.7 V; 3.50 V assumes a fresh F1.
+  - Check that a brown-out really reports `ESP_RST_BROWNOUT` on the ESP32-C3, rather than a plain power-on reset. If it does not, a pod that browns out while starting its radios at a rest voltage between 3.50 and 3.80 V reboots in a loop until the PCM opens.
+  - Check how long the gauge's first VCELL reading takes after a cartridge is inserted (the boot check waits about 0.3 s).
+  - Measure the deep-sleep current, and check that the LEDs (GPIO20/21, not held) stay off.
   - Check that the button wakes the pod from deep sleep.
 
 ## Open

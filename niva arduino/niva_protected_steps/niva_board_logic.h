@@ -134,47 +134,67 @@ inline NivaTailResult nivaClassifyTail(uint16_t ch6, uint16_t ch7) {
 
 // --------------------------------------------------- low-battery policy ---
 
-// Called about every 10 s with the gauge's cell voltage; vcellMv = 0 means
-// no reading. Returns true when the pod should stop and go to deep sleep
-// (the button wakes it).
+// Two checks decide when the pod stops and goes to deep sleep (the button
+// wakes it). Both take the gauge's cell voltage in mV; 0 means no reading.
 //
-// Facts (review A7, C7, cartridge STATUS.txt):
-//   - the cell's PCM cuts off at 3.0 +- 0.1 V;
+// Facts (review A7, A9, C7; EEMB spec ZJQM-RD-SPC-A03249 for the 2-lead
+// cell, the NTC variant's spec is not in hand):
+//   - the cell's PCM cuts off at 3.0 V (no tolerance given) and releases at
+//     3.5 +- 0.05 V;
 //   - during a 0.35 A radio burst the 3.3 V rail falls below the ESP32-C3's
 //     3.0 V minimum when the cell is under about 3.3-3.8 V, depending on the
-//     polyfuse (0.25-1.2 ohm), so a low cell reboots in a loop under load;
-//   - the MAX17048 stays powered through ESP32 resets, so its first reading
-//     after a reset is valid;
-//   - asleep, the analog front end still draws about 0.3-0.5 mA (review A9).
+//     polyfuse (0.25-1.2 ohm), so a low cell can brown out while the radios
+//     start, before the running check has any readings;
+//   - the MAX17048 stays powered through ESP32 resets and deep sleep, so a
+//     reading at boot is valid; after a cartridge is inserted it may read 0
+//     until its first conversion;
+//   - asleep, the analog front end still draws about 0.3-0.5 mA (review A9),
+//     so sleep only delays the PCM cut-off by about a day. Rev C.3 copper.
 //
 // DESIGN CHOICES, to check against the brown-out point measured on the bench:
-//   - 3.50 V: a Li-ion cell resting at 3.5 V has about 5 % left, and with F1
-//     near its fresh 0.25 ohm the rail rides through a burst down to 3.3 V;
-//   - 3 low readings in a row (about 30 s), so a reading taken during a burst
-//     does not trip it, and a good reading starts the count again;
-//   - after a brown-out reset, 3.80 V (the top of the band above) and one
-//     low reading: a pod that browns out under load reboots before it can
-//     collect three. The first good reading clears this;
+//   - Boot check, once, before any radio starts, so the cell is near rest:
+//       * normally sleep below 3.50 V;
+//       * after a brown-out reset, below 3.80 V (the top of the band above):
+//         a cell that low browns out under load. A contact bounce on a
+//         healthy cell between 3.76 and 3.80 V also lands here; it costs one
+//         button press, because the wake rule below lets it run again;
+//       * after waking from a low-battery sleep, below 3.60 V: 100 mV of
+//         hysteresis, so pressing the button on a flat cell does not start
+//         the radios for another half minute;
+//   - Running check, about every 10 s with the radios on: 3 readings in a
+//     row below 3.50 V (about 30 s), so a reading taken during a burst does
+//     not trip it, and a good reading starts the count again;
+//   - 3.50 V: a Li-ion cell resting at 3.5 V has about 5 % left. With F1 near
+//     its fresh 0.25 ohm the rail rides through a burst down to 3.3 V; with a
+//     tripped-and-recovered F1 it may not (review A7: "may have to sit near
+//     3.7 V"). The bench measurement sets this;
 //   - SOC is not used. After a cartridge swap the gauge's quick-start
 //     estimate can be well off, and brown-out depends on voltage, not charge.
 static const uint16_t NIVA_POWER_LOW_MV = 3500;
 static const uint16_t NIVA_POWER_LOW_MV_AFTER_BROWNOUT = 3800;
+static const uint16_t NIVA_POWER_RESUME_MV = 3600;
 static const uint8_t NIVA_POWER_LOW_READINGS = 3;
 
+// Boot check. True when the pod should go straight back to sleep.
+inline bool nivaPowerSleepAtBoot(uint16_t restMv, bool afterBrownout, bool afterLowBatterySleep) {
+  if (restMv == 0) return false;   // no reading is no evidence; the running check still watches
+  if (afterLowBatterySleep) return restMv < NIVA_POWER_RESUME_MV;
+  if (afterBrownout) return restMv < NIVA_POWER_LOW_MV_AFTER_BROWNOUT;
+  return restMv < NIVA_POWER_LOW_MV;
+}
+
+// Running check.
 struct NivaPowerPolicy {
-  uint8_t lowCount = 0;         // consecutive readings that looked low
-  bool afterBrownout = false;   // set once at boot when the last reset was a brown-out
+  uint8_t lowCount = 0;   // consecutive readings that looked low
 
   bool shouldShutDown(uint16_t vcellMv) {
     if (vcellMv == 0) return false;   // no reading is no evidence: keep the count
-    const uint16_t lowMv = afterBrownout ? NIVA_POWER_LOW_MV_AFTER_BROWNOUT : NIVA_POWER_LOW_MV;
-    if (vcellMv >= lowMv) {
+    if (vcellMv >= NIVA_POWER_LOW_MV) {
       lowCount = 0;
-      afterBrownout = false;
       return false;
     }
     if (lowCount < NIVA_POWER_LOW_READINGS) ++lowCount;
-    return afterBrownout || lowCount >= NIVA_POWER_LOW_READINGS;
+    return lowCount >= NIVA_POWER_LOW_READINGS;
   }
 };
 

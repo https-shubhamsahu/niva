@@ -112,6 +112,10 @@ NivaTailResult nivaBoardTail() { return nivaClassifyTail(adcRead(ADC_CH_V33_HALF
 void nivaBoardPrepareSleep() {
   digitalWrite(PIN_LED_R, LOW);
   digitalWrite(PIN_LED_G, LOW);
+  // The LSM6DSO32 keeps its settings through ESP32 resets and deep sleep, so
+  // it would stay at 104 Hz (about 0.5 mA). ODR 0 powers both sensors down.
+  imuWrite(NIVA_LSM6_CTRL1_XL, 0x00);
+  imuWrite(NIVA_LSM6_CTRL2_G, 0x00);
   digitalWrite(PIN_CS_ADC, HIGH);   // MCP3208 standby needs CS high (review A2)
   digitalWrite(PIN_CS_IMU, HIGH);
   gpio_hold_en((gpio_num_t)PIN_CS_ADC);

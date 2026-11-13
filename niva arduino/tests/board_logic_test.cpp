@@ -127,22 +127,33 @@ static void testPowerPolicy() {
     if (gap.shouldShutDown(gapMv[i])) callsToTrip = i + 1;
   }
   CHECK(callsToTrip == 4);                      // a missed reading neither trips nor clears the count
-
-  // After a brown-out reset: one low reading, at the higher threshold.
-  NivaPowerPolicy bo;
-  bo.afterBrownout = true;
-  CHECK(bo.shouldShutDown(3700));
-  NivaPowerPolicy boNoReading;
-  boNoReading.afterBrownout = true;
-  CHECK(!boNoReading.shouldShutDown(0) && boNoReading.afterBrownout);
-  // A brown-out with a good cell (contact bounce, say): the first good
-  // reading clears it, and 3.7 V is then fine again.
-  NivaPowerPolicy boGood;
-  boGood.afterBrownout = true;
-  CHECK(!boGood.shouldShutDown(3900) && !boGood.afterBrownout);
+  NivaPowerPolicy flicker;
+  const uint16_t flickerMv[] = {3050, 3050, 3500, 3050, 3050, 3500};
   any = false;
-  for (int i = 0; i < 10; ++i) any = any || boGood.shouldShutDown(3700);
-  CHECK(!any);
+  for (int i = 0; i < 6; ++i) any = any || flicker.shouldShutDown(flickerMv[i]);
+  CHECK(!any);                                  // known gap: one good reading in three resets the count
+}
+
+// Boot check: one reading near rest, before the radios start.
+static void testPowerBoot() {
+  // No reading never puts the pod to sleep, whatever the reset.
+  CHECK(!nivaPowerSleepAtBoot(0, false, false));
+  CHECK(!nivaPowerSleepAtBoot(0, true, false));
+  CHECK(!nivaPowerSleepAtBoot(0, false, true));
+  // Power-on or software reset: the running threshold.
+  CHECK(nivaPowerSleepAtBoot(3499, false, false));
+  CHECK(!nivaPowerSleepAtBoot(NIVA_POWER_LOW_MV, false, false));
+  // After a brown-out: the higher threshold, on a single reading.
+  CHECK(nivaPowerSleepAtBoot(3790, true, false));
+  CHECK(!nivaPowerSleepAtBoot(NIVA_POWER_LOW_MV_AFTER_BROWNOUT, true, false));
+  // After a low-battery sleep: hysteresis. 3.55 V would pass the running
+  // threshold but is not enough to start the radios again.
+  CHECK(nivaPowerSleepAtBoot(3550, false, true));
+  CHECK(!nivaPowerSleepAtBoot(NIVA_POWER_RESUME_MV, false, true));
+  // A healthy cell stopped by a contact-bounce brown-out comes back on the
+  // next button press.
+  CHECK(nivaPowerSleepAtBoot(3790, true, false) && !nivaPowerSleepAtBoot(3790, false, true));
+  CHECK(NIVA_POWER_RESUME_MV > NIVA_POWER_LOW_MV);
 }
 
 int main() {
@@ -151,6 +162,7 @@ int main() {
   testGauge();
   testTail();
   testPowerPolicy();
+  testPowerBoot();
   printf("board_logic_test: %d checks, %d failed\n", checks, failures);
   return failures == 0 ? 0 : 1;
 }

@@ -180,6 +180,10 @@ int psButtonPoll() {
   if (!init) {
     pinMode(NIVA_PIN_BUTTON, INPUT_PULLUP);
     init = true;
+    // A press already down at the first poll is the one that woke the pod
+    // (or a stuck button). Ignore it until release, so waking an insole
+    // pod never tares it or opens pairing.
+    down = longSent = digitalRead(NIVA_PIN_BUTTON) == LOW;
   }
   const uint32_t now = millis();
   const bool pressed = digitalRead(NIVA_PIN_BUTTON) == LOW;
@@ -228,6 +232,28 @@ static bool gaugeWrite16(uint8_t reg, uint16_t v) {
   return Wire.endTransmission() == 0;
 }
 
+// The pod always has a gauge, so a silent one is a fault: keep asking every
+// 10 s and say so once. The DevKit's gauge is optional and shares I2C with
+// the MPU6050, so there one answer at boot decides.
+#if NIVA_BOARD_POD_C2
+static const bool kGaugeExpected = true;
+#else
+static const bool kGaugeExpected = false;
+#endif
+static bool gaugeSilentNoted = false;
+
+static void gaugeSetVreset() {
+  uint16_t vreset = 0;
+  if (gaugeRead16(NIVA_GAUGE_VRESET_ID, vreset)) {
+    gaugeWrite16(NIVA_GAUGE_VRESET_ID, nivaGaugeVresetWord(vreset, NIVA_GAUGE_VRESET_MV));
+  }
+}
+
+static uint16_t gaugeReadMv() {
+  uint16_t vcell;
+  return gaugeRead16(NIVA_GAUGE_VCELL, vcell) ? nivaGaugeVcellMv(vcell) : 0;
+}
+
 void psBatteryBegin() {
   uint16_t version = 0;
   gaugePresent = gaugeRead16(NIVA_GAUGE_VERSION, version);
@@ -235,43 +261,62 @@ void psBatteryBegin() {
   battCached = PS_BATT_NONE;
   battMvCached = 0;
   powerPolicy = NivaPowerPolicy();
-  powerPolicy.afterBrownout = esp_reset_reason() == ESP_RST_BROWNOUT;
-  uint16_t vreset = 0;
-  if (gaugePresent && gaugeRead16(NIVA_GAUGE_VRESET_ID, vreset)) {
-    gaugeWrite16(NIVA_GAUGE_VRESET_ID, nivaGaugeVresetWord(vreset, NIVA_GAUGE_VRESET_MV));
+  if (!gaugePresent) return;
+  gaugeSetVreset();
+
+  // Boot check, before any radio starts (both roles call this first). A
+  // fresh gauge may read 0 until its first conversion: try for about 0.3 s.
+  uint16_t restMv = gaugeReadMv();
+  for (int i = 0; i < 3 && restMv == 0; ++i) {
+    delay(100);
+    restMv = gaugeReadMv();
   }
+  battMvCached = restMv;
+  // psDeepSleep() is used only for low battery, so a deep-sleep wake means
+  // the last stop was for low battery.
+  const esp_reset_reason_t reason = esp_reset_reason();
+  if (nivaPowerSleepAtBoot(restMv, reason == ESP_RST_BROWNOUT, reason == ESP_RST_DEEPSLEEP)) psDeepSleep();
 }
 
 static void batteryRefresh() {
   const uint32_t now = millis();
   if (battReadAt != 0 && now - battReadAt < 10000) return;
   battReadAt = now ? now : 1;
-  uint16_t soc, vcell;
-  if (gaugeRead16(NIVA_GAUGE_SOC, soc)) {
+  uint16_t soc;
+  const bool socOk = gaugeRead16(NIVA_GAUGE_SOC, soc);
+  if (socOk) {
     int pct = soc >> 8;  // SOC register: high byte is whole percent
     if (pct > 100) pct = 100;
     battCached = (int8_t)pct;
   } else {
     battCached = PS_BATT_NONE;
   }
-  battMvCached = gaugeRead16(NIVA_GAUGE_VCELL, vcell) ? nivaGaugeVcellMv(vcell) : 0;
+  battMvCached = gaugeReadMv();
   battFresh = true;
+  if (socOk || battMvCached != 0) {
+    if (!gaugePresent) gaugeSetVreset();   // answered for the first time since boot
+    gaugePresent = true;
+    gaugeSilentNoted = false;
+  } else if (!gaugeSilentNoted) {
+    psPrintNote("battery gauge not answering: the low-battery cut-off cannot act");
+    gaugeSilentNoted = true;
+  }
 }
 
 int8_t psBatteryPercent() {
-  if (!gaugePresent) return PS_BATT_NONE;
+  if (!gaugePresent && !kGaugeExpected) return PS_BATT_NONE;
   batteryRefresh();
   return battCached;
 }
 
 uint16_t psBatteryMillivolts() {
-  if (!gaugePresent) return 0;
+  if (!gaugePresent && !kGaugeExpected) return 0;
   batteryRefresh();
   return battMvCached;
 }
 
 bool psPowerCheck() {
-  if (!gaugePresent) return false;
+  if (!gaugePresent && !kGaugeExpected) return false;
   batteryRefresh();
   if (!battFresh) return false;
   battFresh = false;
@@ -279,7 +324,7 @@ bool psPowerCheck() {
 }
 
 void psDeepSleep() {
-  psPrintNote("battery low (%u mV, %d %%): deep sleep; press the button to wake", (unsigned)battMvCached, (int)battCached);
+  psPrintNote("battery low (%u mV): deep sleep; press the button to wake", (unsigned)battMvCached);
   Serial.flush();
   nivaBoardPrepareSleep();
 #if NIVA_BOARD_POD_C2

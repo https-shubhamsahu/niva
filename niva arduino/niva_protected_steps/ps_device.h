@@ -74,15 +74,19 @@ void psPrintWifi(const char* event);              // {"t":"wifi",...} on serial
 int psButtonPoll();
 
 // Battery: MAX17048 fuel gauge at I2C 0x36 if fitted, else PS_BATT_NONE.
-// Begin also lowers the gauge's reset threshold to 2.68 V (review A12) and
-// tells the power policy whether this boot followed a brown-out reset.
+// Begin lowers the gauge's reset threshold to 2.68 V (review A12), then runs
+// the boot check (nivaPowerSleepAtBoot): it must be called before any radio
+// starts, and it does not return when the cell is too low. On the pod a
+// gauge that does not answer is retried every 10 s and reported once.
 void psBatteryBegin();
 int8_t psBatteryPercent();      // cached; refreshed every 10 s
 uint16_t psBatteryMillivolts(); // cell voltage, refreshed with the percent; 0 without a gauge
 
-// Low-battery policy (NivaPowerPolicy in niva_board_logic.h), evaluated at
-// each 10 s gauge refresh. True once the device should stop; the role then
-// flushes what it must and calls psDeepSleep(), which wakes on the button.
+// Running low-battery check (NivaPowerPolicy in niva_board_logic.h),
+// evaluated at each 10 s gauge refresh. True once the device should stop;
+// the role then flushes what it must and calls psDeepSleep(), which powers
+// the IMU down and wakes on the button. Use psDeepSleep() only for low
+// battery: the boot check reads a deep-sleep wake as "slept for low battery".
 bool psPowerCheck();
 void psDeepSleep();
 
