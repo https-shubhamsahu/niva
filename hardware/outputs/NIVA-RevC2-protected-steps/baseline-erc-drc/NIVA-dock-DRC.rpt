@@ -1,0 +1,28 @@
+** Drc report for NIVA-dock.kicad_pcb **
+** Created on 2026-11-03T01:58:21 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 1 DRC violations **
+[lib_footprint_mismatch]: Footprint 'USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal' does not match copy in library 'Connector_USB'
+    Local override; warning
+    @(157.5000 mm, 50.0000 mm): Footprint J1
+
+** Found 0 unconnected pads **
+
+** Found 3 Footprint errors **
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(157.5000 mm, 50.0000 mm): Footprint J1
+[footprint_symbol_field_mismatch]: Field 'Description' differs (PCB: 'PLACEHOLDER: three single spring-loaded contacts, ~4.5 mm free height, part to select; replace pads with the supplier land pattern', Schematic: '')
+    Local override; warning
+    @(142.5500 mm, 77.0000 mm): Footprint J2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(153.0000 mm, 64.5000 mm): Footprint U1
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+
+** End of Report **

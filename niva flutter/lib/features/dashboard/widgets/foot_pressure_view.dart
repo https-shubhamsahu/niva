@@ -66,7 +66,9 @@ class FootPressureView extends StatelessWidget {
             AnimatedOpacity(
               duration: const Duration(milliseconds: 400),
               opacity: isConnected ? 1 : 0.25,
-              child: CustomPaint(painter: _PressureGlowPainter(pressure: pressure)),
+              child: CustomPaint(
+                painter: _PressureGlowPainter(pressure: pressure),
+              ),
             ),
             const _Crosshair(dx: _leftHalfCenter),
             const _Crosshair(dx: _rightHalfCenter),
@@ -92,15 +94,21 @@ class FootPressureView extends StatelessWidget {
                 bottom: 12,
                 child: Center(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
-                      color: (isDark ? Colors.black : Colors.white).withOpacity(0.65),
+                      color: (isDark ? Colors.black : Colors.white).withOpacity(
+                        0.65,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      'Connect the insole or start a simulation to see live pressure data',
+                      'No live data. Connect the insole or start a simulation.',
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 11),
+                      style: Theme.of(context).textTheme.bodyMedium
+                          ?.copyWith(fontSize: 11),
                     ),
                   ),
                 ),
@@ -212,7 +220,10 @@ class _Crosshair extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment((dx * 2) - 1, (_crosshairY * 2) - 1),
-      child: CustomPaint(size: const Size(16, 16), painter: _CrosshairPainter()),
+      child: CustomPaint(
+        size: const Size(16, 16),
+        painter: _CrosshairPainter(),
+      ),
     );
   }
 }
@@ -234,8 +245,16 @@ class _CrosshairPainter extends CustomPainter {
       3,
       false,
     );
-    canvas.drawLine(Offset(0, size.height / 2), Offset(size.width, size.height / 2), paint);
-    canvas.drawLine(Offset(size.width / 2, 0), Offset(size.width / 2, size.height), paint);
+    canvas.drawLine(
+      Offset(0, size.height / 2),
+      Offset(size.width, size.height / 2),
+      paint,
+    );
+    canvas.drawLine(
+      Offset(size.width / 2, 0),
+      Offset(size.width / 2, size.height),
+      paint,
+    );
   }
 
   @override
@@ -267,7 +286,11 @@ class _CopDot extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: color, width: 2.5),
         boxShadow: [
-          BoxShadow(color: color.withOpacity(0.35), blurRadius: 8, spreadRadius: 1),
+          BoxShadow(
+            color: color.withOpacity(0.35),
+            blurRadius: 8,
+            spreadRadius: 1,
+          ),
         ],
       ),
     );

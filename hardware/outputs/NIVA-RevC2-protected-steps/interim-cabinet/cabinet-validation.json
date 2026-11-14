@@ -1,0 +1,78 @@
+{
+  "derived_mm": {
+    "outer_w": 67.2,
+    "outer_l": 94.2,
+    "outer_h_closed": 26.6,
+    "width_over_strap_wings": 91.2,
+    "perfboard_underside_z": 5.0,
+    "rim_z": 24.6,
+    "usb_centre": [
+      67.2,
+      28.07,
+      18.2
+    ],
+    "cable_centre": [
+      0,
+      45.1,
+      10.6
+    ]
+  },
+  "parts": [
+    {
+      "part": "21_InterimCabinet_Base",
+      "print_orientation": "floor on the bed; no supports; USB opening top edge bridges",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 32940.3,
+      "print_bbox_mm": [
+        91.2,
+        94.2,
+        24.6
+      ],
+      "step_reread_solids": 1,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    },
+    {
+      "part": "22_InterimCabinet_Lid",
+      "print_orientation": "top face on the bed (flipped); no supports",
+      "valid": true,
+      "solids": 1,
+      "volume_mm3": 13320.3,
+      "print_bbox_mm": [
+        67.2,
+        94.2,
+        19.8
+      ],
+      "step_reread_solids": 1,
+      "closed_mesh": true,
+      "mesh_non_manifolds": false
+    }
+  ],
+  "interference": {
+    "22_InterimCabinet_Lid x DUMMY_InsoleCable": {
+      "volume_mm3": 1.871,
+      "expected": "intended: cable squeeze by the lid tongue (strain relief)"
+    }
+  },
+  "gaps": {
+    "DUMMY_Perfboard to 21_InterimCabinet_Base": 0.0,
+    "DUMMY_Perfboard to 22_InterimCabinet_Lid": 0.2,
+    "DUMMY_ESP32_DevBoard to 21_InterimCabinet_Base": 2.042,
+    "DUMMY_ESP32_DevBoard to 22_InterimCabinet_Lid": 1.0,
+    "DUMMY_OLED_SH1106 to 21_InterimCabinet_Base": 4.6,
+    "DUMMY_OLED_SH1106 to 22_InterimCabinet_Lid": 6.873,
+    "DUMMY_MPU6050_GY521 to 21_InterimCabinet_Base": 3.6,
+    "DUMMY_MPU6050_GY521 to 22_InterimCabinet_Lid": 3.781,
+    "21_InterimCabinet_Base to 22_InterimCabinet_Lid": 0.0,
+    "DUMMY_InsoleCable to 21_InterimCabinet_Base": 0.3
+  },
+  "checks": {
+    "usb plug block (opening minus clearance) intersects base, mm3": 0.0,
+    "esp32 board end to inner +x wall, mm (receptacle must sit near the wall)": 2.34,
+    "oled window opening (w x h) mm": [
+      31.4,
+      16.7
+    ]
+  }
+}

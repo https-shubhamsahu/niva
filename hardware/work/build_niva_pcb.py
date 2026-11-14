@@ -189,8 +189,12 @@ def place(key):
                 g = pcbnew.PCB_SHAPE(board, pcbnew.SHAPE_T_SEGMENT); g.SetStart(K(*p)); g.SetEnd(K(*q))
                 g.SetLayer(pcbnew.Dwgs_User); g.SetWidth(mm(0.15)); board.Add(g)
     elif key == 'dock':
-        text(board, 'NIVA DOCK REV C.1', D['pcb_x0'] + 14, D['pcb_y0'] + 5, pcbnew.F_SilkS, 1.0)
+        text(board, 'NIVA DOCK REV C.2', D['pcb_x0'] + 14, D['pcb_y0'] + 5, pcbnew.F_SilkS, 1.0)
         text(board, '+', D['pads'][0][0] + 3.0, D['pads'][0][1], pcbnew.F_SilkS, 1.0)
+    # PCBWay's Future Innovators Program wants its name on every sponsored board (pod text added by hand, 25 Oct)
+    if key == 'pod': text(board, 'PCBWay', 21.0, 37.5, pcbnew.B_SilkS, 1.0)
+    if key == 'dock': text(board, 'PCBWay', 25.0, 10.0, pcbnew.B_SilkS, 1.0)
+    if key == 'cartridge': text(board, 'PCBWay', 31.0, 30.0, pcbnew.B_SilkS, 1.0, 90)
     board.SetFileName(str(b['pcb'])); pcbnew.SaveBoard(str(b['pcb']), board)
     board = pcbnew.LoadBoard(str(b['pcb']))           # reload so net classes and rules come from the .kicad_pro
     pcbnew.ZONE_FILLER(board).Fill(board.Zones()); pcbnew.SaveBoard(str(b['pcb']), board)

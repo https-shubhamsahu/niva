@@ -14,8 +14,11 @@ export type WsSensorData = {
 };
 
 type UseSensorDataResult = {
+  /** Latest frame; a new object per message, cleared when the socket closes. */
   data: WsSensorData | null;
   isConnected: boolean;
+  /** Socket open but no message for over STALE_AFTER_MS. */
+  isStale: boolean;
   error: string | null;
   lastMessageAt: number | null;
   url: string;
@@ -29,6 +32,9 @@ type UseSensorDataResult = {
   canAttemptInBrowser: boolean;
   connectionHint: string | null;
 };
+
+/** No frame for longer than this while connected means the stream is stale (firmware sends at 20 Hz). */
+export const STALE_AFTER_MS = 2000;
 
 const DEFAULT_WS_URL = 'ws://10.249.106.94:81';
 const WS_ENDPOINT_STORAGE_KEY = 'gaitguard:nexus:ws-endpoint';
@@ -163,6 +169,7 @@ export default function useSensorData(): UseSensorDataResult {
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [lastMessageAt, setLastMessageAt] = useState<number | null>(null);
+  const [nowMs, setNowMs] = useState(() => Date.now());
   const [wsUrl, setWsUrl] = useState(resolveInitialWsUrl);
   const [relayUrl, setRelayUrlState] = useState(resolveInitialRelayUrl);
 
@@ -317,6 +324,8 @@ export default function useSensorData(): UseSensorDataResult {
       socket.onclose = () => {
         if (isUnmounted) return;
         setIsConnected(false);
+        // Do not leave the last frame around to be shown or re-processed as current data.
+        setData(null);
 
         if (reconnectTimerRef.current) {
           window.clearTimeout(reconnectTimerRef.current);
@@ -343,9 +352,19 @@ export default function useSensorData(): UseSensorDataResult {
     };
   }, [connectionHint, resolvedConnection]);
 
+  // Re-evaluate staleness while connected, even when no frames arrive.
+  useEffect(() => {
+    if (!isConnected) return;
+    const timerId = window.setInterval(() => setNowMs(Date.now()), 500);
+    return () => window.clearInterval(timerId);
+  }, [isConnected]);
+
+  const isStale = isConnected && (lastMessageAt === null || nowMs - lastMessageAt > STALE_AFTER_MS);
+
   return {
     data,
     isConnected,
+    isStale,
     error,
     lastMessageAt,
     url: wsUrl,

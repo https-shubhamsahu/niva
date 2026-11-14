@@ -20,8 +20,10 @@ BLOCKERS = {
             'U6 MAX17048 TDFN: stock KiCad land pattern, simplified 3D envelope - confirm against the purchased package.',
             'Antenna keep-out and ESP32-C3-MINI-1 placement need a radiated check in the closed enclosure.',
             'No independent schematic/layout review, no DFM report from the chosen fabricator, no bring-up of a first article.'],
-    'cartridge': ['F1 polyfuse part number not selected (hold/trip current must be set against the cell PCM limits).',
-                  'Wire pad sizes assume 30 AWG leads - confirm with the cell lot lead gauge.',
+    # cartridge and dock: Rev C.2 closed the part and land-pattern blockers; their PCBWay sets live in
+    # exports/pcb/fab-PROTOTYPE-PCBWAY/ with a hand-written STATUS.txt. What is still open:
+    'cartridge': ['F1 MF-PSMF035X-2 series resistance (0.25-1.2 ohm) vs pod VBAT sag in radio bursts - measure.',
+                  'NTC variant of the cell (LP502030-PCM-NTC-LD) spec not read: NTC value, third lead gauge.',
                   'ENIG finish and contact-pad wear under the dock spring pins untested.',
                   'No independent review, no DFM report from the chosen fabricator.'],
     'insole-R': ['FSR ink film, spacer adhesive and lamination not selected; force-resistance curve, drift and hysteresis uncharacterised.',
@@ -31,8 +33,10 @@ BLOCKERS = {
                  'Insole outline is the 1:1 medium fit template only - other sizes need their own layouts (no scaling).',
                  'Skin contact, cleaning and sealing: see VERIFICATION-PLAN.md - no claims made.',
                  'No independent review, no DFM report from a flex fabricator.'],
-    'dock': ['J2 spring pins: PLACEHOLDER land pattern (part not selected; supplier datasheet not reachable here).',
-             'Charger thermal window thresholds (R6/R7/R8) depend on the NTC fitted to the purchased cell - verify.',
+    'dock': ['MCP73831 has no charge safety timer and no input OVP (the SMAJ5.0A TVS only clips hot-plug spikes): '
+             'Rev C.3 charger with a timer and TS pin; charge attended until then.',
+             'R6/R7/R8 = 46.4k/31.6k/19.6k assume a 10 k B3435 pack NTC (window 3.7-41.2 C nominal, 2.2-43.0 C worst '
+             'case); measure every pack NTC at incoming inspection (10 k +-3 %).',
              'No independent review, no DFM report from the chosen fabricator.'],
 }
 

@@ -2,7 +2,9 @@ import 'dart:math' as math;
 
 import '../models/biomechanics_metrics.dart';
 
-/// The six demo/training gait modes. Ported from `simulationEngine.ts`.
+/// The six synthetic demo patterns. Ported from `simulationEngine.ts`. The
+/// names are only labels for made-up waveforms: nothing here models or
+/// detects a condition, and none of it comes from patient data.
 enum GaitMode { normal, parkinson, stroke, neuropathy, footDrop, ataxia }
 
 extension GaitModeLabel on GaitMode {
@@ -23,22 +25,22 @@ extension GaitModeLabel on GaitMode {
     }
   }
 
-  /// One-line, doctor-readable rationale for why this mode looks the way it
-  /// does - keeps the "explainable, not black-box" promise even in demo mode.
+  /// One line describing what the synthetic waveform does. Describes the
+  /// generated signal only; it is not a finding about anyone.
   String get explanation {
     switch (this) {
       case GaitMode.parkinson:
-        return 'Low heel impact combined with increased stance duration suggests Parkinsonian shuffling gait.';
+        return 'Synthetic pattern: low heel load and impact, longer stance.';
       case GaitMode.stroke:
-        return 'Medial-lateral pressure asymmetry detected indicating hemiplegic gait imbalance.';
+        return 'Synthetic pattern: inner forefoot load much higher than outer.';
       case GaitMode.neuropathy:
-        return 'Sustained forefoot pressure may increase risk of diabetic plantar ulceration.';
+        return 'Synthetic pattern: high forefoot load, light heel load.';
       case GaitMode.footDrop:
-        return 'Absent heel strike and forefoot slap characteristic of dorsiflexion weakness.';
+        return 'Synthetic pattern: almost no heel load, forefoot loads first.';
       case GaitMode.ataxia:
-        return 'Unstable gait and high IMU roll variance indicative of cerebellar ataxia.';
+        return 'Synthetic pattern: random load levels and large random tilt.';
       case GaitMode.normal:
-        return 'Balanced pressure progression and stable temporal parameters detected.';
+        return 'Synthetic pattern: even heel-to-toe load progression.';
     }
   }
 }
@@ -86,10 +88,10 @@ class SimulationEngine {
     final cycleTime = mode == GaitMode.parkinson
         ? 1200
         : mode == GaitMode.ataxia
-            ? 1300
-            : mode == GaitMode.footDrop
-                ? 1100
-                : 1000;
+        ? 1300
+        : mode == GaitMode.footDrop
+        ? 1100
+        : 1000;
     final phase = (timeMs % cycleTime) / cycleTime;
 
     double baseHeel = 80;
@@ -150,7 +152,9 @@ class SimulationEngine {
         break;
     }
 
-    final heelScale = mode == GaitMode.footDrop ? 0.2 : math.max(0.0, math.sin(phase * math.pi));
+    final heelScale = mode == GaitMode.footDrop
+        ? 0.2
+        : math.max(0.0, math.sin(phase * math.pi));
     final toeScale = math.max(0.0, math.sin((phase - 0.5) * math.pi));
     final mtScale = mode == GaitMode.footDrop ? heelScale : toeScale;
 
@@ -174,12 +178,15 @@ class SimulationEngine {
   /// Converts a [GaitFrame] into the same [RawSensorPacket] shape live
   /// hardware produces, so the exact same [BiomechanicsEngine] can process
   /// both live and simulated data with zero branching in the UI layer.
+  /// Frames are generated in percent of full scale; packets carry ADC counts
+  /// like the firmware, so they are scaled here.
   RawSensorPacket frameToPacket(GaitFrame frame, int timestampMs) {
+    const countsPerPercent = adcFullScaleCounts / 100;
     return RawSensorPacket(
-      heel: frame.heel,
-      inner: frame.mt1,
-      outer: frame.mt5,
-      toe: frame.toe,
+      heel: frame.heel * countsPerPercent,
+      inner: frame.mt1 * countsPerPercent,
+      outer: frame.mt5 * countsPerPercent,
+      toe: frame.toe * countsPerPercent,
       impact: frame.impact,
       // Randomized (not just scaled) each frame, matching
       // simulationEngine.ts's MainDashboard driver - this is what gives

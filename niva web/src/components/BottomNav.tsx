@@ -12,7 +12,7 @@ export default function BottomNav() {
   const navItems = [
     { label: 'Dashboard', path: '/main', icon: 'grid_view' },
     { label: 'Trends', path: '/trends', icon: 'trending_up' },
-    { label: 'Health', path: '/insights', icon: 'favorite' },
+    { label: 'Details', path: '/insights', icon: 'insights' },
     { label: 'Settings', path: '/settings', icon: 'settings' },
   ];
 
@@ -20,7 +20,7 @@ export default function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 pb-8 pt-2 px-6 z-[100]">
       <div className="flex justify-between items-center max-w-md mx-auto">
         {navItems.map(item => {
-          // Highlight active paths (e.g., /insights/3d should highlight Health)
+          // Highlight active paths (e.g., /insights/3d should highlight Details)
           const isActive = path === item.path || (path.startsWith('/insights') && item.path === '/insights');
           return (
             <Link 

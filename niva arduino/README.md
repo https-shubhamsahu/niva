@@ -14,6 +14,12 @@ There is no PlatformIO `platformio.ini` in this repository. Flash with Arduino I
 
 ## Sketches
 
+### Production: `niva_protected_steps/` (Protected Steps, PROTOCOL v1)
+
+- **What it is:** the ankle-hub / insole firmware for the DevKit prototypes and the Niva pod Rev C.2 (ESP32-C3). Build commands, the board table and the bench checks are in `niva_protected_steps/README.md`.
+- **Tests:** `bash tests/run_host_tests.sh`.
+- **The sketches below:** they are the older Wi-Fi GaitGuard firmware for the classic-ESP32 perfboard, and do not run on the pod.
+
 ### Active: `niva_hardware/niva_hardware.ino`
 
 This is the complete hardware sketch currently used on the insole:

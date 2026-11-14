@@ -17,8 +17,8 @@ export default function FootHeatmap({ sensors, isConnected }: FootHeatmapProps) 
   const canvasHeight = 400;
 
   // X and Y coordinates mapping exactly to the custom foot image you uploaded.
-  // The image shows both Left and Right feet, so we mirror the data onto both sides
-  // for a symmetrical dashboard demonstration!
+  // The image shows both feet but there is only one insole, so the same reading is
+  // mirrored onto both sides (no invented left/right difference).
   
   const sensorPositions: Record<string, { left: [number, number], right: [number, number] }> = {
     'Hallux':  { left: [135, 60],  right: [265, 60] },
@@ -41,9 +41,8 @@ export default function FootHeatmap({ sensors, isConnected }: FootHeatmapProps) 
     sensors.forEach((s) => {
       const pos = sensorPositions[s.sensor];
       if (pos) {
-        // We add slight asymmetric randomization between feet in our simulation
-        const valLeft = isConnected ? s.val * (0.8 + Math.random() * 0.4) : 0;
-        const valRight = isConnected ? s.val * (0.8 + Math.random() * 0.4) : 0;
+        const valLeft = isConnected ? s.val : 0;
+        const valRight = isConnected ? s.val : 0;
         
         points.push([pos.left[0], pos.left[1], valLeft * 100]); 
         points.push([pos.right[0], pos.right[1], valRight * 100]); 
