@@ -17,7 +17,7 @@ One firmware, two roles (`ankle` hub, `insole` node) and two boards. The device 
 |---|---|---|
 | Target | `esp32:esp32:esp32:PartitionScheme=huge_app` | `esp32:esp32:esp32c3:PartitionScheme=huge_app,CDCOnBoot=cdc` |
 | Insole channels | internal ADC, GPIO32-36 | MCP3208 on SPI (CS GPIO7): heel CH4, inner CH1, outer CH2, toe CH0, piezo CH5 |
-| IMU | MPU6050, I2C 21/22 | LSM6DSO32, same SPI bus (CS GPIO10), ODR 104 Hz |
+| IMU | MPU6050, I2C 21/22 | LSM6DSO32 or LSM6DS3TR-C (pin-compatible; picked by WHO_AM_I at boot), same SPI bus (CS GPIO10), ODR 104 Hz, ±16 g |
 | Battery | MAX17048 if fitted | MAX17048, I2C GPIO0/GPIO2 at 100 kHz, VRESET lowered to 2.68 V |
 | LEDs | GPIO2 | green GPIO21 (status), red GPIO20 (IMU not VALID on the hub) |
 | Button | GPIO0 (BOOT) | GPIO3 |
@@ -73,7 +73,7 @@ The host tests cover:
 ## Not verified until a pod is built
 
 - **Every driver against real chips:**
-  - LSM6DSO32 WHO_AM_I = 0x6C read back over SPI;
+  - WHO_AM_I read back over SPI: 0x6C for an LSM6DSO32, 0x6A for an LSM6DS3TR-C (the part bought for the first articles, Nov 2026);
   - MCP3208 codes on all eight channels;
   - MAX17048 VRESET read back.
 - **Sampling rates on one core.** The piezo runs at 500 Hz, FSR + IMU at 100 Hz, and each FSR burst is 64 MCP3208 frames. Wi-Fi and BLE share the core. `status` on serial prints the achieved rates and overruns. Lower `kOversample` if the burst does not fit.

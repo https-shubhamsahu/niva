@@ -18,15 +18,18 @@ Status words used below:
 | # | Item | Upload | Qty | Layers | Size (mm) | Thickness | Finish | Min track / space | Min hole | Status |
 |---|---|---|---|---|---|---|---|---|---|---|
 | P1 | Pod Rev C.2 | `NIVA-RevC2-protected-steps/electronics-C2-working/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-pod-C2/NIVA-pod-C2-PCBWay-gerbers.zip` | 5 | 4 | 34 × 48 | 1.0 | ENIG | 5/5 mil (0.15 mm track, 0.127 mm space) | 0.2 mm (126 vias, 0.5 mm pad) | Ready |
-| P2 | Battery cartridge strip, Rev C.2 | `NIVA-3D-engineering-prototype/electronics/cartridge/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-cartridge/NIVA-cartridge-PCBWay-gerbers.zip` | 5 | 2 | 3.4 × 30 | 0.8 | ENIG (dock contact pads) | 5/5 mil (0.2 mm track, 0.15 mm space) | 0.3 mm (3 vias, 0.6 mm pad) | Ready |
-| P3 | Charging dock, Rev C.2 | `NIVA-3D-engineering-prototype/electronics/dock/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-dock/NIVA-dock-PCBWay-gerbers.zip` | 5 | 2 | 58 × 56 | 1.6 | ENIG (flat pads for the J2 pins) | 5/5 mil (0.2 mm track, 0.15 mm space) | 0.3 mm (11 vias, 0.6 mm pad; 4 plated slots 0.6 × 1.2) | Ready |
+| P2 | Battery cartridge strip, Rev C.2 | `NIVA-3D-engineering-prototype/electronics/cartridge/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-cartridge/NIVA-cartridge-PCBWay-gerbers.zip` | 5 | 2 | 3.4 × 30 | 0.8 | **Lead-free HASL** (budget choice, 14 Nov; design finish is ENIG) | 5/5 mil (0.2 mm track, 0.15 mm space) | 0.3 mm (3 vias, 0.6 mm pad) | Ready |
+| P3 | Charging dock, Rev C.2 | `NIVA-3D-engineering-prototype/electronics/dock/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-dock/NIVA-dock-PCBWay-gerbers.zip` | 5 | 2 | 58 × 56 | 1.6 | **Lead-free HASL** (budget choice, 14 Nov) | 5/5 mil (0.2 mm track, 0.15 mm space) | 0.3 mm (11 vias, 0.6 mm pad; 4 plated slots 0.6 × 1.2) | Ready |
 
 **Settings common to all three PCBs:**
 - Board type: single pieces. Material: FR-4, TG150 (default).
 - Copper: 1 oz outer. Inner copper (pod only): default.
 - Mask and silk: green mask, white silk.
 - Vias: tented. The Gerbers have no mask openings on vias.
-- Gold thickness: default (1 µ").
+- Gold thickness (pod only): default (1 µ").
+- **Finish, changed 14 Nov 2026 to cut cost:** the pod stays ENIG, because U3 is a 0.5 mm-pitch LGA and U6 a TDFN. The dock and the cartridge strip go to lead-free HASL: $5.00 and $6.50 on PCBWay's calculator, against $50.82 and $50.32 in ENIG. Set the finish per board on the web form; it is not in the Gerbers.
+  - Cartridge consequence: the three dock contact pads become gold-on-tin. Fine for first articles; contact-wear results will not represent the ENIG design. If the dock LED drops out, clean the pads first.
+  - If PCBWay's support is raised (asked on 14 Nov), go back to ENIG on the cartridge.
 - Edge connector: no.
 
 **PCBWay order number:** PCBWay prints one on the silkscreen unless told otherwise. The pod and the 3.4 mm strip have no free area for it, so choose "remove" for those. The dock's bottom side has room if you prefer "specify a location".
@@ -109,6 +112,7 @@ Per set of 5 boards, from the BOMs in each `exports/` folder:
 | EEMB LP502030-PCM-NTC-LD (or a confirmed equivalent) | 1 per cartridge | ask EEMB for the NTC variant's spec before buying |
 | Brass contact plates 5.24 × 3.0 × 0.4, gold flash | 2 per cartridge (one P+, one P-) | not selected |
 | Pod parts | per `NIVA-RevC2-protected-steps/bom/NIVA-pod-BOM-costed.csv` | LCSC / DigiKey |
+| U3, changed 14 Nov 2026 for cost | LSM6DS3TR-C (LCSC C967633, USD 1.33) instead of LSM6DSO32TR (USD 6.53, 52 in stock). Same LGA-14 land; pins 10 and 11 are unconnected on the pod, as its datasheet requires. Range is ±16 g, which is what the firmware sets. The firmware accepts either part. | LCSC |
 | Dock parts | per `NIVA-3D-engineering-prototype/electronics/dock/exports/NIVA-dock-BOM.csv` | LCSC / DigiKey, not priced here |
 | M2 thread-forming screws, bumpers, strap | per `PRINT-AND-ASSEMBLY.md` §2 | not selected |
 

@@ -31,7 +31,12 @@ inline uint16_t nivaMcp3208Result(const uint8_t rx[3]) {
 // ----------------------------------------------------------- LSM6DSO32 ---
 
 static const uint8_t NIVA_LSM6_WHO_AM_I = 0x0F;
-static const uint8_t NIVA_LSM6_ID = 0x6C;
+// Two pin-compatible parts are accepted (same LGA-14 land, same registers):
+//   0x6C LSM6DSO32   (lsm6dso32_reg.h, LSM6DSO32_ID)
+//   0x6A LSM6DS3TR-C (lsm6ds3tr-c_reg.h, LSM6DS3TR_C_ID), fitted from Nov 2026 for cost
+static const uint8_t NIVA_LSM6_ID_DSO32 = 0x6C;
+static const uint8_t NIVA_LSM6_ID_DS3TRC = 0x6A;
+inline bool nivaLsm6IdKnown(uint8_t id) { return id == NIVA_LSM6_ID_DSO32 || id == NIVA_LSM6_ID_DS3TRC; }
 static const uint8_t NIVA_LSM6_CTRL1_XL = 0x10;
 static const uint8_t NIVA_LSM6_CTRL2_G = 0x11;
 static const uint8_t NIVA_LSM6_CTRL3_C = 0x12;
@@ -41,18 +46,22 @@ static const uint8_t NIVA_LSM6_SPI_READ = 0x80;   // address bit 7 set for a rea
 static const uint8_t NIVA_LSM6_CTRL3_BDU_IF_INC = 0x44;    // BDU bit 6, IF_INC bit 2
 static const uint8_t NIVA_LSM6_CTRL4_I2C_DISABLE = 0x04;   // bit 2 (review A17)
 
-// CTRL1_XL: ODR 104 Hz high-performance (0x4 in bits 7:4), +-16 g (0b11 in
-// bits 3:2). 104 Hz with the default ODR/2 filter is the nearest match to the
-// MPU6050's 44 Hz DLPF read at 100 Hz (DESIGN CHOICE).
-inline uint8_t nivaLsm6Ctrl1Xl() { return (uint8_t)((0x4 << 4) | (0x3 << 2)); }
+// CTRL1_XL: ODR 104 Hz high-performance (0x4 in bits 7:4), +-16 g in bits
+// 3:2. The +-16 g code differs by part: 0b11 on the LSM6DSO32 (LSM6DSO32_16g),
+// 0b01 on the LSM6DS3TR-C (LSM6DS3TR_C_16g; 0b11 there would be +-8 g). 104 Hz
+// with the default ODR/2 filter is the nearest match to the MPU6050's 44 Hz
+// DLPF read at 100 Hz (DESIGN CHOICE).
+inline uint8_t nivaLsm6Ctrl1Xl(uint8_t id) {
+  return (uint8_t)((0x4 << 4) | ((id == NIVA_LSM6_ID_DS3TRC ? 0x1 : 0x3) << 2));
+}
 
 // CTRL2_G: ODR 104 Hz, full scale in bits 3:1 (500 dps = 2, 2000 dps = 6).
 inline uint8_t nivaLsm6Ctrl2G(uint16_t dps) {
   return (uint8_t)((0x4 << 4) | ((dps >= 2000 ? 6 : 2) << 1));
 }
 
-// Sensitivities from ST's conversion functions: 0.488 mg/LSB at +-16 g,
-// 17.5 mdps/LSB at 500 dps, 70 mdps/LSB at 2000 dps.
+// Sensitivities from ST's conversion functions, the same in both drivers:
+// 0.488 mg/LSB at +-16 g, 17.5 mdps/LSB at 500 dps, 70 mdps/LSB at 2000 dps.
 static const float NIVA_LSM6_ACCEL_LSB_PER_G = 1000.0f / 0.488f;
 inline float nivaLsm6GyroLsbPerDps(uint16_t dps) { return dps >= 2000 ? 1000.0f / 70.0f : 1000.0f / 17.5f; }
 

@@ -1,7 +1,7 @@
 NIVA-cartridge Rev C.2 - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
 
 Upload NIVA-cartridge-PCBWay-gerbers.zip. Order settings:
-  2 layers, 3.4 x 30 mm, quantity 5, 0.8 mm FR-4, 1 oz copper, ENIG (the three
+  2 layers, 3.4 x 30 mm, quantity 5, 0.8 mm FR-4, 1 oz copper, lead-free HASL for the first articles, to save cost (14 Nov 2026; ENIG was $50.32, HASL is $6.50; ENIG stays the design finish) (the three
   underside pads are the dock contacts), green mask, white silk, min track/spacing 5/5 mil.
   Min track 0.2 mm, min clearance 0.15 mm, vias 0.6 mm pad / 0.3 mm drill
   (0.15 mm annular ring), 3 vias. No NPTH.

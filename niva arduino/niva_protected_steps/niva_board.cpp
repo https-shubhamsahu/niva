@@ -87,10 +87,10 @@ bool nivaBoardImuBegin(uint16_t dps) {
   gyroDps = dps >= 2000 ? 2000 : 500;
   uint8_t id = 0;
   imuReadBytes(NIVA_LSM6_WHO_AM_I, &id, 1);
-  if (id != NIVA_LSM6_ID) return false;
+  if (!nivaLsm6IdKnown(id)) return false;
   imuWrite(NIVA_LSM6_CTRL3_C, NIVA_LSM6_CTRL3_BDU_IF_INC);
   imuWrite(NIVA_LSM6_CTRL4_C, NIVA_LSM6_CTRL4_I2C_DISABLE);
-  imuWrite(NIVA_LSM6_CTRL1_XL, nivaLsm6Ctrl1Xl());
+  imuWrite(NIVA_LSM6_CTRL1_XL, nivaLsm6Ctrl1Xl(id));
   imuWrite(NIVA_LSM6_CTRL2_G, nivaLsm6Ctrl2G(gyroDps));
   uint8_t back = 0;
   imuReadBytes(NIVA_LSM6_CTRL2_G, &back, 1);

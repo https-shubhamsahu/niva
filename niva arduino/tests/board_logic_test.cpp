@@ -41,7 +41,10 @@ static void testMcp3208() {
 }
 
 static void testLsm6() {
-  CHECK(nivaLsm6Ctrl1Xl() == 0x4C);        // ODR 104 Hz, +-16 g
+  CHECK(nivaLsm6Ctrl1Xl(NIVA_LSM6_ID_DSO32) == 0x4C);    // ODR 104 Hz, +-16 g on the LSM6DSO32
+  CHECK(nivaLsm6Ctrl1Xl(NIVA_LSM6_ID_DS3TRC) == 0x44);   // ODR 104 Hz, +-16 g on the LSM6DS3TR-C
+  CHECK(nivaLsm6IdKnown(0x6C) && nivaLsm6IdKnown(0x6A));
+  CHECK(!nivaLsm6IdKnown(0x00) && !nivaLsm6IdKnown(0xFF) && !nivaLsm6IdKnown(0x68));   // 0x68 is the MPU6050
   CHECK(nivaLsm6Ctrl2G(500) == 0x44);      // ODR 104 Hz, 500 dps
   CHECK(nivaLsm6Ctrl2G(2000) == 0x4C);     // ODR 104 Hz, 2000 dps
   CHECK(near(NIVA_LSM6_ACCEL_LSB_PER_G, 2049.18f, 0.01f));
