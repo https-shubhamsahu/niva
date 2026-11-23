@@ -48,10 +48,25 @@ app.*.map.json
 *.sw?
 .claude/
 
+# Large, reproducible research data downloaded from public repositories.
+data/
+# Flutter repositories are source code, not downloaded research datasets.
+!startup/niva flutter/lib/core/data/
+!startup/niva flutter/lib/core/data/**
+
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Editor settings
+.cursor/
+
+# CAD: keep finished renders, skip raw duplicates and Blender sources
+media/cad/**/renders/raw/
+*.blend
+*.blend1
+# The Rev C hardware scenes are tracked on purpose.
+!hardware/**/*.blend
 *.FCBak
 *.kicad_prl
 hardware/outputs/NIVA-3D-engineering-prototype/renders/preview/
-*.blend1

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 900ms: the beam settles, the witness eye draws, the observation dot pops.
+     Keyframes hold each part at zero until its turn, so nothing flashes in
+     fully drawn first. The Flutter launch continues from the finished frame. -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/sakshi_splash_icon">
+    <target android:name="beam" android:animation="@animator/sakshi_splash_beam" />
+    <target android:name="eye" android:animation="@animator/sakshi_splash_eye" />
+    <target android:name="dot" android:animation="@animator/sakshi_splash_dot" />
+</animated-vector>

@@ -1,0 +1,25 @@
+{
+ "reviewed": true,
+ "inputs_sha256": "c3de60d5e4d273a31c20808e4477d5db2dd2a9af0ead6134706ec7b44d9cd64d",
+ "selection_sha256": "0aa512b890110075e30df541f1c4bc0758a1f50bb779acbb5b8dce4439a9cd7e",
+ "orientation_sha256": "5330772850056c07dd14ec3d9adfcdbb8b5af3eacad3d24f3f112ae6884acce3",
+ "sheet_sha256": {
+  "qa_BF_002_021.png": "ed5c0dc2451da90e57f821b9441e3f10a90183935c266de9d2d423a5a47cbeb6",
+  "qa_BF_022_041.png": "a0a47412448087747f5dca21175ae3217ff10451544fd2462c9b7c91b158e808",
+  "qa_BF_042_061.png": "deb15f48b55b0703341f60c087bd5ce9194f66aadc4c64d43480cd732345888e",
+  "qa_BF_062_081.png": "0b90ddc20d08e5d96e642ba6feb669b498cae116b1ef4b92d5fefb179993856f",
+  "qa_BF_082_101.png": "beebf664bf66e9c4e7355de7d0cb03779a4f8b99ee8f8ddd1ff9ea3ae037a53e",
+  "qa_BF_102_121.png": "4a30c4b232be2c6c24431fe0f697f196ca718711d9d637953afb884fcd1a54a3",
+  "qa_BF_122_141.png": "0d55e36ba4846939a5f62408c34367c95a9aa692e8e1763057b6b81a4e5424c0",
+  "qa_BF_142_150.png": "97bdeb985fd690d51823e6654e17d2a9bf0eebc2a9aa545a80d535474f31cf6e",
+  "qa_ST_002_021.png": "e5f519437cb1877cda824be1840fd4bf162cbc2657004b3d53fac1987a21006d",
+  "qa_ST_022_041.png": "49a1ceb5d39b0740765ac84fdf3949fcd8dbc761ff26dfd25a0f6ccf861e417a",
+  "qa_ST_042_061.png": "a0f1519d8211ee2699ca91856037f4d448017a8aa941ec8efa624a1a2d135b6f",
+  "qa_ST_062_081.png": "a85dc7b346099d04879b7a6613c6d98a3035c3138ca6ea98b875875eb7b62dff",
+  "qa_ST_082_101.png": "4b2e72a690636144ad5f91bc5c1c7f56fe82b70cb594ac065f8bcd35cefdbdde",
+  "qa_ST_102_121.png": "1ac5ba1968c977fc0b21a7f576d4f1a466b97317b0050196a949f7ea6142fd68",
+  "qa_ST_122_141.png": "822cc6d812a1ee7142532c2e5302784a4bf3378d67794dc449a71ecc61d405e4",
+  "qa_ST_142_150.png": "162b2f68de06f108342aa7e674ddc31771817e9904a2d62eaecc71f16451b09c"
+ },
+ "review_notes": "An AI assistant (Claude) inspected all 16 contact sheets on 2026-11-21, before any outcome of participants 014 to 150 was computed. BF: all 298 participant-side panels show toes and forefoot above the heel; the big toe lies at low columns for Right and high columns for Left, in agreement with the metadata. ST: all 298 outsole panels are upright and paired; toe anatomy is hidden by the outsole, so side assignment rests on the metadata, supported by the paired BF maps. Faint but upright panels: 083 (small footprint, both conditions) and 104 ST Right (low, patchy pressure). No structural orientation or labelling failure seen. Automatic check: 596 groups of 12 selected steps, none flagged, lowest value 9.13 cells against a threshold of 5. All 149 participants supplied 12 eligible steps per side in both conditions; no trial was unavailable. This was not a human inspection. An author must repeat it before submission. No coverage outcome was examined in this review."
+}

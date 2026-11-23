@@ -1,0 +1,10 @@
+{
+  "reviewed": true,
+  "inputs_sha256": "f31780c19810abf75311af50a6a3eccef02c8e1c471f730d4be5632050b04add",
+  "selection_sha256": "d48620e1342af15a9f2b882cf50bc41e352c87109f0ccc67292aa484dc074428",
+  "sheet_sha256": {
+    "qa_BF.png": "aafa79c6d16feab35182e337e3f96d1c0fd9e2f3935e66b5e7300df021aa9bbb",
+    "qa_ST.png": "017feb1a9fe435866d9b5afe059d2be31ff5768c80cb53fc35cb6051a59d5531"
+  },
+  "review_notes": "Codex visually inspected qa_BF.png and qa_ST.png before cohort metrics on 2026-09-12. All 48 subject-condition-side mean panels show toes/forefoot above heel. BF hallux and arch asymmetry agree with metadata: medial at low columns for Right and high columns for Left. ST outsole outlines are upright and paired; individual hallux anatomy is obscured by the outsole, so side assignment relies on source metadata, corroborated by the paired BF maps. No structural orientation failure observed. Each panel contains the declared 12 selected steps. The pilot orientation_001.png was also inspected separately. No coverage outcomes were examined in this review."
+}

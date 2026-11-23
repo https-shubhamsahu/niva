@@ -1,0 +1,4185 @@
+{
+ "checksum_manifest_sha256": "65b943b05a32c73c887ec9c49fdbae28a38517a4ac8f6c85fa81577f0e00beeb",
+ "checksum_manifest_date": "2026-05-20 15:43:00 +0000 UTC",
+ "files": [
+  {
+   "rel": "participant_metadata.csv",
+   "file": "data/stepup-p150/participant_metadata.csv",
+   "sha256": "21f9ca065c84d6097f8cbf664e9548c835e7b12f21af26bdd70f98d860a1e535",
+   "bytes": 31052,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/002/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/002/BF/W1/metadata.csv",
+   "sha256": "f626d23984e30428736fcec0a796d739a029234b0ebb818d73d535b89b1696b7",
+   "bytes": 9248,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/002/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/002/BF/W1/pipeline_1.npz",
+   "sha256": "e0537b8117ddb4aade920b160404c2e871985915ed9cb1a38b5997c89061d7b5",
+   "bytes": 3862658,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/002/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/002/ST/W1/metadata.csv",
+   "sha256": "a8d9dbe5ad9d74532bf4a51c1fc426ac38f26baf27620e67314851106bcbb4bd",
+   "bytes": 9718,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/002/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/002/ST/W1/pipeline_1.npz",
+   "sha256": "48e3bdaa0318d7fea1bb829b37181056e3f4a4d0f534cfa320f2b7635e9bb043",
+   "bytes": 4396404,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/003/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/003/BF/W1/metadata.csv",
+   "sha256": "f43d15015fb05886e6ed6694f625623bf4aa8e286a3518cd50c403272bb3caab",
+   "bytes": 10785,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/003/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/003/BF/W1/pipeline_1.npz",
+   "sha256": "ef777273c2e8fd29af8d86395b422084f07eb22cdf93a44cf1cdd73c1f33f252",
+   "bytes": 4403710,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/003/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/003/ST/W1/metadata.csv",
+   "sha256": "b9e59d7b4bb6008d436acb86a16aec74054e93737219c099010a14195e7e1826",
+   "bytes": 10331,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/003/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/003/ST/W1/pipeline_1.npz",
+   "sha256": "5318b91a759d9b129a041ba1e115f16cef817d49cfd65dfa0dcf78e06ae7697d",
+   "bytes": 4633899,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/004/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/004/BF/W1/metadata.csv",
+   "sha256": "b9eb88d6b012edd60c027a2d699d2f2f5b565af1af32ab82ca4cbd8440980576",
+   "bytes": 12842,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/004/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/004/BF/W1/pipeline_1.npz",
+   "sha256": "b6882fc3fe280ea2f60098dafaefe3365641a154b335b3cdb2257a6e1ae371d2",
+   "bytes": 6715922,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/004/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/004/ST/W1/metadata.csv",
+   "sha256": "7f73e4acb2fdcfc937e67a8bf1c8fbf80d342751bc8a3f084a21fb1d23060716",
+   "bytes": 10929,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/004/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/004/ST/W1/pipeline_1.npz",
+   "sha256": "5701137557081da829d45385848dbf262b8272615bf4cdd93cb99ccb112836a2",
+   "bytes": 6073549,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/005/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/005/BF/W1/metadata.csv",
+   "sha256": "651ce327314aa2bacd95b0d801e1348e06253d9a37360db39714aaca077fb4ee",
+   "bytes": 10767,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/005/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/005/BF/W1/pipeline_1.npz",
+   "sha256": "c9654066be1537e39a6c47121ef4d3d648a1e6fc45631e5419a131615f56ed2a",
+   "bytes": 4685337,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/005/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/005/ST/W1/metadata.csv",
+   "sha256": "1a76cebc2bb2a6c24b95d9d4cbcb2d4e3efd9d5603cf828dd8083094961941c2",
+   "bytes": 9730,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/005/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/005/ST/W1/pipeline_1.npz",
+   "sha256": "2f9772659fefac00aa4bb45ec4a49117959d86be1b891e1041c4be421dced163",
+   "bytes": 4708523,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/006/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/006/BF/W1/metadata.csv",
+   "sha256": "cb339d9f68ef0fc3fdff998737d4aa59edcb066e73ccadd6141723a81fc540b1",
+   "bytes": 9576,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/006/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/006/BF/W1/pipeline_1.npz",
+   "sha256": "aa17817641beeb299d3434332740f065c2b327e29ed96b72bebf13fdc10b0bbf",
+   "bytes": 3087643,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/006/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/006/ST/W1/metadata.csv",
+   "sha256": "5ff1440adbc1511b2ce33dc898c1b11738eb1338a4f733a56b6ab5b2f845a185",
+   "bytes": 9134,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/006/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/006/ST/W1/pipeline_1.npz",
+   "sha256": "f2908583d8bc424b95464fa7a7845d38ceffac72196794dfa88770a180320712",
+   "bytes": 3729272,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/007/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/007/BF/W1/metadata.csv",
+   "sha256": "41df2e0c47c3eb01d38179e066a2dfad67da10b0399abfb9368922cf80783b39",
+   "bytes": 11073,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/007/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/007/BF/W1/pipeline_1.npz",
+   "sha256": "cf74e48a64cddd6f62e77146d42fbca7a4886a7f26179a3db6922c35405402c2",
+   "bytes": 4197743,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/007/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/007/ST/W1/metadata.csv",
+   "sha256": "7cb3007a6d9997a274c381993589a3629fffbbf0e6395af26327e5f9ec4dfbdc",
+   "bytes": 12398,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/007/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/007/ST/W1/pipeline_1.npz",
+   "sha256": "0c891a3b558a6977812314409a55ad28fef9b7528ea058f7edd8bc39dd411a84",
+   "bytes": 4894245,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/008/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/008/BF/W1/metadata.csv",
+   "sha256": "0c34349ecb6a6e764546907344fb158548cff7e94190253f475c9ba04e643303",
+   "bytes": 12560,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/008/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/008/BF/W1/pipeline_1.npz",
+   "sha256": "b1949b51efefd609295899028993e4638865b20229c8e6964a41034328087e78",
+   "bytes": 4946418,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/008/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/008/ST/W1/metadata.csv",
+   "sha256": "a67f23a6683171375038db17373f49cbbce95f3dd3e854fe32318b3ce46075e4",
+   "bytes": 12232,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/008/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/008/ST/W1/pipeline_1.npz",
+   "sha256": "8032abf1f9bfe434d6f56cd69b3f55d9e884553060f129e5ff59b4524c7e0417",
+   "bytes": 4977978,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/009/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/009/BF/W1/metadata.csv",
+   "sha256": "b6fc80d738ebf80917cdba3d02fb185125caccc9cf94957bae59b8ee673cc397",
+   "bytes": 9543,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/009/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/009/BF/W1/pipeline_1.npz",
+   "sha256": "df1f2aed1041caf758284733153f7f01e3f347a6d54f02232926b43d5018b56b",
+   "bytes": 4833142,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/009/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/009/ST/W1/metadata.csv",
+   "sha256": "a5babc01d5ed44bbc781103ba8823ba41ef90f9469311e026ee381c336efe73c",
+   "bytes": 8995,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/009/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/009/ST/W1/pipeline_1.npz",
+   "sha256": "3f88f69f5d23e6565a1cfe8760d75f001c2fda64264e8a83096a51c1a3a12763",
+   "bytes": 5235881,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/010/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/010/BF/W1/metadata.csv",
+   "sha256": "76b68e0aa5b965bbe464b188c571bdcaba9624da940b52498ac152f5e750420d",
+   "bytes": 11727,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/010/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/010/BF/W1/pipeline_1.npz",
+   "sha256": "a3a3392010ab08ea391ccd91a457ad88e44318abe175fba1d6a3e9eb6c25ded4",
+   "bytes": 5494625,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/010/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/010/ST/W1/metadata.csv",
+   "sha256": "04d0ef1cf34998da3e56b526b2a48eb2fd240d295a0c24aa94a9c66ed513da71",
+   "bytes": 12597,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/010/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/010/ST/W1/pipeline_1.npz",
+   "sha256": "19a7259e89b33f0314ec11a907ed47109a68342537acb90cb3f0c9dfe1bee773",
+   "bytes": 5876699,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/011/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/011/BF/W1/metadata.csv",
+   "sha256": "e0512252bf5673cdf15c84aa123b22a5008881b3237ea57dcaf76d9a868ce229",
+   "bytes": 12024,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/011/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/011/BF/W1/pipeline_1.npz",
+   "sha256": "f466ef8eab09bac5e91e33bd6bf6c59e41c58d4a034bb75d021f252052440e69",
+   "bytes": 5793277,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/011/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/011/ST/W1/metadata.csv",
+   "sha256": "ed98fbd299021444ee8980b4cbb25643d3e0140982894bc79c5be8e65c1c8a84",
+   "bytes": 12148,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/011/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/011/ST/W1/pipeline_1.npz",
+   "sha256": "6d245889f67119c4329b7e7ade2f39a7b5ca63ff47fcf8d8cf429fa274690738",
+   "bytes": 6583034,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/012/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/012/BF/W1/metadata.csv",
+   "sha256": "40c664e73d39c0cf944ffb7b5d6e6c37cbda35533cf4a7009f5d2cd40d83a489",
+   "bytes": 13907,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/012/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/012/BF/W1/pipeline_1.npz",
+   "sha256": "aa78ca6b7c5d361dab4b4e86f5b7f1e159f674ad8ab128fec8efd7cc8101149c",
+   "bytes": 4798002,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/012/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/012/ST/W1/metadata.csv",
+   "sha256": "2ba66b73459568aa2b0153ff37fc13e4c59e31620ffcfa6c13613ddad8e57906",
+   "bytes": 12107,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/012/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/012/ST/W1/pipeline_1.npz",
+   "sha256": "ba92b74ea0003dafab10c31d196c7d1a260c9834227dd3f3ebc2802c6eac04e2",
+   "bytes": 4727014,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/013/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/013/BF/W1/metadata.csv",
+   "sha256": "159c5984345cb74b1efe0f8c13cde9870c5abf45a4a4a4fa0562b456611f92c7",
+   "bytes": 13480,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/013/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/013/BF/W1/pipeline_1.npz",
+   "sha256": "f10bc13fe9030a4cb2639d6a92f656207e4f6ff5ecfeade8109ef2bcf620b057",
+   "bytes": 4705042,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/013/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/013/ST/W1/metadata.csv",
+   "sha256": "fdefb0a6611d2cd3945334136bec910d14a4b62ebf7184a1e7a5ad25bf4ac35f",
+   "bytes": 12570,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/013/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/013/ST/W1/pipeline_1.npz",
+   "sha256": "5b7a5042f352c80e7d6a2e0976a0d3d257f253169612f59471975497c29d1c9a",
+   "bytes": 4832908,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/014/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/014/BF/W1/metadata.csv",
+   "sha256": "d64dd6750d6c0a876ae6c2052c0d7622d91541de0b41fb6ec393bb1787090852",
+   "bytes": 12089,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/014/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/014/BF/W1/pipeline_1.npz",
+   "sha256": "b00be0578ea02e44f3fe8b1bf0b530388bb02c211524943dbbd19b293d105d7a",
+   "bytes": 3958686,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/014/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/014/ST/W1/metadata.csv",
+   "sha256": "792283cd0ceb4cdb00a7f86c46a9e0d3898d60ad7192cae268f93d904c5a1fca",
+   "bytes": 11737,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/014/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/014/ST/W1/pipeline_1.npz",
+   "sha256": "c80b0fd74685c0a4ac22fd290d1a2231c677c867c9e140f5890ebb0fb660a3cd",
+   "bytes": 4404645,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/015/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/015/BF/W1/metadata.csv",
+   "sha256": "84b8e69cc1a6f9c94eff2ddf435c32cdf5169264c7b8e7a178881e7013799875",
+   "bytes": 11868,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/015/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/015/BF/W1/pipeline_1.npz",
+   "sha256": "1851b75d89589508f36dd84aa8127f7f4e977fa2947d739495f83c63a51762c5",
+   "bytes": 4514250,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/015/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/015/ST/W1/metadata.csv",
+   "sha256": "4a73ef86c7f7a94120478cdfd26038121ccc7e82b1bb1871a23e87e70d9811cd",
+   "bytes": 11028,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/015/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/015/ST/W1/pipeline_1.npz",
+   "sha256": "26a079316a48bd2e5814e24ec396715dc2dc43bbafbdaa121ce6f6de49b9bda6",
+   "bytes": 4599674,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/016/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/016/BF/W1/metadata.csv",
+   "sha256": "ab59c32e2cbe6ddebf721459fc7dd7baeb60bbad1b1b0c9ebc5259422c83b21f",
+   "bytes": 12542,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/016/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/016/BF/W1/pipeline_1.npz",
+   "sha256": "e89550166bc34e18a3020cd7d1289e2dafd3cabe42285b00b5b43a9a3edfa6b3",
+   "bytes": 4682010,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/016/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/016/ST/W1/metadata.csv",
+   "sha256": "43e2fb79e65d70356657aeae5620cc08e33972a0ee0bd03a512b16a791b859ba",
+   "bytes": 10899,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/016/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/016/ST/W1/pipeline_1.npz",
+   "sha256": "dc073796d55594ab83bf9f8bc83bca7680ddf106411e6da9c6c427aad6568c87",
+   "bytes": 4715148,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/017/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/017/BF/W1/metadata.csv",
+   "sha256": "70df9f57ab88d856daae24c16d028e979e43884170225ca1de42337723f2a89f",
+   "bytes": 11738,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/017/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/017/BF/W1/pipeline_1.npz",
+   "sha256": "243edacbe73d0496995ceec7187b0f1b8998b208028867ab48722e46b97800d9",
+   "bytes": 4488260,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/017/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/017/ST/W1/metadata.csv",
+   "sha256": "281adfe2370e1caec8fa7259a1928a670ee70da09f68585faa5675da94228e6d",
+   "bytes": 10559,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/017/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/017/ST/W1/pipeline_1.npz",
+   "sha256": "c5e4ec93c185c96fae402a3fa58e0e98bbe962e2de515ef72ca34af5406704c5",
+   "bytes": 4086133,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/018/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/018/BF/W1/metadata.csv",
+   "sha256": "a16a63861b6a42e2419756b5c59b0b3c555d436e6eade43ba03adf8b70fe76e0",
+   "bytes": 9553,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/018/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/018/BF/W1/pipeline_1.npz",
+   "sha256": "de2787141416b700b44463f4af9149d9bd15bb87b28acc65d15b4af165794075",
+   "bytes": 4265807,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/018/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/018/ST/W1/metadata.csv",
+   "sha256": "307065e41e0dc7e9dfcdf8c3ced797791ed499537dc9728d47decd1068f1f1ff",
+   "bytes": 9302,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/018/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/018/ST/W1/pipeline_1.npz",
+   "sha256": "6a968a6225e9570decb140586ed1aa0795674045d6a1341461cdc45c2e8a78e2",
+   "bytes": 4255640,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/019/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/019/BF/W1/metadata.csv",
+   "sha256": "e4a572cf57bc8cbd42e285a61cd52cfa7143ab4880efb623b8da7ea30487aff9",
+   "bytes": 9791,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/019/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/019/BF/W1/pipeline_1.npz",
+   "sha256": "79df2c70b7ac235c6524c2bfd47d78811e4b08c7363c3681b70575a5579aae67",
+   "bytes": 3572690,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/019/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/019/ST/W1/metadata.csv",
+   "sha256": "c8951630d34bd2efa4d672f7eb685c33b9af90fdac051b35c92de3da0edae357",
+   "bytes": 9430,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/019/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/019/ST/W1/pipeline_1.npz",
+   "sha256": "69f21c949c44d6bb007649525e6396df36e896ad1acfb35440b4ac63970bd19b",
+   "bytes": 4207067,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/020/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/020/BF/W1/metadata.csv",
+   "sha256": "053ad5dab0923d459bb01f1a92d0e034b8c57f095cab73b56ba64e6e203cb696",
+   "bytes": 11219,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/020/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/020/BF/W1/pipeline_1.npz",
+   "sha256": "5bc07b12d75e3c27d8507e26d0a80ab99ab05ee5e6fad155e8d3035083e28029",
+   "bytes": 6321529,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/020/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/020/ST/W1/metadata.csv",
+   "sha256": "b2e806dcf832407b4759f63973e1f12a668616218a7411db8ebd5842b0f90cac",
+   "bytes": 9265,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/020/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/020/ST/W1/pipeline_1.npz",
+   "sha256": "0524fed884a021b74315401342fc03245b479f24ba4b22e13cddb8b70ad02c6d",
+   "bytes": 5769310,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/021/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/021/BF/W1/metadata.csv",
+   "sha256": "9992186da9cc166dbe25bab8ab604851a9240cd312bdb8534a99cfb271221d44",
+   "bytes": 13435,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/021/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/021/BF/W1/pipeline_1.npz",
+   "sha256": "13578ca97c3d389475379a3f6088b6c5307d9adefa6a6ed0dffe440c20239665",
+   "bytes": 3833944,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/021/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/021/ST/W1/metadata.csv",
+   "sha256": "b23668004ea90340e587dd00c3ead8ebf5b58ab8575eef8a45529f37bfce3f52",
+   "bytes": 12793,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/021/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/021/ST/W1/pipeline_1.npz",
+   "sha256": "a3aeced0a4db78c6c3c94ac57b96c91d82408770240f9fd28097bbec1a426794",
+   "bytes": 4277280,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/022/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/022/BF/W1/metadata.csv",
+   "sha256": "3412650a05dc0276847924fefdc1da873704293aa124d360c6be5c4045a4a481",
+   "bytes": 10287,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/022/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/022/BF/W1/pipeline_1.npz",
+   "sha256": "918b178c40e6f662b00b9e43441de4e42b89286ea9160096453c5ee3f0362fa2",
+   "bytes": 3000249,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/022/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/022/ST/W1/metadata.csv",
+   "sha256": "2790515752b7c5e939cddee51d5a50eac37f12b77f4a80213afd9ae63db8e59b",
+   "bytes": 9210,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/022/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/022/ST/W1/pipeline_1.npz",
+   "sha256": "7c340f326914854859e2503e8b1854c816c262992aec59495fb1090931f10eeb",
+   "bytes": 3377946,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/023/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/023/BF/W1/metadata.csv",
+   "sha256": "a50d9378e67ff186000fe99a13944d4b7bbb3525291b48e97dcc29faa006b514",
+   "bytes": 11727,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/023/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/023/BF/W1/pipeline_1.npz",
+   "sha256": "aaa67a19546b8afd68c7cd33c7641efc0b526f55d1d08cb95388c20bb38b1a98",
+   "bytes": 3633808,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/023/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/023/ST/W1/metadata.csv",
+   "sha256": "f80fb9b22fa6af29188698d7fa54c84c449003bfaab6ef6545c2ff76646fa152",
+   "bytes": 11474,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/023/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/023/ST/W1/pipeline_1.npz",
+   "sha256": "ee5d93d260471490c53a0b5995ad48c2d44ecab2c13e529f03f09e11f5e95600",
+   "bytes": 3757404,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/024/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/024/BF/W1/metadata.csv",
+   "sha256": "18bb1e2cf80a069b6c6559c13bfcab0816afadf747f76862a06ee4d8e0fdaa99",
+   "bytes": 12292,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/024/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/024/BF/W1/pipeline_1.npz",
+   "sha256": "ec20ea60d149f232bc8b1cb15b1a1d3fa8b682e628798f8a6089882585f50f14",
+   "bytes": 3558979,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/024/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/024/ST/W1/metadata.csv",
+   "sha256": "0ed8abf8d66995ad979609b9b2579e03cce76181b8c4d3075cc8d5e7c2124b42",
+   "bytes": 10727,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/024/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/024/ST/W1/pipeline_1.npz",
+   "sha256": "00c135513bf4c478b8cf6ba5c65cb25ce485f6e321fe2c12f75342224e0cf0e8",
+   "bytes": 3465640,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/025/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/025/BF/W1/metadata.csv",
+   "sha256": "d50f85d65770bf0d6ffae9d15bff87a2a7e38ce44111eece98410c3bcad61ca0",
+   "bytes": 11802,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/025/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/025/BF/W1/pipeline_1.npz",
+   "sha256": "0a26aa5c95399e37036a172e4bda789fb1c8fc2a468b6c331d4f1ce5485daa87",
+   "bytes": 3350894,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/025/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/025/ST/W1/metadata.csv",
+   "sha256": "cabfb6f24daa85d66da046c06220bdc885991fe5506aedc2b00471bf3001035a",
+   "bytes": 12554,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/025/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/025/ST/W1/pipeline_1.npz",
+   "sha256": "618e76e0eb3eafb68af281e3f92a6992ff63fe48f65712bd6229b9c3b3255d4e",
+   "bytes": 3738110,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/026/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/026/BF/W1/metadata.csv",
+   "sha256": "ac266fa6419d2de61475d157ed7b89b01628a5d920f5a41a665f6196af8b047a",
+   "bytes": 12718,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/026/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/026/BF/W1/pipeline_1.npz",
+   "sha256": "4863349ba0d97760ba95f301f5cf3072de149a7bcbd98be6e0e46efbb99df4c9",
+   "bytes": 4845822,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/026/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/026/ST/W1/metadata.csv",
+   "sha256": "4bd8110332a52ff06bd862a6a884834906613e96cb5e151630f16d512237eb6e",
+   "bytes": 11637,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/026/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/026/ST/W1/pipeline_1.npz",
+   "sha256": "27db4622d04b94c9385cbb93b847ebfee9dbae02c9b66d0b8482efd43cf8368c",
+   "bytes": 5031290,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/027/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/027/BF/W1/metadata.csv",
+   "sha256": "915215a7c7ce40e1515e7be7d0bc97e65dcccb8e3a1deeb59dba92be2d43a8b2",
+   "bytes": 11137,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/027/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/027/BF/W1/pipeline_1.npz",
+   "sha256": "0ff3bb7304463e6c39aa6c4c035842a6586408e05b7b971834145a39505d0dce",
+   "bytes": 5740229,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/027/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/027/ST/W1/metadata.csv",
+   "sha256": "4bc7ac3f5f4a59aa007732fb495f5bbee147f933c9544c863493f550139b9ab6",
+   "bytes": 10798,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/027/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/027/ST/W1/pipeline_1.npz",
+   "sha256": "f84498d0227294727a1df1820a2cce0cc23c7a3bebc83eb5518553ad0204f887",
+   "bytes": 5994584,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/028/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/028/BF/W1/metadata.csv",
+   "sha256": "50844f4018facac75bfbaf402d9a9f3b139a6bfa352e6aa9f157d2564221f090",
+   "bytes": 10873,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/028/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/028/BF/W1/pipeline_1.npz",
+   "sha256": "01702dee642aed4228a4732ba09320328ddcd1fe69496ece1bf3bb4f05f43aa8",
+   "bytes": 5330741,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/028/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/028/ST/W1/metadata.csv",
+   "sha256": "66585779fbf1ee55ebbc5ac58789c80d6d5b311d5b821f307a6d90585100c72a",
+   "bytes": 11273,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/028/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/028/ST/W1/pipeline_1.npz",
+   "sha256": "36f9220a0da11ed091601eb54f8b27b5d0694ad549de57760fd3983798689e9a",
+   "bytes": 6563070,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/029/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/029/BF/W1/metadata.csv",
+   "sha256": "351a4ef146e13e507b5975d500b79b1589ec2e094db3ef8c8cf4977e712c4d39",
+   "bytes": 10140,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/029/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/029/BF/W1/pipeline_1.npz",
+   "sha256": "ed19f1a3880f06327d31495bb2414e765bbb7cd4bde1605aee723975bfb2394e",
+   "bytes": 3347340,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/029/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/029/ST/W1/metadata.csv",
+   "sha256": "b73f7ba263e136be1c77a2cc5c89da12d94ab21bd195ae1e9360ec07e9b08648",
+   "bytes": 9441,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/029/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/029/ST/W1/pipeline_1.npz",
+   "sha256": "c56ebd675fc013ccf60c25a2eac166e62916300c162c35c28064428841f7d9fc",
+   "bytes": 3519357,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/030/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/030/BF/W1/metadata.csv",
+   "sha256": "2c4afa2ce25a2b5afd0344e8c986381fb74528cc228a803fa18f048f5e8445d6",
+   "bytes": 10615,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/030/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/030/BF/W1/pipeline_1.npz",
+   "sha256": "ad888420fc1b069e81b23c69de35e9808b3a2e287ee3d2cbc7e4016351fc9bd6",
+   "bytes": 3374616,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/030/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/030/ST/W1/metadata.csv",
+   "sha256": "21fde5892d0a498d703b930dfa2dfc77cd5801dca08a27fee34b80cefd1a0c50",
+   "bytes": 9913,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/030/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/030/ST/W1/pipeline_1.npz",
+   "sha256": "066718c14b3530cdba720168a0da35a40d4db77b50408c26d7a203ab3e1a2fe0",
+   "bytes": 3175265,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/031/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/031/BF/W1/metadata.csv",
+   "sha256": "4ec254a683ea2b8fdea62b845a6c9b63664efc5eb2d73638cbaba9ceb2ad8629",
+   "bytes": 13608,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/031/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/031/BF/W1/pipeline_1.npz",
+   "sha256": "cd715624665e8e184b54aa0210c0532c226a7046e0775dfa1248fccf121a17b9",
+   "bytes": 3410475,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/031/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/031/ST/W1/metadata.csv",
+   "sha256": "731b5aa1472437a42088df2c5ff653377d430bf6d2bacb52b096c0bcb44f5762",
+   "bytes": 12257,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/031/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/031/ST/W1/pipeline_1.npz",
+   "sha256": "6d9c535cc1018eac22da6d13d237d656d9ecc9177285c6bd0cfcc23e5d203f22",
+   "bytes": 3643863,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/032/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/032/BF/W1/metadata.csv",
+   "sha256": "64b8d654839c0a2c5bf284274404e5709dfa286fc66244eac9f3fe1119b34610",
+   "bytes": 15376,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/032/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/032/BF/W1/pipeline_1.npz",
+   "sha256": "e6bd4355f1938be14b2fa0aba491e1a6c4e0b61bc66040ce6231d43e476cae3d",
+   "bytes": 4065673,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/032/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/032/ST/W1/metadata.csv",
+   "sha256": "d87502a3ec441b0296e02770fede432d774aa6a45b83ff37d2a789f902ceaff8",
+   "bytes": 14393,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/032/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/032/ST/W1/pipeline_1.npz",
+   "sha256": "37306a5c45b7d408e238b25569d54e0425015d198d76cab96bcfca1cb76f3300",
+   "bytes": 3926621,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/033/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/033/BF/W1/metadata.csv",
+   "sha256": "6e0a4352e7cea6ba251f16b3923b42d233e77f8511b2bbfe0c6188a435e74b91",
+   "bytes": 10150,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/033/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/033/BF/W1/pipeline_1.npz",
+   "sha256": "1cdd32f74bf340823762afd56fc058b33cce9c879edb717d76be4672fe4ad3c2",
+   "bytes": 3757162,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/033/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/033/ST/W1/metadata.csv",
+   "sha256": "636444ea85c9a892b0775949c40aa4035f3078e895a0a56fc450010681752fc2",
+   "bytes": 9555,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/033/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/033/ST/W1/pipeline_1.npz",
+   "sha256": "29b3d0dc5558546392ac39cb86b4656786f9502c8a4f96852e822390b665be73",
+   "bytes": 4092027,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/034/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/034/BF/W1/metadata.csv",
+   "sha256": "714a9dbae7fa6666fa2c232044338d1ffb3c57befa0fd559952f57a43e36811a",
+   "bytes": 10467,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/034/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/034/BF/W1/pipeline_1.npz",
+   "sha256": "fab00ec9829681fa45f75fc06bc0fd8c90b53f181b3fa7dcd64d447afa46c2ee",
+   "bytes": 4978252,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/034/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/034/ST/W1/metadata.csv",
+   "sha256": "c6934a3809688615f30eeebca8bf639a6281c3679036b342b0c4b49988c0f904",
+   "bytes": 9768,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/034/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/034/ST/W1/pipeline_1.npz",
+   "sha256": "031212db6c075220f754d0c8da9e97b9991f99424e6b576e3e5e28a2817e3a74",
+   "bytes": 5304779,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/035/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/035/BF/W1/metadata.csv",
+   "sha256": "3d094185fcdabcec1d5ee9dac7e733e03c335ccc3d1057d3e7ae2e54e41f0c95",
+   "bytes": 10295,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/035/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/035/BF/W1/pipeline_1.npz",
+   "sha256": "dba367648d106ff943a5a16d3bcb85b45cfe683394d5d63b1dc3b9d4fc1c8689",
+   "bytes": 3277728,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/035/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/035/ST/W1/metadata.csv",
+   "sha256": "f2256aec579bea67a1140e163f8c6f0e4b63f6ed5aff414ac8afce45ea9ab436",
+   "bytes": 10087,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/035/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/035/ST/W1/pipeline_1.npz",
+   "sha256": "3347d5823433728ccf2cf292ff0184513cc017ba4e46cd5687b42f58eee8558b",
+   "bytes": 4001768,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/036/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/036/BF/W1/metadata.csv",
+   "sha256": "4c57509160eddd7fa14234acd7b5c0521cf7f8aa77b572df95e69f10d071e8ac",
+   "bytes": 16151,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/036/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/036/BF/W1/pipeline_1.npz",
+   "sha256": "aa062a0cc33f06723212b03ecd7e26587771c2169551638e7184331ca40dfff2",
+   "bytes": 4115940,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/036/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/036/ST/W1/metadata.csv",
+   "sha256": "4622ca380f1d491836b7cda442a83733a2e550389257930110109e2e358589f8",
+   "bytes": 13246,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/036/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/036/ST/W1/pipeline_1.npz",
+   "sha256": "9bfd854b10c1272fd082a6760f0fb1902ca1e07f89ffa452ee1288b2373f2013",
+   "bytes": 4055921,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/037/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/037/BF/W1/metadata.csv",
+   "sha256": "0627c784dd16b68485ee1ef658b2e23876355a1bc3077ce4bd81fb0d5958573b",
+   "bytes": 13544,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/037/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/037/BF/W1/pipeline_1.npz",
+   "sha256": "dce73d35f34bdce7a1f2aea42efc9e5f40140a8f5f454069158d5887efd95347",
+   "bytes": 5512235,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/037/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/037/ST/W1/metadata.csv",
+   "sha256": "1852bbca8ec2e66ae175bf4328358d9184a7a23a7ae4664cbf62ac59f3d19afc",
+   "bytes": 13068,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/037/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/037/ST/W1/pipeline_1.npz",
+   "sha256": "47c7186e224ef9ead7a3c9d426ba92bd503f84c84779a97e1dfca0f79aa62379",
+   "bytes": 5644107,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/038/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/038/BF/W1/metadata.csv",
+   "sha256": "0ab8db98f29a6b1aabb23ea8b61932b44b867c12b05fb0402217495b89c5773e",
+   "bytes": 9346,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/038/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/038/BF/W1/pipeline_1.npz",
+   "sha256": "fff3139c32145baf7497e64cec5e1ab5bd4626e8e67643f1233aaf82ef11b1db",
+   "bytes": 3976805,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/038/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/038/ST/W1/metadata.csv",
+   "sha256": "aeccf95956373aa32c38bdcd966694c47030989560012c3e01de95ef7afbbafa",
+   "bytes": 10312,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/038/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/038/ST/W1/pipeline_1.npz",
+   "sha256": "ae3c088a83aaf2f449c0e8bf67e6a71444d103d5fb6849ebaf27005d83e9375c",
+   "bytes": 4953058,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/039/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/039/BF/W1/metadata.csv",
+   "sha256": "cce643413e564e7eb126cadbbfc0500e0d325363a7b18ad5d1fb4ed058c9d43f",
+   "bytes": 10965,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/039/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/039/BF/W1/pipeline_1.npz",
+   "sha256": "417e7007ecc9002c3cc10c07ad26a98150ae991d7d216c893f47010f7de4c764",
+   "bytes": 3497172,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/039/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/039/ST/W1/metadata.csv",
+   "sha256": "817e718cfb39a560b565c6669654ad319cb7a54b07dcdb81d675430c17f7d96c",
+   "bytes": 10318,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/039/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/039/ST/W1/pipeline_1.npz",
+   "sha256": "bb8d8fbc83422ca9c6c4b17a543b0686ef5377c6f8dd81e73ee1a9b34470fe66",
+   "bytes": 3728897,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/040/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/040/BF/W1/metadata.csv",
+   "sha256": "7fd7e8663c567c6f207196bd6ca0426e64ba2b3254393600b6c8460acf4ad3a8",
+   "bytes": 11639,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/040/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/040/BF/W1/pipeline_1.npz",
+   "sha256": "362f9cedec62b94d7a555481f0c2a13ebf46fbc65499cb6ecc20f2cc4b858de5",
+   "bytes": 4929278,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/040/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/040/ST/W1/metadata.csv",
+   "sha256": "ff8e82f98fc3eef44c09195ac9ca7e3c09f4696259d4b6fabfe89383643978b9",
+   "bytes": 11146,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/040/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/040/ST/W1/pipeline_1.npz",
+   "sha256": "120e5ad465eb76938a3b4c59c022c880a20bef2d1aaa5aaea9a04d6897892023",
+   "bytes": 6112768,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/041/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/041/BF/W1/metadata.csv",
+   "sha256": "b48db9244e9b9d2918eb2b2179c5b8a2f4a0873912408269be7954d8f1e192a2",
+   "bytes": 13297,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/041/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/041/BF/W1/pipeline_1.npz",
+   "sha256": "b2aa1aaac81a8702345df93d975792920deaa8249d7a493b011a6f6ea420daca",
+   "bytes": 5282509,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/041/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/041/ST/W1/metadata.csv",
+   "sha256": "1c648dacfc250421952d5ede1e3c6ed517266cb6b26da9baa96f3f655bbbec24",
+   "bytes": 13075,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/041/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/041/ST/W1/pipeline_1.npz",
+   "sha256": "b5864582b6005ee8204ba57e15446ebc9a779d0157e2489990b3dcb440e1141a",
+   "bytes": 5437107,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/042/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/042/BF/W1/metadata.csv",
+   "sha256": "0f79d2ed0aa1ce00e0c6bdabc508fd0713023bf152f217e46e0d509613f135fc",
+   "bytes": 10410,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/042/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/042/BF/W1/pipeline_1.npz",
+   "sha256": "74fcca8e2d4dd1f94dde7f97454daa347fc746b3f20a2fc7d2daaddf4be5c9a2",
+   "bytes": 3992368,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/042/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/042/ST/W1/metadata.csv",
+   "sha256": "0920477807559245af8b747670cd836116dae9e1548959e21edca77e80e98c25",
+   "bytes": 10417,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/042/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/042/ST/W1/pipeline_1.npz",
+   "sha256": "a9e4f8f3cde212bfd6171ffa942a3bb1cdcbe696111a6c0d23ae78dae8af45d4",
+   "bytes": 4738587,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/043/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/043/BF/W1/metadata.csv",
+   "sha256": "80be90758a2fd2811e56c8f815bd98b8002297dc5aa37273fdb9ab649127f7d9",
+   "bytes": 9982,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/043/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/043/BF/W1/pipeline_1.npz",
+   "sha256": "29b9280a8f0a6d37c1a7e80121ae1a6bce92bb2e6193979f8a3af9e1700c1d7d",
+   "bytes": 4699765,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/043/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/043/ST/W1/metadata.csv",
+   "sha256": "ac6c7cdaa6cf555734b7f3468d07f7a6f115f5f91fae3f0b3f26a4256ba6ef2b",
+   "bytes": 9131,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/043/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/043/ST/W1/pipeline_1.npz",
+   "sha256": "048e0274cd7214878e6cee7e9e25ba497cf8f1f0434130d1bac62f3216e8ea95",
+   "bytes": 4622521,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/044/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/044/BF/W1/metadata.csv",
+   "sha256": "dbbef83fa5c0902357c0ffc1baabe95564980cf61fadbdbaa9d110776b05efec",
+   "bytes": 17049,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/044/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/044/BF/W1/pipeline_1.npz",
+   "sha256": "66aa1842e5f9ba8a6bf3c8f65360cd21860550a6bbf145ef624f5c1c37279004",
+   "bytes": 6414363,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/044/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/044/ST/W1/metadata.csv",
+   "sha256": "3ce4b013427189ecca3e9a498b85a45a43e9e09325d8b3ccb1bcdbae2ae81e67",
+   "bytes": 14655,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/044/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/044/ST/W1/pipeline_1.npz",
+   "sha256": "5e9228b6f70d83ddf056266c09a0a438b34a8cfc816b0dc698eb74f3a93da904",
+   "bytes": 5901062,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/045/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/045/BF/W1/metadata.csv",
+   "sha256": "87b3aa25909beabfe50635fe453fcdffa6205bbfafd57e97676c3018dc15dadc",
+   "bytes": 9456,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/045/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/045/BF/W1/pipeline_1.npz",
+   "sha256": "9a965e7f421c69b4b61655637accc7a75f2306759bcdbf912ddf1da829b918bf",
+   "bytes": 4339688,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/045/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/045/ST/W1/metadata.csv",
+   "sha256": "3236712cda0a66b20dd380e343e4249cdcc66dc0c4c7302d54334d5772121fc1",
+   "bytes": 8146,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/045/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/045/ST/W1/pipeline_1.npz",
+   "sha256": "a19ec74068da5e5ea06a44314f1165507e8540b97f811f3d2b0cb6de6f8ba1c8",
+   "bytes": 4352991,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/046/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/046/BF/W1/metadata.csv",
+   "sha256": "3009891811a3cecc7d0e565bd9c0f59f4b08c59183135a14aca75765fdf0f087",
+   "bytes": 12469,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/046/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/046/BF/W1/pipeline_1.npz",
+   "sha256": "d5be728b600b298ca59d62b6b708d976ea51605b014bbda4fa5dab0b300f3af4",
+   "bytes": 4201656,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/046/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/046/ST/W1/metadata.csv",
+   "sha256": "0e50a2c125b71bcd2a2d94b066270b08a3d1c603c6d9c7af5f3258d7288cb7a8",
+   "bytes": 11196,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/046/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/046/ST/W1/pipeline_1.npz",
+   "sha256": "f869f84994614888d7a19a602685328a9524bbad69ef4fb7bc45354a740991e3",
+   "bytes": 4376985,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/047/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/047/BF/W1/metadata.csv",
+   "sha256": "d277798e894490ab99d0dd083f4204597ec976c4bb3d229a374ffd228f110c58",
+   "bytes": 11463,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/047/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/047/BF/W1/pipeline_1.npz",
+   "sha256": "630d83b317427d14ca833776f86c7e1472177ede7fb4ad85e15a0100d3976f61",
+   "bytes": 3212154,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/047/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/047/ST/W1/metadata.csv",
+   "sha256": "193eb5703f9f024ca28483fe80128901446237912d94c336dd6db6529b9218fe",
+   "bytes": 10186,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/047/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/047/ST/W1/pipeline_1.npz",
+   "sha256": "c8f6948049fafb3b71cf9af51bf9a735b7bf22eaa9d94e13cf50d31caafb4977",
+   "bytes": 3311600,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/048/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/048/BF/W1/metadata.csv",
+   "sha256": "d823517066ef580fa2805c2874de300abeb93623b90b58d47eb03bf6d1528f0a",
+   "bytes": 11221,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/048/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/048/BF/W1/pipeline_1.npz",
+   "sha256": "b3729a274a2f772fd7c54de72a4332e889a52f1b0609603b3b970ee778441643",
+   "bytes": 3948064,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/048/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/048/ST/W1/metadata.csv",
+   "sha256": "00855a2aeaa9af7be35040365a42e4d15dfc216af618c04da804a36abc7d516a",
+   "bytes": 11850,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/048/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/048/ST/W1/pipeline_1.npz",
+   "sha256": "044279ff096601530f20dcfa777db0234a2b9ea9704fe470167d4a548a7ddb2a",
+   "bytes": 4599739,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/049/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/049/BF/W1/metadata.csv",
+   "sha256": "53675421afbd5090bc52a2096da498c3742e9ad939690660681c71d164d3e07f",
+   "bytes": 12068,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/049/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/049/BF/W1/pipeline_1.npz",
+   "sha256": "df14d79bdb69ee8bc1a934956950e5ee150b6dcfaf350a5363092e8443bc054d",
+   "bytes": 4347208,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/049/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/049/ST/W1/metadata.csv",
+   "sha256": "51186c5a8abe429a3da12592826473c6be139bd51259fe69e27d93aa59104fca",
+   "bytes": 10296,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/049/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/049/ST/W1/pipeline_1.npz",
+   "sha256": "fb75dd6205178884bcd2248346273ce1aad8563a3d788cbd88c89c3d3474cf98",
+   "bytes": 3914481,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/050/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/050/BF/W1/metadata.csv",
+   "sha256": "c543fb291e92056798e3f0a6725feaf837dfe398ae9b45e292da1bd1b738dc02",
+   "bytes": 10979,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/050/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/050/BF/W1/pipeline_1.npz",
+   "sha256": "e396d2bfe1b8becc79d36c056f9bc891206908c0cba8056c487ce91b5a53809a",
+   "bytes": 2754364,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/050/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/050/ST/W1/metadata.csv",
+   "sha256": "9461ae4980642835b4135b6e82d91234c8a21da75b4fb6e0f7cc24f2acbd4ccf",
+   "bytes": 9580,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/050/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/050/ST/W1/pipeline_1.npz",
+   "sha256": "e86c88020437cbab46cacd178b805cb4968f0692b2f9afe85018d94bf0e25d56",
+   "bytes": 2924301,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/051/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/051/BF/W1/metadata.csv",
+   "sha256": "2497751468eb0c379c159b55309175a7b9145ec397a654240a31197fb377a2bc",
+   "bytes": 11205,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/051/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/051/BF/W1/pipeline_1.npz",
+   "sha256": "892087a4572cb180d7501ab1e4b94cd119a8c9bb5a5e4fb8ed617f7133c096f0",
+   "bytes": 3440543,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/051/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/051/ST/W1/metadata.csv",
+   "sha256": "ec9728ef5e90cdcd7db897481e6d9064f94be016fa0f946fb8da6a969b35deac",
+   "bytes": 10638,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/051/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/051/ST/W1/pipeline_1.npz",
+   "sha256": "ba85be692b65f92b7f668123149583f17ba43fe2bd7c33a6e4e5be1af87db5c8",
+   "bytes": 3608421,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/052/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/052/BF/W1/metadata.csv",
+   "sha256": "74a2f9baf68f47a487fe7fa58c2ae8d0b4a1d7dfa991aebb54af2298666c16d2",
+   "bytes": 13940,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/052/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/052/BF/W1/pipeline_1.npz",
+   "sha256": "df995a5a24f183e47849486810c30681e31cb12f2ef22efb765d2b658a4bae99",
+   "bytes": 5522512,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/052/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/052/ST/W1/metadata.csv",
+   "sha256": "dae79728fd05b6c86788daec13fc40861f95797006f118c8e026cbbf1f7a1300",
+   "bytes": 13670,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/052/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/052/ST/W1/pipeline_1.npz",
+   "sha256": "bb98e43e322e5e680477f6177dfdc213f781a3448ada2f33a7bdd6df551faa90",
+   "bytes": 5418466,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/053/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/053/BF/W1/metadata.csv",
+   "sha256": "414a4560af624a5a2b8d7697b0ba320415c8e3f0f54275b421a899d04a1ea1cf",
+   "bytes": 14993,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/053/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/053/BF/W1/pipeline_1.npz",
+   "sha256": "40425ff38fde00dedfb0bd436c66e805b69be4d9ab70543fd5a6f99f7cb244c8",
+   "bytes": 5942692,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/053/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/053/ST/W1/metadata.csv",
+   "sha256": "adb65d025609a444ad8a42f97c77b09eb6dfbe10a14e2c470d840f429f227fa3",
+   "bytes": 13397,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/053/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/053/ST/W1/pipeline_1.npz",
+   "sha256": "a89cfedef45b35722ca57720cffac0dee3ca9be628e58041f0fe5e0b93f8e6c8",
+   "bytes": 5949434,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/054/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/054/BF/W1/metadata.csv",
+   "sha256": "cd73163a1385c676469459df9f2873883995df93fec48908c20dd7095fc15fe4",
+   "bytes": 10282,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/054/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/054/BF/W1/pipeline_1.npz",
+   "sha256": "ca38c2a05cbb5206fd90d553b8ed18d91fd97c0b202a80c9a5e5cda7355f59f7",
+   "bytes": 5249367,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/054/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/054/ST/W1/metadata.csv",
+   "sha256": "0d9d93918d876971369c66f5c2b317f3b4631d251bbb7d5c526daafe0b5e5c87",
+   "bytes": 9951,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/054/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/054/ST/W1/pipeline_1.npz",
+   "sha256": "3e30ca2e3231fbc52e6370b6d734fb3111554e7e90b383ab15736227096afe4e",
+   "bytes": 5291113,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/055/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/055/BF/W1/metadata.csv",
+   "sha256": "bf1903b908df099029aa2b3db29eaea50d1b6b5bd4ad84e97687162a8291f048",
+   "bytes": 12580,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/055/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/055/BF/W1/pipeline_1.npz",
+   "sha256": "1fd5b4ed3136f310c14da0d55ea9bd4a317066533b0a95f74cba9fc80a292805",
+   "bytes": 4100132,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/055/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/055/ST/W1/metadata.csv",
+   "sha256": "babec18e78262c2ae9e10fcc6a6320d57db9e85e426d82a91ff376902616b947",
+   "bytes": 12583,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/055/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/055/ST/W1/pipeline_1.npz",
+   "sha256": "1775c7590f6beaa250faffa6811a6cc4253c177b490871cffeae54caa7ae654b",
+   "bytes": 4112258,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/056/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/056/BF/W1/metadata.csv",
+   "sha256": "abb0915f5373db0ad256fce06ea66ea497b3d54c60bcaad6bee8cc64e778ccc8",
+   "bytes": 11015,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/056/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/056/BF/W1/pipeline_1.npz",
+   "sha256": "478d4a2d65805f96d78909f9d90160bafbc52d9ae180d8432f8406dffd35c076",
+   "bytes": 5909197,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/056/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/056/ST/W1/metadata.csv",
+   "sha256": "9eb4e44d50948026f04eca41402423786b4c1bab7be10dd48db3cbefa81c56e7",
+   "bytes": 10180,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/056/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/056/ST/W1/pipeline_1.npz",
+   "sha256": "6f472e016d4d2cdd3c17d97ca32fb9d0fc995e9c37c95102cd9855251aab602c",
+   "bytes": 5901324,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/057/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/057/BF/W1/metadata.csv",
+   "sha256": "23631145d0cf455653e6fe09edccc4bbead42e74ea571438a9f37d2d69438503",
+   "bytes": 13505,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/057/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/057/BF/W1/pipeline_1.npz",
+   "sha256": "3233628a229a1b810aee66fb1fda7a29ec4edb03a25ee0d3d46d68ec5cb87a6b",
+   "bytes": 4690272,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/057/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/057/ST/W1/metadata.csv",
+   "sha256": "f355b1325f7aadd68ae362f4e070ff2a6598e8a2beab0a2bae71b93d545104cc",
+   "bytes": 13296,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/057/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/057/ST/W1/pipeline_1.npz",
+   "sha256": "81dfafe312252b7cc54ea1e949fd3797006b79d94b6fb734b616c1fe9bde9555",
+   "bytes": 5492024,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/058/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/058/BF/W1/metadata.csv",
+   "sha256": "a780487c865640a0be63aa3178aafdc69be4cc23a7f831b8841e14e410eee1ba",
+   "bytes": 11576,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/058/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/058/BF/W1/pipeline_1.npz",
+   "sha256": "80a06ecbdb7b7e37829018fe6e56c5f49e4dbeabbc6f0f09b95668e4502797e2",
+   "bytes": 3430382,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/058/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/058/ST/W1/metadata.csv",
+   "sha256": "2699d31f02e6b9f6e3994a4c6218c9832da2a0a29868e1a8ab02dd5e4063307d",
+   "bytes": 10978,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/058/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/058/ST/W1/pipeline_1.npz",
+   "sha256": "878d5ffe528f62ed9a5bae158e7542a34e58b2b0233fcb533287b5ba6c19e442",
+   "bytes": 3775995,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/059/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/059/BF/W1/metadata.csv",
+   "sha256": "1a4e404c8bafaaa6c519bd9f89df8c95ffecf9139f410f94c09aa88953221b46",
+   "bytes": 11015,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/059/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/059/BF/W1/pipeline_1.npz",
+   "sha256": "aa81a691518f3503015ec2b93eefe88de4f16642863c110b7e59f6bcad64b9c1",
+   "bytes": 4047746,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/059/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/059/ST/W1/metadata.csv",
+   "sha256": "7fc3dc79b28719e1b04c3fdbab906515536ac0bce74c0645037d07b02c124674",
+   "bytes": 10447,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/059/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/059/ST/W1/pipeline_1.npz",
+   "sha256": "11a22b3e81ac5d9f0e952437955130536965910a0b1caba4305c1cf174f410ea",
+   "bytes": 4518472,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/060/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/060/BF/W1/metadata.csv",
+   "sha256": "b0c3233dbc14c00dd58d90a502684a75e78b83f4ce1e685ce5940dac0175395a",
+   "bytes": 11093,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/060/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/060/BF/W1/pipeline_1.npz",
+   "sha256": "744991b0d4f525f36f7a4313b4f105bfbd17023ae0c2edc65bea2259e8b7a8be",
+   "bytes": 3689390,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/060/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/060/ST/W1/metadata.csv",
+   "sha256": "ed1203f55e4281c818d7e60101a46cbc9dfd6ba87e5fe01391e2f0e017c7e1b4",
+   "bytes": 10348,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/060/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/060/ST/W1/pipeline_1.npz",
+   "sha256": "6219aa369766448693bc20af89762a9902662bddf4ee5764c43e0476c5f6c7c8",
+   "bytes": 4030424,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/061/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/061/BF/W1/metadata.csv",
+   "sha256": "f7529375d0a76f187e843d7a49aa8a7722e475d6ce93fe6f5df2b222309bc0a8",
+   "bytes": 13695,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/061/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/061/BF/W1/pipeline_1.npz",
+   "sha256": "895ba1fe5cc8601236572d058ba49e481d3ce2742d316cb3703dafe5e085c4ba",
+   "bytes": 5665347,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/061/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/061/ST/W1/metadata.csv",
+   "sha256": "06af17e1c11a4f91f3de80f33645882679e032c14b7a5c9a5fd917ffe24f326f",
+   "bytes": 12983,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/061/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/061/ST/W1/pipeline_1.npz",
+   "sha256": "ab5328d87ad825a50b24c9418d80162cfd34d24ada5b42d63d590bf62e889e6f",
+   "bytes": 6438301,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/062/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/062/BF/W1/metadata.csv",
+   "sha256": "ba0cefa64d1a75fc0f3687b19ea62ba593758630ae8396b116474d4089971dec",
+   "bytes": 10243,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/062/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/062/BF/W1/pipeline_1.npz",
+   "sha256": "98d5591f6583b0d2f65d4ed16c2d463a8a4e102c560b1b5fe1b12a76572fa0b1",
+   "bytes": 4951350,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/062/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/062/ST/W1/metadata.csv",
+   "sha256": "33e1b078cc210e374b8e879892fe5faaef91fd09093e8cfa242a1c85b9c21418",
+   "bytes": 10410,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/062/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/062/ST/W1/pipeline_1.npz",
+   "sha256": "62b73838affbd9c97b375a5a4b372527dc7129145963fba98157c1c67d7debb5",
+   "bytes": 5340752,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/063/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/063/BF/W1/metadata.csv",
+   "sha256": "ac583e31136e0307d092936b6d257752ead283168c515607d43d2c1b63d19cc8",
+   "bytes": 13144,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/063/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/063/BF/W1/pipeline_1.npz",
+   "sha256": "0dd841befbdcd522fe646838da95ed07dcf0917a4a3d21c869c128c49c1493dc",
+   "bytes": 4021393,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/063/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/063/ST/W1/metadata.csv",
+   "sha256": "63d517c4da4882a2806d74b5052dff19042f8395e8c240d8512905017fbb6cbe",
+   "bytes": 14386,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/063/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/063/ST/W1/pipeline_1.npz",
+   "sha256": "7ea763d1b7001f87dc4509ed355be24a0d88ca915a9565e78373059c32da7876",
+   "bytes": 4869113,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/064/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/064/BF/W1/metadata.csv",
+   "sha256": "4247364b5e0f48b5ba0ab86254c871f98fa7603715f3ceeb8b9cfb21ef4a6fae",
+   "bytes": 10743,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/064/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/064/BF/W1/pipeline_1.npz",
+   "sha256": "200b90f3aa5c52c237b171a5afe3dbfedd01d6e66f9804abd4a1cc41b6a98d58",
+   "bytes": 3564890,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/064/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/064/ST/W1/metadata.csv",
+   "sha256": "d34964f81f3fde70ab0c7fcc97c446dd64baf5f83cbd4738c3c536bebfabec16",
+   "bytes": 9565,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/064/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/064/ST/W1/pipeline_1.npz",
+   "sha256": "7855578b4b3d31b203fa5eb88d5f0c6d3b3aaf42264f2fe9f9b60b5880d019b1",
+   "bytes": 3880059,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/065/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/065/BF/W1/metadata.csv",
+   "sha256": "cc6ad570b1d2edc332d9604a6fe942c1b5be9a5c9a90ce617f472bed64f64733",
+   "bytes": 11333,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/065/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/065/BF/W1/pipeline_1.npz",
+   "sha256": "69f025069e8d74980835cec65f7cc718e2101ba83c2c946cbafa9e703d37893c",
+   "bytes": 4031526,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/065/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/065/ST/W1/metadata.csv",
+   "sha256": "7d21786154e0ce43e3d6e3465707ea92ad81f79732b0a03ae54668e61d9ea7a5",
+   "bytes": 10386,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/065/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/065/ST/W1/pipeline_1.npz",
+   "sha256": "bd8b54051ec3ce3aeb41b4f29ec6b9f5643d033cf7477020e7b51244df730391",
+   "bytes": 4593871,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/066/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/066/BF/W1/metadata.csv",
+   "sha256": "b9ff2e9502db8616adc2141117ccb1f1902482d1ab00fc772a21fdab57743b0a",
+   "bytes": 14367,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/066/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/066/BF/W1/pipeline_1.npz",
+   "sha256": "c680ca43078ca9a3a8a38cfbc6bd0406791d8cc93d557e275a67c94af6d1dc60",
+   "bytes": 5058299,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/066/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/066/ST/W1/metadata.csv",
+   "sha256": "c073beca7cc3940910f78f74a3fc1374025b6c4fd295f4a1869a1d66bb5ebc09",
+   "bytes": 12494,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/066/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/066/ST/W1/pipeline_1.npz",
+   "sha256": "14fc23b46cdc2bb34a7c5bc8597734e3e82006e515051bac413253b2ec126e23",
+   "bytes": 4638958,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/067/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/067/BF/W1/metadata.csv",
+   "sha256": "51a1bd4645daace14d86c2b0540107bfa6158fea30cb523e519aaaf7a02a85cf",
+   "bytes": 13503,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/067/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/067/BF/W1/pipeline_1.npz",
+   "sha256": "14751d03f74e2464a7fb26b54a8d94637ca493807634da54e87e60c946cc1a12",
+   "bytes": 4852118,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/067/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/067/ST/W1/metadata.csv",
+   "sha256": "44059f3c66143406cabf3ae0be3497e1d0430f7d7b2988b769c0f9a026b0701f",
+   "bytes": 14038,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/067/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/067/ST/W1/pipeline_1.npz",
+   "sha256": "4fa7452e3fc4480d1bb4d382b2bdbd72f1ccae112a667f0375742f59d6fbc30b",
+   "bytes": 5441547,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/068/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/068/BF/W1/metadata.csv",
+   "sha256": "4cdfbc808435b1e7065739b9d40217773dc36cfc51c48e14e08237db4f98439b",
+   "bytes": 9787,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/068/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/068/BF/W1/pipeline_1.npz",
+   "sha256": "230eca00a7ca87db6ff4b5993c68e3f1a86fdc3c198dcd1e4581833f61c9a420",
+   "bytes": 3313183,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/068/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/068/ST/W1/metadata.csv",
+   "sha256": "58ac8b111cbb23c3b267190e837bec23957a16be5b928f87df70f63204cb4112",
+   "bytes": 9798,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/068/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/068/ST/W1/pipeline_1.npz",
+   "sha256": "2a201060e1e05e415b79e69b55ef82c445af04827956e8a0aa42ceb8ad49d3da",
+   "bytes": 3452312,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/069/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/069/BF/W1/metadata.csv",
+   "sha256": "7cb9cf9018bcc327c530cbd0f1accca248f2d5c859835c66f629bb0f28f7a866",
+   "bytes": 12567,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/069/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/069/BF/W1/pipeline_1.npz",
+   "sha256": "a0085ff18be13e185dcaabbbe4277d692060f7118b6f73c7a6a576de71974c27",
+   "bytes": 3880774,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/069/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/069/ST/W1/metadata.csv",
+   "sha256": "3f2fd1b6f90ad72e5608549c562079447c1b3bd711e54e38d4cd573d53886d76",
+   "bytes": 9288,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/069/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/069/ST/W1/pipeline_1.npz",
+   "sha256": "567652a299e4068b8e6a39b35b31833d97bd0c5574a34d0a4429ae6c60daf491",
+   "bytes": 3543692,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/070/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/070/BF/W1/metadata.csv",
+   "sha256": "d1b488f796e90d64de6d1bca8dbd34d40840883f1f36e10f1f0b0aa1cf3310eb",
+   "bytes": 11715,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/070/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/070/BF/W1/pipeline_1.npz",
+   "sha256": "52e457cad604b4ea103d6d5573dc32f7c5c306e0b5e56b4e09fa14a56ec87b55",
+   "bytes": 5254358,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/070/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/070/ST/W1/metadata.csv",
+   "sha256": "65c869279917f351a1b65b98f343a1a8830dd2f3eaa9143b8d2ca3be474d7960",
+   "bytes": 12207,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/070/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/070/ST/W1/pipeline_1.npz",
+   "sha256": "ade37a7f7b8612ce1a1c74fd1bacc121a407c8598a71439fd92e362f3c3ec8b4",
+   "bytes": 5350414,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/071/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/071/BF/W1/metadata.csv",
+   "sha256": "35afad05ffc6f26a0bc1e087688ccef90f9dbda18ab3d1a253491b71ef9f25c4",
+   "bytes": 13437,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/071/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/071/BF/W1/pipeline_1.npz",
+   "sha256": "40084e855f9bfeaf0e41dc23a2794b01300f7b0d6eb9595aeaca6f9a4b2d4d30",
+   "bytes": 3824324,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/071/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/071/ST/W1/metadata.csv",
+   "sha256": "6b32b27bc09e89eacc0f549693604b52da5515b65e3cd71cc3f73592a0daf2fb",
+   "bytes": 11457,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/071/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/071/ST/W1/pipeline_1.npz",
+   "sha256": "887590be8b89e2d3925a0fda3ff98408b44db3761e7ef6737102bfb6d05a390b",
+   "bytes": 3417629,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/072/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/072/BF/W1/metadata.csv",
+   "sha256": "e3bbb39d2c072c1cdf217033d8720dd82def777b63f5dc096ba8b273a306c8c3",
+   "bytes": 12929,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/072/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/072/BF/W1/pipeline_1.npz",
+   "sha256": "1dda3564adb1463a66ebdc22ca250d700e4018bb7e7a0444b586970e21d3f15d",
+   "bytes": 4515736,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/072/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/072/ST/W1/metadata.csv",
+   "sha256": "788a0649c1a501f81dc03f04b479fe1dd585e235248f48f12a495cf9e059c452",
+   "bytes": 12969,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/072/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/072/ST/W1/pipeline_1.npz",
+   "sha256": "3948c43a4d9ace4b73a501112abad63d13c8be264144a5175c46ed5fc39c2c52",
+   "bytes": 5099193,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/073/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/073/BF/W1/metadata.csv",
+   "sha256": "c1c5fa1731cef9384d9d3747d765c7f218400ca15b3821f0e4c6fc06f34ac4fd",
+   "bytes": 11757,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/073/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/073/BF/W1/pipeline_1.npz",
+   "sha256": "22db3ed84f552c0ae237a9a76fd0d606701f47435bddd746519b9718ef50973d",
+   "bytes": 3841475,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/073/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/073/ST/W1/metadata.csv",
+   "sha256": "3283589f595adff64139170ac5c9034f0eca58b8f862f5752c981e6b6e3a7704",
+   "bytes": 10388,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/073/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/073/ST/W1/pipeline_1.npz",
+   "sha256": "6bd4c895ffaf556a6f775826a2e2798652641f90113ee85bd9abe815464ca6c1",
+   "bytes": 3777753,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/074/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/074/BF/W1/metadata.csv",
+   "sha256": "652fb85c33c07dd87c264fa726486ac243c8ecd7ff8e5d9a49978ce4ae396529",
+   "bytes": 10880,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/074/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/074/BF/W1/pipeline_1.npz",
+   "sha256": "ce0f0b8ff0ca77f56da6e6b3613ab860c07088548c342e107bcdfdeff36c0bfa",
+   "bytes": 3741514,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/074/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/074/ST/W1/metadata.csv",
+   "sha256": "09f1286b7ff8733213b937785f8550a1f9b7f344dfa6771713e42422f263c4a9",
+   "bytes": 10295,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/074/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/074/ST/W1/pipeline_1.npz",
+   "sha256": "e8a695613a8ac7dcf0b396b56741a2b0dff2bd3d40daf9a4a9c41defdbef35e2",
+   "bytes": 3757728,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/075/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/075/BF/W1/metadata.csv",
+   "sha256": "f309b027d4610d7665e2f5ea3eb2ab5176cf1f6eb173de9f4b82061848930e94",
+   "bytes": 11326,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/075/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/075/BF/W1/pipeline_1.npz",
+   "sha256": "e1927ebbb859645f50baea3812a005467e04ab89e5ee7fd683f3e53f6b4a4fd0",
+   "bytes": 3936553,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/075/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/075/ST/W1/metadata.csv",
+   "sha256": "d76ca7667d604c3213f901768fc47aab0881f7192ba2ac274298adca4a092e4f",
+   "bytes": 11686,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/075/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/075/ST/W1/pipeline_1.npz",
+   "sha256": "de26f532d79c97a1994f88c83fe821770b3e681ea9450015892353c3b6824dd3",
+   "bytes": 4735981,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/076/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/076/BF/W1/metadata.csv",
+   "sha256": "551e54954bafba18e1cc00a10717ffe57aff786ec537b99f7a848facbe60e2a2",
+   "bytes": 13415,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/076/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/076/BF/W1/pipeline_1.npz",
+   "sha256": "f011237674e0c4d00ac32599bbb3428c10805a38fbfd094e27500a3aa2ce20a6",
+   "bytes": 3940131,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/076/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/076/ST/W1/metadata.csv",
+   "sha256": "ea2638c63eff4cb004dd21e39646acccf29f2cd433d1222f9cbe4a415cdcf8a8",
+   "bytes": 12457,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/076/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/076/ST/W1/pipeline_1.npz",
+   "sha256": "663a6958513b338f3843452678c6f5a220671038081d2d7284e6a7d792d520d3",
+   "bytes": 4147723,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/077/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/077/BF/W1/metadata.csv",
+   "sha256": "6aab533ac19e6e1139b77005ca591a21475757208f95fbd7018f8735c86c5393",
+   "bytes": 11601,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/077/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/077/BF/W1/pipeline_1.npz",
+   "sha256": "20ff1fc0e5a5c2220590797671f0bf8651da247892a98c5101ff6438d5199dce",
+   "bytes": 4396649,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/077/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/077/ST/W1/metadata.csv",
+   "sha256": "60ccf4328258fe25e2a1465ccd73dbb1dde8b13c63797cc8bc8af3b6516aba74",
+   "bytes": 9721,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/077/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/077/ST/W1/pipeline_1.npz",
+   "sha256": "8bcc28d9bf4803fd0c3b01f07d3a3587f48e78c029c5dd20a3b25c8841e12122",
+   "bytes": 3937635,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/078/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/078/BF/W1/metadata.csv",
+   "sha256": "ee66fb4cbd04f8870ee4da0dc60f5351e3187a2376a0e2c76c053fc867f0a393",
+   "bytes": 11394,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/078/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/078/BF/W1/pipeline_1.npz",
+   "sha256": "f925a73cde1d0c39cae199a88f65e13cbf0d9770804972e593453a215eccd48d",
+   "bytes": 3441528,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/078/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/078/ST/W1/metadata.csv",
+   "sha256": "dfe7e0144ea3ca25554070117ed806e36d7b6c5dec80566acc4cadcef8e48773",
+   "bytes": 11109,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/078/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/078/ST/W1/pipeline_1.npz",
+   "sha256": "a2681d544fdea40a6d3f4eb43901d49a0a3d4355aa75d816c09c8f883f24b959",
+   "bytes": 3298322,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/079/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/079/BF/W1/metadata.csv",
+   "sha256": "fc0bd6be3ec86eede64585b9caf3b17d7e96a61f012a24a25684070ae65db077",
+   "bytes": 11961,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/079/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/079/BF/W1/pipeline_1.npz",
+   "sha256": "b022b9401ddba28eda9d059bf96cbb778b71d473262b0dbca4e711091fae1733",
+   "bytes": 4020425,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/079/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/079/ST/W1/metadata.csv",
+   "sha256": "4e625d0330b097c048495debdf0e028c312878127d699b16fbf1c57d1e60a269",
+   "bytes": 11728,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/079/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/079/ST/W1/pipeline_1.npz",
+   "sha256": "9f345b00cbe76956b5cc105b7ecfee7583e851fd598612be6a72d8794218fdeb",
+   "bytes": 5014609,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/080/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/080/BF/W1/metadata.csv",
+   "sha256": "eca935cb48382f0fa52a66061f2421163d96f559ab8b9ec55fbffe598e4f9746",
+   "bytes": 11253,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/080/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/080/BF/W1/pipeline_1.npz",
+   "sha256": "8c2c20be286a6e43583d26f0077e8e59ccca663198a78e7a600e7431e5cb3ab4",
+   "bytes": 3628577,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/080/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/080/ST/W1/metadata.csv",
+   "sha256": "07347b12e350a69093666cae3806fd8c8cb2c1dead9e810ee389fdcefde1383c",
+   "bytes": 11642,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/080/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/080/ST/W1/pipeline_1.npz",
+   "sha256": "609572219a5ebd896f2a5d4c97c7a68f286bdb7d69fe9bfa98ac44c86451cc7f",
+   "bytes": 3988394,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/081/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/081/BF/W1/metadata.csv",
+   "sha256": "64fb825ca3c840d30c65abb5d25a2bee8e5e8163aa75fe816c55c6bed05ce94c",
+   "bytes": 10643,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/081/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/081/BF/W1/pipeline_1.npz",
+   "sha256": "6ab2415db188e4a021edb8a65a1654a8480b19b73de11c0321995af3fb86b0e8",
+   "bytes": 2691173,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/081/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/081/ST/W1/metadata.csv",
+   "sha256": "987701a4d6f1676dbe4e34b3102aecc15d957bf7d493096240736f64980822ae",
+   "bytes": 9570,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/081/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/081/ST/W1/pipeline_1.npz",
+   "sha256": "1f217a8faa1711d9c5abf32465363690bb33f584f92f38068ae6ea4a192b6339",
+   "bytes": 2719820,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/082/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/082/BF/W1/metadata.csv",
+   "sha256": "b1bb3543f12f1aeb77971f91b2afe5f38fa5cfcec5fbc02e9b4768d11069d071",
+   "bytes": 10812,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/082/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/082/BF/W1/pipeline_1.npz",
+   "sha256": "83e09ffe859b99741af2a5c62f2e9bb60b74845cebe11c122cc63e224ff56f4c",
+   "bytes": 4929799,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/082/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/082/ST/W1/metadata.csv",
+   "sha256": "8d9ef3d0e6c9e2b1931de718304b6b6e4acbfb39e6539e9a1a0dad4504f02d98",
+   "bytes": 9300,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/082/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/082/ST/W1/pipeline_1.npz",
+   "sha256": "c152808526097b632e50e3295a7305cbba45d25cc49f23ca9c2b1a0427c72402",
+   "bytes": 4731562,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/083/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/083/BF/W1/metadata.csv",
+   "sha256": "0170cb4218b9d7fae915baadd5fa0edfff54d72d11e0f16ea254c8f18dd365f1",
+   "bytes": 11262,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/083/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/083/BF/W1/pipeline_1.npz",
+   "sha256": "325092a964abc49006d023306d2c49c6304d31d15c6b861dc4fe5d4266d83b5a",
+   "bytes": 4021396,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/083/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/083/ST/W1/metadata.csv",
+   "sha256": "368e8a6611d984942c449b23ad468d26064ca6c4c946af155b76017c754ab202",
+   "bytes": 10672,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/083/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/083/ST/W1/pipeline_1.npz",
+   "sha256": "d1ab4ff9e9982a9a428db15750499cca35c7b78243046754bc637d8026a90328",
+   "bytes": 4231293,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/084/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/084/BF/W1/metadata.csv",
+   "sha256": "eabd223ec79254ad22e13a0fe91a682173ba82c633c6d57db84bb16caceec5e9",
+   "bytes": 11585,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/084/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/084/BF/W1/pipeline_1.npz",
+   "sha256": "789a9222a35634287572a429734c60d1d6c5f6c7ecb5b055a3c7cd11689a310a",
+   "bytes": 4683408,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/084/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/084/ST/W1/metadata.csv",
+   "sha256": "0fcf480a45a9359666a6ab8278147fa53d31644a074e450bb1c8ba936e6d6a41",
+   "bytes": 9928,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/084/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/084/ST/W1/pipeline_1.npz",
+   "sha256": "b94e423f677d39060df5cee1c6865fe910e5706b49989c9350fb9eee7ea30320",
+   "bytes": 4608143,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/085/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/085/BF/W1/metadata.csv",
+   "sha256": "bb584ba68a93cebd45f847b0b6e2487e53055451766e5dc9446946528c1552d2",
+   "bytes": 14689,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/085/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/085/BF/W1/pipeline_1.npz",
+   "sha256": "afe399f801edeb74504051826baeccb6c810e940f35ed84d4306d44671eee102",
+   "bytes": 5080483,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/085/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/085/ST/W1/metadata.csv",
+   "sha256": "ddd0dbd79dd4b58dc59f0f213570ac8c2431111dac6da7e7bba30ba6a247e949",
+   "bytes": 13295,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/085/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/085/ST/W1/pipeline_1.npz",
+   "sha256": "bef9b797403a8b5d02d04411395449e77e4ea04f92a9bdd6123531d4c215647b",
+   "bytes": 5700856,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/086/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/086/BF/W1/metadata.csv",
+   "sha256": "cac489bfc3cd295597c1683b76cafb5f6c25cf55018c26cddb245cd9ec226537",
+   "bytes": 12928,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/086/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/086/BF/W1/pipeline_1.npz",
+   "sha256": "589bff9cbc119655d60042d1f93e4073dced9489e6cd7cdd3490e54caf6b7b9b",
+   "bytes": 4647674,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/086/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/086/ST/W1/metadata.csv",
+   "sha256": "4783a7e50e5a3e134e747a7f01056efcce39e565dc79e0f163f479028d47d447",
+   "bytes": 11726,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/086/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/086/ST/W1/pipeline_1.npz",
+   "sha256": "8f88e85a520b107d9dcfe300c3b5cf1976d088edad0cc48a3c37f542284e4513",
+   "bytes": 4859949,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/087/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/087/BF/W1/metadata.csv",
+   "sha256": "8b37226d00243dee9c5bccb602c03a6c900fc817244789cc8a14e610117e7143",
+   "bytes": 12422,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/087/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/087/BF/W1/pipeline_1.npz",
+   "sha256": "854c58a50153abbe51b8d047201d8cdc2528fa417e73e2db76cd50f70b8e4251",
+   "bytes": 4521358,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/087/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/087/ST/W1/metadata.csv",
+   "sha256": "cbb809e08f33e9d3d093f68648a921e1ad41b1820ae01c7a81e261c6dc8c8f80",
+   "bytes": 12702,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/087/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/087/ST/W1/pipeline_1.npz",
+   "sha256": "c103e2756547a82012dee085d5e9d303ddfe0127578bf78ec837b4827559213b",
+   "bytes": 5121870,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/088/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/088/BF/W1/metadata.csv",
+   "sha256": "01a2349132ce313dede7dfb4b3581c6d1b22bdb49ff139e65b5da682bca0b2c4",
+   "bytes": 11021,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/088/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/088/BF/W1/pipeline_1.npz",
+   "sha256": "1bec4a764191a66297bbff9cde4275ffff8e018ca4b77c7bd378e014a912a8c2",
+   "bytes": 4302581,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/088/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/088/ST/W1/metadata.csv",
+   "sha256": "4688b88a3e0aa45aa9590998b2bb9f5e15c85fd4c2db9a93a82d7d6473e79b83",
+   "bytes": 10764,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/088/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/088/ST/W1/pipeline_1.npz",
+   "sha256": "e1bba5b540aa12d3e4732dcd9994b1f5945e2c5fb9ab8111faeb3c3be1db2c34",
+   "bytes": 4817518,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/089/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/089/BF/W1/metadata.csv",
+   "sha256": "05657070f42d88f42a89972a48511e395a0028ed6238bee92712047d17099cee",
+   "bytes": 10871,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/089/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/089/BF/W1/pipeline_1.npz",
+   "sha256": "30f7d8baae06f0b6a62e7f78b8ba534693afdefcacbcb8c34d2aa333162f4b99",
+   "bytes": 4496141,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/089/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/089/ST/W1/metadata.csv",
+   "sha256": "af3a91c1b4a2460daade10b04bb393d6dddaf5d5c7e9aaa099eb0e2407d40d83",
+   "bytes": 11152,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/089/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/089/ST/W1/pipeline_1.npz",
+   "sha256": "e51fc0021cdc144ebce178b0f0336fb3e69d5b21b28e5600f770d9b2ffd0f1ea",
+   "bytes": 5540671,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/090/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/090/BF/W1/metadata.csv",
+   "sha256": "1f643e69bbff0546337ba008cfe132251db1dd3462ffe9d69f8bab9b9520021a",
+   "bytes": 11441,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/090/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/090/BF/W1/pipeline_1.npz",
+   "sha256": "227794c24f285d8295db63c407a9053e3485bd794f66dc16fb4d4f2e271a8739",
+   "bytes": 3271427,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/090/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/090/ST/W1/metadata.csv",
+   "sha256": "3e4e793ec18b9f5a650b660c1182d0292d6b079dfb31463504031a4dbd0b06f5",
+   "bytes": 10516,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/090/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/090/ST/W1/pipeline_1.npz",
+   "sha256": "fef30d25751f05bb532c8af80f26caa10e4bb328a676416d3f0dd4264b1d5e18",
+   "bytes": 3090759,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/091/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/091/BF/W1/metadata.csv",
+   "sha256": "427f9cd34a4850169c98cd7c4449530a057c6816aedab05695af2136a9a92f6c",
+   "bytes": 10763,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/091/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/091/BF/W1/pipeline_1.npz",
+   "sha256": "94542ec872f9d8f18244f87ed058ef12d5397dd05fb094c0da5e2c1373935992",
+   "bytes": 3315019,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/091/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/091/ST/W1/metadata.csv",
+   "sha256": "9a8cec3bf06925197d945f8e9d4886dad313c6a3d75c8ece7265f5da9af204e4",
+   "bytes": 9869,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/091/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/091/ST/W1/pipeline_1.npz",
+   "sha256": "14b4b9c0cc291fbbc96c737038b6fce860f86d4595d7d3593e04874a7b312882",
+   "bytes": 3268136,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/092/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/092/BF/W1/metadata.csv",
+   "sha256": "d5cc7b70d4a70e273cddcae611884a1693fb418403e5d675126fc31e65b2bbfd",
+   "bytes": 13447,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/092/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/092/BF/W1/pipeline_1.npz",
+   "sha256": "42baf46bd7bb883c3c13397eca4867e886e9bf72aa30b00ecd3950fd5dac6137",
+   "bytes": 4642560,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/092/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/092/ST/W1/metadata.csv",
+   "sha256": "873c47c47eb1b5c03978d586338b4dd12a123b3703e0a834f59e66c9451adc1c",
+   "bytes": 13058,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/092/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/092/ST/W1/pipeline_1.npz",
+   "sha256": "718875db7c9c2813b6d6f35fba03654f5bc281d472d51b73ee9e3047cf9a83ef",
+   "bytes": 5201699,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/093/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/093/BF/W1/metadata.csv",
+   "sha256": "c6d779fd237598ca8f6c15a3402f8ce45525ba4646240f868bb8d4a8efefa1ed",
+   "bytes": 9019,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/093/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/093/BF/W1/pipeline_1.npz",
+   "sha256": "d4559fda8e24e678d7d8a76a02094e4382e4ce9f7583e8006eabf9cdf8fd718d",
+   "bytes": 2553334,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/093/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/093/ST/W1/metadata.csv",
+   "sha256": "952ef487d76efad4b8df898f559def80f787067056480600a02b7daf3a5a6f57",
+   "bytes": 9620,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/093/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/093/ST/W1/pipeline_1.npz",
+   "sha256": "bc07f5b9bacbd41dc488ef8c646676bf521d38a99da447d12536c9579e1437ee",
+   "bytes": 2863968,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/094/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/094/BF/W1/metadata.csv",
+   "sha256": "6e6205073ebaac8e401cc7d189071d0f585758568a4080824d0b34534ba8aba8",
+   "bytes": 11627,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/094/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/094/BF/W1/pipeline_1.npz",
+   "sha256": "18addc0694061916eedffb5577d36e73d227275ec7bc7be99391d4f95adbc173",
+   "bytes": 3387591,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/094/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/094/ST/W1/metadata.csv",
+   "sha256": "a6e05dc87aa4f6b53fab89e1ebebe6b4e34ae0dbd2a6bb636eedfba155f348cf",
+   "bytes": 11711,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/094/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/094/ST/W1/pipeline_1.npz",
+   "sha256": "dc139efc6f71265dd43a5ec2ccddd2f83abd4d54bb9566b84af4c64357f8810c",
+   "bytes": 3561977,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/095/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/095/BF/W1/metadata.csv",
+   "sha256": "84aedb9ea5d7f4a8ace339ae8c97261f98a989631213e0d2b61043338c53177b",
+   "bytes": 11669,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/095/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/095/BF/W1/pipeline_1.npz",
+   "sha256": "3eebbf9c302364a9614c8766ceb17d751d7eedfd4f8515c2767ef25eafdafb6e",
+   "bytes": 4324051,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/095/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/095/ST/W1/metadata.csv",
+   "sha256": "4e781972376f105680c63a13f9a3d73c9569b15be6e0712e82962713c6b7bd89",
+   "bytes": 12221,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/095/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/095/ST/W1/pipeline_1.npz",
+   "sha256": "a47fd56cee4e8628110ce636d0595f6002a0e337b3489f71489564918977aa0f",
+   "bytes": 4730087,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/096/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/096/BF/W1/metadata.csv",
+   "sha256": "14850ee26c1fd4ecc5c682de1bd177b2355ed7010b05bd22c6caecb0670c4f8b",
+   "bytes": 11201,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/096/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/096/BF/W1/pipeline_1.npz",
+   "sha256": "bab3eb7b49487bf3f1325c4e8fad59f67e8f069f5a94468d9a9386ba2b126c11",
+   "bytes": 5344611,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/096/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/096/ST/W1/metadata.csv",
+   "sha256": "b9c8e06b86072960cae48712a4a8eba3014345a5597400d796b102edd2a480d0",
+   "bytes": 10379,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/096/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/096/ST/W1/pipeline_1.npz",
+   "sha256": "0552cdcf2558230815d311d7a2632b2d9578fe1fb0ecb06faf9077c40463c55a",
+   "bytes": 5639433,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/097/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/097/BF/W1/metadata.csv",
+   "sha256": "72a98306741e5db3f40daac7fb0b5ec5925225bf97281e7ce7fda060f0869b3e",
+   "bytes": 8239,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/097/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/097/BF/W1/pipeline_1.npz",
+   "sha256": "d597746023a3796c7a7a160879599af311b64390855d689ffb76a86032749071",
+   "bytes": 4099955,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/097/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/097/ST/W1/metadata.csv",
+   "sha256": "d773924118127e539e195d3179b39a599fca1bf2b1fd50282dafe69522b24656",
+   "bytes": 9333,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/097/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/097/ST/W1/pipeline_1.npz",
+   "sha256": "30ce3d7c72e572a97e273426a16990b9888b99ca20df5d0cb6f2b8940be5a237",
+   "bytes": 4707038,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/098/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/098/BF/W1/metadata.csv",
+   "sha256": "3770af165a1dea8aab05bb930e6745181718ba41272d99c3802d32426197b013",
+   "bytes": 12208,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/098/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/098/BF/W1/pipeline_1.npz",
+   "sha256": "b6d73d530f0fd7b460dc2973488b31bfb1c56fe07b950967ebcdf47a9b101260",
+   "bytes": 3951235,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/098/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/098/ST/W1/metadata.csv",
+   "sha256": "f9958e19cc77616a6a235a7a69b40670abafeca32df8ea66103d07c07c6a6968",
+   "bytes": 12116,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/098/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/098/ST/W1/pipeline_1.npz",
+   "sha256": "7640cde1eee08690029182617a49fe0557daa34e70c0fb8c550a91d083a16009",
+   "bytes": 3805657,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/099/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/099/BF/W1/metadata.csv",
+   "sha256": "6c8914dfe6a208846f7b065841063ba67e70f38da9f33f2159ca1fe07e6238ff",
+   "bytes": 11101,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/099/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/099/BF/W1/pipeline_1.npz",
+   "sha256": "1f8a2dacfb3873bac362e93e8039ebba4f600f4076ab27137d61d36f706b08c9",
+   "bytes": 3890823,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/099/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/099/ST/W1/metadata.csv",
+   "sha256": "8da5df966f5f250b7fb19cd6a720b6461eb69eede245cb9232246afe3f8dcce6",
+   "bytes": 10396,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/099/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/099/ST/W1/pipeline_1.npz",
+   "sha256": "cd46f991df3f2f60aaf4600143ec7fec3f76eb25f2d9e329eea6455a9441dd08",
+   "bytes": 3934200,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/100/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/100/BF/W1/metadata.csv",
+   "sha256": "b460905ea109d0ef089fc531d0ca2eae9b323deb7e36f6318bd6d860fae2a3ea",
+   "bytes": 12000,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/100/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/100/BF/W1/pipeline_1.npz",
+   "sha256": "78c79d6062a990d6e93242e445880c46335ba9d602cedc76ab7678e783621bfe",
+   "bytes": 3991303,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/100/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/100/ST/W1/metadata.csv",
+   "sha256": "f310756fde4479d36475c8fdd6f48bc211da5baf144ac7ee30cfe1556ee71c88",
+   "bytes": 10534,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/100/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/100/ST/W1/pipeline_1.npz",
+   "sha256": "0fd963a75838684d886428003e7c2813264babf847381acbb47337aa90f088ed",
+   "bytes": 4227333,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/101/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/101/BF/W1/metadata.csv",
+   "sha256": "3b25cd73f209649635355742f4a4593bc4b11f6adf8c903db4f528517fb487ae",
+   "bytes": 10146,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/101/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/101/BF/W1/pipeline_1.npz",
+   "sha256": "5463a9917b434877ad91febf4d2d1746a375ee10e7894d6acc18ff09bdf86d85",
+   "bytes": 4454101,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/101/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/101/ST/W1/metadata.csv",
+   "sha256": "4f695c79648e44745870231b584abff09907d015b57c76a50d0c71186bec48c4",
+   "bytes": 9977,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/101/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/101/ST/W1/pipeline_1.npz",
+   "sha256": "012282887750730146cfac96b9fb9251c4730821128f85a006a6150d89219776",
+   "bytes": 4637274,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/102/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/102/BF/W1/metadata.csv",
+   "sha256": "824ecb291cfc2dd2946becc33fdb71c51c677a692642d8518bf669b01656a425",
+   "bytes": 11093,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/102/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/102/BF/W1/pipeline_1.npz",
+   "sha256": "3348ca86b3e9256a9084ad1605c76325efc4ce2f6447bc7728d90a82852555a6",
+   "bytes": 4350853,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/102/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/102/ST/W1/metadata.csv",
+   "sha256": "38d59a5c4fc4f3561a9037110876a86cf32532d881f816d0e7c93ecdd2b29918",
+   "bytes": 10762,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/102/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/102/ST/W1/pipeline_1.npz",
+   "sha256": "ab94c2bf2990da9a823d8bdaa51b30cfbf7d4bd1bc517956ab01cb1a118a8eac",
+   "bytes": 4895056,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/103/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/103/BF/W1/metadata.csv",
+   "sha256": "fdf34188b05ccf89c7a7d005f41ec0e928828d47a90d67508559f79b0361d225",
+   "bytes": 9491,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/103/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/103/BF/W1/pipeline_1.npz",
+   "sha256": "d13a113d794072af8a19860d77f5e648483df637c0c52366238c04a2fcee9ef7",
+   "bytes": 2957382,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/103/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/103/ST/W1/metadata.csv",
+   "sha256": "8bf417b3b0fa9318c32091bd6726ca7d1efffb33aebce90b854a90b8e45c8c04",
+   "bytes": 8958,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/103/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/103/ST/W1/pipeline_1.npz",
+   "sha256": "0c024f6f6678f218df0d1a068e05683c64f01a2a49b091002dabd0c628339ae5",
+   "bytes": 3014305,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/104/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/104/BF/W1/metadata.csv",
+   "sha256": "06bb0e69bf2d021561fdc02a537f049a3e6a0c7877caeeb828fb2227e9eadf9a",
+   "bytes": 15459,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/104/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/104/BF/W1/pipeline_1.npz",
+   "sha256": "ab74d4fe3a3fe17fa172ff16790c8cbe16c30fe8a5106706ff80fb5c3f771704",
+   "bytes": 4739565,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/104/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/104/ST/W1/metadata.csv",
+   "sha256": "83998c38aa54c21e68f69d1d3e1b372a22fc8d29e3e2ca6f21f435d96972a731",
+   "bytes": 10640,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/104/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/104/ST/W1/pipeline_1.npz",
+   "sha256": "7f6c82c1f6219566ee10ab03ccc9a7f2c7958db37c7a56dd6492e95f62f6e5da",
+   "bytes": 4292596,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/105/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/105/BF/W1/metadata.csv",
+   "sha256": "4c1d2c45a077a53c3f6a4b5ad244f01b6b0984b6ba2a35fc0a4d062f3ef86422",
+   "bytes": 13460,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/105/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/105/BF/W1/pipeline_1.npz",
+   "sha256": "3a166296ea7ff42534fd06970aee0b9ff7b9dcc9767aa93f5e420c9e4af86d1f",
+   "bytes": 4959352,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/105/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/105/ST/W1/metadata.csv",
+   "sha256": "c6bc619b078bfceb7092ddc73dbc755384da4dad27b8cc09a4ba8ebff6d35480",
+   "bytes": 12240,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/105/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/105/ST/W1/pipeline_1.npz",
+   "sha256": "f005e0a3b4438e22abfec1d1cb0f715655503905059172b731491ce02250e6ec",
+   "bytes": 4865792,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/106/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/106/BF/W1/metadata.csv",
+   "sha256": "ca98111b9d8fe11da9cfcf727b58f0992008633b5a7fac941c5801031798a491",
+   "bytes": 10720,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/106/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/106/BF/W1/pipeline_1.npz",
+   "sha256": "9f45f6bcab8877272d160ff56f0636afcd986470466f16fa4b76e62ccc9fcc70",
+   "bytes": 3964461,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/106/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/106/ST/W1/metadata.csv",
+   "sha256": "59276703cf5142a497c77206bf1b40884a1df4b33c1336b2cb7ddee037d63c06",
+   "bytes": 9256,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/106/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/106/ST/W1/pipeline_1.npz",
+   "sha256": "fe8eb7ed276776e34d81587645b758a97519279438cb16dc015e2a24a2fe0f19",
+   "bytes": 3925846,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/107/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/107/BF/W1/metadata.csv",
+   "sha256": "e10dac65475d0db396a38b8165816b5cc4f8395934af16c171c91b092fce97fa",
+   "bytes": 9607,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/107/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/107/BF/W1/pipeline_1.npz",
+   "sha256": "29c765195587b7611a71a6928ba21843bfdbffae0a2ed7b9738213395a1c5374",
+   "bytes": 4369159,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/107/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/107/ST/W1/metadata.csv",
+   "sha256": "f7d55f9ec9d7116431ea48d43a312350babd0429b3f9861a81752afd266e3f5a",
+   "bytes": 9767,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/107/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/107/ST/W1/pipeline_1.npz",
+   "sha256": "23dc8d2adf57bf648388aeab9bd0e7b898591b4af17dfc5e43ce52e718905147",
+   "bytes": 4721713,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/108/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/108/BF/W1/metadata.csv",
+   "sha256": "223ef75af4abc340697cc7985c4c1d73bcfc52a990dacff45322e2ad53d3cc9e",
+   "bytes": 11305,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/108/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/108/BF/W1/pipeline_1.npz",
+   "sha256": "59c4905a2c8371476195e1deccda5da0bcb4b4a8a4d941621239cb56292d6d9b",
+   "bytes": 6161318,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/108/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/108/ST/W1/metadata.csv",
+   "sha256": "2d077700e6d8ba100da40f63fe64e75413dbc098581507b006a55ebd2ad19443",
+   "bytes": 11191,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/108/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/108/ST/W1/pipeline_1.npz",
+   "sha256": "34d245266612701a290dab823555f9f727a2bc9ac6ce507cb6377bc5e92aa66d",
+   "bytes": 7021349,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/109/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/109/BF/W1/metadata.csv",
+   "sha256": "36718bfc8c3359a904648bd2c2c74a90c016241184be2f7a32f3423e0e443aff",
+   "bytes": 13359,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/109/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/109/BF/W1/pipeline_1.npz",
+   "sha256": "6cb18ed686125eb120ee021501954b1c5181068ba4734ca76d8470d806188c9b",
+   "bytes": 3864584,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/109/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/109/ST/W1/metadata.csv",
+   "sha256": "e3b7c1be489ebdc6bd16787398f13e29a386a84b3b4d1b4f3eb28552ffc11fda",
+   "bytes": 12166,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/109/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/109/ST/W1/pipeline_1.npz",
+   "sha256": "d5b05adaf6ac0cac4965610adcea967417a9c280ae4b3c44384f2c3906bb9b5c",
+   "bytes": 3700570,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/110/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/110/BF/W1/metadata.csv",
+   "sha256": "627cc29c566acd331aa09c45f49be18888d30fc2441d46ce61a0723ffbd710a7",
+   "bytes": 11200,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/110/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/110/BF/W1/pipeline_1.npz",
+   "sha256": "d93bd6edc2bcbda1ae770f79d08d7d8a199c63f9a437ddcaabed116ae7ff91a6",
+   "bytes": 3868073,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/110/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/110/ST/W1/metadata.csv",
+   "sha256": "3aa26a62a5717151e5d8e6c7ea6401e644912c51ba511c9e6665f6242c45da0f",
+   "bytes": 10818,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/110/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/110/ST/W1/pipeline_1.npz",
+   "sha256": "1626e21d82722d720584a2984038de9b379894c1b910f0fc8e6b4adab1d47991",
+   "bytes": 3984853,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/111/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/111/BF/W1/metadata.csv",
+   "sha256": "92c98affe7ff06289145fbf42d1befdc62ba1640b6ccbf0807aff6a1d2747267",
+   "bytes": 12794,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/111/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/111/BF/W1/pipeline_1.npz",
+   "sha256": "684b2891ee4f7f4d79bf26e64180a877023a1d1f422e0e6957fb3c4e9f05eefc",
+   "bytes": 3984402,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/111/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/111/ST/W1/metadata.csv",
+   "sha256": "c668a5edda7e5a0308052139d5cf5763cd7b77fe5802db3ced1c061245e52829",
+   "bytes": 11353,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/111/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/111/ST/W1/pipeline_1.npz",
+   "sha256": "a75426e4c8c030f11f655c7906bdd5ed655cf25a0e1a251a898c2c2221cdb10c",
+   "bytes": 3531575,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/112/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/112/BF/W1/metadata.csv",
+   "sha256": "64e4456f704ba779b1edda6c0b80ff2445d1b30ddf656ba392e5aac3d5e72740",
+   "bytes": 10848,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/112/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/112/BF/W1/pipeline_1.npz",
+   "sha256": "15a77c38bb40c3aba38e91bc94046d77772bccede33693f3fd7e08aacaf3f38f",
+   "bytes": 4947669,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/112/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/112/ST/W1/metadata.csv",
+   "sha256": "0829c7b88bd19160a2a2acf0d37e5820a8f7df038c77ddbebec6892bc0c14629",
+   "bytes": 10126,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/112/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/112/ST/W1/pipeline_1.npz",
+   "sha256": "48936b60b64374d1f3c10d487e6fc21aadf7ee994db3d994a2961964f67da782",
+   "bytes": 4754875,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/113/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/113/BF/W1/metadata.csv",
+   "sha256": "84f94480307cdbfda31e8069b3bf236aaa5d5b46997fa32e80e395ed2214c049",
+   "bytes": 11244,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/113/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/113/BF/W1/pipeline_1.npz",
+   "sha256": "d3d0092becd39cb4e3fa7d08ae3402894663d542798970b1baeed800d0fd9266",
+   "bytes": 3268529,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/113/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/113/ST/W1/metadata.csv",
+   "sha256": "555651a29fe4a1dfaef0c02ce70d2d746819acc58d3385f997799fe3a04d4430",
+   "bytes": 9892,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/113/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/113/ST/W1/pipeline_1.npz",
+   "sha256": "f6a66b37f8e4dd3faf57bfee66fca9fc566094278ad982ef0e5de137489cd01a",
+   "bytes": 3298993,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/114/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/114/BF/W1/metadata.csv",
+   "sha256": "5f901cba966543cedd28a1c98b3b72b14f29c8542f20d57e4422264716ff4bc9",
+   "bytes": 12539,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/114/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/114/BF/W1/pipeline_1.npz",
+   "sha256": "669f29d0ddf5e7b0db0f9a9a4660b74a8976aad2d3f3ad836c69a559505a2b2f",
+   "bytes": 3891032,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/114/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/114/ST/W1/metadata.csv",
+   "sha256": "45c575b51a5bb132420989fde366909d62572f102ca08d7a91c922341d30d0a5",
+   "bytes": 10738,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/114/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/114/ST/W1/pipeline_1.npz",
+   "sha256": "a4d310100a5d592c9bce4617ecd3bc9ea35fd3dd3dfd23c6c9b826cee35bea10",
+   "bytes": 3901829,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/115/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/115/BF/W1/metadata.csv",
+   "sha256": "ab0c8097c78c9c9bf308a10dc17fcda55449d4883d7d6099d95be6b420b2e743",
+   "bytes": 11558,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/115/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/115/BF/W1/pipeline_1.npz",
+   "sha256": "f2da52e5e0862fe78a7835f6605924367f91738f3cf87ff0107e5cc53f52067b",
+   "bytes": 3939224,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/115/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/115/ST/W1/metadata.csv",
+   "sha256": "e3b555ff0b81dc1c2c1ad288f841a376e51ef70440080bfa656a593ec43eff76",
+   "bytes": 11466,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/115/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/115/ST/W1/pipeline_1.npz",
+   "sha256": "dbae409bb2ffb4819504555e71b9c3d0dc4b7d60ec24fa2f56bf0643be50736c",
+   "bytes": 4521713,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/116/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/116/BF/W1/metadata.csv",
+   "sha256": "a6fe93a896dd158af03abc18afaf2da23341f1270fc45e36d1387daa8eea61d9",
+   "bytes": 8790,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/116/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/116/BF/W1/pipeline_1.npz",
+   "sha256": "f2a0617324aafbc2f79aee56b72ea433cdef9a0b32b9996ca8e303ad23e6dbea",
+   "bytes": 3361742,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/116/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/116/ST/W1/metadata.csv",
+   "sha256": "bd722e41b5b038f4c07f440234c2bcb20e932a9ff33eb0b73f498b9249a50e96",
+   "bytes": 8213,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/116/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/116/ST/W1/pipeline_1.npz",
+   "sha256": "e5309654e755a3b42eb2face53a095e2c635d8a9b7c9964d30bf1042b5f388b6",
+   "bytes": 3340893,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/117/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/117/BF/W1/metadata.csv",
+   "sha256": "e8376deb7a62c48ba34aadf1155dfa23c199d516fd71c248cb80af38008d49ab",
+   "bytes": 12158,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/117/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/117/BF/W1/pipeline_1.npz",
+   "sha256": "8c6d707ab7b821d3b3c9f63688aca293c6c9e7aaf487c2947cbfd38a73f27971",
+   "bytes": 4386024,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/117/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/117/ST/W1/metadata.csv",
+   "sha256": "a152aac2663eaed351faa754cf25e182e803d840be5b739ba7287dc391119ba8",
+   "bytes": 10862,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/117/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/117/ST/W1/pipeline_1.npz",
+   "sha256": "38f3018678224e8aaf88da8b5a6c7e39b2f95cef861e203878c184ae01953ee9",
+   "bytes": 4146644,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/118/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/118/BF/W1/metadata.csv",
+   "sha256": "b172ad802d17e69d7cd1565056cd71281f6b9a5cf7128c90de5f94d392af7ac4",
+   "bytes": 10457,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/118/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/118/BF/W1/pipeline_1.npz",
+   "sha256": "a9b2890daeac8f16ecb2a517678ebdc82e475fac3d7362126f6365c53f8e4ac0",
+   "bytes": 4187673,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/118/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/118/ST/W1/metadata.csv",
+   "sha256": "9aa4db603881474e1b97fa610fd8babca52b874db2d39b2e3e730ac5af8a2060",
+   "bytes": 9266,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/118/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/118/ST/W1/pipeline_1.npz",
+   "sha256": "7c01d1ef52c2672ef483cc36d1c70511dfa754639a73417225b26b7d2745c342",
+   "bytes": 4391714,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/119/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/119/BF/W1/metadata.csv",
+   "sha256": "2ff614d95afdbd48a7e24e3bcfbf3b3d23085d5cfdcb21e5da7c5df6a522dc73",
+   "bytes": 12263,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/119/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/119/BF/W1/pipeline_1.npz",
+   "sha256": "100852af0b9bb5a1c598ebdacb647c7377fec6c03da16d3d0c3332f1cb5f031b",
+   "bytes": 3810949,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/119/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/119/ST/W1/metadata.csv",
+   "sha256": "ccd5de67a26f9e5d18db3b89859c16573ee223b12c003ed399171a841d6c97ee",
+   "bytes": 11767,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/119/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/119/ST/W1/pipeline_1.npz",
+   "sha256": "ceb02e80cf0544961c878bf255fd7cf4e1cf6ea8d5878ca0f1bdbaa01cd7f403",
+   "bytes": 3982459,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/120/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/120/BF/W1/metadata.csv",
+   "sha256": "5629d7f79f611c87a633d20aa0a0b6ac506700bc0152e4f9634f3b1194bc6673",
+   "bytes": 12073,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/120/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/120/BF/W1/pipeline_1.npz",
+   "sha256": "cc2d3776e6a3d385d459ec949526fa268ee072ef936b20f4d49c141a48ce19dc",
+   "bytes": 4065338,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/120/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/120/ST/W1/metadata.csv",
+   "sha256": "48fb4888d03dc6ddba7d922da8ac8ee2fd601134212551508046baaa0465c616",
+   "bytes": 13074,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/120/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/120/ST/W1/pipeline_1.npz",
+   "sha256": "4ab5ba032432eaa78c0d5f091b5b1670732477dfe0703a465488d96c59cc6943",
+   "bytes": 4775022,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/121/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/121/BF/W1/metadata.csv",
+   "sha256": "496abd33a5f66b6a3de826ef728189091f7307a020bfe7d16a99b7e6bbde745c",
+   "bytes": 10240,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/121/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/121/BF/W1/pipeline_1.npz",
+   "sha256": "d84b6a4eb5b69d3c86bcd277cdc2c34c8b0afe4029098a88ef5e49be60b51291",
+   "bytes": 2989491,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/121/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/121/ST/W1/metadata.csv",
+   "sha256": "83c8241758b7257ab23ffb2526f90961d9024ab0240947e9d110257cf1b04b8e",
+   "bytes": 10785,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/121/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/121/ST/W1/pipeline_1.npz",
+   "sha256": "9b3d5017365053e093ea900e0c2649834e9ee3fac060a3fae23e9055f701da85",
+   "bytes": 3077902,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/122/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/122/BF/W1/metadata.csv",
+   "sha256": "7f6598c1cda719bc7a69906e9fba4ac412791ccf60a5097ca15b012fbf774cae",
+   "bytes": 10339,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/122/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/122/BF/W1/pipeline_1.npz",
+   "sha256": "ad50beb41f006bf6fb55bec1ea8f90ae68adecfd32ce2fe640556a0227dddc97",
+   "bytes": 3835183,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/122/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/122/ST/W1/metadata.csv",
+   "sha256": "a59e0d0114c3e121f3d4a36399d7ef3b62eb0df6a01cb21e7b18ea9431d23112",
+   "bytes": 11335,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/122/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/122/ST/W1/pipeline_1.npz",
+   "sha256": "41a41e9a8d4b63daef8db1ff23b378402fc6076356f918232c4e2381019adc55",
+   "bytes": 4494262,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/123/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/123/BF/W1/metadata.csv",
+   "sha256": "54f6a34f2da0da86080fa88524f915d167d7253ff9ca4a1c9f8bafdd7d6f4b8e",
+   "bytes": 13043,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/123/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/123/BF/W1/pipeline_1.npz",
+   "sha256": "6911091be299e3613fde524d37f59306984e0705a66412b62b0c798ca33a9a4e",
+   "bytes": 6095383,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/123/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/123/ST/W1/metadata.csv",
+   "sha256": "9dac6a7da98172fefca34b0b6cc5ed58de8812b798ac083548f5fd789353ddf0",
+   "bytes": 11764,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/123/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/123/ST/W1/pipeline_1.npz",
+   "sha256": "1a2ca19e41305d6fdcdd43ab3edb01091a27c6e49273949144959275efc71db2",
+   "bytes": 5970196,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/124/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/124/BF/W1/metadata.csv",
+   "sha256": "59a01eea631879684bd6b2990150db50420ba3d70bc9ac321c0fe63eb5a09bbe",
+   "bytes": 11244,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/124/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/124/BF/W1/pipeline_1.npz",
+   "sha256": "0db9d6ed4f364f0af07bea82804ae3d670d6d88a465b0b11ed0c9b83f21df42e",
+   "bytes": 4534769,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/124/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/124/ST/W1/metadata.csv",
+   "sha256": "0d1498d7df8f5201d00baa9777fb355051efad2f2b0321a83cb17b9713239bee",
+   "bytes": 10154,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/124/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/124/ST/W1/pipeline_1.npz",
+   "sha256": "21f595252deaed0668c8a83e8e96b6bd7644d121224d3869c4f4da5abe482203",
+   "bytes": 4742678,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/125/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/125/BF/W1/metadata.csv",
+   "sha256": "22192117e41841a9d0fa765684d542110fb992003f62e5c3419772a5bc2867ac",
+   "bytes": 11231,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/125/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/125/BF/W1/pipeline_1.npz",
+   "sha256": "b5b830d6a86ce738cb5f258428be09e01e02e215eddf326a6d23e5dbf9219fa5",
+   "bytes": 4895048,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/125/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/125/ST/W1/metadata.csv",
+   "sha256": "8831b205b54763a201c0d7b473938ab37624b7bf478467cbfa87549ee2251685",
+   "bytes": 11352,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/125/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/125/ST/W1/pipeline_1.npz",
+   "sha256": "7e43e2967ee2d4035098d064fa2fb80fde3c61041d1b3cd46018834dc0d354e1",
+   "bytes": 5061269,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/126/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/126/BF/W1/metadata.csv",
+   "sha256": "44a02d5a4bccfb3434efe4beac7e31c5177d655fe7f8d4daaf835fb7dfcfe6d1",
+   "bytes": 12538,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/126/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/126/BF/W1/pipeline_1.npz",
+   "sha256": "099f33de8f94d953de943a151aa6d037042e4c5e5e44cb19a6a1b5f858bda94d",
+   "bytes": 6045692,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/126/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/126/ST/W1/metadata.csv",
+   "sha256": "f247528e80f746744e0a2794261f38003fd7fc4c8777406d6a3a8e1e75936625",
+   "bytes": 12673,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/126/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/126/ST/W1/pipeline_1.npz",
+   "sha256": "758c87c500378c5827ef47e486fb0b9428bd8bc7d576f4db1ace2ca752b0ffab",
+   "bytes": 6767546,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/127/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/127/BF/W1/metadata.csv",
+   "sha256": "a6174e34b60bb27be8f378d941c8909564dd77852371769a238ade2231266e52",
+   "bytes": 11434,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/127/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/127/BF/W1/pipeline_1.npz",
+   "sha256": "55473ce68c2d8ce6591a88536d70f59d33ffdacd439718b9ad9f289e89b64978",
+   "bytes": 3630612,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/127/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/127/ST/W1/metadata.csv",
+   "sha256": "6e1cd4033b231e438afdc9af30dcffbeab3cac488660d351358493bd632465e0",
+   "bytes": 10717,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/127/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/127/ST/W1/pipeline_1.npz",
+   "sha256": "affb0cc2f24e334d8af96daa0a1a61637f0b91a641d97666feef82206379f3ff",
+   "bytes": 3935142,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/128/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/128/BF/W1/metadata.csv",
+   "sha256": "2303726cbf8c62cae57136ec971c4aa0f6b53f61698fc383cd3a9bcb25fd49af",
+   "bytes": 10324,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/128/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/128/BF/W1/pipeline_1.npz",
+   "sha256": "7355c849aad8383752ec1fd6b109b11d837bf74c31f4f82e688e4efebb77c8bc",
+   "bytes": 5065382,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/128/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/128/ST/W1/metadata.csv",
+   "sha256": "2f80edea8dc87939db13373abe011d449196a8126fb1bc2c8b84ed215fc79c4d",
+   "bytes": 10107,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/128/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/128/ST/W1/pipeline_1.npz",
+   "sha256": "ece5c01152f28bfd1af3d324d323ba4534134076c19f574a302f8fc50284bbc2",
+   "bytes": 4883149,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/129/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/129/BF/W1/metadata.csv",
+   "sha256": "948e2727d4968539bb128a6b9c2c97e02e0288bc0f96ec8d157ec1980f0e672e",
+   "bytes": 10315,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/129/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/129/BF/W1/pipeline_1.npz",
+   "sha256": "89569549bf4300f0e995871f043347f87b77f2130ca0f2142ce50efc93fbc855",
+   "bytes": 4967826,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/129/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/129/ST/W1/metadata.csv",
+   "sha256": "d84b0f311e0203ccf8e799a333c8e943a9cb841f1c56672eef97017700931881",
+   "bytes": 10580,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/129/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/129/ST/W1/pipeline_1.npz",
+   "sha256": "fa7e5a1487ad1be2f7b9e309e60eac9487904b1626139750ccd5d60b07e2f851",
+   "bytes": 5643617,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/130/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/130/BF/W1/metadata.csv",
+   "sha256": "6da09fe2c258a0d78dac99557ff9d2c4efb951de69194d1708656aac2d9b7a00",
+   "bytes": 11131,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/130/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/130/BF/W1/pipeline_1.npz",
+   "sha256": "241b0666dcb6a97c03016f77deac728c8e22cf8b8fe8a6b38155bf2f62743598",
+   "bytes": 4284406,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/130/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/130/ST/W1/metadata.csv",
+   "sha256": "6a9cb9d573854275b1eaa26e1773224457c5b7c9d5b8f20ffac6b946c58d068e",
+   "bytes": 10413,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/130/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/130/ST/W1/pipeline_1.npz",
+   "sha256": "c9c1a406faddf5e6e788b1a526c54950ed875f26ac956ae73c93c5b4204e4aaa",
+   "bytes": 4795377,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/131/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/131/BF/W1/metadata.csv",
+   "sha256": "27fe96db70f8fc8f9d4ba9e0c92b100641f11832dd76f8d93dd357a2de4af82b",
+   "bytes": 13617,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/131/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/131/BF/W1/pipeline_1.npz",
+   "sha256": "5517d45f466ef8c6644bed0758a5ad6a84e9a4cfc48d14fd71944dd7f2d89ec5",
+   "bytes": 4406625,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/131/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/131/ST/W1/metadata.csv",
+   "sha256": "e63f3e19390fa9146b937462a7cad4708098ed175f168bfc63d9d5edbee344ec",
+   "bytes": 12188,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/131/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/131/ST/W1/pipeline_1.npz",
+   "sha256": "99e98e1c95c7140ef49319a549bf575925017eb6e71ac2b688df2fbe09cfbcf6",
+   "bytes": 4052951,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/132/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/132/BF/W1/metadata.csv",
+   "sha256": "87983c6f7e0f4ff9e5da506464567de3ea55b3e06655f98bfc07c0efee34c57f",
+   "bytes": 11472,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/132/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/132/BF/W1/pipeline_1.npz",
+   "sha256": "1ca529a4171863c57058356b97914389259e12ac2a629d83fd0a9d5d7860ec84",
+   "bytes": 4270059,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/132/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/132/ST/W1/metadata.csv",
+   "sha256": "083eee6598e7e1a3f3e9d48f23f1179bb950682355e4b5c081d55123af1e8645",
+   "bytes": 10033,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/132/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/132/ST/W1/pipeline_1.npz",
+   "sha256": "487efa524e01214ad2ace022787c7cf518661fb1b72ba88d18c863311dba095b",
+   "bytes": 3930489,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/133/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/133/BF/W1/metadata.csv",
+   "sha256": "549383b993e9802da898320813b1b460fdd6c073b480d0acf1cbf41f25dc2bfa",
+   "bytes": 9856,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/133/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/133/BF/W1/pipeline_1.npz",
+   "sha256": "7f001e634cc8c55acddc07a546f3bd65f14837db07de85dd06e666561f3a6354",
+   "bytes": 3702178,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/133/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/133/ST/W1/metadata.csv",
+   "sha256": "68310951fbc29c9a919a141c5c157b0a392cb47c7fc412c06456d0bdf78de45c",
+   "bytes": 10416,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/133/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/133/ST/W1/pipeline_1.npz",
+   "sha256": "645ef0c6fce8bdeeef412c8f95b569af236d02f7485f20e686e4232ea5c7291b",
+   "bytes": 4074784,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/134/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/134/BF/W1/metadata.csv",
+   "sha256": "f395f58f19da485739b970577218c03cb744f5e52152f121580ef209d7c75f2e",
+   "bytes": 11625,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/134/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/134/BF/W1/pipeline_1.npz",
+   "sha256": "0b8dbcc27eb0df7646bcc49bd5686d9fa5f5d43a312b36d88eb97c3effade92e",
+   "bytes": 3411720,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/134/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/134/ST/W1/metadata.csv",
+   "sha256": "5c11946a9f3b01eccd1959888e7d66ef854affa5c376437f7bf4ec5cd150175d",
+   "bytes": 12018,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/134/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/134/ST/W1/pipeline_1.npz",
+   "sha256": "304e804b02f9adb4641c0a4c31af2e1a046ddae849431bc6877c3f3cf6881d12",
+   "bytes": 4059925,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/135/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/135/BF/W1/metadata.csv",
+   "sha256": "ded1e1cdacab02fa5bf0a304b06b0ccf359dbc42b255cf88c0faea181a69a3dc",
+   "bytes": 13041,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/135/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/135/BF/W1/pipeline_1.npz",
+   "sha256": "ece5e235ab8109039e49d6a0d2ec514d888b604ee4d02c488b9c0153bbd87998",
+   "bytes": 4640203,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/135/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/135/ST/W1/metadata.csv",
+   "sha256": "c629ee6885177933f1b6d7b652e795c76661d39552750a414ebfa7dffd6f6d2f",
+   "bytes": 10996,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/135/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/135/ST/W1/pipeline_1.npz",
+   "sha256": "2b266e237045fad9203edfd1e0c86f1a334837440a70b10dd4ef9abacd4d3c6f",
+   "bytes": 4434363,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/136/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/136/BF/W1/metadata.csv",
+   "sha256": "b99d24bfe132c89ed51b86982f4bf79c8827740e345cd8850ac8941466951a90",
+   "bytes": 12560,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/136/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/136/BF/W1/pipeline_1.npz",
+   "sha256": "17670534bc6c0b8d948f15e30b785989b61e8608356dabb1144c892f616520a7",
+   "bytes": 4296013,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/136/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/136/ST/W1/metadata.csv",
+   "sha256": "44fbc7aa69d0a7c43a9852ab84c33fde6aab169eda25bc5eb4a766452b356652",
+   "bytes": 11439,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/136/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/136/ST/W1/pipeline_1.npz",
+   "sha256": "03af7726b6818d1bcb695d1ab855d17a21ee9794b68b6708b8aabbeaaa061085",
+   "bytes": 4531066,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/137/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/137/BF/W1/metadata.csv",
+   "sha256": "d8977290bb4b33afdd9027d2c7edde9cfbc53e1cd8fd40183c7f3293ccc4c93e",
+   "bytes": 11858,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/137/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/137/BF/W1/pipeline_1.npz",
+   "sha256": "28428c213d92e73866c9bd885d96d99e536873dfd3e6bd2c04cde1a7b55a3fb9",
+   "bytes": 4599469,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/137/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/137/ST/W1/metadata.csv",
+   "sha256": "3d1145a050e3fa9c681a489d4c7fccff8d5d26626b0346a1dc40961471403976",
+   "bytes": 11517,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/137/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/137/ST/W1/pipeline_1.npz",
+   "sha256": "ad431614e9f849ce84d2bd0ff824e250cd5ad9016f288d1cf8cb3559e84008f1",
+   "bytes": 4753545,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/138/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/138/BF/W1/metadata.csv",
+   "sha256": "1fc3f5eed43e0a46a32b9ff9b9980f929e9fce812cd338aa471cec8e0e0edbc7",
+   "bytes": 9887,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/138/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/138/BF/W1/pipeline_1.npz",
+   "sha256": "36cbb6f25852a1c3abf836265c87899b16ade6716a325c156a2eff23e0ee1f47",
+   "bytes": 3153063,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/138/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/138/ST/W1/metadata.csv",
+   "sha256": "1240b8eb26a4455105efd3b6dc1e75324f4c505c808a2228fc62b2072a22e358",
+   "bytes": 8939,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/138/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/138/ST/W1/pipeline_1.npz",
+   "sha256": "0bf695b7452c5d89cf9bc8f67b8829a80d9932a37c1016400150b93aa92145d4",
+   "bytes": 3262465,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/139/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/139/BF/W1/metadata.csv",
+   "sha256": "41c386cdc979f93bb823abbe8e37174d6f24846d673d0611d323cab863709f0c",
+   "bytes": 12965,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/139/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/139/BF/W1/pipeline_1.npz",
+   "sha256": "2dd799b1cc47a627298742894a552fa45cca6decdf08177d1d2302f9b0f02f1e",
+   "bytes": 4131915,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/139/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/139/ST/W1/metadata.csv",
+   "sha256": "12eaa9cc1d6083a7851ba4ac8f70faf0bd18f63f956d4f1626623f9b72cd93a7",
+   "bytes": 11884,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/139/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/139/ST/W1/pipeline_1.npz",
+   "sha256": "a4c4e6b8ba66ba41269e6f32604bdd10babca45bbf1e3bac47f2e787bbeac7e8",
+   "bytes": 4239698,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/140/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/140/BF/W1/metadata.csv",
+   "sha256": "4862de81440e7bb3c768f7d4022abd7a0734e4b85511ec0f9e6200db0b174edc",
+   "bytes": 10459,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/140/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/140/BF/W1/pipeline_1.npz",
+   "sha256": "6b68478456a6e6ba17e8d7292c2183ac8adc438835d6ce0a9488c8b616aa041b",
+   "bytes": 3256026,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/140/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/140/ST/W1/metadata.csv",
+   "sha256": "4498aa0208c267acbc4e724b3306a6fb81cf72f59a49c8cb2a7679a05546e500",
+   "bytes": 9297,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/140/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/140/ST/W1/pipeline_1.npz",
+   "sha256": "e90697236a57e1d576270500fa0ff4ac4eec0ce8b24a26808863157fa90b5ece",
+   "bytes": 3280926,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/141/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/141/BF/W1/metadata.csv",
+   "sha256": "181da268786bc9b1af798031435798300a60e5d347927356221eaa3dfab0c280",
+   "bytes": 13654,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/141/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/141/BF/W1/pipeline_1.npz",
+   "sha256": "c8bc684d7855e20ec90227fa9b62f2ef08578762345720798838d3cf231fbcea",
+   "bytes": 3617936,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/141/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/141/ST/W1/metadata.csv",
+   "sha256": "a56092bca11fb8ff40cd2e10b53d49a0c20d710abf19236b8a388050e9d0be18",
+   "bytes": 14758,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/141/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/141/ST/W1/pipeline_1.npz",
+   "sha256": "fde8defb7891806475d558ba494091ebb466adcf0f8f0d743ff45d1150502e1a",
+   "bytes": 4231157,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/142/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/142/BF/W1/metadata.csv",
+   "sha256": "75832a31a82e4f6df2b9543db990bcd027c99a248e959757441f34ae4d04579a",
+   "bytes": 15820,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/142/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/142/BF/W1/pipeline_1.npz",
+   "sha256": "c16d080f37aa29b02d4b53ebdf9f9c310f53e3cd26526dc404bb69ff8f21e3ff",
+   "bytes": 4951836,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/142/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/142/ST/W1/metadata.csv",
+   "sha256": "e0f4f43fae4f5d2008f816d33bd52483986e42f3e5adfa2c14955086a38d82fd",
+   "bytes": 14030,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/142/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/142/ST/W1/pipeline_1.npz",
+   "sha256": "6c6eea236ad0050c3cb334efd3625da2d7a13485de2f6ecc8300b9a30e6c8a0c",
+   "bytes": 5402427,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/143/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/143/BF/W1/metadata.csv",
+   "sha256": "d39b0ef550d959ca364866b79defb8bff2fe982aee35ec9650ac03eb9670054f",
+   "bytes": 11098,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/143/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/143/BF/W1/pipeline_1.npz",
+   "sha256": "1a44188c4c98e5a9a4ad1bf36c39b4aa647c0b0e434dc0c27a97d2ef7d8c868f",
+   "bytes": 2880513,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/143/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/143/ST/W1/metadata.csv",
+   "sha256": "571d3d69386957eac58e51ae2ae533bd933b3aaf60215fb04bbeb0f2eaed4c05",
+   "bytes": 10445,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/143/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/143/ST/W1/pipeline_1.npz",
+   "sha256": "5932b0e07ef342b6c2f18d06e194af522b0e57c6ba38c8575236aa05253e4fe4",
+   "bytes": 3340817,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/144/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/144/BF/W1/metadata.csv",
+   "sha256": "486c03d39ad092a9a7afe80737a8b03d0af529ecf6eb7c748b5094f32e6b3561",
+   "bytes": 12089,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/144/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/144/BF/W1/pipeline_1.npz",
+   "sha256": "ed0bfb6d5b602295f91c02cff51358c8e8c9b00babe2c5235de4eb9596b48494",
+   "bytes": 3476498,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/144/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/144/ST/W1/metadata.csv",
+   "sha256": "28ec14d316f0ed1bf0b6933317a06c0a6591bd0df2fd2b55361e0661295a1ccd",
+   "bytes": 10886,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/144/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/144/ST/W1/pipeline_1.npz",
+   "sha256": "9d4a7156c298714690dbfcd74ae769f64ab9260a8230e926336488a401ae046a",
+   "bytes": 3763775,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/145/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/145/BF/W1/metadata.csv",
+   "sha256": "3c6096a48322756e92f01077b2eb6077f3634de13bace1f51053e60de8b61f0e",
+   "bytes": 9994,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/145/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/145/BF/W1/pipeline_1.npz",
+   "sha256": "10fa93845edf55732872fad37a2374f10a8c7f7cfc3afc62d4d6d784179a8714",
+   "bytes": 3729093,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/145/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/145/ST/W1/metadata.csv",
+   "sha256": "20c404896531a4e9662f8820aabc0277345433df27682de3916e7790574a2f1a",
+   "bytes": 8674,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/145/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/145/ST/W1/pipeline_1.npz",
+   "sha256": "2b2b850bb4e81a698cf97147d53f1d21869797a798c81def0b9c96267f97cec0",
+   "bytes": 3854964,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/146/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/146/BF/W1/metadata.csv",
+   "sha256": "bc0cb5aa61f14f3d12586d7a60e5ff857ce7e477d63f2adba68cefcac0d7ebce",
+   "bytes": 12917,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/146/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/146/BF/W1/pipeline_1.npz",
+   "sha256": "2ba0061921a66d2e1645be1bba5ab0410ef513a2f7729c992d3a5bcd2e61bee9",
+   "bytes": 3263426,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/146/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/146/ST/W1/metadata.csv",
+   "sha256": "dad422b99f139d63058de2ac341a3fd058ad2c2653342e544d9edc7b55914bbc",
+   "bytes": 11865,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/146/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/146/ST/W1/pipeline_1.npz",
+   "sha256": "1e68b2466b453150aeba692ad1e24e909c105b0097c70e218b940ab9986d4957",
+   "bytes": 3545170,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/147/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/147/BF/W1/metadata.csv",
+   "sha256": "2ae1c9af4d9ee94b9167089d7602d81dbe00a8618cbdece602553cf67f93e729",
+   "bytes": 9628,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/147/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/147/BF/W1/pipeline_1.npz",
+   "sha256": "0ffcdf25cd6bb6afca7cd8253786ec003b742e0a63f4e0ab1aa45f7c80cad863",
+   "bytes": 3443779,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/147/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/147/ST/W1/metadata.csv",
+   "sha256": "58cfda2174223fb30edad5848612396a05d61e7c23eaf423987375510025b385",
+   "bytes": 9199,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/147/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/147/ST/W1/pipeline_1.npz",
+   "sha256": "5274c5fa60948af2b1a4778368b772b702c8600d5f800aca804679f17f845fa8",
+   "bytes": 4210876,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/148/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/148/BF/W1/metadata.csv",
+   "sha256": "902dfb8089b8fc2f673c38b8482b7b7f86fd83838890594255fec6db93d8a1cc",
+   "bytes": 11996,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/148/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/148/BF/W1/pipeline_1.npz",
+   "sha256": "fa5a5a9515d8ef28ca2da55966a896a19fb5a57cb659e29912102ec9daac04fd",
+   "bytes": 3361518,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/148/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/148/ST/W1/metadata.csv",
+   "sha256": "4355b9907384d2b45f78ca3ea415df70bafcfd37c3735ba57c2a492871208117",
+   "bytes": 11687,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/148/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/148/ST/W1/pipeline_1.npz",
+   "sha256": "45d9ddb32e85efdd3f4471d59fcff00c9c3fbccaa4c6a2b3f2a4fd943fea7eeb",
+   "bytes": 3625807,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/149/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/149/BF/W1/metadata.csv",
+   "sha256": "f512ff26d8d4757b9777b00ba656fee06d6ecc27e6435d56b9fe995d3db4ffbb",
+   "bytes": 12675,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/149/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/149/BF/W1/pipeline_1.npz",
+   "sha256": "9791f57bcfe32be483a09cf337ffa50a1cb8464b696b5d69497fcb25e77a168a",
+   "bytes": 4436576,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/149/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/149/ST/W1/metadata.csv",
+   "sha256": "dac8104e0c77a7c994629565f32a1644c5097262ed8f5969ab6029367cc07479",
+   "bytes": 11478,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/149/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/149/ST/W1/pipeline_1.npz",
+   "sha256": "b42bf0f9ff7a3796a0eabe40a991b89204be24e1f358c637f74f31082337f88e",
+   "bytes": 4398596,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/150/BF/W1/metadata.csv",
+   "file": "data/stepup-p150/150/BF/W1/metadata.csv",
+   "sha256": "6aa956071df8bda901f183b728dd0448469cf9f082d10f29b86d1624f9f4d5c7",
+   "bytes": 8715,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/150/BF/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/150/BF/W1/pipeline_1.npz",
+   "sha256": "2e95366daefb21f3ce2d5158d1305eb12ab9e7b77761b4057afb4801b5c655c1",
+   "bytes": 3848391,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/150/ST/W1/metadata.csv",
+   "file": "data/stepup-p150/150/ST/W1/metadata.csv",
+   "sha256": "915f8d53917e536883aa5bbf9ec6d95260b0f6e6217d26053dc79e48f48a0876",
+   "bytes": 8733,
+   "verified_frdr": true
+  },
+  {
+   "rel": "py/150/ST/W1/pipeline_1.npz",
+   "file": "data/stepup-p150/150/ST/W1/pipeline_1.npz",
+   "sha256": "4c24ac212021870b4014a6bd3a561f710a236e3360d7d8205710e885462e0032",
+   "bytes": 4411368,
+   "verified_frdr": true
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420mm" height="297mm" viewBox="0 0 420 297">
+<rect x="0" y="0" width="420" height="297" rx="0" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="12" y="16" font-family="Helvetica, Arial, sans-serif" font-size="7" fill="#14314B" font-weight="bold" text-anchor="start">NIVA</text>
+<text x="42" y="16" font-family="Helvetica, Arial, sans-serif" font-size="6" fill="#14314B" font-weight="bold" text-anchor="start">Electronics / interfaces and zoning</text>
+<text x="12" y="25" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#637887" font-weight="normal" text-anchor="start">Architecture follows Claude's brief. This is a spatial and interface drawing, not a released schematic or PCB layout.</text>
+<text x="408" y="15" font-family="Helvetica, Arial, sans-serif" font-size="4" fill="#0B6F79" font-weight="bold" text-anchor="end">ID / 05</text>
+<line x1="12" y1="32" x2="408" y2="32" stroke="#14314B" stroke-width="0.5"/>
+<line x1="12" y1="280" x2="408" y2="280" stroke="#14314B" stroke-width="0.4"/>
+<text x="12" y="286" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#0B6F79" font-weight="bold" text-anchor="start">DESIGN DEVELOPMENT  /  NOT FOR FABRICATION OR CLINICAL USE</text>
+<text x="12" y="292" font-family="Helvetica, Arial, sans-serif" font-size="2.5" fill="#637887" font-weight="normal" text-anchor="start">All dimensions in mm. P = proposed target; V = verified component dimension. No general tolerances assigned.</text>
+<text x="408" y="286" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="end">NV-ID-05  |  REV A  |  28 SEP 2026</text>
+<text x="408" y="292" font-family="Helvetica, Arial, sans-serif" font-size="2.5" fill="#637887" font-weight="normal" text-anchor="end">A3 LANDSCAPE  |  SCALE NTS / PCB ENVELOPE 1.4:1  |  05 / 06</text>
+<text x="16" y="44" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">01  SIGNAL ARCHITECTURE</text>
+<rect x="17" y="56" width="56" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="20" y="63" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">5 force regions</text>
+<text x="20" y="69" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Passive insert</text>
+<rect x="17" y="90" width="56" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="20" y="97" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">Heel PVDF film</text>
+<text x="20" y="103" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">No rigid crimp underfoot</text>
+<rect x="90" y="56" width="62" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="93" y="63" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">Force analog front end</text>
+<text x="93" y="69" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Range + settling trials</text>
+<rect x="90" y="90" width="62" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="93" y="97" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">Piezo buffer + filter</text>
+<text x="93" y="103" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Clamp / bias / anti-alias</text>
+<rect x="172" y="70" width="60" height="23" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="175" y="77" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">MCP3208</text>
+<text x="175" y="83" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">8-channel ADC / SPI</text>
+<line x1="73" y1="65" x2="90" y2="65" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 88.24483487621926 65.95885107720841 L 90 65 L 88.24483487621926 64.04114892279159" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="73" y1="100" x2="90" y2="100" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 88.24483487621926 100.95885107720841 L 90 100 L 88.24483487621926 99.04114892279159" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 152 65 L 161 65 L 161 77 L 172 77" fill="none" stroke="#0B6F79" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 152 100 L 161 100 L 161 86 L 172 86" fill="none" stroke="#0B6F79" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="172" y="113" width="60" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="175" y="120" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">LSM6DSO32</text>
+<text x="175" y="126" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">SPI + data-ready</text>
+<rect x="91" y="151" width="83" height="23" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="94" y="158" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">ESP32-C3-MINI-1</text>
+<text x="94" y="164" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">BLE / local flash / timebase</text>
+<path d="M 232 81 L 243 81 L 243 142 L 154 142 L 154 151" fill="none" stroke="#0B6F79" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 232 123 L 243 123" fill="none" stroke="#0B6F79" stroke-width="0.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="243" cy="123" r="0.7" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.2"/>
+<rect x="17" y="200" width="64" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="20" y="207" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">Battery cartridge</text>
+<text x="20" y="213" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">Protection / no charger</text>
+<rect x="94" y="200" width="71" height="20" rx="2" fill="#EAF0F2" stroke="#0B6F79" stroke-width="0.4"/>
+<text x="97" y="207" font-family="Helvetica, Arial, sans-serif" font-size="3.3" fill="#14314B" font-weight="bold" text-anchor="start">Regulation + fuel gauge</text>
+<text x="97" y="213" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">TLV755 / MAX17048 candidates</text>
+<line x1="81" y1="210" x2="94" y2="210" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 92.24483487621926 210.9588510772084 L 94 210 L 92.24483487621926 209.0411489227916" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="130" y1="200" x2="130" y2="174" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 130.9588510772084 175.75516512378076 L 130 174 L 129.0411489227916 175.75516512378076" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="91" y1="162" x2="64" y2="162" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 65.75516512378074 161.0411489227916 L 64 162 L 65.75516512378074 162.9588510772084" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="18" y="160" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#14314B" font-weight="normal" text-anchor="start">BLE to phone</text>
+<text x="18" y="166" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">offline capture</text>
+<line x1="174" y1="162" x2="201" y2="162" stroke="#0B6F79" stroke-width="0.5"/>
+<path d="M 199.24483487621924 162.9588510772084 L 201 162 L 199.24483487621924 161.0411489227916" fill="none" stroke="#0B6F79" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="205" y="161" font-family="Helvetica, Arial, sans-serif" font-size="3.2" fill="#14314B" font-weight="normal" text-anchor="start">Peer sync</text>
+<text x="205" y="167" font-family="Helvetica, Arial, sans-serif" font-size="2.8" fill="#637887" font-weight="normal" text-anchor="start">bench verify</text>
+<text x="261" y="44" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">02  PCB / BATTERY ZONING</text>
+<rect x="282" y="61" width="50.4" height="70" rx="3" fill="#EAF0F2" stroke="#14314B" stroke-width="0.5"/>
+<rect x="288" y="65" width="18.48" height="23.24" rx="1" fill="#FFFFFF" stroke="#0B6F79" stroke-width="0.5"/>
+<text x="309" y="71" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="start">ESP32</text>
+<text x="309" y="76" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#14314B" font-weight="normal" text-anchor="start">module</text>
+<rect x="284" y="62" width="46" height="16" rx="1" fill="none" stroke="#946322" stroke-width="0.4" stroke-dasharray="2 1"/>
+<text x="288" y="84" font-family="Helvetica, Arial, sans-serif" font-size="2.6" fill="#14314B" font-weight="normal" text-anchor="start">13.2 x 16.6 V [S2]</text>
+<rect x="288" y="92" width="15" height="11" rx="1" fill="#FFFFFF" stroke="#14314B" stroke-width="0.3"/>
+<text x="290" y="99" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">IMU</text>
+<rect x="310" y="93" width="17" height="13" rx="1" fill="#FFFFFF" stroke="#14314B" stroke-width="0.3"/>
+<text x="312" y="101" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#14314B" font-weight="normal" text-anchor="start">ADC</text>
+<rect x="287" y="110" width="40" height="10" rx="1" fill="#FFFFFF" stroke="#0B6F79" stroke-width="0.3"/>
+<text x="289" y="117" font-family="Helvetica, Arial, sans-serif" font-size="2.6" fill="#14314B" font-weight="normal" text-anchor="start">ANALOG FRONT END</text>
+<rect x="296" y="125" width="21" height="7" rx="1" fill="#FFFFFF" stroke="#0B6F79" stroke-width="0.3"/>
+<line x1="282" y1="61" x2="282" y2="54" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="332.4" y1="61" x2="332.4" y2="54" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="282" y1="52" x2="332.4" y2="52" stroke="#0B6F79" stroke-width="0.25"/>
+<line x1="281" y1="53" x2="283" y2="51" stroke="#0B6F79" stroke-width="0.35"/>
+<line x1="331.4" y1="53" x2="333.4" y2="51" stroke="#0B6F79" stroke-width="0.35"/>
+<text x="307.2" y="50" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#0B6F79" font-weight="normal" text-anchor="middle">36 P PCB</text>
+<line x1="332.4" y1="61" x2="343" y2="61" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="332.4" y1="131" x2="343" y2="131" stroke="#BDCBD2" stroke-width="0.25"/>
+<line x1="341" y1="61" x2="341" y2="131" stroke="#0B6F79" stroke-width="0.25"/>
+<line x1="340" y1="62" x2="342" y2="60" stroke="#0B6F79" stroke-width="0.35"/>
+<line x1="340" y1="132" x2="342" y2="130" stroke="#0B6F79" stroke-width="0.35"/>
+<text x="344" y="96.0" font-family="Helvetica, Arial, sans-serif" font-size="3" fill="#0B6F79" font-weight="normal" text-anchor="start">50 P</text>
+<path d="M 286 64 L 270 64 L 262 84" fill="none" stroke="#637887" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="286" cy="64" r="0.7" fill="#0B6F79" stroke="#0B6F79" stroke-width="0.1"/>
+<text x="258" y="94" font-family="Helvetica, Arial, sans-serif" font-size="2.7" fill="#946322" font-weight="normal" text-anchor="start">RF keepout</text>
+<text x="355" y="62" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">ZONE RULES</text>
+<text x="355" y="68.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">Antenna at top edge.</text>
+<text x="355" y="72.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">No cell or metal over</text>
+<text x="355" y="77.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">antenna region. Exact</text>
+<text x="355" y="81.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">keepout per module</text>
+<text x="355" y="86.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">integration guide. IMU</text>
+<text x="355" y="90.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">rigidly fixed.</text>
+<text x="261" y="148" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">10-CONTACT STRIP / FUNCTIONAL MAP</text>
+<text x="261" y="154.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">1 VEXC; 2-6 FORCE1-5; 7 PZ+; 8 PZ-; 9 ID; 10 GND / shield drain.</text>
+<text x="261" y="158.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">Final sensor drive topology may change the pinout. No power-input</text>
+<text x="261" y="163.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">function.</text>
+<text x="261" y="188" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">ROUTING + SEAL</text>
+<text x="261" y="194.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">14-wide sleeve P; tail length selected to fit. Shield the piezo</text>
+<text x="261" y="198.5" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">pair, retain slack in cradle, and keep every rigid junction above</text>
+<text x="261" y="203.0" font-family="Helvetica, Arial, sans-serif" font-size="3.1" fill="#14314B" font-weight="normal" text-anchor="start">collar. Bend radius awaits cable selection.</text>
+<rect x="12" y="233" width="396" height="37" rx="2" fill="none" stroke="#BDCBD2" stroke-width="0.25"/>
+<text x="17" y="241" font-family="Helvetica, Arial, sans-serif" font-size="3.5" fill="#0B6F79" font-weight="bold" text-anchor="start">ELECTRICAL REVIEW HOLDS / DO NOT COPY THE BRIEF INTO A PCB UNCHECKED</text>
+<text x="18" y="247.0" font-family="Helvetica, Arial, sans-serif" font-size="3.05" fill="#14314B" font-weight="normal" text-anchor="start">Verify sensor drive circuit, ADC source settling, boot-strapping pins with button held, RF coexistence, battery sag / regulator dropout, dock thermal-fault shutdown</text>
+<text x="18" y="251.8" font-family="Helvetica, Arial, sans-serif" font-size="3.05" fill="#14314B" font-weight="normal" text-anchor="start">and sync accuracy. Manufacturer A201 performance uses an op-amp circuit [S1]; divider performance must be established separately.</text>
+<text x="16" y="276" font-family="Helvetica, Arial, sans-serif" font-size="2.6" fill="#637887" font-weight="normal" text-anchor="start">[S2] Espressif ESP32-C3-MINI-1 datasheet v2.2: documentation.espressif.com/esp32-c3-mini-1_datasheet_en.pdf</text>
+</svg>
