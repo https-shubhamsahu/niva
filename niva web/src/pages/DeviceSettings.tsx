@@ -119,35 +119,20 @@ const architectureCards = [
     icon: 'bolt',
   },
   {
-    title: 'Explainable Screening',
-    detail: 'Deterministic heuristics, baseline calibration, and transparent event logs for auditability.',
+    title: 'Rule-Based Processing',
+    detail: 'Fixed-threshold rules: EMA smoothing, a zero-load tare and contact thresholds in percent of ADC range. Not clinically validated.',
     icon: 'query_stats',
   },
 ];
 
-const DEFAULT_HEURISTICS = {
-  emaAlpha: 0.15,
-  smaWindow: 10,
-  stanceTarget: 60,
-  baselineSteps: 20,
-  ischemiaThreshold: 50,
-  ischemiaMinutes: 15,
-  i2cProfile: '40kHz' as const,
-  staticModeRequired: true,
-};
+// The former "Heuristic Controls" (EMA alpha, ischemic mmHg threshold, exposure window, I2C
+// profile...) were removed: none of them were read by the engine or sent to the device.
 
 export default function DeviceSettings() {
-  const [emaAlpha, setEmaAlpha] = useState(DEFAULT_HEURISTICS.emaAlpha);
-  const [smaWindow, setSmaWindow] = useState(DEFAULT_HEURISTICS.smaWindow);
-  const [stanceTarget, setStanceTarget] = useState(DEFAULT_HEURISTICS.stanceTarget);
-  const [baselineSteps, setBaselineSteps] = useState(DEFAULT_HEURISTICS.baselineSteps);
-  const [ischemiaThreshold, setIschemiaThreshold] = useState(DEFAULT_HEURISTICS.ischemiaThreshold);
-  const [ischemiaMinutes, setIschemiaMinutes] = useState(DEFAULT_HEURISTICS.ischemiaMinutes);
-  const [i2cProfile, setI2cProfile] = useState<'40kHz' | '100kHz'>(DEFAULT_HEURISTICS.i2cProfile);
-  const [staticModeRequired, setStaticModeRequired] = useState(DEFAULT_HEURISTICS.staticModeRequired);
   const {
     data: wsData,
     isConnected: isWsConnected,
+    isStale: isWsStale,
     error: wsError,
     lastMessageAt: wsLastMessageAt,
     url: wsUrl,
@@ -172,13 +157,6 @@ export default function DeviceSettings() {
   useEffect(() => {
     setRelayDraftUrl(relayUrl);
   }, [relayUrl]);
-
-  const swingTarget = 100 - stanceTarget;
-
-  const emaSettlingSamples = useMemo(() => {
-    const samples = Math.log(0.05) / Math.log(1 - emaAlpha);
-    return Number.isFinite(samples) ? Math.round(samples) : 0;
-  }, [emaAlpha]);
 
   const rawWsJson = useMemo(() => {
     if (!wsData) {
@@ -241,17 +219,6 @@ export default function DeviceSettings() {
     }
   };
 
-  const handleRestoreDefaults = () => {
-    setEmaAlpha(DEFAULT_HEURISTICS.emaAlpha);
-    setSmaWindow(DEFAULT_HEURISTICS.smaWindow);
-    setStanceTarget(DEFAULT_HEURISTICS.stanceTarget);
-    setBaselineSteps(DEFAULT_HEURISTICS.baselineSteps);
-    setIschemiaThreshold(DEFAULT_HEURISTICS.ischemiaThreshold);
-    setIschemiaMinutes(DEFAULT_HEURISTICS.ischemiaMinutes);
-    setI2cProfile(DEFAULT_HEURISTICS.i2cProfile);
-    setStaticModeRequired(DEFAULT_HEURISTICS.staticModeRequired);
-  };
-
   return (
     <div className="w-full min-h-screen bg-[#EDEFF5] dark:bg-[#12151D] text-slate-900 dark:text-slate-100 pb-28">
       <header className="sticky top-0 z-50 border-b border-slate-200/70 dark:border-slate-800/80 bg-[#EDEFF5]/90 dark:bg-[#12151D]/90 backdrop-blur-xl">
@@ -267,7 +234,7 @@ export default function DeviceSettings() {
 
             <div className="text-center">
               <h1 className="text-[15px] font-black uppercase tracking-[0.18em]">Nexus Console</h1>
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Biomechanical Risk Screening Tool</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">Raw Sensor Console</p>
             </div>
 
             <ThemeSwitch />
@@ -280,46 +247,19 @@ export default function DeviceSettings() {
           <div className="absolute -right-10 -top-8 h-40 w-40 rounded-full bg-white/10 blur-2xl"></div>
           <div className="absolute -left-8 -bottom-10 h-36 w-36 rounded-full bg-cyan-300/20 blur-2xl"></div>
           <div className="relative p-5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full border border-white/30 bg-white/15 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">
-                Edge Linked
-              </span>
-              <span className="rounded-full border border-white/30 bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">
-                MQTT / Pi Broker
-              </span>
-              <span className="rounded-full border border-white/30 bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em]">
-                Firmware v1.0
-              </span>
-            </div>
-
-            <h2 className="mt-4 text-2xl font-black tracking-tight">GaitGuard Nexus Operator Panel</h2>
+            <h2 className="text-2xl font-black tracking-tight">GaitGuard Nexus Operator Panel</h2>
             <p className="mt-2 max-w-[40ch] text-sm leading-relaxed text-white/90">
-              Deterministic and explainable heuristics for neuropathy and neuro-degenerative gait risk screening.
-              This page configures thresholds, transport behavior, and field diagnostics.
+              Demo of raw insole sensor data: connection settings, the raw WebSocket stream and wiring notes.
+              Uncalibrated sensor readings. Not a medical device.
             </p>
-
-            <div className="mt-5 grid grid-cols-3 gap-3 text-center">
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">I2C Profile</p>
-                <p className="mt-1 text-lg font-black">{i2cProfile}</p>
-              </div>
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">EMA Alpha</p>
-                <p className="mt-1 text-lg font-black">{emaAlpha.toFixed(2)}</p>
-              </div>
-              <div className="rounded-2xl border border-white/20 bg-white/10 p-3">
-                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/70">Baseline</p>
-                <p className="mt-1 text-lg font-black">{baselineSteps} Steps</p>
-              </div>
-            </div>
           </div>
         </section>
 
         <section className="rounded-[30px] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-[#1A1F2B]">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="text-[13px] font-extrabold uppercase tracking-[0.14em] text-slate-800 dark:text-slate-100">ESP32 WebSocket Raw Stream</h3>
-            <span className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] ${isWsConnected ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
-              {isWsConnected ? 'Connected' : 'Disconnected'}
+            <span className={`rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] ${isWsConnected && !isWsStale ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : isWsConnected ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400' : 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300'}`}>
+              {isWsConnected ? (isWsStale ? 'Stale: no data for over 2 s' : 'Live') : 'Disconnected'}
             </span>
           </div>
 
@@ -412,7 +352,10 @@ export default function DeviceSettings() {
             )}
           </div>
 
-          <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <p className="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
+            Values exactly as the device sends them: FSR and piezo in ADC counts above tare (0-4095), pitch and roll in degrees.
+          </p>
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="rounded-2xl border border-slate-200 p-3 dark:border-slate-700">
               <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Heel</p>
               <p className="mt-1 text-lg font-black text-slate-800 dark:text-slate-100">{wsMetrics.heel ?? '--'}</p>
@@ -466,148 +409,6 @@ export default function DeviceSettings() {
               </div>
             </article>
           ))}
-        </section>
-
-        <section className="rounded-[30px] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-[#1A1F2B]">
-          <div className="flex items-center justify-between">
-            <h3 className="text-[13px] font-extrabold uppercase tracking-[0.14em] text-slate-800 dark:text-slate-100">Heuristic Controls</h3>
-            <button
-              onClick={handleRestoreDefaults}
-              className="rounded-full bg-[#415AEE] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-white"
-            >
-              Default Settings
-            </button>
-          </div>
-
-          <div className="mt-4 space-y-4">
-            <label className="block">
-              <div className="flex items-baseline justify-between text-[12px] font-bold uppercase tracking-[0.12em] text-slate-500">
-                <span>EMA Alpha</span>
-                <span className="text-[#415AEE]">{emaAlpha.toFixed(2)}</span>
-              </div>
-              <input
-                type="range"
-                min={0.05}
-                max={0.4}
-                step={0.01}
-                value={emaAlpha}
-                onChange={(event) => setEmaAlpha(Number(event.target.value))}
-                className="mt-2 w-full accent-[#415AEE]"
-              />
-              <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Approximate filter settling: {emaSettlingSamples} samples to 95% response.</p>
-            </label>
-
-            <label className="block">
-              <div className="flex items-baseline justify-between text-[12px] font-bold uppercase tracking-[0.12em] text-slate-500">
-                <span>SMA Persistence Window</span>
-                <span className="text-[#415AEE]">{smaWindow} steps</span>
-              </div>
-              <input
-                type="range"
-                min={5}
-                max={20}
-                step={1}
-                value={smaWindow}
-                onChange={(event) => setSmaWindow(Number(event.target.value))}
-                className="mt-2 w-full accent-[#415AEE]"
-              />
-            </label>
-
-            <div className="grid grid-cols-2 gap-3">
-              <label className="rounded-2xl border border-slate-200 p-3 dark:border-slate-700">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Stance Target</p>
-                <input
-                  type="number"
-                  min={50}
-                  max={70}
-                  value={stanceTarget}
-                  onChange={(event) => setStanceTarget(Number(event.target.value))}
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Swing target auto-updates to {swingTarget}%.</p>
-              </label>
-
-              <label className="rounded-2xl border border-slate-200 p-3 dark:border-slate-700">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Calibration Steps</p>
-                <input
-                  type="number"
-                  min={10}
-                  max={50}
-                  value={baselineSteps}
-                  onChange={(event) => setBaselineSteps(Number(event.target.value))}
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Personalized baseline around mu and sigma only.</p>
-              </label>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <label className="rounded-2xl border border-slate-200 p-3 dark:border-slate-700">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Ischemic Pressure Threshold</p>
-                <input
-                  type="number"
-                  min={40}
-                  max={80}
-                  value={ischemiaThreshold}
-                  onChange={(event) => setIschemiaThreshold(Number(event.target.value))}
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Equivalent capillary occlusion guard rail (mmHg).</p>
-              </label>
-
-              <label className="rounded-2xl border border-slate-200 p-3 dark:border-slate-700">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-slate-500">Static Exposure Window</p>
-                <input
-                  type="number"
-                  min={5}
-                  max={30}
-                  value={ischemiaMinutes}
-                  onChange={(event) => setIschemiaMinutes(Number(event.target.value))}
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5 text-sm font-semibold text-slate-700 outline-none focus:border-[#415AEE] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
-                />
-                <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Alert when sustained above threshold for this duration.</p>
-              </label>
-            </div>
-
-            <div className="rounded-2xl border border-dashed border-slate-300 p-3 dark:border-slate-700">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.12em] text-slate-600 dark:text-slate-300">I2C Bus Profile</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">40kHz is preferred for 1m cable integrity.</p>
-                </div>
-                <div className="flex rounded-full bg-slate-100 p-1 dark:bg-slate-900">
-                  <button
-                    onClick={() => setI2cProfile('40kHz')}
-                    className={`rounded-full px-3 py-1 text-xs font-bold ${i2cProfile === '40kHz' ? 'bg-[#415AEE] text-white' : 'text-slate-500'}`}
-                  >
-                    40kHz
-                  </button>
-                  <button
-                    onClick={() => setI2cProfile('100kHz')}
-                    className={`rounded-full px-3 py-1 text-xs font-bold ${i2cProfile === '100kHz' ? 'bg-[#415AEE] text-white' : 'text-slate-500'}`}
-                  >
-                    100kHz
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2.5 dark:bg-slate-900">
-                <div>
-                  <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">Require static IMU mode for ischemic alerts</p>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">Prevents false positives during short transient loads.</p>
-                </div>
-                <button
-                  onClick={() => setStaticModeRequired((prev) => !prev)}
-                  className={`h-7 w-12 rounded-full p-1 transition-colors ${staticModeRequired ? 'bg-emerald-500' : 'bg-slate-300 dark:bg-slate-700'}`}
-                  aria-label="Toggle static mode requirement"
-                >
-                  <span
-                    className={`block h-5 w-5 rounded-full bg-white transition-transform ${staticModeRequired ? 'translate-x-5' : 'translate-x-0'}`}
-                  ></span>
-                </button>
-              </div>
-            </div>
-          </div>
         </section>
 
         <section className="rounded-[30px] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-[#1A1F2B]">

@@ -16,6 +16,13 @@ Rev B -> Rev C mechanical changes (details in the package README):
   M6 cartridge contacts: board spring contacts -> flush plates in the bonded cartridge lid
   M7 cradle: undercut rails, bottom stop, printable cantilever latch, L/R key post + slot
   M8 bay ceiling with contact/service windows keeps fingers off the board when the bay is empty
+
+Rev C.2 (Nov 2026): lid plates recessed 0.37 mm (niva_layout CART['plate_recess']) for the Mill-Max 0900-0 J2 pins,
+and the audit imports the C.2 board STEP (antenna notch, 0900 envelopes) from the C.2 working copy.
+Rev C.2 review fixes (9 Nov 2026): J2 regrouped into a P+ pair and a P- pair (one plate each, 5.5 mm apart); grooves open at
+the cable end so the pod slides down the cradle as documented; key slot open at the cable end; screw-head slot in the
+cradle; 28 deg latch lead-in; cradle bumps under the cartridge far end; tab screw moved 0.5 mm; strip PCB end stops and
+hold-down posts in the cartridge.
 """
 from pathlib import Path
 import json, math, sys, itertools
@@ -50,7 +57,8 @@ def rear_housing(side):
     px0, py0, pw, pl = C['cup_x0'] - bc, C['cup_y0'] - bc, C['cup_w'] + 2 * bc, C['cup_l'] + 2 * bc
     s = s.fuse(rr(pw + 2.2, pl + 2.2, 3, 0, 10.8, px0 - 1.1, py0 - 1.1))          # bay frame, 1.1 mm wall
     s = s.cut(rr(pw, pl, 2, -0.5, 10.5, px0, py0))                               # cartridge pocket
-    jx, jy = L.SPRING_CONTACTS_XY; s = s.cut(box(jx - 6.2, jy - 2.2, 9.9, 12.4, 4.4, 1.0))
+    for pins in L.J2_PINS.values():                               # ceiling windows for J2, one per contact pair (Rev C.2)
+        xs = [x for x, y in pins]; s = s.cut(box(min(xs) - 2.2, pins[0][1] - 2.2, 9.9, max(xs) - min(xs) + 4.4, 4.4, 1.0))
     sx, sy = L.SERVICE_PADS_XY;    s = s.cut(box(sx - 4.5, sy - 3.0, 9.9, 9.0, 6.0, 1.0))
     # cartridge retention: M2 screw through the cartridge tab into this post (hidden by the cradle)
     T = L.CART_TAB; tx, ty = T['screw']
@@ -70,11 +78,13 @@ def rear_housing(side):
     for x in (7.0, 30.0): s = s.fuse(box(x, 1.8, 10.8, 5.0, 4.8, PCB_Z - 10.8))
     # tail boot aperture (rear half)
     s = s.cut(box(APER['x0'], -1, APER['z0'], APER['x1'] - APER['x0'], 3.6, RIM_Z - APER['z0'] + 0.5))
-    # cradle rails: chamfered grooves in both side walls, closed at y = 11.8 (bottom stop)
-    s = s.cut(prism_xz([(-0.1, 1.2), (0.8, 1.2), (0.8, 2.0), (-0.1, 2.9)], 11.8, 50))
-    s = s.cut(prism_xz([(W + 0.1, 1.2), (W - 0.8, 1.2), (W - 0.8, 2.0), (W + 0.1, 2.9)][::-1], 11.8, 50))
-    # L/R key slot in the rear face, open at the top end
-    s = s.cut(box(KEY_X[side] - 1.6, 46, -0.1, 3.2, 16, 1.1))
+    # cradle rails: chamfered grooves in both side walls, open at the cable end and closed at y = 58.2, so the pod slides
+    # DOWN the cradle until the groove ends sit on the rail tops and the latch hook snaps over the top face (Rev C.2; Rev C.1
+    # closed them at the bottom, which only let the pod slide UP and left nothing stopping it sliding off toward the foot)
+    s = s.cut(prism_xz([(-0.1, 1.2), (0.8, 1.2), (0.8, 2.0), (-0.1, 2.9)], -1.0, 59.2))
+    s = s.cut(prism_xz([(W + 0.1, 1.2), (W - 0.8, 1.2), (W - 0.8, 2.0), (W + 0.1, 2.9)][::-1], -1.0, 59.2))
+    # L/R key slot in the rear face, open at the cable end (the cradle post enters from below)
+    s = s.cut(box(KEY_X[side] - 1.6, -0.1, -0.1, 3.2, 16.3, 1.1))
     return clean(s)
 
 def front_cover(side):
@@ -106,13 +116,15 @@ def cradle(side):
     s = s.fuse(box(-3, 12, -0.4, 2.8, 46, 3.6)).fuse(box(W + 0.2, 12, -0.4, 2.8, 46, 3.6))
     s = s.fuse(prism_xz([(-0.2, 1.4), (0.6, 1.4), (0.6, 1.8), (-0.2, 2.6)], 12.0, 46))
     s = s.fuse(prism_xz([(W + 0.2, 1.4), (W + 0.2, 2.6), (W - 0.6, 1.8), (W - 0.6, 1.4)], 12.0, 46))
-    s = s.fuse(box(KEY_X[side] - 1.3, 48, -0.4, 2.6, 4, 1.2))                         # L/R key post
-    s = s.cut(cyl(*L.CART_TAB['screw'], -2.0, 2.4, 1.7))                              # cartridge screw head relief
+    s = s.fuse(box(KEY_X[side] - 1.3, 12, -0.4, 2.6, 4, 1.2))                         # L/R key post (enters the slot from below)
+    tx, ty = L.CART_TAB['screw']                                                      # screw head relief: a slot to the top edge,
+    s = s.cut(cyl(tx, ty, -2.0, 2.4, 1.7)).cut(box(tx - 2.4, ty, -2.0, 4.8, 59.6 - ty, 1.7))   # the head slides in from above
+    for x0 in (10.0, 26.0): s = s.fuse(box(x0, 6.0, -0.4, 6.0, 3.0, 0.3))           # cartridge far-end support, 0.1 mm gap
     # cantilever latch: slots either side, arm thinned from the top (prints flat), hook + ramp + tab
     for x in (16.2, 25.0): s = s.cut(box(x, 45, -3.6, 0.8, 16, 3.4))
     s = s.cut(box(17, 46.5, -1.8, 8, 14, 1.5))
     s = s.fuse(box(17, 59, -3.4, 8, 5.0, 1.6))
-    s = s.fuse(prism_yz([(60.3, -1.8), (60.3, 1.6), (61.0, 1.6), (62.6, -1.8)], 17, 8))
+    s = s.fuse(prism_yz([(60.3, -1.8), (60.3, 1.6), (61.0, 1.6), (64.0, 0.0), (64.0, -1.8)], 17, 8))   # 28 deg lead-in
     for t in (text_solid(side, 7.0, 21, 22, -0.9, 0.6),):
         if t: s = s.cut(t)
     for i in range(1 if side == 'R' else 2):                                          # tactile dots
@@ -192,8 +204,8 @@ def export_print(name, shape, orient, material, finish, note):
                                 print_bbox_mm=[round(bb.XLength, 2), round(bb.YLength, 2), round(bb.ZLength, 2)],
                                 closed_mesh=m.isSolid(), mesh_non_manifolds=m.hasNonManifolds()))
 
-# Kicad component bodies (real library/supplier models) placed in the pod frame
-kicad_step = OUT / 'electronics/exports/pcb/NIVA-pod-PCBA.step'
+# Kicad component bodies (real library/supplier models) placed in the pod frame; Rev C.2 board
+kicad_step = ROOT / 'outputs/NIVA-RevC2-protected-steps/electronics-C2-working/exports/pcb/NIVA-pod-PCBA.step'
 components = kicad_board = None
 if kicad_step.exists():
     pcba = Part.Shape(); pcba.read(str(kicad_step)); pcba.translate(V(0, 0, PCB_Z))   # KiCad z = 0 at board underside
@@ -231,8 +243,7 @@ Part.export([o for o in doc.Objects if o.TypeId == 'Part::Feature'], str(CAD / '
 
 # ------------------------------------------------------------------ interference + fit audit (right pod)
 objs = [o for o in groups['R'].Group]
-EXPECTED = {frozenset({'PCB_Components_KiCad_R', 'ContactPlates_R'}): 'J2 spring plungers drawn uncompressed: 0.4 mm design preload on the lid plates',
-            frozenset({'PCB_Components_KiCad_R', '04_BatteryCartridgeLid_R'}): 'J2 plunger tips enter the plate pockets (preload)'}
+EXPECTED = {frozenset({'PCB_Components_KiCad_R', 'ContactPlates_R'}): 'J2 Mill-Max 0900 plungers drawn at free height: 0.51 mm design preload (rated travel) on the recessed lid plates'}
 for a, b in itertools.combinations(objs, 2):
     if not a.Shape.BoundBox.intersect(b.Shape.BoundBox): continue
     v = a.Shape.common(b.Shape).Volume
@@ -246,6 +257,8 @@ for a, b in [('PCB_Substrate_R', '01_RearHousing_R'), ('PCB_Substrate_R', '02_Fr
              ('07_Button_TPU_R', 'PCB_Components_KiCad_R'), ('08_LightWindow_Clear_R', 'PCB_Components_KiCad_R'),
              ('PCB_Components_KiCad_R', '02_FrontCover_R'), ('PCB_Components_KiCad_R', '01_RearHousing_R'),
              ('03_BatteryCartridgeCup_R', '01_RearHousing_R'), ('04_BatteryCartridgeLid_R', '01_RearHousing_R'),
+             ('05_Cradle_R', '03_BatteryCartridgeCup_R'), ('04_BatteryCartridgeLid_R', 'CartridgeStripPCB_R'),
+             ('04_BatteryCartridgeLid_R', 'PCB_Components_KiCad_R'),
              ('05_Cradle_R', '01_RearHousing_R'), ('TailBoot_R', '01_RearHousing_R'), ('TailBoot_R', '02_FrontCover_R'),
              ('TailBoot_R', 'PCB_Components_KiCad_R'), ('TailBoot_R', 'PCB_Substrate_R'),
              ('Cell_LP502030_MAXSIZE_R', '04_BatteryCartridgeLid_R'), ('Cell_LP502030_MAXSIZE_R', '03_BatteryCartridgeCup_R'),

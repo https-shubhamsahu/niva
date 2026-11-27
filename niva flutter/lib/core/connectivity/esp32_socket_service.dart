@@ -8,14 +8,15 @@ import '../data/settings_repository.dart';
 
 /// Live connection state for the ESP32 WebSocket link. Kept as a plain
 /// immutable value (not a widget-facing enum) so it round-trips cleanly
-/// through Riverpod's StateNotifier.
+/// through Riverpod's StateNotifier. Packets are deliberately not part of
+/// this state: they arrive on [Esp32SocketService.packets], so a connection
+/// state change can never replay an old packet as a new sample.
 class Esp32ConnectionState {
   final bool isConnected;
   final bool isConnecting;
   final String? error;
   final DateTime? lastMessageAt;
   final String activeUrl;
-  final Map<String, dynamic>? latestPacket;
 
   const Esp32ConnectionState({
     this.isConnected = false,
@@ -23,7 +24,6 @@ class Esp32ConnectionState {
     this.error,
     this.lastMessageAt,
     this.activeUrl = '',
-    this.latestPacket,
   });
 
   Esp32ConnectionState copyWith({
@@ -33,7 +33,6 @@ class Esp32ConnectionState {
     bool clearError = false,
     DateTime? lastMessageAt,
     String? activeUrl,
-    Map<String, dynamic>? latestPacket,
   }) {
     return Esp32ConnectionState(
       isConnected: isConnected ?? this.isConnected,
@@ -41,9 +40,16 @@ class Esp32ConnectionState {
       error: clearError ? null : (error ?? this.error),
       lastMessageAt: lastMessageAt ?? this.lastMessageAt,
       activeUrl: activeUrl ?? this.activeUrl,
-      latestPacket: latestPacket ?? this.latestPacket,
     );
   }
+}
+
+/// One decoded JSON frame and the time the app received it.
+class Esp32Packet {
+  final Map<String, dynamic> data;
+  final DateTime receivedAt;
+
+  const Esp32Packet(this.data, this.receivedAt);
 }
 
 /// Talks to the ESP32's WebSocket telemetry endpoint (`wsServer.begin()` /
@@ -69,9 +75,13 @@ class Esp32SocketService {
   final _random = Random();
 
   final _stateController = StreamController<Esp32ConnectionState>.broadcast();
+  final _packetController = StreamController<Esp32Packet>.broadcast();
   Esp32ConnectionState _state = const Esp32ConnectionState();
 
   Stream<Esp32ConnectionState> get stateStream => _stateController.stream;
+
+  /// Emits once per received frame, never on connection state changes.
+  Stream<Esp32Packet> get packets => _packetController.stream;
   Esp32ConnectionState get state => _state;
 
   void _emit(Esp32ConnectionState next) {
@@ -85,19 +95,37 @@ class Esp32SocketService {
     if (relayUrl.isEmpty) return wsUrl;
 
     final relay = Uri.parse(relayUrl);
-    final withTarget = relay.replace(queryParameters: {
-      ...relay.queryParameters,
-      'target': wsUrl,
-    });
+    final withTarget = relay.replace(
+      queryParameters: {...relay.queryParameters, 'target': wsUrl},
+    );
     return withTarget.toString();
+  }
+
+  /// Drops the current socket (if any) without triggering a reconnect: the
+  /// subscription is cancelled first, so its onDone never fires.
+  void _closeChannel() {
+    _subscription?.cancel();
+    _subscription = null;
+    _channel?.sink.close();
+    _channel = null;
   }
 
   void connect() {
     _manuallyDisconnected = false;
     _reconnectTimer?.cancel();
+    // A repeat connect() (retry, or a second tap) replaces the old socket
+    // instead of opening a parallel one that would deliver every frame twice.
+    _closeChannel();
 
     final activeUrl = _resolveActiveUrl();
-    _emit(_state.copyWith(isConnecting: true, activeUrl: activeUrl, clearError: true));
+    _emit(
+      _state.copyWith(
+        isConnected: false,
+        isConnecting: true,
+        activeUrl: activeUrl,
+        clearError: true,
+      ),
+    );
 
     try {
       final channel = WebSocketChannel.connect(Uri.parse(activeUrl));
@@ -108,28 +136,37 @@ class Esp32SocketService {
       // unreachable) rejects `channel.ready` rather than reaching
       // `stream.listen`'s `onError`. Left unawaited, that rejection becomes
       // an unhandled exception instead of the "connection error" state below.
-      channel.ready.then((_) {
-        _reconnectAttempt = 0;
-      }).catchError((error) {
-        _emit(_state.copyWith(
-          isConnected: false,
-          isConnecting: false,
-          error: 'WebSocket connection error. Check ESP32 IP, port, and network.',
-        ));
-        _scheduleReconnect();
-      });
+      channel.ready
+          .then((_) {
+            if (!identical(_channel, channel)) return;
+            _reconnectAttempt = 0;
+          })
+          .catchError((error) {
+            if (!identical(_channel, channel)) return;
+            _emit(
+              _state.copyWith(
+                isConnected: false,
+                isConnecting: false,
+                error: 'WebSocket connection error. Check ESP32 IP, port, and network.',
+              ),
+            );
+            _scheduleReconnect();
+          });
 
       _subscription = channel.stream.listen(
         (event) {
           try {
             final decoded = jsonDecode(event as String) as Map<String, dynamic>;
-            _emit(_state.copyWith(
-              isConnected: true,
-              isConnecting: false,
-              lastMessageAt: DateTime.now(),
-              latestPacket: decoded,
-              clearError: true,
-            ));
+            final receivedAt = DateTime.now();
+            _emit(
+              _state.copyWith(
+                isConnected: true,
+                isConnecting: false,
+                lastMessageAt: receivedAt,
+                clearError: true,
+              ),
+            );
+            _packetController.add(Esp32Packet(decoded, receivedAt));
           } catch (_) {
             // A single malformed frame on an otherwise-live link is a
             // transient parse blip, not a connection failure - don't leave a
@@ -138,16 +175,22 @@ class Esp32SocketService {
             if (_state.isConnected) {
               _emit(_state.copyWith(clearError: true));
             } else {
-              _emit(_state.copyWith(error: 'Received malformed JSON from ESP32 WebSocket stream.'));
+              _emit(
+                _state.copyWith(
+                  error: 'Received malformed JSON from ESP32 WebSocket stream.',
+                ),
+              );
             }
           }
         },
         onError: (_) {
-          _emit(_state.copyWith(
-            isConnected: false,
-            isConnecting: false,
-            error: 'WebSocket connection error. Check ESP32 IP, port, and network.',
-          ));
+          _emit(
+            _state.copyWith(
+              isConnected: false,
+              isConnecting: false,
+              error: 'WebSocket connection error. Check ESP32 IP, port, and network.',
+            ),
+          );
           _scheduleReconnect();
         },
         onDone: () {
@@ -157,11 +200,13 @@ class Esp32SocketService {
         cancelOnError: true,
       );
     } catch (_) {
-      _emit(_state.copyWith(
-        isConnected: false,
-        isConnecting: false,
-        error: 'Invalid WebSocket URL: $activeUrl',
-      ));
+      _emit(
+        _state.copyWith(
+          isConnected: false,
+          isConnecting: false,
+          error: 'Invalid WebSocket URL: $activeUrl',
+        ),
+      );
       _scheduleReconnect();
     }
   }
@@ -178,7 +223,8 @@ class Esp32SocketService {
   void _scheduleReconnect() {
     if (_manuallyDisconnected) return;
     _reconnectTimer?.cancel();
-    final rawDelayMs = _baseReconnectDelayMs * (1 << _reconnectAttempt.clamp(0, 5));
+    final rawDelayMs =
+        _baseReconnectDelayMs * (1 << _reconnectAttempt.clamp(0, 5));
     final cappedMs = min(rawDelayMs, _maxReconnectDelayMs);
     final jitteredMs = (cappedMs * (0.85 + _random.nextDouble() * 0.3)).round();
     _reconnectAttempt++;
@@ -190,6 +236,7 @@ class Esp32SocketService {
     _reconnectAttempt = 0;
     _reconnectTimer?.cancel();
     await _subscription?.cancel();
+    _subscription = null;
     await _channel?.sink.close();
     _channel = null;
     _emit(_state.copyWith(isConnected: false, isConnecting: false));
@@ -201,5 +248,6 @@ class Esp32SocketService {
     _subscription?.cancel();
     _channel?.sink.close();
     _stateController.close();
+    _packetController.close();
   }
 }

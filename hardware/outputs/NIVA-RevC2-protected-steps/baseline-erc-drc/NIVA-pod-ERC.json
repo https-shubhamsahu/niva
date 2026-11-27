@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-11-03T01:58:06",
+    "ignored_checks": [
+        {
+            "description": "SPICE model issue",
+            "key": "simulation_model_issue"
+        },
+        {
+            "description": "Assigned footprint doesn't match footprint filters",
+            "key": "footprint_filter"
+        }
+    ],
+    "included_severities": [
+        "error",
+        "warning",
+        "exclusion"
+    ],
+    "kicad_version": "10.0.7",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/e67e5f51-5c43-59d9-b78a-9f0dfc3d8b5e",
+            "violations": []
+        },
+        {
+            "path": "/Controller/",
+            "uuid_path": "/e67e5f51-5c43-59d9-b78a-9f0dfc3d8b5e/2e42cba0-034b-5dd8-9cef-dae769e393ff",
+            "violations": [
+                {
+                    "description": "Pins of type Bidirectional and Power output are connected",
+                    "items": [
+                        {
+                            "description": "Symbol U3 Pin 2 [SDx, Bidirectional, Line]",
+                            "pos": {
+                                "x": 405.13,
+                                "y": 69.85
+                            },
+                            "uuid": "30b34e6b-6d5b-5fe9-ae1f-feacb2215bf6"
+                        },
+                        {
+                            "description": "Symbol #FLG02 Pin 1 [Power output, Line]",
+                            "pos": {
+                                "x": 519.43,
+                                "y": 214.63
+                            },
+                            "uuid": "1e4353a8-5cce-5755-bb6d-d889413d4534"
+                        }
+                    ],
+                    "severity": "warning",
+                    "type": "pin_to_pin"
+                }
+            ]
+        },
+        {
+            "path": "/Heel and indicator/",
+            "uuid_path": "/e67e5f51-5c43-59d9-b78a-9f0dfc3d8b5e/39bb554a-4124-5743-9be1-ac823171f23b",
+            "violations": []
+        }
+    ],
+    "source": "NIVA-pod.kicad_sch"
+}

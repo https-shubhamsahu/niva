@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/providers/app_providers.dart';
+import '../../shared/widgets/connection_badge.dart';
+import '../../shared/widgets/readings_notice.dart';
 import '../../shared/widgets/rounded_card.dart';
 import '../../theme/app_theme.dart';
 
@@ -18,7 +20,7 @@ class TrendsScreen extends ConsumerWidget {
     // Watching the controller (rather than the engine Provider directly)
     // is what actually triggers a rebuild on every processed packet - the
     // engine object itself mutates in place and isn't observable on its own.
-    ref.watch(telemetryControllerProvider);
+    final state = ref.watch(telemetryControllerProvider);
     final history = ref.read(biomechanicsEngineProvider).history;
 
     return SafeArea(
@@ -31,21 +33,25 @@ class TrendsScreen extends ConsumerWidget {
             'Last ${history.length} processed samples this session',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
+          const SizedBox(height: 6),
+          ConnectionBadge(isLive: state.isLive, label: state.linkLabel),
+          const SizedBox(height: 10),
+          const ReadingsNotice(),
           const SizedBox(height: 20),
           if (history.isEmpty)
             _EmptyState()
           else ...[
             _TrendCard(
-              title: 'STABILITY INDEX',
+              title: 'MEAN LOAD (% OF FULL SCALE)',
               color: AppColors.stability,
-              values: history.map((m) => m.stabilityScore.toDouble()).toList(),
-              currentLabel: '${history.last.stabilityScore}',
+              values: history.map((m) => m.totalPressure / 4).toList(),
+              currentLabel: '${(history.last.totalPressure / 4).round()}%',
               minY: 0,
               maxY: 100,
             ),
             const SizedBox(height: 16),
             _TrendCard(
-              title: 'CADENCE (SPM)',
+              title: 'CADENCE, EST. (STEPS/MIN)',
               color: AppColors.cadence,
               values: history.map((m) => m.cadenceSpm).toList(),
               currentLabel: history.last.cadenceSpm.toStringAsFixed(0),
@@ -54,7 +60,7 @@ class TrendsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             _TrendCard(
-              title: 'IMPACT SEVERITY',
+              title: 'IMPACT (PIEZO, % OF 800 COUNTS)',
               color: AppColors.warning,
               values: history.map((m) => m.impactLevel * 100).toList(),
               currentLabel: '${(history.last.impactLevel * 100).round()}%',
@@ -63,12 +69,13 @@ class TrendsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             _TrendCard(
-              title: 'ISCHEMIC PRESSURE INTEGRAL',
-              color: AppColors.danger,
-              values: history.map((m) => m.ischemicIntegralPct).toList(),
-              currentLabel: '${history.last.ischemicIntegralPct.round()}%',
+              title: 'IMU TILT SINCE TARE (DEG)',
+              color: AppColors.safety,
+              values: history.map((m) => m.stabilityMagnitude).toList(),
+              currentLabel:
+                  '${history.last.stabilityMagnitude.toStringAsFixed(1)}°',
               minY: 0,
-              maxY: 100,
+              maxY: 30,
             ),
           ],
         ],
@@ -85,10 +92,13 @@ class _EmptyState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.show_chart_rounded, color: Theme.of(context).textTheme.labelSmall?.color),
+          Icon(
+            Icons.show_chart_rounded,
+            color: Theme.of(context).textTheme.labelSmall?.color,
+          ),
           const SizedBox(height: 10),
           Text(
-            'No telemetry yet. Connect the insole or start a simulation from the Today tab to build a trend history.',
+            'No device data yet. Connect the insole or start a simulation from the Today tab to build a trend history.',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
@@ -118,7 +128,8 @@ class _TrendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final spots = <FlSpot>[
-      for (var i = 0; i < values.length; i++) FlSpot(i.toDouble(), values[i]),
+      for (var i = 0; i < values.length; i++)
+        FlSpot(i.toDouble(), values[i].clamp(minY, maxY).toDouble()),
     ];
 
     return RoundedCard(
@@ -129,7 +140,10 @@ class _TrendCard extends StatelessWidget {
           Row(
             children: [
               Expanded(child: Text(title, style: theme.textTheme.labelSmall)),
-              Text(currentLabel, style: theme.textTheme.titleMedium?.copyWith(color: color)),
+              Text(
+                currentLabel,
+                style: theme.textTheme.titleMedium?.copyWith(color: color),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -158,7 +172,10 @@ class _TrendCard extends StatelessWidget {
                             gradient: LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
-                              colors: [color.withOpacity(0.25), color.withOpacity(0.0)],
+                              colors: [
+                                color.withOpacity(0.25),
+                                color.withOpacity(0.0),
+                              ],
                             ),
                           ),
                         ),

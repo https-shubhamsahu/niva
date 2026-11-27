@@ -1,11 +1,19 @@
 ** Drc report for NIVA-dock.kicad_pcb **
-** Created on 2026-09-28T04:10:31+0000 **
+** Created on 2026-11-09T19:20:56 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 0 DRC violations **
+** Found 1 DRC violations **
+[lib_footprint_mismatch]: Footprint 'USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal' does not match copy in library 'Connector_USB'
+    Local override; warning
+    @(157.5000 mm, 50.0000 mm): Footprint J1
 
 ** Found 0 unconnected pads **
 
 ** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
 
 ** End of Report **

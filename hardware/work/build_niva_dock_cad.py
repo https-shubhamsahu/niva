@@ -9,6 +9,9 @@ well floor and the cup's contact windows. Dock frame = pod frame shifted by L.DO
 
 Parts: 10_DockBase (PETG), 11_DockTop (PETG), 12_DockLightPipe_Clear. The PCBA comes from the KiCad STEP
 (electronics/dock/exports/pcb/NIVA-dock-PCBA.step); J2 spring pins in that STEP are a NIVA ENVELOPE.
+
+Rev C.2 (Nov 2026): J2 is 3 x Mill-Max 0900-0 (3.48 mm free height). The well floor drops 0.83 mm
+(niva_layout DOCK['floor_z']) so the pins reach the cartridge pads at their 0.508 mm rated travel.
 """
 from pathlib import Path
 import json, sys, itertools
@@ -26,11 +29,11 @@ FLOOR_Z, TOP = D['floor_z'], D['top_z']           # well floor top 10.8, dock to
 FLOOR_B = FLOOR_Z - D['floor_t']                  # well floor underside 9.6
 C, T, c = L.CART, L.CART_TAB, D['well_clear']
 WELL = (C['cup_x0'] + DX - c, C['cup_y0'] + DY - c, C['cup_w'] + 2 * c, C['cup_l'] + 2 * c)   # x0, y0, w, l
-SLOT = (T['x0'] + DX - c, WELL[1] + WELL[3] - 3.0, T['w'] + 2 * c, 7.0, T['t'] + 0.2)          # tab slot x0, y0, w, l, h (clears the well corner radius)
+SLOT = (T['x0'] + DX - c, WELL[1] + WELL[3] - 3.0, T['w'] + 2 * c, 7.8, T['t'] + 0.2)          # tab slot x0, y0, w, l, h (clears the well corner radius; 7.8 for the Rev C.2 tab)
 CART_TOP = FLOOR_Z + C['lid_z'] + C['lid_t']      # 20.0
 HOOK_Z = CART_TOP + 0.1                            # latch hook underside
 LATCH_X = C['cup_x0'] + DX + C['cup_w'] / 2       # latch centred on the cartridge
-USB = dict(y=50.0, z=D['pcb_z'] + 3.22, w=13.0, h=7.0)   # J1 mating face at x 60.9 (from the KiCad STEP)
+USB = dict(y=50.0, z=D['pcb_z'] + 3.22, w=13.0, h=9.0)   # J1 mating face at x 60.9 (from the KiCad STEP); 13 x 9 passes ~12.3 x 8.3 plug overmoulds (Rev C.2)
 HOLES = [v[:2] for k, v in L.DOCK_PLACE.items() if k.startswith('H')]      # M2 screws: base -> PCB -> top boss
 ARM_T, HOOK = 1.0, 1.2                            # latch arm thickness, hook reach into the well
 FEET = [(15, 15), (49, 15), (15, 47), (49, 47)]
@@ -43,7 +46,7 @@ def dock_base():
         s = s.cut(cyl(x, y, -0.1, 1.2, PCB_TOP)).cut(cyl(x, y, -0.1, 2.1, 1.9))           # M2 clearance + head counterbore
     s = s.cut(box(D['w'] - 2.5, USB['y'] - USB['w'] / 2, USB['z'] - USB['h'] / 2, 3, USB['w'], PCB_TOP))   # plug overmould relief
     for x, y in FEET: s = s.cut(cyl(x, y, -0.1, 4.2, 0.9))                                  # 8 mm bumper recesses
-    for txt, size, y in (('NIVA DOCK REV C.1', 3.6, 36), ('5 V USB-C - CARTRIDGE ONLY', 2.6, 29), ('NOT A MEDICAL DEVICE', 2.2, 24)):
+    for txt, size, y in (('NIVA DOCK REV C.2', 3.6, 36), ('5 V USB-C - CARTRIDGE ONLY', 2.6, 29), ('NOT A MEDICAL DEVICE', 2.2, 24)):
         t = text_solid(txt, size, D['w'] / 2, y, -0.1, 0.5)
         if t: t.mirror(V(D['w'] / 2, 0, 0), V(1, 0, 0)); s = s.cut(t)                     # reads correctly from below
     return clean(s)

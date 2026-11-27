@@ -16,13 +16,11 @@ class RingMetric {
 /// underlying value changes so partial updates (e.g. only cadence moved)
 /// don't restart the whole gauge.
 ///
-/// The three inputs are:
-///   - Stability index (outer ring, red) - the score the web app showed as
-///     a single RadialBarChart.
-///   - Cadence load (middle ring, green) - normalized steps-per-minute
-///     against a healthy-range target.
-///   - Impact safety (inner ring, cyan) - inverse of impact severity, so a
-///     full ring means "gentle footfalls" not "high impact".
+/// The three inputs (see `_RingsCard` in dashboard_screen.dart) are raw
+/// readings scaled to 0..1:
+///   - Mean load (outer ring, red) - mean of the four FSRs, % of full scale.
+///   - Cadence estimate (middle ring, green) - steps/min over 140.
+///   - Impact (inner ring, cyan) - piezo counts over 800.
 class HealthRings extends StatefulWidget {
   final List<RingMetric> rings;
   final double size;

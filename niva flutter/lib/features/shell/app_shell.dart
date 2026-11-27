@@ -26,10 +26,26 @@ class _AppShellState extends State<AppShell> {
   int _index = 0;
 
   static const _tabs = [
-    _TabSpec(label: 'Today', icon: Icons.grid_view_rounded, screen: DashboardScreen()),
-    _TabSpec(label: 'Trends', icon: Icons.trending_up_rounded, screen: TrendsScreen()),
-    _TabSpec(label: 'Health', icon: Icons.favorite_rounded, screen: InsightsScreen()),
-    _TabSpec(label: 'Device', icon: Icons.settings_rounded, screen: DeviceScreen()),
+    _TabSpec(
+      label: 'Today',
+      icon: Icons.grid_view_rounded,
+      screen: DashboardScreen(),
+    ),
+    _TabSpec(
+      label: 'Trends',
+      icon: Icons.trending_up_rounded,
+      screen: TrendsScreen(),
+    ),
+    _TabSpec(
+      label: 'Details',
+      icon: Icons.insights_rounded,
+      screen: InsightsScreen(),
+    ),
+    _TabSpec(
+      label: 'Device',
+      icon: Icons.settings_rounded,
+      screen: DeviceScreen(),
+    ),
   ];
 
   @override
@@ -56,7 +72,9 @@ class _AppShellState extends State<AppShell> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: theme.cardColor.withOpacity(0.92),
-          border: Border(top: BorderSide(color: theme.dividerColor, width: 0.6)),
+          border: Border(
+            top: BorderSide(color: theme.dividerColor, width: 0.6),
+          ),
         ),
         child: SafeArea(
           top: false,
@@ -91,7 +109,11 @@ class _TabSpec {
   final IconData icon;
   final Widget screen;
 
-  const _TabSpec({required this.label, required this.icon, required this.screen});
+  const _TabSpec({
+    required this.label,
+    required this.icon,
+    required this.screen,
+  });
 }
 
 class _NavButton extends StatelessWidget {
@@ -99,12 +121,18 @@ class _NavButton extends StatelessWidget {
   final bool isActive;
   final VoidCallback onTap;
 
-  const _NavButton({required this.spec, required this.isActive, required this.onTap});
+  const _NavButton({
+    required this.spec,
+    required this.isActive,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final color = isActive ? AppColors.brand : theme.textTheme.labelSmall?.color;
+    final color = isActive
+        ? AppColors.brand
+        : theme.textTheme.labelSmall?.color;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -116,7 +144,10 @@ class _NavButton extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             spec.label,
-            style: theme.textTheme.labelSmall?.copyWith(color: color, fontSize: 10),
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: color,
+              fontSize: 10,
+            ),
           ),
         ],
       ),

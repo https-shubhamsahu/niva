@@ -12,6 +12,9 @@ import '../models/biomechanics_metrics.dart';
 /// Deliberately dependency-free (pure Dart, no Flutter imports) so it can be
 /// unit tested and, later, moved into an Isolate without dragging UI code
 /// along with it.
+///
+/// Pressure values inside the engine are percent of ADC full scale
+/// (uncalibrated, see [adcFullScaleCounts]); they are not force or kPa.
 class BiomechanicsEngineOptions {
   final double alpha;
   final double contactThreshold;
@@ -19,7 +22,6 @@ class BiomechanicsEngineOptions {
   final double heelThreshold;
   final double maxImpact;
   final int bufferSize;
-  final double staticSwayThreshold;
   final double pressureDeadband;
   final double angleDeadband;
   final int calibrationSamples;
@@ -36,13 +38,15 @@ class BiomechanicsEngineOptions {
     this.heelThreshold = 80,
     this.maxImpact = 800,
     this.bufferSize = 50,
-    this.staticSwayThreshold = 6,
     this.pressureDeadband = 2.5,
     this.angleDeadband = 0.8,
     this.calibrationSamples = 30,
     this.calibrationMaxSamples = 60,
     this.calibrationRange = 8,
-    this.calibrationTotalCeiling = 55,
+    // Sum of the four channels in percent of full scale. The firmware has
+    // already subtracted its own boot tare, so an unloaded insole reads close
+    // to 0 here; 8 still allows ADC noise but rejects a foot standing on it.
+    this.calibrationTotalCeiling = 8,
     this.calibrationMotionCeiling = 7,
     this.calibrationImpactCeiling = 60,
   });
@@ -61,15 +65,14 @@ const _sensorCoords = {
   'toe': _SensorCoord(0.5, 1),
 };
 
-double _clamp(double value, double min, double max) => math.min(max, math.max(min, value));
+double _clamp(double value, double min, double max) =>
+    math.min(max, math.max(min, value));
 
+/// ADC counts above tare -> percent of ADC full scale. One linear mapping for
+/// every input: units are never guessed from the magnitude of the value.
 double _normalizeRawPressureInput(double value) {
   if (value.isNaN || value.isInfinite) return 0;
-  final clamped = math.max(0.0, value);
-  if (clamped > 100) {
-    return _clamp((clamped / 4095) * 100, 0, 100);
-  }
-  return _clamp(clamped, 0, 100);
+  return _clamp((value / adcFullScaleCounts) * 100, 0, 100);
 }
 
 double _ema(double current, double previous, double alpha) {
@@ -102,6 +105,7 @@ class BiomechanicsEngine {
   double _baselineRoll = 0;
 
   bool _isCalibrated = false;
+  bool _tareApplied = false;
   int _calibrationCount = 0;
   final _Accum _calibrationAccum = _Accum();
   double _calibrationTotalMin = double.infinity;
@@ -111,14 +115,13 @@ class BiomechanicsEngine {
   bool _lastContact = false;
   double _lastHeel = 0;
   int? _lastHeelStrikeAtMs;
-  int _stepCount = 0;
+  int _strideCount = 0;
   double _cadenceSpm = 0;
   int _stanceStartMs = 0;
   int _swingStartMs = 0;
   int _lastStanceMs = 600;
   int _lastSwingMs = 400;
   int _heelDominantStreak = 0;
-  double _ischemicIntegralPct = 0;
 
   final List<ProcessedBiomechanicsMetrics> _history = [];
 
@@ -131,6 +134,7 @@ class BiomechanicsEngine {
     _baselinePitch = 0;
     _baselineRoll = 0;
     _isCalibrated = false;
+    _tareApplied = false;
     _calibrationCount = 0;
     _calibrationAccum.heel = 0;
     _calibrationAccum.inner = 0;
@@ -146,14 +150,13 @@ class BiomechanicsEngine {
     _lastContact = false;
     _lastHeel = 0;
     _lastHeelStrikeAtMs = null;
-    _stepCount = 0;
+    _strideCount = 0;
     _cadenceSpm = 0;
     _stanceStartMs = 0;
     _swingStartMs = 0;
     _lastStanceMs = 600;
     _lastSwingMs = 400;
     _heelDominantStreak = 0;
-    _ischemicIntegralPct = 0;
     _history.clear();
   }
 
@@ -164,19 +167,23 @@ class BiomechanicsEngine {
       return GaitPhase.midStance;
     }
     if (filtered.toe > 80 && filtered.heel < 30) return GaitPhase.toeOff;
-    return totalPressure >= options.contactThreshold ? GaitPhase.midStance : GaitPhase.swing;
+    return totalPressure >= options.contactThreshold
+        ? GaitPhase.midStance
+        : GaitPhase.swing;
   }
 
   CopPoint _computeCop(FootPressure filtered, double totalPressure) {
     if (totalPressure <= 0) return const CopPoint(x: 0.5, y: 0);
 
-    final copX = (filtered.heel * _sensorCoords['heel']!.x +
+    final copX =
+        (filtered.heel * _sensorCoords['heel']!.x +
             filtered.inner * _sensorCoords['inner']!.x +
             filtered.outer * _sensorCoords['outer']!.x +
             filtered.toe * _sensorCoords['toe']!.x) /
         totalPressure;
 
-    final copY = (filtered.heel * _sensorCoords['heel']!.y +
+    final copY =
+        (filtered.heel * _sensorCoords['heel']!.y +
             filtered.inner * _sensorCoords['inner']!.y +
             filtered.outer * _sensorCoords['outer']!.y +
             filtered.toe * _sensorCoords['toe']!.y) /
@@ -186,7 +193,7 @@ class BiomechanicsEngine {
   }
 
   /// Feed one raw packet through calibration, filtering, phase/COP detection,
-  /// gait timing, stability scoring and anomaly rules. Returns the derived
+  /// gait timing, tilt and the heel-load observation. Returns the derived
   /// frame and also appends it to the rolling [history] buffer.
   ProcessedBiomechanicsMetrics process(RawSensorPacket packet) {
     final rawInput = FootPressure(
@@ -197,8 +204,11 @@ class BiomechanicsEngine {
     );
 
     if (!_isCalibrated) {
-      final rawTotal = rawInput.heel + rawInput.inner + rawInput.outer + rawInput.toe;
-      final rawMotion = math.sqrt(packet.pitch * packet.pitch + packet.roll * packet.roll);
+      final rawTotal =
+          rawInput.heel + rawInput.inner + rawInput.outer + rawInput.toe;
+      final rawMotion = math.sqrt(
+        packet.pitch * packet.pitch + packet.roll * packet.roll,
+      );
 
       _calibrationCount += 1;
       _calibrationAccum.heel += rawInput.heel;
@@ -218,7 +228,8 @@ class BiomechanicsEngine {
         final meanImpact = _calibrationAccum.impact / _calibrationCount;
         final stableRange = _calibrationTotalMax - _calibrationTotalMin;
 
-        final noLoadStable = stableRange <= options.calibrationRange &&
+        final noLoadStable =
+            stableRange <= options.calibrationRange &&
             meanTotal <= options.calibrationTotalCeiling &&
             _calibrationMotionMax <= options.calibrationMotionCeiling &&
             meanImpact <= options.calibrationImpactCeiling;
@@ -233,10 +244,11 @@ class BiomechanicsEngine {
           _baselinePitch = _calibrationAccum.pitch / _calibrationCount;
           _baselineRoll = _calibrationAccum.roll / _calibrationCount;
           _isCalibrated = true;
+          _tareApplied = true;
         } else if (_calibrationCount >= options.calibrationMaxSamples) {
-          // Fallback: keep processing without baseline subtraction if a
-          // clean no-load window never appears (e.g. device strapped on
-          // and immediately walked on).
+          // No clean no-load window (insole loaded or moving): do not tare a
+          // loaded foot to zero. Keep the device's own zero and report
+          // `tareApplied: false` so the UI can say so.
           _isCalibrated = true;
         }
       }
@@ -244,15 +256,33 @@ class BiomechanicsEngine {
 
     final input = _isCalibrated
         ? FootPressure(
-            heel: _deadband(math.max(0.0, rawInput.heel - _baselinePressure.heel), options.pressureDeadband),
-            inner: _deadband(math.max(0.0, rawInput.inner - _baselinePressure.inner), options.pressureDeadband),
-            outer: _deadband(math.max(0.0, rawInput.outer - _baselinePressure.outer), options.pressureDeadband),
-            toe: _deadband(math.max(0.0, rawInput.toe - _baselinePressure.toe), options.pressureDeadband),
+            heel: _deadband(
+              math.max(0.0, rawInput.heel - _baselinePressure.heel),
+              options.pressureDeadband,
+            ),
+            inner: _deadband(
+              math.max(0.0, rawInput.inner - _baselinePressure.inner),
+              options.pressureDeadband,
+            ),
+            outer: _deadband(
+              math.max(0.0, rawInput.outer - _baselinePressure.outer),
+              options.pressureDeadband,
+            ),
+            toe: _deadband(
+              math.max(0.0, rawInput.toe - _baselinePressure.toe),
+              options.pressureDeadband,
+            ),
           )
         : const FootPressure();
 
-    final correctedPitch = _deadband(packet.pitch - _baselinePitch, options.angleDeadband);
-    final correctedRoll = _deadband(packet.roll - _baselineRoll, options.angleDeadband);
+    final correctedPitch = _deadband(
+      packet.pitch - _baselinePitch,
+      options.angleDeadband,
+    );
+    final correctedRoll = _deadband(
+      packet.roll - _baselineRoll,
+      options.angleDeadband,
+    );
 
     _filtered = FootPressure(
       heel: _ema(input.heel, _filtered.heel, options.alpha),
@@ -261,7 +291,8 @@ class BiomechanicsEngine {
       toe: _ema(input.toe, _filtered.toe, options.alpha),
     );
 
-    final totalPressure = _filtered.heel + _filtered.inner + _filtered.outer + _filtered.toe;
+    final totalPressure =
+        _filtered.heel + _filtered.inner + _filtered.outer + _filtered.toe;
 
     final normalizedPressure = totalPressure > 0
         ? FootPressure(
@@ -272,7 +303,9 @@ class BiomechanicsEngine {
           )
         : const FootPressure();
 
-    final contactState = totalPressure > options.contactThreshold ? ContactState.stance : ContactState.swing;
+    final contactState = totalPressure > options.contactThreshold
+        ? ContactState.stance
+        : ContactState.swing;
 
     // Heel strike is an impact transient, so it's gated on the raw
     // (deadbanded, unsmoothed) reading rather than `_filtered.heel` - the EMA
@@ -280,17 +313,21 @@ class BiomechanicsEngine {
     // a real spike past the point where `_lastContact` has already flipped,
     // making this condition unreachable.
     final heelRise = input.heel - _lastHeel;
-    final heelStrikeDetected = packet.impact > options.impactThreshold &&
+    final heelStrikeDetected =
+        packet.impact > options.impactThreshold &&
         input.heel > options.heelThreshold &&
         heelRise > 8 &&
         !_lastContact;
 
+    // One insole sees one heel strike per stride, i.e. per two steps. Steps
+    // and cadence are therefore estimates: 2 steps per detected stride.
     if (heelStrikeDetected) {
-      _stepCount += 1;
+      _strideCount += 1;
       if (_lastHeelStrikeAtMs != null) {
-        final stepIntervalSec = (packet.timestampMs - _lastHeelStrikeAtMs!) / 1000;
-        if (stepIntervalSec > 0.2 && stepIntervalSec < 3) {
-          _cadenceSpm = 60 / stepIntervalSec;
+        final strideIntervalSec =
+            (packet.timestampMs - _lastHeelStrikeAtMs!) / 1000;
+        if (strideIntervalSec > 0.4 && strideIntervalSec < 3) {
+          _cadenceSpm = 120 / strideIntervalSec;
         }
       }
       _lastHeelStrikeAtMs = packet.timestampMs;
@@ -302,28 +339,38 @@ class BiomechanicsEngine {
     }
 
     if (contactState == ContactState.swing && _lastContact) {
-      if (_stanceStartMs > 0) _lastStanceMs = packet.timestampMs - _stanceStartMs;
+      if (_stanceStartMs > 0) {
+        _lastStanceMs = packet.timestampMs - _stanceStartMs;
+      }
       _swingStartMs = packet.timestampMs;
     }
 
     _lastContact = contactState == ContactState.stance;
 
     final cycleMs = _lastStanceMs + _lastSwingMs;
-    final stancePct = cycleMs > 0 ? ((_lastStanceMs / cycleMs) * 100).round() : 60;
+    final stancePct = cycleMs > 0
+        ? ((_lastStanceMs / cycleMs) * 100).round()
+        : 60;
     final swingPct = 100 - stancePct;
 
     final gaitPhase = _detectPhase(_filtered, totalPressure);
     final cop = _computeCop(_filtered, totalPressure);
 
-    final stabilityMagnitude = math.sqrt(correctedPitch * correctedPitch + correctedRoll * correctedRoll);
+    final stabilityMagnitude = math.sqrt(
+      correctedPitch * correctedPitch + correctedRoll * correctedRoll,
+    );
     final stabilityBand = stabilityMagnitude < 3
         ? StabilityBand.stable
         : stabilityMagnitude < 6
-            ? StabilityBand.moderate
-            : StabilityBand.unstable;
+        ? StabilityBand.moderate
+        : StabilityBand.unstable;
 
     final impactLevel = _clamp(packet.impact / options.maxImpact, 0, 1);
-    final stabilityScore = _clamp(100 - stabilityMagnitude * 9 - impactLevel * 30, 0, 100).round();
+    final stabilityScore = _clamp(
+      100 - stabilityMagnitude * 9 - impactLevel * 30,
+      0,
+      100,
+    ).round();
     final mlpi = (_filtered.inner - _filtered.outer).abs();
 
     if (normalizedPressure.heel > 0.7) {
@@ -332,31 +379,13 @@ class BiomechanicsEngine {
       _heelDominantStreak = 0;
     }
 
-    final staticMode = correctedRoll.abs() < options.staticSwayThreshold && correctedPitch.abs() < options.staticSwayThreshold;
-    final highMedialLateral = math.max(_filtered.inner, _filtered.outer) > 50;
-
-    if (highMedialLateral && staticMode) {
-      _ischemicIntegralPct = _clamp(_ischemicIntegralPct + 0.35, 0, 100);
-    } else {
-      _ischemicIntegralPct = _clamp(_ischemicIntegralPct - 0.08, 0, 100);
-    }
-
+    // Plain description of the raw distribution, not a clinical finding. The
+    // former sway "instability", supination and ischemic rules were removed:
+    // nothing validates them, and normal walking pitch tripped them.
     final anomalyFlags = <String>[];
 
-    if (correctedRoll.abs() > 8 && _filtered.outer > _filtered.inner) {
-      anomalyFlags.add('Ankle instability / supination risk');
-    }
-
     if (_heelDominantStreak >= 5) {
-      anomalyFlags.add('Heel-dominant gait trend');
-    }
-
-    if (stabilityBand == StabilityBand.unstable) {
-      anomalyFlags.add('High sway instability');
-    }
-
-    if (_ischemicIntegralPct > 50) {
-      anomalyFlags.add('Ischemic pressure risk');
+      anomalyFlags.add('Heel sensor carrying over 70% of measured load');
     }
 
     _lastHeel = input.heel;
@@ -364,6 +393,7 @@ class BiomechanicsEngine {
     final metrics = ProcessedBiomechanicsMetrics(
       timestampMs: packet.timestampMs,
       isCalibrated: _isCalibrated,
+      tareApplied: _tareApplied,
       filteredPressure: _filtered,
       normalizedPressure: normalizedPressure,
       totalPressure: totalPressure,
@@ -372,7 +402,7 @@ class BiomechanicsEngine {
       gaitPhase: gaitPhase,
       cop: cop,
       mlpi: mlpi,
-      stepCount: _stepCount,
+      stepCount: _strideCount * 2,
       cadenceSpm: _cadenceSpm,
       stancePct: stancePct,
       swingPct: swingPct,
@@ -380,7 +410,6 @@ class BiomechanicsEngine {
       stabilityBand: stabilityBand,
       stabilityScore: stabilityScore,
       impactLevel: impactLevel,
-      ischemicIntegralPct: _ischemicIntegralPct,
       anomalyFlags: anomalyFlags,
       bufferLength: _history.length + 1,
     );

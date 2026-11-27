@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../core/providers/app_providers.dart';
+import '../../shared/widgets/connection_badge.dart';
 import '../../shared/widgets/rounded_card.dart';
 import '../../theme/app_theme.dart';
 
@@ -26,7 +27,9 @@ String? _validateWsUrl(String value, {required bool required}) {
   }
   final uri = Uri.tryParse(trimmed);
   if (uri == null || !uri.hasScheme) return 'Enter a valid URL';
-  if (uri.scheme != 'ws' && uri.scheme != 'wss') return 'Must start with ws:// or wss://';
+  if (uri.scheme != 'ws' && uri.scheme != 'wss') {
+    return 'Must start with ws:// or wss://';
+  }
   return null;
 }
 
@@ -89,6 +92,8 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
         children: [
           Text('Device', style: theme.textTheme.headlineMedium),
+          const SizedBox(height: 6),
+          ConnectionBadge(isLive: state.isLive, label: state.linkLabel),
           const SizedBox(height: 20),
           if (!_orientationDismissed) ...[
             _OrientationCard(
@@ -104,7 +109,10 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('ESP32 WEBSOCKET STREAM', style: theme.textTheme.labelSmall),
+                Text(
+                  'ESP32 WEBSOCKET STREAM',
+                  style: theme.textTheme.labelSmall,
+                ),
                 const SizedBox(height: 12),
                 _LabeledField(
                   label: 'Endpoint (ws:// or wss://)',
@@ -142,29 +150,48 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                                   controller.disconnectLive();
                                   return;
                                 }
-                                final wsError = _validateWsUrl(_wsUrlController.text, required: true);
-                                final relayError = _validateWsUrl(_relayUrlController.text, required: false);
+                                final wsError = _validateWsUrl(
+                                  _wsUrlController.text,
+                                  required: true,
+                                );
+                                final relayError = _validateWsUrl(
+                                  _relayUrlController.text,
+                                  required: false,
+                                );
                                 setState(() {
                                   _wsUrlError = wsError;
                                   _relayUrlError = relayError;
                                 });
-                                if (wsError != null || relayError != null) return;
+                                if (wsError != null || relayError != null) {
+                                  return;
+                                }
                                 settings.setWsUrl(_wsUrlController.text);
                                 settings.setRelayUrl(_relayUrlController.text);
                                 controller.connectLive();
                               },
                         style: FilledButton.styleFrom(
-                          backgroundColor: state.isConnected ? AppColors.danger : AppColors.brand,
+                          backgroundColor: state.isConnected
+                              ? AppColors.danger
+                              : AppColors.brand,
                         ),
                         icon: state.isConnecting
                             ? const SizedBox(
                                 width: 16,
                                 height: 16,
-                                child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
                               )
-                            : Icon(state.isConnected ? Icons.link_off_rounded : Icons.link_rounded),
+                            : Icon(
+                                state.isConnected
+                                    ? Icons.link_off_rounded
+                                    : Icons.link_rounded,
+                              ),
                         label: Text(
-                          state.isConnecting ? 'Connecting...' : (state.isConnected ? 'Disconnect' : 'Connect'),
+                          state.isConnecting
+                              ? 'Connecting...'
+                              : (state.isConnected ? 'Disconnect' : 'Connect'),
                         ),
                       ),
                     ),
@@ -172,7 +199,11 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                 ),
                 if (state.isConnected) ...[
                   const SizedBox(height: 10),
-                  _ConnectionStatusRow(activeUrl: state.activeUrl, lastMessageAt: state.lastMessageAt),
+                  _ConnectionStatusRow(
+                    activeUrl: state.activeUrl,
+                    lastMessageAt: state.lastMessageAt,
+                    isStale: state.isStale,
+                  ),
                 ],
                 if (state.connectionError != null) ...[
                   const SizedBox(height: 10),
@@ -185,7 +216,9 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                           children: [
                             Text(
                               state.connectionError!,
-                              style: theme.textTheme.bodyMedium?.copyWith(color: AppColors.danger),
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: AppColors.danger,
+                              ),
                             ),
                             const SizedBox(height: 4),
                             // The socket schedules an automatic reconnect any
@@ -269,7 +302,9 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                     OutlinedButton.icon(
                       onPressed: () async {
                         final file = await repository.exportCsvToFile();
-                        await Share.shareXFiles([XFile(file.path)], text: 'GaitGuard Nexus dataset export');
+                        await Share.shareXFiles([
+                          XFile(file.path),
+                        ], text: 'GaitGuard Nexus dataset export');
                       },
                       icon: const Icon(Icons.ios_share_rounded, size: 18),
                       label: const Text('Export CSV'),
@@ -339,7 +374,10 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
                       ? const SizedBox(
                           width: 16,
                           height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
                         )
                       : const Icon(Icons.cloud_upload_rounded),
                   label: Text(_isUploading ? 'Uploading...' : 'Upload dataset'),
@@ -361,12 +399,20 @@ class _DeviceScreenState extends ConsumerState<DeviceScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Clear dataset?'),
-        content: const Text('This permanently deletes every sample stored on this device.'),
+        content: const Text(
+          'This permanently deletes every sample stored on this device.',
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancel')),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Clear', style: TextStyle(color: AppColors.danger)),
+            child: const Text(
+              'Clear',
+              style: TextStyle(color: AppColors.danger),
+            ),
           ),
         ],
       ),
@@ -383,13 +429,17 @@ class _SpinningIcon extends StatefulWidget {
   State<_SpinningIcon> createState() => _SpinningIconState();
 }
 
-class _SpinningIconState extends State<_SpinningIcon> with SingleTickerProviderStateMixin {
+class _SpinningIconState extends State<_SpinningIcon>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat();
   }
 
   @override
@@ -402,7 +452,11 @@ class _SpinningIconState extends State<_SpinningIcon> with SingleTickerProviderS
   Widget build(BuildContext context) {
     return RotationTransition(
       turns: _controller,
-      child: Icon(Icons.autorenew_rounded, size: 12, color: Theme.of(context).textTheme.labelSmall?.color),
+      child: Icon(
+        Icons.autorenew_rounded,
+        size: 12,
+        color: Theme.of(context).textTheme.labelSmall?.color,
+      ),
     );
   }
 }
@@ -424,12 +478,18 @@ class _OrientationCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(Icons.info_outline_rounded, size: 18, color: AppColors.brand),
+              const Icon(
+                Icons.info_outline_rounded,
+                size: 18,
+                color: AppColors.brand,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   'BEFORE YOU CONNECT',
-                  style: theme.textTheme.labelSmall?.copyWith(color: AppColors.brand),
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: AppColors.brand,
+                  ),
                 ),
               ),
               GestureDetector(
@@ -437,7 +497,11 @@ class _OrientationCard extends StatelessWidget {
                   HapticFeedback.selectionClick();
                   onDismiss();
                 },
-                child: Icon(Icons.close_rounded, size: 18, color: theme.textTheme.labelSmall?.color),
+                child: Icon(
+                  Icons.close_rounded,
+                  size: 18,
+                  color: theme.textTheme.labelSmall?.color,
+                ),
               ),
             ],
           ),
@@ -462,14 +526,24 @@ class _OrientationCard extends StatelessWidget {
 class _ConnectionStatusRow extends StatelessWidget {
   final String activeUrl;
   final DateTime? lastMessageAt;
+  final bool isStale;
 
-  const _ConnectionStatusRow({required this.activeUrl, required this.lastMessageAt});
+  const _ConnectionStatusRow({
+    required this.activeUrl,
+    required this.lastMessageAt,
+    required this.isStale,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final style = theme.textTheme.bodySmall?.copyWith(color: theme.textTheme.labelSmall?.color);
-    final lastUpdateText = lastMessageAt == null ? 'No data yet' : 'Last update: ${_formatTime(lastMessageAt!)}';
+    final style = theme.textTheme.bodySmall?.copyWith(
+      color: theme.textTheme.labelSmall?.color,
+    );
+    final lastUpdateText = lastMessageAt == null
+        ? 'No data yet'
+        : 'Last update: ${_formatTime(lastMessageAt!)}'
+              '${isStale ? ' (stale: no data for over 2 s)' : ''}';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -520,12 +594,17 @@ class _LabeledField extends StatelessWidget {
             errorText: errorText,
             isDense: true,
             filled: true,
-            fillColor: theme.brightness == Brightness.dark ? const Color(0xFF2C2C2E) : const Color(0xFFF2F2F7),
+            fillColor: theme.brightness == Brightness.dark
+                ? const Color(0xFF2C2C2E)
+                : const Color(0xFFF2F2F7),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 12,
+            ),
           ),
         ),
       ],

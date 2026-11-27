@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/models/biomechanics_metrics.dart';
 import '../../core/providers/app_providers.dart';
 import '../../core/providers/telemetry_state.dart';
+import '../../shared/widgets/connection_badge.dart';
+import '../../shared/widgets/readings_notice.dart';
 import '../../shared/widgets/rounded_card.dart';
-import '../../theme/app_theme.dart';
-import 'widgets/ai_coach_card.dart';
 
-/// "Health" tab - the plain-English read of what the engine is currently
-/// seeing. Consolidates `ClinicalInsightsUpdated.tsx` and its several
-/// alternate-layout siblings (3D view, heatmap legend, anatomy legend) from
-/// the web app into one card-based screen; see BETTERMENTS.md for why
-/// those variants weren't all ported 1:1.
+/// "Details" tab - a plain-English read of what the engine is currently
+/// computing from the raw sensor stream. Consolidates
+/// `ClinicalInsightsUpdated.tsx` and its alternate-layout siblings from the
+/// web app into one card-based screen. Until the FSRs are characterised it
+/// only describes raw relative readings; it makes no health claims.
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
 
@@ -26,21 +25,26 @@ class InsightsScreen extends ConsumerWidget {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 32),
         children: [
-          Text('Health Insights', style: theme.textTheme.headlineMedium),
+          Text('Sensor Details', style: theme.textTheme.headlineMedium),
+          const SizedBox(height: 6),
+          ConnectionBadge(isLive: state.isLive, label: state.linkLabel),
+          const SizedBox(height: 10),
+          const ReadingsNotice(),
           const SizedBox(height: 20),
           RoundedCard(
             radius: 28,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('CLINICAL SUMMARY', style: theme.textTheme.labelSmall),
+                Text('SUMMARY', style: theme.textTheme.labelSmall),
                 const SizedBox(height: 10),
-                Text(_summarySentence(state), style: theme.textTheme.bodyMedium),
+                Text(
+                  _summarySentence(state),
+                  style: theme.textTheme.bodyMedium,
+                ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
-          AiCoachCard(snapshot: state),
           const SizedBox(height: 16),
           if (!state.isLive)
             const _EmptyState()
@@ -55,9 +59,15 @@ class InsightsScreen extends ConsumerWidget {
                       children: [
                         Text('MLPI', style: theme.textTheme.labelSmall),
                         const SizedBox(height: 6),
-                        Text(metrics.mlpi.toStringAsFixed(1), style: theme.textTheme.headlineMedium),
+                        Text(
+                          metrics.mlpi.toStringAsFixed(1),
+                          style: theme.textTheme.headlineMedium,
+                        ),
                         const SizedBox(height: 4),
-                        Text('Medial-lateral pressure index', style: theme.textTheme.bodyMedium),
+                        Text(
+                          'Inner minus outer forefoot, % of full scale',
+                          style: theme.textTheme.bodyMedium,
+                        ),
                       ],
                     ),
                   ),
@@ -69,11 +79,17 @@ class InsightsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ISCHEMIC RISK', style: theme.textTheme.labelSmall),
+                        Text('IMU TILT', style: theme.textTheme.labelSmall),
                         const SizedBox(height: 6),
-                        Text('${metrics.ischemicIntegralPct.round()}%', style: theme.textTheme.headlineMedium),
+                        Text(
+                          '${metrics.stabilityMagnitude.toStringAsFixed(1)}°',
+                          style: theme.textTheme.headlineMedium,
+                        ),
                         const SizedBox(height: 4),
-                        Text('Sustained pressure integral', style: theme.textTheme.bodyMedium),
+                        Text(
+                          'Pitch and roll change since tare',
+                          style: theme.textTheme.bodyMedium,
+                        ),
                       ],
                     ),
                   ),
@@ -86,11 +102,11 @@ class InsightsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('AUTOMATED OBSERVATIONS', style: theme.textTheme.labelSmall),
+                  Text('OBSERVATIONS', style: theme.textTheme.labelSmall),
                   const SizedBox(height: 12),
                   if (metrics.anomalyFlags.isEmpty)
                     Text(
-                      'No anomalies in the current rolling buffer (last ${metrics.bufferLength} samples).',
+                      'Nothing to note in the last ${metrics.bufferLength} samples.',
                       style: theme.textTheme.bodyMedium,
                     )
                   else
@@ -100,9 +116,18 @@ class InsightsScreen extends ConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Icon(Icons.error_outline_rounded, size: 16, color: AppColors.danger),
+                            Icon(
+                              Icons.info_outline_rounded,
+                              size: 16,
+                              color: theme.textTheme.labelSmall?.color,
+                            ),
                             const SizedBox(width: 8),
-                            Expanded(child: Text(flag, style: theme.textTheme.bodyMedium)),
+                            Expanded(
+                              child: Text(
+                                flag,
+                                style: theme.textTheme.bodyMedium,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -115,14 +140,20 @@ class InsightsScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('WHY THESE ALERTS FIRE', style: theme.textTheme.labelSmall),
+                  Text(
+                    'HOW THESE VALUES ARE COMPUTED',
+                    style: theme.textTheme.labelSmall,
+                  ),
                   const SizedBox(height: 10),
                   Text(
-                    'Every flag above comes from an explicit, published threshold - not a model prediction. '
-                    'Ankle instability requires >8° corrected roll with lateral-dominant pressure; heel-dominant '
-                    'trend requires 5 consecutive frames >70% heel load; ischemic risk requires a sustained '
-                    'medial/lateral pressure integral above 50%. This mirrors the "deterministic, explainable" '
-                    'design goal from the original dashboard.',
+                    'Each FSR value is ADC counts above tare divided by 4095, '
+                    'so it is a percent of the ADC range, not a force or a '
+                    'pressure. MLPI is the gap between the inner and outer '
+                    'forefoot readings. Steps and cadence assume one heel '
+                    'strike per stride from this one insole, so they are '
+                    'estimates. The heel note appears when the heel sensor '
+                    'carries over 70% of the measured load for 5 frames in a '
+                    'row. None of these thresholds are clinically validated.',
                     style: theme.textTheme.bodyMedium,
                   ),
                 ],
@@ -136,29 +167,31 @@ class InsightsScreen extends ConsumerWidget {
 
   String _summarySentence(TelemetryState state) {
     final metrics = state.metrics;
+    if (state.isConnected && state.isStale && !state.isSimulating) {
+      return 'No data from the insole for over 2 seconds. Readings are hidden '
+          'until packets resume.';
+    }
     if (!state.isLive) {
-      return 'No active stream. Connect the insole or start a simulation to generate a live clinical read.';
+      return 'No device data yet. Connect the insole or start a simulation '
+          'on the Today tab.';
     }
+    final source = state.isSimulating ? 'Simulated data' : 'Live data';
     if (!metrics.isCalibrated) {
-      return 'Calibrating baseline - keep the foot unloaded for a few seconds to suppress idle drift.';
+      return '$source: taring. Keep the foot off the ground for a few '
+          'seconds.';
     }
-    if (metrics.anomalyFlags.isNotEmpty) {
-      return 'Elevated risk detected: ${metrics.anomalyFlags.length} active flag(s). Review Automated Observations below.';
+    if (!state.isSimulating && !metrics.tareApplied) {
+      return 'Live data. The app tare was skipped because the insole was '
+          'loaded or moving, so values use the device\'s own zero.';
     }
-    switch (metrics.stabilityBand) {
-      case StabilityBand.stable:
-        return 'Gait pattern is within the stable band. Pressure progression and temporal parameters look balanced.';
-      case StabilityBand.moderate:
-        return 'Moderate sway detected. Not yet flagged as an anomaly, but worth watching over the next session.';
-      case StabilityBand.unstable:
-        return 'Unstable sway detected in the current buffer.';
-    }
+    return '$source. Values are relative sensor readings, not calibrated '
+        'force or pressure.';
   }
 }
 
-/// Mirrors `TrendsScreen`'s empty state - the MLPI/Ischemic/Observations/
-/// Why-Alerts-Fire cards are all meaningless zeros with no live stream, so
-/// they're replaced with this instead of showing misleading numbers.
+/// Mirrors `TrendsScreen`'s empty state - the cards above are meaningless
+/// zeros with no fresh stream, so they're replaced with this instead of
+/// showing misleading numbers.
 class _EmptyState extends StatelessWidget {
   const _EmptyState();
 
@@ -169,11 +202,14 @@ class _EmptyState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.favorite_border_rounded, color: Theme.of(context).textTheme.labelSmall?.color),
+          Icon(
+            Icons.sensors_off_rounded,
+            color: Theme.of(context).textTheme.labelSmall?.color,
+          ),
           const SizedBox(height: 10),
           Text(
-            'No telemetry yet. Connect the insole or start a simulation from the Today tab to see detailed '
-            'pressure-index and anomaly readings here.',
+            'No device data yet. Connect the insole or start a simulation '
+            'from the Today tab to see the per-sensor details here.',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],

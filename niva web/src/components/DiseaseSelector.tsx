@@ -16,13 +16,13 @@ export default function DiseaseSelector({ selected, onSelect, isSimulating, onDe
   return (
     <div className="flex flex-col gap-3 w-full bg-white dark:bg-[#20252E] p-5 rounded-[24px] shadow-soft transition-all duration-300">
        <div className="flex justify-between items-center">
-         <h3 className="text-[13px] font-extrabold text-[#1A1D24] dark:text-white uppercase tracking-wide">Disease Simulation Engine</h3>
+         <h3 className="text-[13px] font-extrabold text-[#1A1D24] dark:text-white uppercase tracking-wide">Simulated Gait Patterns (Not Patient Data)</h3>
          <button 
            onClick={onDemoToggle}
            className={`px-3 py-1.5 rounded-full text-[10px] font-heavy uppercase tracking-widest flex items-center gap-1 transition-colors ${isDemoMode ? 'bg-[#FF4D4D] text-white shadow-[0_0_15px_rgba(255,77,77,0.3)]' : 'bg-[#F5F7FA] dark:bg-[#1A1D24] text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'}`}
          >
            <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>{isDemoMode ? 'stop_circle' : 'play_circle'}</span>
-           {isDemoMode ? 'Stop Demo' : 'Run Clinical Demo'}
+           {isDemoMode ? 'Stop Demo' : 'Run Demo'}
          </button>
        </div>
        <div className="flex flex-wrap gap-2">

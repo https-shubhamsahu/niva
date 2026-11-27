@@ -39,9 +39,16 @@ extension StabilityBandLabel on StabilityBand {
   }
 }
 
+/// Full scale of the ESP32's 12-bit ADC. The firmware (`niva_hardware.ino`)
+/// sends each FSR channel as ADC counts above its boot tare, 0-4095, and the
+/// simulator emits the same unit, so the engine divides every pressure input
+/// by this one constant.
+const double adcFullScaleCounts = 4095;
+
 /// A single raw packet as it arrives from the ESP32 (WebSocket JSON or the
-/// on-device simulator). Pressure fields are already 0-100 or raw ADC counts
-/// depending on source; the engine normalizes either.
+/// on-device simulator). Pressure fields are ADC counts above tare
+/// (0..[adcFullScaleCounts]); `impact` is raw piezo counts above tare.
+/// [timestampMs] is when the app received the packet.
 class RawSensorPacket {
   final double heel;
   final double inner;
@@ -94,6 +101,14 @@ class CopPoint {
 class ProcessedBiomechanicsMetrics {
   final int timestampMs;
   final bool isCalibrated;
+
+  /// True only when the app captured a clean no-load baseline. False after
+  /// the tare window ended without one (insole loaded or moving), in which
+  /// case readings use the device's own zero.
+  final bool tareApplied;
+
+  /// Per channel, percent of ADC full scale after tare and smoothing.
+  /// Uncalibrated: not force or pressure units.
   final FootPressure filteredPressure;
   final FootPressure normalizedPressure;
   final double totalPressure;
@@ -102,7 +117,11 @@ class ProcessedBiomechanicsMetrics {
   final GaitPhase gaitPhase;
   final CopPoint cop;
   final double mlpi;
+
+  /// Estimate: 2 x detected heel strikes (one insole sees one per stride).
   final int stepCount;
+
+  /// Estimate in steps/min: 120 / time between heel strikes of this foot.
   final double cadenceSpm;
   final int stancePct;
   final int swingPct;
@@ -110,13 +129,13 @@ class ProcessedBiomechanicsMetrics {
   final StabilityBand stabilityBand;
   final int stabilityScore;
   final double impactLevel;
-  final double ischemicIntegralPct;
   final List<String> anomalyFlags;
   final int bufferLength;
 
   const ProcessedBiomechanicsMetrics({
     required this.timestampMs,
     required this.isCalibrated,
+    required this.tareApplied,
     required this.filteredPressure,
     required this.normalizedPressure,
     required this.totalPressure,
@@ -133,7 +152,6 @@ class ProcessedBiomechanicsMetrics {
     required this.stabilityBand,
     required this.stabilityScore,
     required this.impactLevel,
-    required this.ischemicIntegralPct,
     required this.anomalyFlags,
     required this.bufferLength,
   });
@@ -144,6 +162,7 @@ class ProcessedBiomechanicsMetrics {
     return ProcessedBiomechanicsMetrics(
       timestampMs: 0,
       isCalibrated: false,
+      tareApplied: false,
       filteredPressure: const FootPressure(),
       normalizedPressure: const FootPressure(),
       totalPressure: 0,
@@ -158,9 +177,8 @@ class ProcessedBiomechanicsMetrics {
       swingPct: 40,
       stabilityMagnitude: 0,
       stabilityBand: StabilityBand.stable,
-      stabilityScore: 92,
+      stabilityScore: 0,
       impactLevel: 0,
-      ischemicIntegralPct: 0,
       anomalyFlags: const [],
       bufferLength: 0,
     );

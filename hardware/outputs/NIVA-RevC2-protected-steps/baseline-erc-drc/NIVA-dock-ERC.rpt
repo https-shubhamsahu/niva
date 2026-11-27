@@ -1,0 +1,13 @@
+ERC report (2026-11-03T01:58:19, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+[lib_symbol_mismatch]: Symbol 'USB_C_Receptacle_PowerOnly_6P' doesn't match copy in library 'Connector'
+    ; warning
+    @(44.45 mm, 69.85 mm): Symbol J1 [USB_C_Receptacle_PowerOnly_6P]
+
+ ** ERC messages: 1  Errors 0  Warnings 1
+
+ ** Ignored checks:
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

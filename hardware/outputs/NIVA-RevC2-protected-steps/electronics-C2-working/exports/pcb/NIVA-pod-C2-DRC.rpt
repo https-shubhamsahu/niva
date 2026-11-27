@@ -1,0 +1,54 @@
+** Drc report for NIVA-pod.kicad_pcb **
+** Created on 2026-11-09T18:59:41 **
+** Report includes: Errors, Warnings, Exclusions **
+
+** Found 3 DRC violations **
+[lib_footprint_mismatch]: Footprint 'LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y' does not match copy in library 'Package_LGA'
+    Local override; warning
+    @(133.5000 mm, 57.5000 mm): Footprint U3
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(112.5000 mm, 51.5000 mm): Segment on Edge.Cuts
+    @(114.4000 mm, 62.8500 mm): Segment of U1 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: board setup constraints silk; warning
+    @(112.5000 mm, 51.5000 mm): Segment on Edge.Cuts
+    @(127.6000 mm, 46.2500 mm): Segment of U1 on F.Silkscreen
+
+** Found 0 unconnected pads **
+
+** Found 9 Footprint errors **
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(121.0000 mm, 91.0000 mm): Footprint J1
+[footprint_symbol_field_mismatch]: Field 'Datasheet' differs (PCB: 'https://www.mill-max.com/products/datasheet/0900-0-15-20-76-14-11-0', Schematic: '')
+    Local override; warning
+    @(126.8650 mm, 82.7500 mm): Footprint J2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(121.0000 mm, 54.5500 mm): Footprint U1
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(111.0000 mm, 74.0000 mm): Footprint U2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(133.5000 mm, 57.5000 mm): Footprint U3
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(130.5000 mm, 65.2000 mm): Footprint U5
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(131.5000 mm, 70.5000 mm): Footprint U6
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(131.5000 mm, 82.1000 mm): Footprint D2
+[footprint_symbol_field_mismatch]: Missing symbol field 'MPN' in footprint
+    Local override; warning
+    @(133.0000 mm, 77.8000 mm): Footprint U4
+
+** Ignored checks **
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+
+** End of Report **

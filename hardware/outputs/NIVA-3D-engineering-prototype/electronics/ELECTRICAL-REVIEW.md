@@ -119,7 +119,7 @@ The insole flex's FSR windows expose both comb nets under one coverlay opening o
 ## 7. Open electrical items before any fabrication release
 
 1. Independent schematic and layout review; fab DFM on the pod, dock and flex; return-path and RF review of the pod.
-2. Select the pod J2 and dock J2 spring-contact parts, and replace the placeholder land patterns and envelope models.
+2. ~~Select the pod J2 and dock J2 spring-contact parts, and replace the placeholder land patterns.~~ Done in Rev C.2 (9 Nov 2026): Mill-Max 0900-0-15-20-76-14-11-0 on Ø2.08 mm pads for both. Envelope models are drawn from the datasheet; replace them with Mill-Max STEP files.
 3. Confirm the MAX17048 TDFN-8 land pattern against the ADI package drawing (its 3D model is an envelope), and the BAV199 marking and pinning on the purchased reel.
 4. Confirm the LSM6DSO32 unused-pin handling and the KMR2 travel and force.
 5. Bench: regulator sag during radio bursts, deep-sleep current, ADC noise with VREF = VEXC, and the CH6 tail-fault flag.

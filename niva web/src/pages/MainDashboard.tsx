@@ -2,17 +2,19 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, RadialBarChart, RadialBar, PolarGrid, PolarRadiusAxis, Label } from 'recharts';
 import FootHeatmap from '../components/FootHeatmap';
-import { generateGaitFrame } from '../utils/simulationEngine';
+import { generateGaitFrame, getDiseaseExplanation } from '../utils/simulationEngine';
 import type { GaitMode } from '../utils/simulationEngine';
 import { parseEsp32CsvLine } from '../utils/esp32Telemetry';
-import { BiomechanicsEngine } from '../utils/biomechanicsEngine';
-import type { CopPoint, GaitPhase, RawSensorPacket, StabilityBand } from '../utils/biomechanicsEngine';
+import { ADC_FULL_SCALE_COUNTS, BiomechanicsEngine } from '../utils/biomechanicsEngine';
+import type { CopPoint, GaitPhase, RawSensorPacket } from '../utils/biomechanicsEngine';
 import { clearTelemetryDataset, exportTelemetryCsv, getTelemetrySampleCount, insertTelemetrySamples } from '../utils/telemetryDatasetStore';
 import type { DiseaseLabel, TelemetrySample, TelemetrySource } from '../utils/telemetryDatasetStore';
 import { getDatasetUploadEndpoint, uploadDatasetCsvToBackend } from '../utils/researchUpload';
 import DiseaseSelector from '../components/DiseaseSelector';
 import ThemeSwitch from '../components/ThemeSwitch';
-import useSensorData from '../hooks/useSensorData';
+import useSensorData, { STALE_AFTER_MS } from '../hooks/useSensorData';
+
+const READINGS_NOTICE = 'Uncalibrated sensor readings. Not a medical device.';
 
 const DATASET_DISEASE_OPTIONS: DiseaseLabel[] = [
   'Unknown',
@@ -31,8 +33,8 @@ type WebSerialPort = {
 };
 
 export default function MainDashboard() {
-  const [score, setScore] = useState(92);
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  // Every reading starts empty: nothing is shown until a device or the simulator sends data.
+  const [meanLoadPct, setMeanLoadPct] = useState(0);
   const [isConnected, setIsConnected] = useState(false);
   const [isSerialSupported, setIsSerialSupported] = useState(false);
   const [serialStatus, setSerialStatus] = useState('Disconnected');
@@ -41,9 +43,11 @@ export default function MainDashboard() {
   const [gaitPhase, setGaitPhase] = useState<GaitPhase>('SWING');
   const [cadenceSpm, setCadenceSpm] = useState(0);
   const [stepCount, setStepCount] = useState(0);
-  const [stabilityBand, setStabilityBand] = useState<StabilityBand>('stable');
+  const [tiltDeg, setTiltDeg] = useState(0);
   const [impactLevel, setImpactLevel] = useState(0);
   const [isEngineCalibrated, setIsEngineCalibrated] = useState(false);
+  const [isTareApplied, setIsTareApplied] = useState(false);
+  const [nowMs, setNowMs] = useState(() => Date.now());
   const [copPoint, setCopPoint] = useState<CopPoint>({ x: 0.5, y: 0 });
   const [copTrail, setCopTrail] = useState<CopPoint[]>([{ x: 0.5, y: 0 }]);
   const [anomalyFlags, setAnomalyFlags] = useState<string[]>([]);
@@ -70,20 +74,19 @@ export default function MainDashboard() {
   const [isSimulating, setIsSimulating] = useState(false);
   const [simMode, setSimMode] = useState<GaitMode>('Normal');
   const [isDemoMode, setIsDemoMode] = useState(false);
-  const [simExplanation, setSimExplanation] = useState("Balanced pressure progression and stable temporal parameters detected.");
-  const [stanceRatioStr, setStanceRatioStr] = useState("62:38");
+  const [simExplanation, setSimExplanation] = useState(() => getDiseaseExplanation('Normal'));
+  const [stanceRatioStr, setStanceRatioStr] = useState('--');
   
-  // Real-time telemetry states
+  // Real-time telemetry states (percent of ADC full scale per channel)
   const [fsrData, setFsrData] = useState([
-    { sensor: 'Heel', val: 45 },
-    { sensor: '1st Met', val: 70 },
-    { sensor: '5th Met', val: 25 },
-    { sensor: 'Hallux', val: 20 },
+    { sensor: 'Heel', val: 0 },
+    { sensor: '1st Met', val: 0 },
+    { sensor: '5th Met', val: 0 },
+    { sensor: 'Hallux', val: 0 },
   ]);
-  const [mlpi, setMlpi] = useState(45);
-  const [swayData, setSwayData] = useState([...Array(15)].map((_, i) => ({ time: i, roll: (Math.random() - 0.5) * 5, pitch: (Math.random() - 0.5) * 2 })));
-  const [impactData, setImpactData] = useState([...Array(15)].map((_, i) => ({ time: i, impact: Math.random() < 0.2 ? 400 + Math.random()*200 : 20 + Math.random()*10 })));
-  const [integral, setIntegral] = useState(42);
+  const [mlpi, setMlpi] = useState(0);
+  const [swayData, setSwayData] = useState([...Array(15)].map((_, i) => ({ time: i, roll: 0, pitch: 0 })));
+  const [impactData, setImpactData] = useState([...Array(15)].map((_, i) => ({ time: i, impact: 0 })));
 
   const serialPortRef = useRef<WebSerialPort | null>(null);
   const serialReaderRef = useRef<ReadableStreamDefaultReader<string> | null>(null);
@@ -94,6 +97,7 @@ export default function MainDashboard() {
   const datasetDiseaseLabelRef = useRef<DiseaseLabel>(datasetDiseaseLabel);
   const isFlushingDatasetRef = useRef(false);
   const isConnectingRef = useRef(false);
+  const lastProcessedWsFrameRef = useRef<unknown>(null);
   const tickRef = useRef(15);
   const isSimulatingRef = useRef(isSimulating);
   const simModeRef = useRef(simMode);
@@ -258,27 +262,26 @@ export default function MainDashboard() {
       { time: tick, impact: packet.impact },
     ]);
 
-    setScore(metrics.stabilityScore);
+    setMeanLoadPct(metrics.totalPressure / 4);
     setStanceRatioStr(`${metrics.stancePct}:${metrics.swingPct}`);
-    setIntegral(metrics.ischemicIntegralPct);
     setGaitPhase(metrics.gaitPhase);
     setCadenceSpm(metrics.cadenceSpm);
     setStepCount(metrics.stepCount);
-    setStabilityBand(metrics.stabilityBand);
+    setTiltDeg(metrics.stabilityMagnitude);
     setImpactLevel(metrics.impactLevel);
     setIsEngineCalibrated(metrics.isCalibrated);
+    setIsTareApplied(metrics.tareApplied);
     setCopPoint(metrics.cop);
     setCopTrail((prev) => [...prev.slice(-24), metrics.cop]);
     setAnomalyFlags(metrics.anomalyFlags);
     setLastPacketAt(metrics.timestampMs);
-
-    if (metrics.ischemicIntegralPct > 50) {
-      setIsAlertVisible(true);
-    }
   }, []);
 
-  const applyWsFrame = useCallback((payload: Record<string, unknown>) => {
+  const applyWsFrame = useCallback((payload: Record<string, unknown>, receivedAt: number) => {
     if (isSimulatingRef.current || isConnected) return;
+    // Firmware frames always carry the FSR channels; anything else (e.g. the relay's
+    // {"relay":"connected"} hello) is not a sensor sample.
+    if (typeof payload.heel !== 'number') return;
 
     const toNumber = (value: unknown) => {
       const parsed = Number(value);
@@ -294,7 +297,7 @@ export default function MainDashboard() {
       pitch: toNumber(payload.pitch ?? 0),
       roll: toNumber(payload.roll ?? 0),
       accZ: toNumber(payload.accZ ?? 0),
-      timestampMs: Date.now(),
+      timestampMs: receivedAt,
     };
 
     enqueueDatasetSample(packet, 'ws', 'live');
@@ -470,10 +473,20 @@ export default function MainDashboard() {
     simModeRef.current = simMode;
   }, [simMode]);
 
+  // Process each WebSocket frame exactly once. This effect also re-runs when the link or
+  // simulation state changes; that must not replay the last frame as a new sample.
   useEffect(() => {
-    if (!wsData || isSimulating || isConnected) return;
-    applyWsFrame(wsData as Record<string, unknown>);
-  }, [applyWsFrame, isConnected, isSimulating, wsData]);
+    if (!wsData || wsData === lastProcessedWsFrameRef.current) return;
+    lastProcessedWsFrameRef.current = wsData;
+    if (isSimulating || isConnected) return;
+    applyWsFrame(wsData as Record<string, unknown>, wsLastMessageAt ?? Date.now());
+  }, [applyWsFrame, isConnected, isSimulating, wsData, wsLastMessageAt]);
+
+  // Clock for the staleness check, so a silent link turns "stale" without a new packet.
+  useEffect(() => {
+    const timerId = window.setInterval(() => setNowMs(Date.now()), 500);
+    return () => window.clearInterval(timerId);
+  }, []);
 
   useEffect(() => {
     if (isConnected || !wsLastMessageAt) return;
@@ -504,11 +517,13 @@ export default function MainDashboard() {
         const simPitch = (Math.random() - 0.5) * frame.imuRollVariance * 10;
         const simRoll = (Math.random() - 0.5) * frame.imuRollVariance * 20;
 
+        // Frames are generated in % of full scale; packets carry ADC counts like the firmware.
+        const countsPerPercent = ADC_FULL_SCALE_COUNTS / 100;
         const simulationPacket: RawSensorPacket = {
-          heel: frame.heel,
-          inner: frame.mt1,
-          outer: frame.mt5,
-          toe: frame.toe,
+          heel: frame.heel * countsPerPercent,
+          inner: frame.mt1 * countsPerPercent,
+          outer: frame.mt5 * countsPerPercent,
+          toe: frame.toe * countsPerPercent,
           impact: frame.impact,
           pitch: simPitch,
           roll: simRoll,
@@ -544,8 +559,16 @@ export default function MainDashboard() {
   }, [disconnectSerial]);
 
   const liveConnected = isConnected || isWsConnected;
-  const linkLabel = isConnected ? 'ESP32 USB Linked' : (isWsConnected ? 'ESP32 WiFi Linked' : (isSimulating ? 'Simulation Active' : 'Edge Disconnected'));
-  const linkStatus = isConnected ? serialStatus : (isWsConnected ? 'WebSocket Connected' : 'Offline');
+  // Live only while packets keep arriving; an open but silent link is stale, not live.
+  const isReceiving = liveConnected && lastPacketAt !== null && nowMs - lastPacketAt <= STALE_AFTER_MS;
+  const isLinkStale = liveConnected && !isReceiving;
+  const hasData = isSimulating || isReceiving;
+  const linkLabel = isSimulating
+    ? 'Simulated data'
+    : isReceiving
+      ? (isConnected ? 'ESP32 USB live' : 'ESP32 WiFi live')
+      : (isLinkStale ? 'Stale: no data for over 2 s' : 'Disconnected');
+  const linkStatus = isConnected ? serialStatus : (isWsConnected ? (isLinkStale ? 'WebSocket open, no data' : 'WebSocket Connected') : 'Offline');
 
 
   return (
@@ -556,8 +579,8 @@ export default function MainDashboard() {
            <h1 className="text-2xl font-extrabold tracking-tight text-[#1A1D24] dark:text-white">GaitGuard Nexus</h1>
            <div className="flex items-center gap-2 mt-1">
              <div className="flex h-2 w-2 relative">
-               {liveConnected && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>}
-               <span className={`relative inline-flex rounded-full h-2 w-2 ${liveConnected ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
+               {hasData && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>}
+               <span className={`relative inline-flex rounded-full h-2 w-2 ${hasData ? 'bg-emerald-500' : (isLinkStale ? 'bg-amber-500' : 'bg-slate-400')}`}></span>
              </div>
              <span className="text-[10px] font-bold tracking-widest text-slate-500 uppercase">
               {linkLabel}
@@ -567,7 +590,7 @@ export default function MainDashboard() {
         <div className="flex gap-2">
            <div className="flex flex-col items-end justify-center mr-2 hidden sm:flex">
              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Data Link</span>
-             <span className={`text-[11px] font-mono font-semibold ${liveConnected ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-500'}`}>{linkStatus}</span>
+             <span className={`text-[11px] font-mono font-semibold ${isReceiving ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-500'}`}>{linkStatus}</span>
            </div>
            
            <div className="flex items-center">
@@ -590,8 +613,8 @@ export default function MainDashboard() {
              <span className={`material-symbols-outlined text-[18px] ${isConnected ? 'text-slate-600 dark:text-slate-300' : 'text-rose-500'}`}>{isConnected ? 'usb' : 'usb_off'}</span>
            </button>
 
-           <Link to="/settings" className="size-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-700 hover:opacity-80 transition-opacity">
-             <img alt="User Profile" className="w-full h-full object-cover" data-alt="Portrait of a smiling user for profile icon" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjAXRxkQH10k1EbLEzChoZEyu6YCuKmwx-we6whLkZIOkI4t2GzCnGlpqx5PnW6YoN9Gi1TglagU7ZJoPnCBBNXAWpXUeTI1PWyc8FI4_J4i4Qgyv-0YSo8s3zCa73jh3Jos3IuccVmF3jJgheMCHiHmuwvDnVP3cnYnsvlQhKh8wXF-wTeunYtV_edwLC5XWcR1X6wcZWICgq_nc6k9ILAvuwY_f2z-YOiIHVC91tI6vpXm4iHO93ZOqnBgTRsMft6ApSq3JKog"/>
+           <Link to="/settings" title="Settings" className="size-9 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-700 hover:opacity-80 transition-opacity">
+             <span className="material-symbols-outlined text-[18px] text-slate-600 dark:text-slate-300">settings</span>
            </Link>
         </div>
       </header>
@@ -619,17 +642,34 @@ export default function MainDashboard() {
           </div>
         )}
 
-        {liveConnected && lastPacketAt && !isSimulating && (
+        {isReceiving && lastPacketAt && !isSimulating && (
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-emerald-700 dark:border-emerald-900/70 dark:bg-emerald-950/20 dark:text-emerald-300">
             <p className="text-xs font-bold uppercase tracking-wider">Live Telemetry Active</p>
             <p className="mt-1 text-xs leading-relaxed">Last packet: {new Date(lastPacketAt).toLocaleTimeString()}</p>
           </div>
         )}
 
-        {liveConnected && !isSimulating && !isEngineCalibrated && (
+        {isLinkStale && !isSimulating && (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300">
-            <p className="text-xs font-bold uppercase tracking-wider">Zero-Load Calibration</p>
-            <p className="mt-1 text-xs leading-relaxed">Keep foot unloaded for a few seconds. Baseline offsets are being learned to suppress idle drift.</p>
+            <p className="text-xs font-bold uppercase tracking-wider">Stale: No Data</p>
+            <p className="mt-1 text-xs leading-relaxed">
+              Link is open but no packet has arrived for over 2 seconds
+              {lastPacketAt ? ` (last packet ${new Date(lastPacketAt).toLocaleTimeString()})` : ''}. Values below are frozen and greyed out.
+            </p>
+          </div>
+        )}
+
+        {isReceiving && !isSimulating && !isEngineCalibrated && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300">
+            <p className="text-xs font-bold uppercase tracking-wider">Zero-Load Tare</p>
+            <p className="mt-1 text-xs leading-relaxed">Keep the foot off the ground for a few seconds while the app measures the no-load offsets.</p>
+          </div>
+        )}
+
+        {isReceiving && !isSimulating && isEngineCalibrated && !isTareApplied && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-800 dark:border-amber-800/60 dark:bg-amber-950/20 dark:text-amber-300">
+            <p className="text-xs font-bold uppercase tracking-wider">App Tare Skipped</p>
+            <p className="mt-1 text-xs leading-relaxed">The insole was loaded or moving while connecting, so values use the device's own zero.</p>
           </div>
         )}
 
@@ -730,44 +770,32 @@ export default function MainDashboard() {
           </button>
         </div>
 
+        <p className="flex items-center gap-1.5 px-1 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+          <span className="material-symbols-outlined text-[14px]">info</span>
+          {READINGS_NOTICE}
+        </p>
+
         {/* Explainable Alert Panel for Simulation */}
         {isSimulating && (
           <div className="animate-in slide-in-from-top-2 fade-in duration-300 bg-[#415AEE]/10 border border-[#415AEE]/20 dark:bg-[#415AEE]/10 dark:border-[#415AEE]/30 rounded-[28px] p-5 flex items-start gap-4 shadow-soft">
-            <span className="material-symbols-outlined text-[#415AEE] mt-0.5 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
+            <span className="material-symbols-outlined text-[#415AEE] mt-0.5 text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>science</span>
             <div className="flex-1">
-              <p className="text-[13px] font-extrabold text-[#1A1D24] dark:text-white uppercase tracking-wider">{simMode} Gait Detected</p>
+              <p className="text-[13px] font-extrabold text-[#1A1D24] dark:text-white uppercase tracking-wider">Simulated pattern: {simMode}</p>
               <p className="text-[12px] text-[#415AEE] dark:text-[#415AEE]/80 font-bold mt-1.5 leading-relaxed tracking-wide">
-                {simExplanation}
+                {simExplanation} Not patient data and not a detection.
               </p>
             </div>
           </div>
         )}
         
-        {/* Module 3: Recent Alert (Dynamic Banner) */}
-        {isAlertVisible && !isSimulating && (
-          <div className="animate-in slide-in-from-top-2 fade-in duration-300 bg-rose-50 border border-rose-200/60 dark:bg-rose-950/30 dark:border-rose-900/50 rounded-2xl p-4 flex items-start gap-3 shadow-sm relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-rose-500"></div>
-            <span className="material-symbols-outlined text-rose-500 fill-1 mt-0.5">warning</span>
-            <div className="flex-1">
-              <p className="text-sm font-bold text-rose-700 dark:text-rose-400">Ischemic Risk Avoidance</p>
-              <p className="text-xs text-rose-600/80 dark:text-rose-300/80 font-medium mt-1 leading-relaxed">
-                Time-Pressure Integral &gt; 50mmHg capillary occlusion threshold at 1st Metatarsal. Offload immediately.
-              </p>
-            </div>
-            <button className="text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/50 p-1 rounded-full transition-colors flex-shrink-0" onClick={() => setIsAlertVisible(false)}>
-              <span className="material-symbols-outlined text-sm">close</span>
-            </button>
-          </div>
-        )}
-
         {/* Top Dual Cards */}
         <div className="grid grid-cols-2 gap-4">
            {/* Ring Card with Recharts RadialBar */}
-           <div className="bg-white dark:bg-[#20252E] rounded-[32px] p-4 shadow-soft flex flex-col items-center justify-center group cursor-pointer transition-transform hover:scale-[1.02]" title="Stability Index: Recalibrates every 20 steps">
+           <div className="bg-white dark:bg-[#20252E] rounded-[32px] p-4 shadow-soft flex flex-col items-center justify-center group cursor-pointer transition-transform hover:scale-[1.02]" title="Mean of the four FSR readings, % of ADC full scale">
               <div className="relative w-[130px] h-[130px] flex items-center justify-center">
                 <ResponsiveContainer width="100%" height="100%">
                   <RadialBarChart
-                    data={[{ name: "Stability", value: score, fill: (liveConnected || isSimulating) ? "#415AEE" : "#64748b" }]}
+                    data={[{ name: "Mean load", value: hasData ? meanLoadPct : 0, fill: hasData ? "#415AEE" : "#64748b" }]}
                     startAngle={90}
                     endAngle={-270}
                     innerRadius={45}
@@ -800,16 +828,16 @@ export default function MainDashboard() {
                                 <tspan
                                   x={viewBox.cx}
                                   y={viewBox.cy}
-                                  className={`fill-[#1A1D24] dark:fill-white text-3xl font-extrabold ${!(liveConnected || isSimulating) && 'opacity-50'}`}
+                                  className={`fill-[#1A1D24] dark:fill-white text-3xl font-extrabold ${!hasData && 'opacity-50'}`}
                                 >
-                                  {score}
+                                  {hasData ? `${Math.round(meanLoadPct)}%` : '--'}
                                 </tspan>
                                 <tspan
                                   x={viewBox.cx}
                                   y={(viewBox.cy || 0) + 20}
-                                  className={`fill-slate-400 text-[9px] font-bold uppercase tracking-widest ${!(liveConnected || isSimulating) && 'opacity-50'}`}
+                                  className={`fill-slate-400 text-[9px] font-bold uppercase tracking-widest ${!hasData && 'opacity-50'}`}
                                 >
-                                  Stability Idx
+                                  Mean Load
                                 </tspan>
                               </text>
                             )
@@ -820,31 +848,28 @@ export default function MainDashboard() {
                   </RadialBarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="mt-2 flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-1 rounded-full">
-                <span className="material-symbols-outlined text-[14px] text-emerald-500 font-bold" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
-                <span className="text-[9px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">+5.2%</span>
-              </div>
+              <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-slate-400">% of ADC full scale</p>
            </div>
 
            {/* Metrics Column */}
            <div className="flex flex-col gap-3">
-              <button onClick={() => setMlpi(0)} className="bg-white hover:bg-slate-50 dark:bg-[#20252E] dark:hover:bg-[#20252E]/80 transition-transform hover:scale-[1.02] rounded-[24px] p-4 shadow-soft flex-1 flex flex-col justify-center text-left" title="Click to Reset MLPI Baseline">
+              <div className="bg-white dark:bg-[#20252E] rounded-[24px] p-4 shadow-soft flex-1 flex flex-col justify-center text-left" title="Inner minus outer forefoot reading, % of ADC full scale">
                  <div className="flex justify-between items-center w-full">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">MLPI Score</span>
                     <span className="material-symbols-outlined text-[14px] text-amber-500">balance</span>
                  </div>
                  <div className="flex items-end gap-1 mt-1 transition-all duration-300">
-                    <span className={`text-xl font-extrabold pb-0.5 ${liveConnected ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{mlpi}</span>
-                    <span className="text-[10px] text-slate-400 font-medium pb-1.5">Δ</span>
+                    <span className={`text-xl font-extrabold pb-0.5 ${hasData ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{hasData ? mlpi : '--'}</span>
+                    <span className="text-[10px] text-slate-400 font-medium pb-1.5">% FS</span>
                  </div>
-              </button>
-              <div className="bg-white dark:bg-[#20252E] rounded-[24px] p-4 shadow-soft flex-1 flex flex-col justify-center cursor-help transition-transform hover:scale-[1.02]" title="Stance/Swing Ratio: Target is 60:40">
+              </div>
+              <div className="bg-white dark:bg-[#20252E] rounded-[24px] p-4 shadow-soft flex-1 flex flex-col justify-center cursor-help transition-transform hover:scale-[1.02]" title="Stance:swing estimate from contact thresholds">
                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">S/S Ratio</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">S/S (est.)</span>
                     <span className="material-symbols-outlined text-[14px] text-indigo-500">sync_alt</span>
                  </div>
                  <div className="flex items-end gap-1 mt-1">
-                    <span className={`text-xl font-extrabold pb-0.5 ${(liveConnected || isSimulating) ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{stanceRatioStr}</span>
+                    <span className={`text-xl font-extrabold pb-0.5 ${hasData ? 'text-slate-900 dark:text-white' : 'text-slate-400'}`}>{hasData ? stanceRatioStr : '--'}</span>
                  </div>
               </div>
            </div>
@@ -859,29 +884,29 @@ export default function MainDashboard() {
           <div className="mt-4 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
               <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Gait Phase</p>
-              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{gaitPhase.replace('_', ' ')}</p>
+              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{hasData ? gaitPhase.replace('_', ' ') : '--'}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Cadence</p>
-              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{cadenceSpm.toFixed(1)} spm</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Cadence (est.)</p>
+              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{hasData ? `${cadenceSpm.toFixed(0)} steps/min` : '--'}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Steps</p>
-              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{stepCount}</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Steps (est.)</p>
+              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{hasData ? stepCount : '--'}</p>
             </div>
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Stability Band</p>
-              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{stabilityBand.toUpperCase()}</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">IMU Tilt</p>
+              <p className="mt-1 text-sm font-extrabold text-slate-800 dark:text-slate-100">{hasData ? `${tiltDeg.toFixed(1)}°` : '--'}</p>
             </div>
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
-              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Impact Severity</p>
+              <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400">Impact (piezo)</p>
               <div className="mt-2 h-2 w-full rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
                 <div className="h-full bg-orange-500 transition-all duration-300" style={{ width: `${Math.round(impactLevel * 100)}%` }}></div>
               </div>
-              <p className="mt-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300">{Math.round(impactLevel * 100)}%</p>
+              <p className="mt-1 text-[11px] font-semibold text-slate-600 dark:text-slate-300">{hasData ? `${Math.round(impactLevel * 100)}% of 800 counts` : '--'}</p>
             </div>
 
             <div className="rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
@@ -902,12 +927,12 @@ export default function MainDashboard() {
             </div>
           </div>
 
-          {anomalyFlags.length > 0 && (
-            <div className="mt-4 rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-rose-50 dark:bg-rose-950/20 p-3">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-rose-600 dark:text-rose-300">Anomaly Flags</p>
+          {hasData && anomalyFlags.length > 0 && (
+            <div className="mt-4 rounded-2xl border border-slate-200 dark:border-slate-700 p-3">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Observations</p>
               <div className="mt-1.5 space-y-1">
                 {anomalyFlags.map((flag) => (
-                  <p key={flag} className="text-[11px] text-rose-700 dark:text-rose-200">{flag}</p>
+                  <p key={flag} className="text-[11px] text-slate-700 dark:text-slate-200">{flag}</p>
                 ))}
               </div>
             </div>
@@ -922,32 +947,28 @@ export default function MainDashboard() {
            isDemoMode={isDemoMode}
         />
 
-        {/* FSR Radar Chart & Orpyx Tracker */}
+        {/* FSR heatmap and per-channel readings */}
         <section className="bg-white dark:bg-[#20252E] rounded-[32px] p-6 shadow-soft">
            <div className="flex justify-between items-center mb-1">
              <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">FSR Spatial Distribution</h2>
-             <button title="Toggle Calibration Mode" className="px-2 py-0.5 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded text-[9px] font-bold uppercase tracking-wider transition-colors">12-bit ADC</button>
+             <span className="px-2 py-0.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded text-[9px] font-bold uppercase tracking-wider">12-bit ADC</span>
            </div>
            
            <div className="flex flex-col gap-6 mt-3 relative">
               <div className="w-full max-w-sm mx-auto aspect-square relative cursor-crosshair drop-shadow-sm transition-all duration-300">
-                  <FootHeatmap sensors={fsrData} isConnected={liveConnected || isSimulating} />
+                  <FootHeatmap sensors={fsrData} isConnected={hasData} />
               </div>
               
-              <div className="w-full cursor-pointer group px-1" onClick={() => setIntegral(0)} title="Click to manually clear Integral buffer">
-                 <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 group-hover:text-blue-500 transition-colors">Orpyx Rule Integrator</h3>
-                 <div className="space-y-3">
-                   <div>
-                     <div className="flex justify-between text-[11px] font-semibold mb-1 transition-colors">
-                       <span className="text-slate-600 dark:text-slate-300">Time-Pressure Int.</span>
-                        <span className={integral > 50 ? "text-rose-500" : (liveConnected ? "text-emerald-500" : "text-slate-400")}>{integral.toFixed(0)}%</span>
+              <div className="w-full px-1">
+                 <div className="grid grid-cols-4 gap-2">
+                   {fsrData.map((channel) => (
+                     <div key={channel.sensor}>
+                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{channel.sensor}</p>
+                       <p className={`mt-0.5 text-sm font-extrabold ${hasData ? 'text-slate-800 dark:text-slate-100' : 'text-slate-400'}`}>{hasData ? `${Math.round(channel.val)}%` : '--'}</p>
                      </div>
-                     <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                        <div className={`h-full transition-all duration-500 ${integral > 50 ? 'bg-rose-500' : (liveConnected ? 'bg-emerald-500' : 'bg-slate-400')}`} style={{ width: `${integral}%` }}></div>
-                     </div>
-                     <p className="text-[9px] text-slate-400 mt-1 leading-tight group-hover:text-slate-500 transition-colors">Capillary Occlusion Limit: 50mmHg &gt; 15m</p>
-                   </div>
+                   ))}
                  </div>
+                 <p className="text-[10px] text-slate-400 mt-2 leading-tight">Percent of ADC full scale (0-4095 counts), after tare. {READINGS_NOTICE}</p>
               </div>
            </div>
         </section>
@@ -957,11 +978,11 @@ export default function MainDashboard() {
            <div className="flex justify-between items-center mb-4">
              <div className="flex flex-col">
                <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">Ankle Kinematics</h2>
-               <span className="text-[10px] font-semibold text-slate-400 hover:text-indigo-500 transition-colors cursor-help" title="MPU6050 6-Axis Accelerometer/Gyro">MPU6050 &bull; Medial Arch &bull; 100Hz</span>
+               <span className="text-[10px] font-semibold text-slate-400 hover:text-indigo-500 transition-colors cursor-help" title="MPU6050 6-Axis Accelerometer/Gyro">MPU6050 &bull; pitch / roll, degrees</span>
              </div>
              <div className="flex items-center gap-3">
-               <div className="flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${liveConnected ? 'bg-indigo-500' : 'bg-slate-300'}`}></span><span className="text-[9px] font-bold text-slate-500">Roll</span></div>
-               <div className="flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${liveConnected ? 'bg-cyan-500' : 'bg-slate-300'}`}></span><span className="text-[9px] font-bold text-slate-500">Pitch</span></div>
+               <div className="flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${hasData ? 'bg-indigo-500' : 'bg-slate-300'}`}></span><span className="text-[9px] font-bold text-slate-500">Roll</span></div>
+               <div className="flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${hasData ? 'bg-cyan-500' : 'bg-slate-300'}`}></span><span className="text-[9px] font-bold text-slate-500">Pitch</span></div>
              </div>
            </div>
            
@@ -971,8 +992,8 @@ export default function MainDashboard() {
                  <XAxis dataKey="time" hide />
                  <YAxis domain={[-20, 20]} hide />
                  <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} labelStyle={{ display: 'none' }} />
-                 <Line type="monotone" dataKey="roll" stroke={liveConnected ? "#6366f1" : "#cbd5e1"} strokeWidth={2} dot={false} isAnimationActive={false} />
-                 <Line type="monotone" dataKey="pitch" stroke={liveConnected ? "#06b6d4" : "#cbd5e1"} strokeWidth={2} dot={false} isAnimationActive={false} />
+                 <Line type="monotone" dataKey="roll" stroke={hasData ? "#6366f1" : "#cbd5e1"} strokeWidth={2} dot={false} isAnimationActive={false} />
+                 <Line type="monotone" dataKey="pitch" stroke={hasData ? "#06b6d4" : "#cbd5e1"} strokeWidth={2} dot={false} isAnimationActive={false} />
                </LineChart>
              </ResponsiveContainer>
            </div>
@@ -982,10 +1003,9 @@ export default function MainDashboard() {
         <section className="bg-white dark:bg-[#20252E] rounded-[32px] p-6 shadow-soft">
            <div className="flex justify-between items-center mb-4">
              <div className="flex flex-col">
-               <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">Impact Sharpness</h2>
-               <span className="text-[10px] font-semibold text-slate-400 hover:text-orange-500 transition-colors cursor-help" title="Detects shuffling mechanics">27mm Piezo &bull; T-stance Trigger</span>
+               <h2 className="text-sm font-bold text-slate-800 dark:text-slate-100">Impact (Piezo)</h2>
+               <span className="text-[10px] font-semibold text-slate-400" title="Raw piezo ADC counts above tare">27mm Piezo &bull; raw counts</span>
              </div>
-             <button title="Test Piezo Feedback" onClick={() => { if(liveConnected) setImpactData(prev => [...prev.slice(1), { time: 999, impact: 600 }]) }} className="material-symbols-outlined text-orange-500 hover:text-orange-600 transition-colors font-light active:scale-90">bolt</button>
            </div>
            
            <div className="h-28 w-full -ml-4 cursor-crosshair">
@@ -993,34 +1013,16 @@ export default function MainDashboard() {
                <AreaChart data={impactData}>
                  <defs>
                    <linearGradient id="piezoGrad" x1="0" y1="0" x2="0" y2="1">
-                     <stop offset="5%" stopColor={liveConnected ? "#f97316" : "#cbd5e1"} stopOpacity={0.3}/>
-                     <stop offset="95%" stopColor={liveConnected ? "#f97316" : "#cbd5e1"} stopOpacity={0}/>
+                     <stop offset="5%" stopColor={hasData ? "#f97316" : "#cbd5e1"} stopOpacity={0.3}/>
+                     <stop offset="95%" stopColor={hasData ? "#f97316" : "#cbd5e1"} stopOpacity={0}/>
                    </linearGradient>
                  </defs>
                  <XAxis dataKey="time" hide />
                  <YAxis hide />
                  <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} labelStyle={{ display: 'none' }} />
-                 <Area type="monotone" dataKey="impact" stroke={liveConnected ? "#f97316" : "#94a3b8"} strokeWidth={2} fillOpacity={1} fill="url(#piezoGrad)" isAnimationActive={false} />
+                 <Area type="monotone" dataKey="impact" stroke={hasData ? "#f97316" : "#94a3b8"} strokeWidth={2} fillOpacity={1} fill="url(#piezoGrad)" isAnimationActive={false} />
                </AreaChart>
              </ResponsiveContainer>
-           </div>
-        </section>
-
-        {/* Edge Hardware Stats */}
-        <section className="bg-slate-800 dark:bg-slate-900 border border-slate-700 dark:border-slate-800 rounded-2xl p-4 shadow-sm text-slate-300 flex items-center justify-between mb-4 mt-2">
-           <div className="flex items-center gap-3">
-             <span className={`material-symbols-outlined text-xl ${liveConnected ? 'text-slate-400' : 'text-slate-600'}`}>memory</span>
-             <div>
-               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Local Cache (LittleFS)</p>
-               <p className={`text-xs font-mono mt-0.5 ${liveConnected ? 'text-slate-300' : 'text-slate-600'}`}>8.4 KB <span className="text-slate-500">/ 2 MB</span></p>
-             </div>
-           </div>
-           <div className="flex items-center gap-3 border-l border-slate-700 pl-4">
-             <span className={`material-symbols-outlined text-xl ${liveConnected ? 'text-emerald-400' : 'text-slate-600'}`}>charging_station</span>
-             <div>
-               <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500">LiPo Reg</p>
-               <p className={`text-xs font-mono mt-0.5 ${liveConnected ? 'text-slate-300' : 'text-slate-600'}`}>3.29V <span className="text-slate-500">LDO</span></p>
-             </div>
            </div>
         </section>
 

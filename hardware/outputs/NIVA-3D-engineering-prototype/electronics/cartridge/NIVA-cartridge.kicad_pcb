@@ -1,7 +1,7 @@
 (kicad_pcb
-	(version 20241229)
+	(version 20260206)
 	(generator "pcbnew")
-	(generator_version "9.0")
+	(generator_version "10.0")
 	(general
 		(thickness 0.8)
 		(legacy_teardrops no)
@@ -36,7 +36,20 @@
 	(setup
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
-		(tenting front back)
+		(tenting
+			(front yes)
+			(back yes)
+		)
+		(covering
+			(front no)
+			(back no)
+		)
+		(plugging
+			(front no)
+			(back no)
+		)
+		(capping no)
+		(filling no)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
@@ -45,15 +58,12 @@
 			(usegerberattributes yes)
 			(usegerberadvancedattributes yes)
 			(creategerberjobfile yes)
-			(dashed_line_dash_ratio 12.000000)
-			(dashed_line_gap_ratio 3.000000)
+			(dashed_line_dash_ratio 12)
+			(dashed_line_gap_ratio 3)
 			(svgprecision 4)
 			(plotframeref no)
 			(mode 1)
 			(useauxorigin no)
-			(hpglpennumber 1)
-			(hpglpenspeed 20)
-			(hpglpendiameter 15.000000)
 			(pdf_front_fp_property_popups yes)
 			(pdf_back_fp_property_popups yes)
 			(pdf_metadata yes)
@@ -77,16 +87,11 @@
 			(outputdirectory "")
 		)
 	)
-	(net 0 "")
-	(net 1 "/CELL_P")
-	(net 2 "/NTC")
-	(net 3 "/PACK_N")
-	(net 4 "/PACK_P")
 	(footprint "NIVA_power:WirePads_1x03_P1.8mm"
 		(layer "F.Cu")
 		(uuid "0fff1ab9-7dd8-4ddc-8e56-c5f46474ed65")
 		(at 130.949999 65)
-		(descr "Solder pads for three 30 AWG leads (cell +, -, NTC)")
+		(descr "Solder pads for the three cell leads: pad 1 cell +, pad 2 NTC, pad 3 cell - (AWG26-30; EEMB LP502030 leads are AWG28)")
 		(property "Reference" "J1"
 			(at 0 -3.45 0)
 			(layer "F.Fab")
@@ -121,7 +126,7 @@
 				)
 			)
 		)
-		(property "Description" "Solder pads for three 30 AWG leads (cell +, -, NTC)"
+		(property "Description" "Solder pads for the three cell leads: pad 1 cell +, pad 2 NTC, pad 3 cell - (AWG26-30; EEMB LP502030 leads are AWG28)"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -137,6 +142,7 @@
 		(sheetname "Root")
 		(sheetfile "NIVA-cartridge.kicad_sch")
 		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
 			(start -1.1 -2.7)
 			(end 1.1 2.7)
@@ -163,21 +169,21 @@
 			(at 0 -1.8)
 			(size 1.5 1.1)
 			(layers "F.Cu" "F.Mask")
-			(net 1 "/CELL_P")
+			(net "/CELL_P")
 			(uuid "e1cf0dda-a2da-4ca8-95ad-cd9f2003f68f")
 		)
 		(pad "2" smd rect
 			(at 0 0)
 			(size 1.5 1.1)
 			(layers "F.Cu" "F.Mask")
-			(net 2 "/NTC")
+			(net "/NTC")
 			(uuid "1f9b5535-8419-4e71-bca2-d8e3fb905575")
 		)
 		(pad "3" smd rect
 			(at 0 1.8)
 			(size 1.5 1.1)
 			(layers "F.Cu" "F.Mask")
-			(net 3 "/PACK_N")
+			(net "/PACK_N")
 			(uuid "6776042f-d36a-49fe-8f16-e8fcad6fb75f")
 		)
 		(embedded_fonts no)
@@ -237,6 +243,7 @@
 		(sheetname "Root")
 		(sheetfile "NIVA-cartridge.kicad_sch")
 		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
 			(start -1.1 -3.3)
 			(end 1.1 3.3)
@@ -263,28 +270,28 @@
 			(at 0 -2.55)
 			(size 1.5 1)
 			(layers "F.Cu" "F.Mask")
-			(net 3 "/PACK_N")
+			(net "/PACK_N")
 			(uuid "35d873e5-a020-45a4-add7-ed0036d19f00")
 		)
 		(pad "2" smd rect
 			(at 0 -0.85)
 			(size 1.5 1)
 			(layers "F.Cu" "F.Mask")
-			(net 3 "/PACK_N")
+			(net "/PACK_N")
 			(uuid "bcef33a5-85be-4637-84da-583fa5b57a2f")
 		)
 		(pad "3" smd rect
 			(at 0 0.85)
 			(size 1.5 1)
 			(layers "F.Cu" "F.Mask")
-			(net 4 "/PACK_P")
+			(net "/PACK_P")
 			(uuid "3621a478-d09b-4711-a88b-6f21ca216cde")
 		)
 		(pad "4" smd rect
 			(at 0 2.55)
 			(size 1.5 1)
 			(layers "F.Cu" "F.Mask")
-			(net 4 "/PACK_P")
+			(net "/PACK_P")
 			(uuid "9d1792c8-ab75-41c4-be56-8ee8ec5b9c33")
 		)
 		(embedded_fonts no)
@@ -306,7 +313,7 @@
 				)
 			)
 		)
-		(property "Value" "PTC 0805 hold>=0.5 A, >=6 V"
+		(property "Value" "PTC 0805 0.35 A hold / 0.75 A trip, 6 V"
 			(at 0 1.65 90)
 			(layer "F.Fab")
 			(uuid "74053b87-29f5-45ad-b3c2-72fc2fcb3f5b")
@@ -345,6 +352,7 @@
 		(sheetname "Root")
 		(sheetfile "NIVA-cartridge.kicad_sch")
 		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.258578 -0.71)
 			(end 0.258578 -0.71)
@@ -403,7 +411,7 @@
 			(size 0.975 1.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 1 "/CELL_P")
+			(net "/CELL_P")
 			(uuid "b5ab2dbf-411d-4609-b664-3fc755c37db3")
 		)
 		(pad "2" smd roundrect
@@ -411,7 +419,7 @@
 			(size 0.975 1.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net 4 "/PACK_P")
+			(net "/PACK_P")
 			(uuid "8737798b-6e65-4267-bcfe-6d06531de50f")
 		)
 		(embedded_fonts no)
@@ -486,6 +494,7 @@
 		(sheetname "Root")
 		(sheetfile "NIVA-cartridge.kicad_sch")
 		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
 		(fp_rect
 			(start -1.45 7.45)
 			(end 1.45 -7.45)
@@ -512,21 +521,21 @@
 			(at 0 6)
 			(size 2 2)
 			(layers "B.Cu" "B.Mask")
-			(net 4 "/PACK_P")
+			(net "/PACK_P")
 			(uuid "022e9744-379b-4ebf-9272-b0aba7e20ac0")
 		)
 		(pad "2" smd circle
 			(at 0 0)
 			(size 2 2)
 			(layers "B.Cu" "B.Mask")
-			(net 2 "/NTC")
+			(net "/NTC")
 			(uuid "1b19f602-f92d-40e6-8e8d-a2d7e1349841")
 		)
 		(pad "3" smd circle
 			(at 0 -6)
 			(size 2 2)
 			(layers "B.Cu" "B.Mask")
-			(net 3 "/PACK_N")
+			(net "/PACK_N")
 			(uuid "66a69e60-1179-4af0-820f-e233c0b2e046")
 		)
 		(embedded_fonts no)
@@ -571,6 +580,95 @@
 		(layer "Edge.Cuts")
 		(uuid "ad75cb2b-a61a-4d9e-8c0a-9f0c1bc140e3")
 	)
+	(gr_text "+"
+		(at 132.5 63.2 0)
+		(layer "F.SilkS")
+		(uuid "746520ae-9ec1-4cbe-86cd-0c3801840214")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "T"
+		(at 132.5 65 0)
+		(layer "F.SilkS")
+		(uuid "3364d241-2971-47f1-aa01-512eac746b63")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "-"
+		(at 132.5 66.8 0)
+		(layer "F.SilkS")
+		(uuid "761d6f9d-ca6d-45b1-a639-69427720efd1")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "-"
+		(at 132.5 69.95 0)
+		(layer "F.SilkS")
+		(uuid "88fe5956-95ab-414c-9dd8-e433b13d0957")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "+"
+		(at 132.5 73.35 0)
+		(layer "F.SilkS")
+		(uuid "5dc07362-f2b3-4252-a757-c96a2db80337")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "+"
+		(at 132.5 75.05 0)
+		(layer "F.SilkS")
+		(uuid "170fa554-010b-4e8f-b0ec-17f15db6f45c")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "-"
+		(at 132.75 71.65 0)
+		(layer "F.SilkS")
+		(uuid "70f4a200-7bfd-4beb-8ce6-299382f76fc9")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(gr_text "PCBWay"
+		(at 131 70 90)
+		(layer "B.SilkS")
+		(uuid "a265fc08-fb81-4953-808b-3bc0edebaa21")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
 	(gr_text "HAND-ROUTED - DRC CHECKED - PROTOTYPE, NOT RELEASED"
 		(at 131.55 61.4 90)
 		(layer "Cmts.User")
@@ -598,7 +696,7 @@
 		(end 132.6 63.2)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 1)
+		(net "/CELL_P")
 		(uuid "3a993196-10ad-4c4a-99cc-977fcc1c400d")
 	)
 	(segment
@@ -606,7 +704,7 @@
 		(end 132.6 88.84)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 1)
+		(net "/CELL_P")
 		(uuid "be92780a-9f1d-4848-b037-c231c5572ff3")
 	)
 	(segment
@@ -614,7 +712,7 @@
 		(end 130.949999 88.84)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 1)
+		(net "/CELL_P")
 		(uuid "f3027920-34e3-4161-a02b-88aba9700992")
 	)
 	(segment
@@ -622,7 +720,7 @@
 		(end 132 65.9)
 		(width 0.2)
 		(layer "F.Cu")
-		(net 2)
+		(net "/NTC")
 		(uuid "934c712f-5309-49ab-8083-d987b896335e")
 	)
 	(segment
@@ -630,7 +728,7 @@
 		(end 132 65)
 		(width 0.2)
 		(layer "F.Cu")
-		(net 2)
+		(net "/NTC")
 		(uuid "9e4e546d-fb13-46ce-a6db-ecd70a19978c")
 	)
 	(via
@@ -638,7 +736,17 @@
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net 2)
+		(capping no)
+		(covering
+			(front no)
+			(back no)
+		)
+		(plugging
+			(front no)
+			(back no)
+		)
+		(filling no)
+		(net "/NTC")
 		(uuid "56481bfb-0f13-4492-b755-6351278a098e")
 	)
 	(segment
@@ -646,7 +754,7 @@
 		(end 130.199999 67.7)
 		(width 0.2)
 		(layer "B.Cu")
-		(net 2)
+		(net "/NTC")
 		(uuid "2f919119-4834-4008-b76a-e4b04c994172")
 	)
 	(segment
@@ -654,7 +762,7 @@
 		(end 130.199999 82)
 		(width 0.2)
 		(layer "B.Cu")
-		(net 2)
+		(net "/NTC")
 		(uuid "7beaece0-bc81-4206-9f3e-05cf40aa0726")
 	)
 	(segment
@@ -662,7 +770,7 @@
 		(end 131.55 82)
 		(width 0.2)
 		(layer "B.Cu")
-		(net 2)
+		(net "/NTC")
 		(uuid "c03017cd-a745-45ad-81de-af4b912d6372")
 	)
 	(segment
@@ -670,7 +778,7 @@
 		(end 132 71.65)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 3)
+		(net "/PACK_N")
 		(uuid "4df67a94-b6fb-4fa1-bb9e-cc7767be7b64")
 	)
 	(segment
@@ -678,7 +786,7 @@
 		(end 130.949999 71.65)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 3)
+		(net "/PACK_N")
 		(uuid "6eb99d66-fa0d-4a29-85f7-46c86a028768")
 	)
 	(via
@@ -686,7 +794,17 @@
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net 3)
+		(capping no)
+		(covering
+			(front no)
+			(back no)
+		)
+		(plugging
+			(front no)
+			(back no)
+		)
+		(filling no)
+		(net "/PACK_N")
 		(uuid "9cb8ddfd-04f3-4365-9338-416946039788")
 	)
 	(segment
@@ -694,7 +812,7 @@
 		(end 132 76)
 		(width 0.3)
 		(layer "B.Cu")
-		(net 3)
+		(net "/PACK_N")
 		(uuid "14ff2066-7e4b-4af6-9649-d509d1d30e8c")
 	)
 	(segment
@@ -702,7 +820,7 @@
 		(end 131.55 76)
 		(width 0.3)
 		(layer "B.Cu")
-		(net 3)
+		(net "/PACK_N")
 		(uuid "d92ae5d2-9239-4a49-a010-fa57fd787bf1")
 	)
 	(segment
@@ -710,7 +828,7 @@
 		(end 130.949999 73.35)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 4)
+		(net "/PACK_P")
 		(uuid "2cd41d74-4969-4e98-aa01-96ca95c7aebc")
 	)
 	(segment
@@ -718,7 +836,7 @@
 		(end 132 75.05)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 4)
+		(net "/PACK_P")
 		(uuid "5e594c94-ce4a-469a-bc9b-267afb9aafa4")
 	)
 	(segment
@@ -726,7 +844,7 @@
 		(end 130.949999 75.05)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 4)
+		(net "/PACK_P")
 		(uuid "8ec7c8a4-2f20-453d-9f7c-20dda3ba7eed")
 	)
 	(segment
@@ -734,7 +852,7 @@
 		(end 132 86.96)
 		(width 0.3)
 		(layer "F.Cu")
-		(net 4)
+		(net "/PACK_P")
 		(uuid "d499ef8e-584b-4317-807c-c88efde380eb")
 	)
 	(via
@@ -742,7 +860,17 @@
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net 4)
+		(capping no)
+		(covering
+			(front no)
+			(back no)
+		)
+		(plugging
+			(front no)
+			(back no)
+		)
+		(filling no)
+		(net "/PACK_P")
 		(uuid "14ee99e8-a837-487e-924f-dbf7052a35bb")
 	)
 	(segment
@@ -750,7 +878,7 @@
 		(end 131.55 88)
 		(width 0.3)
 		(layer "B.Cu")
-		(net 4)
+		(net "/PACK_P")
 		(uuid "5b807f2f-c95d-45ee-a66d-733f78fc6b1a")
 	)
 	(embedded_fonts no)

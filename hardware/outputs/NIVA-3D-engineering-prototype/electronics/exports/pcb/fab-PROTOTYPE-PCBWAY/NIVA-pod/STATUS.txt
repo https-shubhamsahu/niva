@@ -1,3 +1,7 @@
+SUPERSEDED 9 Nov 2026 by Rev C.2 - DO NOT ORDER THIS SET. Use
+NIVA-RevC2-protected-steps/electronics-C2-working/exports/pcb/fab-PROTOTYPE-PCBWAY/NIVA-pod-C2
+(see hardware/outputs/PCBWAY-ORDER-2026-11.md).
+
 NIVA-pod - PROTOTYPE FABRICATION DATA - BARE PCB, FIRST ARTICLE FOR BENCH BRING-UP
 
 Upload NIVA-pod-PCBWay-gerbers.zip. Order settings:
